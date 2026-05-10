@@ -1,7 +1,23 @@
+import argparse
 import os
 import sys
 import platform
 from pathlib import Path
+
+# ---- Parse args before any checks run ----
+_parser = argparse.ArgumentParser(
+    description="Verify that the environment is ready to run experiments."
+)
+_parser.add_argument(
+    "--model", type=str, default="EleutherAI/pythia-2.8b",
+    help="HuggingFace model name to use for the TransformerLens load test "
+         "(default: EleutherAI/pythia-2.8b)"
+)
+_parser.add_argument(
+    "--skip-model-load", action="store_true",
+    help="Skip the model load test (faster; useful when only checking packages)"
+)
+_args = _parser.parse_args()
 
 results = []
 
@@ -113,11 +129,11 @@ for d in phase_dirs:
         results.append((f"Phase dir missing (OK before first run): {d}", True,
                         "will be created by the corresponding script"))
 
-if HookedTransformer is not None and torch is not None:
+if HookedTransformer is not None and torch is not None and not _args.skip_model_load:
     def load_model():
         device = "cuda" if torch.cuda.is_available() else "cpu"
         model = HookedTransformer.from_pretrained(
-            "EleutherAI/pythia-2.8b",
+            _args.model,
             device=device,
             dtype=torch.float16 if device == "cuda" else torch.float32,
         )
@@ -125,9 +141,11 @@ if HookedTransformer is not None and torch is not None:
         tokens = model.to_tokens("Hello world")
         logits = model(tokens)
 
-        return f"Model loaded and forward pass succeeded on {device}"
+        return f"Model {_args.model!r} loaded and forward pass succeeded on {device}"
 
-    check("Load HookedTransformer model", load_model)
+    check(f"Load HookedTransformer model ({_args.model})", load_model)
+elif _args.skip_model_load:
+    results.append(("Model load test", True, "skipped via --skip-model-load"))
 
 print_header("Summary")
 

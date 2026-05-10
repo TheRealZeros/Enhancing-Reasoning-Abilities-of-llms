@@ -3,8 +3,9 @@
 build_dataset.py — Construct token-aligned prompt variants for activation patching.
 
 Generates 5 prompt cells (A-E) per example with identical token counts.
-Token alignment is MANDATORY for activation patching: the default mode
-requires the Pythia-2.8B tokeniser and will fail hard if it is unavailable.
+Token alignment is MANDATORY for activation patching and is tokeniser-specific:
+each target model requires its own aligned dataset.  Use --model to select the
+tokeniser; the dataset is written to dataset/processed/<model-slug>/.
 
 Use --draft-only to save unaligned prompts for inspection (NOT for patching).
 
@@ -34,11 +35,13 @@ Storage format:
   runnable model input from this schema.
 
 Usage:
-  python scripts/phase_1_dataset/build_dataset.py               # Build + align (REQUIRED)
-  python scripts/phase_1_dataset/build_dataset.py --draft-only   # Build unaligned draft
-  python scripts/phase_1_dataset/build_dataset.py --align-only   # Align existing dataset.json
+  python scripts/phase_1_dataset/build_dataset.py                          # Pythia-2.8B (default)
+  python scripts/phase_1_dataset/build_dataset.py --model gpt2-large       # GPT-2 Large
+  python scripts/phase_1_dataset/build_dataset.py --draft-only             # Build unaligned draft
+  python scripts/phase_1_dataset/build_dataset.py --align-only             # Re-align existing JSON
 """
 
+import argparse
 import json
 import os
 import random
@@ -57,14 +60,34 @@ RAW_DIR = os.path.join(PROJECT_DIR, "dataset", "raw")
 PROCESSED_DIR = os.path.join(PROJECT_DIR, "dataset", "processed")
 RESULTS_DIR = os.path.join(PROJECT_DIR, "results", "phase_1_dataset")
 os.makedirs(RAW_DIR, exist_ok=True)
-os.makedirs(PROCESSED_DIR, exist_ok=True)
-os.makedirs(RESULTS_DIR, exist_ok=True)
 
 CHAINS_PATH = os.path.join(RAW_DIR, "entity_chains.json")
 DISTRACTORS_PATH = os.path.join(RAW_DIR, "distractors.json")
-OUTPUT_PATH = os.path.join(PROCESSED_DIR, "dataset.json")
-DRAFT_PATH = os.path.join(PROCESSED_DIR, "dataset_draft.json")
-REPORT_PATH = os.path.join(RESULTS_DIR, "dataset_alignment_report.csv")
+
+
+def _model_slug(model_name: str) -> str:
+    """Convert a HuggingFace model name to a filesystem-safe slug.
+
+    Examples:
+        'EleutherAI/pythia-2.8b' -> 'pythia-2.8b'
+        'gpt2-large'              -> 'gpt2-large'
+        'Qwen/Qwen2.5-3B'        -> 'Qwen2.5-3B'
+    """
+    return model_name.split("/")[-1]
+
+
+def _model_paths(model_name: str):
+    """Return (output_path, draft_path, report_path) namespaced by model slug."""
+    slug = _model_slug(model_name)
+    processed = os.path.join(PROCESSED_DIR, slug)
+    results = os.path.join(RESULTS_DIR, slug)
+    os.makedirs(processed, exist_ok=True)
+    os.makedirs(results, exist_ok=True)
+    return (
+        os.path.join(processed, "dataset.json"),
+        os.path.join(processed, "dataset_draft.json"),
+        os.path.join(results, "dataset_alignment_report.csv"),
+    )
 
 # Maximum EOS-padding tokens. Cell D (structured + noisy) is naturally
 # ~150 tokens longer than Cell A (direct + clean). EOS tokens prepended
@@ -75,10 +98,10 @@ MAX_PAD_TOKENS = 250
 # Tokeniser
 # ---------------------------------------------------------------------------
 
-def load_tokenizer():
-    """Load the Pythia-2.8B tokeniser. Raises if unavailable."""
+def load_tokenizer(model_name: str = "EleutherAI/pythia-2.8b"):
+    """Load the tokeniser for *model_name*. Raises if unavailable."""
     from transformers import AutoTokenizer
-    tokenizer = AutoTokenizer.from_pretrained("EleutherAI/pythia-2.8b")
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     return tokenizer
@@ -499,7 +522,7 @@ def build_dataset(tokenizer=None) -> List[dict]:
     return dataset
 
 
-def perform_alignment(dataset: List[dict], tokenizer) -> List[dict]:
+def perform_alignment(dataset: List[dict], tokenizer, report_path: str = None) -> List[dict]:
     """Token-align all examples. Drop failures. Save report."""
     aligned_out = []
     dropped = 0
@@ -541,12 +564,12 @@ def perform_alignment(dataset: List[dict], tokenizer) -> List[dict]:
         })
 
     fieldnames = ["example_id"] + [f"token_count_{k}" for k in "ABCDE"] + ["aligned"]
-    with open(REPORT_PATH, "w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(report_rows)
-
-    print(f"  Report: {REPORT_PATH}")
+    if report_path:
+        with open(report_path, "w", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(report_rows)
+        print(f"  Report: {report_path}")
     print(f"  Aligned: {len(aligned_out)}/{len(dataset)}, Dropped: {dropped}")
     return aligned_out
 
@@ -554,27 +577,41 @@ def perform_alignment(dataset: List[dict], tokenizer) -> List[dict]:
 def main():
     random.seed(SEED)
 
-    draft_only = "--draft-only" in sys.argv
-    align_only = "--align-only" in sys.argv
+    parser = argparse.ArgumentParser(
+        description="Build token-aligned prompt dataset for activation patching."
+    )
+    parser.add_argument(
+        "--model", type=str, default="EleutherAI/pythia-2.8b",
+        help="HuggingFace model name whose tokeniser is used for alignment "
+             "(default: EleutherAI/pythia-2.8b)"
+    )
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
+        "--draft-only", action="store_true",
+        help="Save unaligned prompts for inspection (NOT for patching)"
+    )
+    group.add_argument(
+        "--align-only", action="store_true",
+        help="Re-align an existing dataset.json without rebuilding prompts"
+    )
+    args = parser.parse_args()
 
-    if draft_only and align_only:
-        print("ERROR: Cannot use --draft-only and --align-only together.")
-        sys.exit(1)
+    output_path, draft_path, report_path = _model_paths(args.model)
 
-    if draft_only:
+    if args.draft_only:
         print("=== DRAFT MODE (no alignment, not for patching) ===\n")
         dataset = build_dataset(tokenizer=None)
 
-        with open(DRAFT_PATH, "w") as f:
+        with open(draft_path, "w") as f:
             json.dump(dataset, f, indent=2)
-        print(f"\nSaved {len(dataset)} UNALIGNED examples to {DRAFT_PATH}")
+        print(f"\nSaved {len(dataset)} UNALIGNED examples to {draft_path}")
         print("WARNING: This is a draft. Run without --draft-only to produce")
         print("         the aligned dataset required for activation patching.")
         return
 
-    print("Loading Pythia-2.8B tokeniser...")
+    print(f"Loading tokeniser for {args.model}...")
     try:
-        tokenizer = load_tokenizer()
+        tokenizer = load_tokenizer(args.model)
         print("  => Tokeniser loaded successfully.")
     except Exception as e:
         print(f"\nFATAL: Cannot load tokeniser ({type(e).__name__}: {e}).")
@@ -583,9 +620,9 @@ def main():
         print("\nOr use --draft-only for unaligned inspection drafts.")
         sys.exit(1)
 
-    if align_only:
-        print(f"\nLoading existing dataset from {OUTPUT_PATH}...")
-        with open(OUTPUT_PATH) as f:
+    if args.align_only:
+        print(f"\nLoading existing dataset from {output_path}...")
+        with open(output_path) as f:
             dataset = json.load(f)
         print(f"  Loaded {len(dataset)} examples.")
     else:
@@ -594,7 +631,7 @@ def main():
 
     total_before = len(dataset)
     print("\nPerforming token alignment...")
-    dataset = perform_alignment(dataset, tokenizer)
+    dataset = perform_alignment(dataset, tokenizer, report_path=report_path)
     total_after = len(dataset)
     total_dropped = total_before - total_after
 
@@ -602,7 +639,7 @@ def main():
         print("\nFATAL: Zero examples survived alignment. Check prompts.")
         sys.exit(1)
 
-    with open(OUTPUT_PATH, "w") as f:
+    with open(output_path, "w") as f:
         json.dump(dataset, f, indent=2)
 
     toks = [d["token_count"] for d in dataset]
@@ -612,7 +649,7 @@ def main():
     by_domain = Counter(d["domain"] for d in dataset)
 
     print(f"\n{'='*60}")
-    print(f"  DATASET BUILD COMPLETE")
+    print(f"  DATASET BUILD COMPLETE ({args.model})")
     print(f"{'='*60}")
     print(f"  Chains loaded:           {total_before}")
     print(f"  Examples kept (aligned):  {total_after}")
@@ -620,8 +657,8 @@ def main():
     print(f"  Alignment success rate:   {success_rate:.1f}%")
     print(f"  Token count range:        {min(toks)} - {max(toks)}")
     print(f"  Domains:                  {dict(by_domain)}")
-    print(f"  Output:                   {OUTPUT_PATH}")
-    print(f"  Report:                   {REPORT_PATH}")
+    print(f"  Output:                   {output_path}")
+    print(f"  Report:                   {report_path}")
     print(f"{'='*60}")
 
 

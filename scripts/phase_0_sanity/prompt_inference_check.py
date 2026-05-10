@@ -1,6 +1,20 @@
+import argparse
 from transformer_lens import HookedTransformer
 import torch
 import gc
+
+# ============================================================
+# Args
+# ============================================================
+
+parser = argparse.ArgumentParser(
+    description="Phase 0: Sanity check — load a model and verify basic operation"
+)
+parser.add_argument("--model", type=str, default="EleutherAI/pythia-2.8b",
+                    help="HuggingFace model name for HookedTransformer")
+parser.add_argument("--device", type=str, default="cuda",
+                    help="Device: cuda or cpu")
+args = parser.parse_args()
 
 # ============================================================
 # Model Loading
@@ -10,12 +24,12 @@ print("=" * 60)
 print("PHASE 0: Sanity Check")
 print("=" * 60)
 
-print("\nLoading Pythia-2.8B...")
+print(f"\nLoading {args.model}...")
 
 model = HookedTransformer.from_pretrained(
-    "EleutherAI/pythia-2.8b",
-    device="cuda",
-    dtype=torch.float16
+    args.model,
+    device=args.device,
+    dtype=torch.float16 if args.device == "cuda" else torch.float32,
 )
 
 print(f"Model loaded. Device: {model.cfg.device}")
@@ -157,7 +171,7 @@ print("=" * 60)
 direct_ok = "hidalgo" in direct_output.strip().lower()
 structured_ok = "hidalgo" in structured_output.strip().lower()
 
-print(f"  Model loads on CUDA:    PASS")
+print(f"  Model ({args.model}) loaded on {args.device.upper()}: PASS")
 print(f"  Direct prompt correct:  {'PASS' if direct_ok else 'FAIL — check output above'}")
 print(f"  Structured prompt correct: {'PASS' if structured_ok else 'FAIL — check output above'}")
 print(f"  Activation cache works: PASS")
@@ -165,10 +179,10 @@ print(f"  Token counts logged:    PASS")
 print("=" * 60)
 
 if direct_ok and structured_ok:
-    print("\nPhase 0 COMPLETE. Ready for Phase 1 (dataset construction).")
+    print(f"\nPhase 0 COMPLETE ({args.model}). Ready for Phase 1 (dataset construction).")
 else:
     print("\nPhase 0 PARTIAL. Review outputs above.")
     print("If model produces wrong answers, try:")
     print("  1. Simplifying fact domains (use well-known geography)")
     print("  2. Adding a third demonstration")
-    print("  3. Switching to Pythia-6.9B as fallback")
+    print("  3. Using a larger model variant")

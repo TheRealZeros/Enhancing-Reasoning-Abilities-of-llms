@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-04-11 14:03:30",
+  "created_at": "2026-04-11 14:17:15",
   "model": "EleutherAI/pythia-2.8b",
   "device": "cuda",
   "contrast_file": "dataset/processed/contrast_examples.json",
@@ -1268,5 +1268,5 @@
   ],
   "examples_completed": 2,
   "examples_skipped_alignment": 0,
-  "total_runtime_seconds": 25.16
+  "total_runtime_seconds": 25.67
 }

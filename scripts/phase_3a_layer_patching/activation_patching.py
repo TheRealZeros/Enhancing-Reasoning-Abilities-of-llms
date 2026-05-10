@@ -598,17 +598,25 @@ def plot_layer_curve(
 # CLI and main
 # ---------------------------------------------------------------------------
 
+def _model_slug(model_name: str) -> str:
+    """'EleutherAI/pythia-2.8b' -> 'pythia-2.8b', 'gpt2-large' -> 'gpt2-large'"""
+    return model_name.split("/")[-1]
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Phase 3a: Layer-level residual stream activation patching"
     )
     parser.add_argument("--contrast-file", type=str,
-                        default="dataset/processed/contrast_examples.json",
-                        help="Path to contrast_examples.json from Phase 2")
-    parser.add_argument("--output-dir", type=str, default="results/phase_3a_layer_patching",
-                        help="Directory for output CSV files")
-    parser.add_argument("--figure-dir", type=str, default="figures/phase_3a_layer_patching",
-                        help="Directory for output figure files")
+                        default=None,
+                        help="Path to contrast_examples.json from Phase 2 "
+                             "(default: dataset/processed/<model-slug>/contrast_examples.json)")
+    parser.add_argument("--output-dir", type=str, default=None,
+                        help="Directory for output CSV files "
+                             "(default: results/phase_3a_layer_patching/<model-slug>/)")
+    parser.add_argument("--figure-dir", type=str, default=None,
+                        help="Directory for output figure files "
+                             "(default: figures/phase_3a_layer_patching/<model-slug>/)")
     parser.add_argument("--model", type=str, default="EleutherAI/pythia-2.8b",
                         help="HuggingFace model name for HookedTransformer")
     parser.add_argument("--device", type=str, default="cuda",
@@ -627,18 +635,24 @@ def main():
                         help="Print layer progress every N layers (default: 4)")
     args = parser.parse_args()
 
+    # ---- Resolve model-namespaced defaults ----
+    slug = _model_slug(args.model)
+    contrast_file = args.contrast_file or f"dataset/processed/{slug}/contrast_examples.json"
+    out_dir_path  = args.output_dir   or f"results/phase_3a_layer_patching/{slug}"
+    fig_dir_path  = args.figure_dir   or f"figures/phase_3a_layer_patching/{slug}"
+
     overall_t0 = time.time()
 
-    out_dir = Path(args.output_dir)
+    out_dir = Path(out_dir_path)
     out_dir.mkdir(parents=True, exist_ok=True)
-    fig_dir = Path(args.figure_dir)
+    fig_dir = Path(fig_dir_path)
     fig_dir.mkdir(parents=True, exist_ok=True)
 
     log(f"[main] Output directory: {out_dir.resolve()}")
     log(f"[main] Figure directory: {fig_dir.resolve()}")
     log(f"[main] Starting Phase 3a activation patching pipeline")
 
-    examples = load_contrast_examples(args.contrast_file)
+    examples = load_contrast_examples(contrast_file)
     if args.max_examples is not None:
         examples = examples[:args.max_examples]
         log(f"[main] Limiting to first {args.max_examples} contrast examples")

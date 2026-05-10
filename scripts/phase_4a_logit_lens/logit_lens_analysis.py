@@ -827,6 +827,11 @@ def run_pass(
 # Main
 # ============================================================================
 
+def _model_slug(model_name: str) -> str:
+    """'EleutherAI/pythia-2.8b' -> 'pythia-2.8b', 'gpt2-large' -> 'gpt2-large'"""
+    return model_name.split("/")[-1]
+
+
 def main():
     global VERBOSE
 
@@ -834,27 +839,29 @@ def main():
         description="Phase 4a: Logit Lens Analysis (secondary diagnostic)"
     )
     parser.add_argument(
-        "--clean-contrast", type=str,
-        default="dataset/processed/contrast_examples.json",
-        help="Path to clean contrast examples JSON (A wrong, C correct)"
+        "--clean-contrast", type=str, default=None,
+        help="Path to clean contrast examples JSON (A wrong, C correct) "
+             "(default: dataset/processed/<model-slug>/contrast_examples.json)"
     )
     parser.add_argument(
-        "--noisy-contrast", type=str,
-        default="dataset/processed/noisy_contrast_examples.json",
-        help="Path to noisy contrast examples JSON (B wrong, D correct). "
-             "This must be a SEPARATE selection from clean contrast."
+        "--noisy-contrast", type=str, default=None,
+        help="Path to noisy contrast examples JSON (B wrong, D correct) "
+             "(default: dataset/processed/<model-slug>/noisy_contrast_examples.json)"
     )
     parser.add_argument(
-        "--dataset", type=str, default="dataset/processed/dataset.json",
-        help="Path to full dataset JSON (fallback for prompt lookup)"
+        "--dataset", type=str, default=None,
+        help="Path to full dataset JSON (fallback for prompt lookup) "
+             "(default: dataset/processed/<model-slug>/dataset.json)"
     )
     parser.add_argument(
-        "--outdir", type=str, default="results/phase_4a_logit_lens",
-        help="Output directory for CSV files"
+        "--outdir", type=str, default=None,
+        help="Output directory for CSV files "
+             "(default: results/phase_4a_logit_lens/<model-slug>/)"
     )
     parser.add_argument(
-        "--figdir", type=str, default="figures/phase_4a_logit_lens",
-        help="Output directory for figure PNG files"
+        "--figdir", type=str, default=None,
+        help="Output directory for figure PNG files "
+             "(default: figures/phase_4a_logit_lens/<model-slug>/)"
     )
     parser.add_argument(
         "--model", type=str, default="EleutherAI/pythia-2.8b",
@@ -886,13 +893,21 @@ def main():
     args = parser.parse_args()
     VERBOSE = args.verbose
 
+    # ---- Resolve model-namespaced defaults ----
+    slug = _model_slug(args.model)
+    clean_contrast = args.clean_contrast or f"dataset/processed/{slug}/contrast_examples.json"
+    noisy_contrast = args.noisy_contrast or f"dataset/processed/{slug}/noisy_contrast_examples.json"
+    dataset_path   = args.dataset        or f"dataset/processed/{slug}/dataset.json"
+    outdir         = args.outdir         or f"results/phase_4a_logit_lens/{slug}"
+    figdir         = args.figdir         or f"figures/phase_4a_logit_lens/{slug}"
+
     # Determine which passes to run
     run_clean = not args.noisy            # default or --include-noisy
     run_noisy = args.noisy or args.include_noisy
 
     # ---- Ensure output directories exist ----
-    Path(args.outdir).mkdir(parents=True, exist_ok=True)
-    Path(args.figdir).mkdir(parents=True, exist_ok=True)
+    Path(outdir).mkdir(parents=True, exist_ok=True)
+    Path(figdir).mkdir(parents=True, exist_ok=True)
 
     # ---- Banner ----
     log("=" * 70)
@@ -901,23 +916,23 @@ def main():
     log("  Activation patching (Phases 3a-3c) is the primary method.")
     log("=" * 70)
     log(f"  Model:           {args.model}")
-    log(f"  Clean contrast:  {args.clean_contrast}")
-    log(f"  Noisy contrast:  {args.noisy_contrast}")
-    log(f"  Dataset:         {args.dataset}")
+    log(f"  Clean contrast:  {clean_contrast}")
+    log(f"  Noisy contrast:  {noisy_contrast}")
+    log(f"  Dataset:         {dataset_path}")
     log(f"  Run clean:       {run_clean}")
     log(f"  Run noisy:       {run_noisy}")
-    log(f"  Output dir:      {args.outdir}")
-    log(f"  Figure dir:      {args.figdir}")
+    log(f"  Output dir:      {outdir}")
+    log(f"  Figure dir:      {figdir}")
     log(f"  Max examples:    {args.max_examples or 'all'}")
     log("")
 
     # ---- Load dataset (optional fallback for prompt lookup) ----
     dataset_index = None
-    ds_path = Path(args.dataset)
+    ds_path = Path(dataset_path)
     if ds_path.exists():
         dataset_index = load_dataset_index(str(ds_path))
     elif run_noisy:
-        log(f"[WARN] Dataset not found at {args.dataset} — noisy prompt "
+        log(f"[WARN] Dataset not found at {dataset_path} — noisy prompt "
             f"fallback will not be available")
 
     # ---- Load model ----
@@ -926,7 +941,7 @@ def main():
     # ---- Clean pass ----
     if run_clean:
         try:
-            clean_examples = load_contrast_file(args.clean_contrast, "clean")
+            clean_examples = load_contrast_file(clean_contrast, "clean")
         except FileNotFoundError as e:
             log(f"[ERROR] {e}")
             if not run_noisy:
@@ -940,8 +955,8 @@ def main():
                 cell_baseline="A",
                 cell_structured="C",
                 dataset_index=dataset_index,
-                outdir=args.outdir,
-                figdir=args.figdir,
+                outdir=outdir,
+                figdir=figdir,
                 suffix="_clean",
                 max_examples=args.max_examples,
                 device=args.device,
@@ -950,7 +965,7 @@ def main():
     # ---- Noisy pass ----
     if run_noisy:
         try:
-            noisy_examples = load_contrast_file(args.noisy_contrast, "noisy")
+            noisy_examples = load_contrast_file(noisy_contrast, "noisy")
         except FileNotFoundError as e:
             log(f"[ERROR] {e}")
             log(f"")
@@ -963,7 +978,7 @@ def main():
             log(f"                      if not ex['cell_B']['correct']")
             log(f"                      and ex['cell_D']['correct']]")
             log(f"")
-            log(f"  Save as: {args.noisy_contrast}")
+            log(f"  Save as: {noisy_contrast}")
             if not run_clean:
                 sys.exit(1)
             noisy_examples = []
@@ -975,8 +990,8 @@ def main():
                 cell_baseline="B",
                 cell_structured="D",
                 dataset_index=dataset_index,
-                outdir=args.outdir,
-                figdir=args.figdir,
+                outdir=outdir,
+                figdir=figdir,
                 suffix="_noisy",
                 max_examples=args.max_examples,
                 device=args.device,
@@ -984,8 +999,8 @@ def main():
 
     # ---- Done ----
     log(f"\nPhase 4a COMPLETE.")
-    log(f"  CSVs:    {args.outdir}/")
-    log(f"  Figures: {args.figdir}/")
+    log(f"  CSVs:    {outdir}/")
+    log(f"  Figures: {figdir}/")
     log(f"  Next: review figures, then proceed to Phase 4b (attention heatmaps).")
     log(f"  Remember: logit lens is secondary — interpret alongside")
     log(f"  activation patching results from Phases 3a-3c.")

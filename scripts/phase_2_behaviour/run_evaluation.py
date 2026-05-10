@@ -365,16 +365,23 @@ def find_contrast_examples(
 # ---------------------------------------------------------------------------
 
 
+def _model_slug(model_name: str) -> str:
+    """'EleutherAI/pythia-2.8b' -> 'pythia-2.8b', 'gpt2-large' -> 'gpt2-large'"""
+    return model_name.split("/")[-1]
+
+
 def main():
     parser = argparse.ArgumentParser(
-        description="Phase 2: Behavioural evaluation of Pythia on 5-cell dataset"
+        description="Phase 2: Behavioural evaluation on 5-cell dataset"
     )
     parser.add_argument("--dataset", type=str,
-                        default="dataset/processed/dataset.json",
-                        help="Path to dataset.json (default: dataset/processed/dataset.json)")
+                        default=None,
+                        help="Path to dataset.json "
+                             "(default: dataset/processed/<model-slug>/dataset.json)")
     parser.add_argument("--output-dir", type=str,
-                        default="results/phase_2_behaviour",
-                        help="Directory for output CSV files (default: results/phase_2_behaviour)")
+                        default=None,
+                        help="Directory for output CSV files "
+                             "(default: results/phase_2_behaviour/<model-slug>/)")
     parser.add_argument("--model", type=str, default="EleutherAI/pythia-2.8b",
                         help="HuggingFace model name for HookedTransformer")
     parser.add_argument("--max-new-tokens", type=int, default=16,
@@ -385,12 +392,17 @@ def main():
                         help="Device to run on (cuda or cpu)")
     args = parser.parse_args()
 
+    # ---- Resolve model-namespaced defaults ----
+    slug = _model_slug(args.model)
+    dataset_path = args.dataset or f"dataset/processed/{slug}/dataset.json"
+    out_dir_path = args.output_dir or f"results/phase_2_behaviour/{slug}"
+
     # ---- Setup ----
-    out_dir = Path(args.output_dir)
+    out_dir = Path(out_dir_path)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     # ---- Load data ----
-    dataset = load_dataset(args.dataset)
+    dataset = load_dataset(dataset_path)
     dataset_by_id = {ex["id"]: ex for ex in dataset}
 
     # ---- Load model ----
@@ -425,9 +437,9 @@ def main():
 
     # ---- Contrast examples ----
     contrasts = find_contrast_examples(results_df, dataset_by_id)
-    # Route contrast examples to dataset/processed/ (NOT results dir)
-    # so downstream scripts find them alongside the main dataset.
-    dataset_dir = Path(args.dataset).parent
+    # Route contrast examples to the model-specific processed dir so downstream
+    # scripts find them alongside the model's dataset.json.
+    dataset_dir = Path(dataset_path).parent
     dataset_dir.mkdir(parents=True, exist_ok=True)
     contrast_path = dataset_dir / "contrast_examples.json"
     with open(contrast_path, "w", encoding="utf-8") as f:
