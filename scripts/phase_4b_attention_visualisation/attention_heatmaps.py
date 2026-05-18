@@ -660,6 +660,10 @@ def write_json(data: dict, path: Path) -> None:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
+def _model_slug(model_name: str) -> str:
+    return model_name.split("/")[-1].lower()
+
+
 def main():
     global VERBOSE
 
@@ -669,26 +673,30 @@ def main():
     parser.add_argument(
         "--contrast-file",
         type=str,
-        default="dataset/processed/contrast_examples.json",
-        help="Path to clean contrast examples JSON",
+        default=None,
+        help="Path to clean contrast examples JSON "
+             "(default: dataset/processed/<model-slug>/contrast_examples.json)",
     )
     parser.add_argument(
         "--dataset",
         type=str,
-        default="dataset/processed/dataset.json",
-        help="Path to full dataset JSON for prompt fallback",
+        default=None,
+        help="Path to full dataset JSON for prompt fallback "
+             "(default: dataset/processed/<model-slug>/dataset.json)",
     )
     parser.add_argument(
         "--figdir",
         type=str,
-        default="figures/phase_4b_attention_visualisation",
-        help="Output directory for PNG figures",
+        default=None,
+        help="Output directory for PNG figures "
+             "(default: figures/phase_4b_attention_visualisation/<model-slug>/)",
     )
     parser.add_argument(
         "--outdir",
         type=str,
-        default="results/phase_4b_attention_visualisation",
-        help="Output directory for JSON results",
+        default=None,
+        help="Output directory for JSON results "
+             "(default: results/phase_4b_attention_visualisation/<model-slug>/)",
     )
     parser.add_argument(
         "--model",
@@ -723,8 +731,14 @@ def main():
     args = parser.parse_args()
     VERBOSE = args.verbose
 
-    fig_dir = Path(args.figdir)
-    out_dir = Path(args.outdir)
+    slug = _model_slug(args.model)
+    contrast_file = args.contrast_file or f"dataset/processed/{slug}/contrast_examples.json"
+    dataset_path  = args.dataset       or f"dataset/processed/{slug}/dataset.json"
+    fig_dir_path  = args.figdir        or f"figures/phase_4b_attention_visualisation/{slug}"
+    out_dir_path  = args.outdir        or f"results/phase_4b_attention_visualisation/{slug}"
+
+    fig_dir = Path(fig_dir_path)
+    out_dir = Path(out_dir_path)
     fig_dir.mkdir(parents=True, exist_ok=True)
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -732,17 +746,17 @@ def main():
     log("Phase 4b: Attention Pattern Visualisation")
     log("=" * 72)
     log(f"  Model:          {args.model}")
-    log(f"  Contrast file:  {args.contrast_file}")
-    log(f"  Dataset:        {args.dataset}")
-    log(f"  Figure dir:     {args.figdir}")
-    log(f"  Results dir:    {args.outdir}")
+    log(f"  Contrast file:  {contrast_file}")
+    log(f"  Dataset:        {dataset_path}")
+    log(f"  Figure dir:     {fig_dir_path}")
+    log(f"  Results dir:    {out_dir_path}")
     log(f"  Layers:         {args.layers}")
     log(f"  Num examples:   {args.num_examples}")
     log("")
 
     overall_t0 = time.time()
-    if not Path(args.contrast_file).exists():
-        raise FileNotFoundError(f"Contrast file not found: {args.contrast_file}")
+    if not Path(contrast_file).exists():
+        raise FileNotFoundError(f"Contrast file not found: {contrast_file}")
 
     model = load_model(args.model, args.device)
     for layer in args.layers:
@@ -751,7 +765,7 @@ def main():
                 f"Requested layer {layer} is out of range for {args.model} "
                 f"(valid: 0-{model.cfg.n_layers - 1})."
             )
-    examples = load_data(args.contrast_file, args.dataset, model.tokenizer)
+    examples = load_data(contrast_file, dataset_path, model.tokenizer)
     examples = examples[: args.num_examples]
 
     log(f"[run] Analysing {len(examples)} clean contrast examples")
@@ -759,8 +773,8 @@ def main():
         "created_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "model": args.model,
         "device": args.device,
-        "contrast_file": args.contrast_file,
-        "dataset": args.dataset,
+        "contrast_file": contrast_file,
+        "dataset": dataset_path,
         "layers": args.layers,
         "num_examples_requested": args.num_examples,
         "examples_processed": [],

@@ -59,10 +59,16 @@ logs/
 *.log
 
 # =========================
-# Experiment artifacts
+# Experiment artifacts — generated, not source
 # =========================
-results/*.tmp
-results/*.cache
+# Processed datasets (built from raw sources by build_dataset.py)
+dataset/processed/
+
+# Experiment results (CSVs, JSONs produced by pipeline scripts)
+results/
+
+# Generated figures (PNGs produced by pipeline scripts)
+figures/
 
 # =========================
 # Large files
@@ -73,5 +79,7 @@ results/*.cache
 *.safetensors
 
 # =========================
-# Output files
+# Local config / secrets
 # =========================
+.claude/settings.local.json
+.claude/settings.json

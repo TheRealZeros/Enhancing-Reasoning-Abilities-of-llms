@@ -367,7 +367,7 @@ def find_contrast_examples(
 
 def _model_slug(model_name: str) -> str:
     """'EleutherAI/pythia-2.8b' -> 'pythia-2.8b', 'gpt2-large' -> 'gpt2-large'"""
-    return model_name.split("/")[-1]
+    return model_name.split("/")[-1].lower()
 
 
 def main():
@@ -451,13 +451,13 @@ def main():
     print("ACCURACY SUMMARY")
     print(f"{'='*60}")
     for _, row in summary_df.iterrows():
-        bar = "█" * int(row["accuracy"] * 40)
+        bar = "#" * int(row["accuracy"] * 40)
         print(f"  Cell {row['cell']}: {row['num_correct']:3.0f}/{row['total_examples']:3.0f} "
               f"= {row['accuracy']:.1%}  {bar}")
 
     n_contrast = len(contrasts)
-    status = "✓ PASS" if n_contrast >= 20 else "✗ BELOW TARGET"
-    print(f"\nContrast examples (A wrong ∧ C correct): {n_contrast}  [{status}]")
+    status = "PASS" if n_contrast >= 20 else "BELOW TARGET"
+    print(f"\nContrast examples (A wrong ^ C correct): {n_contrast}  [{status}]")
     if n_contrast < 20:
         print("  → Consider expanding dataset or loosening contrast criterion "
               "(e.g., higher p(correct) under C even if not EM-correct).")

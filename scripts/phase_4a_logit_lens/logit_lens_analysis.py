@@ -829,7 +829,7 @@ def run_pass(
 
 def _model_slug(model_name: str) -> str:
     """'EleutherAI/pythia-2.8b' -> 'pythia-2.8b', 'gpt2-large' -> 'gpt2-large'"""
-    return model_name.split("/")[-1]
+    return model_name.split("/")[-1].lower()
 
 
 def main():

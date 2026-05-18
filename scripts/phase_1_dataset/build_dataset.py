@@ -71,9 +71,9 @@ def _model_slug(model_name: str) -> str:
     Examples:
         'EleutherAI/pythia-2.8b' -> 'pythia-2.8b'
         'gpt2-large'              -> 'gpt2-large'
-        'Qwen/Qwen2.5-3B'        -> 'Qwen2.5-3B'
+        'Qwen/Qwen2.5-3B'        -> 'qwen2.5-3b'
     """
-    return model_name.split("/")[-1]
+    return model_name.split("/")[-1].lower()
 
 
 def _model_paths(model_name: str):

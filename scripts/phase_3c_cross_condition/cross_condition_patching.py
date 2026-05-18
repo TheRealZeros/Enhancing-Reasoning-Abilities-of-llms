@@ -904,6 +904,10 @@ def plot_overlay(
 # CLI and main
 # ---------------------------------------------------------------------------
 
+def _model_slug(model_name: str) -> str:
+    return model_name.split("/")[-1].lower()
+
+
 def main():
     parser = argparse.ArgumentParser(
         description=(
@@ -911,27 +915,27 @@ def main():
             "(clean vs. noisy) for RQ2"
         )
     )
-    parser.add_argument("--dataset", type=str,
-                        default="dataset/processed/dataset.json",
-                        help="Path to dataset.json (full dataset with all 5 cells)")
-    parser.add_argument("--eval-results", type=str,
-                        default="results/phase_2_behaviour/evaluation_results.csv",
-                        help="Path to evaluation_results.csv from Phase 2")
-    parser.add_argument("--clean-summary", type=str,
-                        default="results/phase_3a_layer_patching/layer_patch_summary.csv",
-                        help="Path to layer_patch_summary.csv from Phase 3a (clean A\u2192C)")
-    parser.add_argument("--layer-output-dir", type=str,
-                        default="results/phase_3a_layer_patching",
-                        help="Directory for noisy layer patch CSV files")
-    parser.add_argument("--cross-output-dir", type=str,
-                        default="results/phase_3c_cross_condition",
-                        help="Directory for cross-condition comparison CSV")
-    parser.add_argument("--contrast-output-dir", type=str,
-                        default="dataset/processed",
-                        help="Directory for noisy_contrast_examples.json")
-    parser.add_argument("--figure-dir", type=str,
-                        default="figures/phase_3a_layer_patching",
-                        help="Directory for overlay figure output")
+    parser.add_argument("--dataset", type=str, default=None,
+                        help="Path to dataset.json "
+                             "(default: dataset/processed/<model-slug>/dataset.json)")
+    parser.add_argument("--eval-results", type=str, default=None,
+                        help="Path to evaluation_results.csv from Phase 2 "
+                             "(default: results/phase_2_behaviour/<model-slug>/evaluation_results.csv)")
+    parser.add_argument("--clean-summary", type=str, default=None,
+                        help="Path to layer_patch_summary.csv from Phase 3a "
+                             "(default: results/phase_3a_layer_patching/<model-slug>/layer_patch_summary.csv)")
+    parser.add_argument("--layer-output-dir", type=str, default=None,
+                        help="Directory for noisy layer patch CSV files "
+                             "(default: results/phase_3a_layer_patching/<model-slug>/)")
+    parser.add_argument("--cross-output-dir", type=str, default=None,
+                        help="Directory for cross-condition comparison CSV "
+                             "(default: results/phase_3c_cross_condition/<model-slug>/)")
+    parser.add_argument("--contrast-output-dir", type=str, default=None,
+                        help="Directory for noisy_contrast_examples.json "
+                             "(default: dataset/processed/<model-slug>/)")
+    parser.add_argument("--figure-dir", type=str, default=None,
+                        help="Directory for overlay figure output "
+                             "(default: figures/phase_3a_layer_patching/<model-slug>/)")
     parser.add_argument("--model", type=str, default="EleutherAI/pythia-2.8b",
                         help="HuggingFace model name for HookedTransformer")
     parser.add_argument("--device", type=str, default="cuda",
@@ -957,15 +961,24 @@ def main():
                         help="Print layer progress every N layers (default: 4)")
     args = parser.parse_args()
 
+    slug = _model_slug(args.model)
+    dataset_path        = args.dataset           or f"dataset/processed/{slug}/dataset.json"
+    eval_results_path   = args.eval_results      or f"results/phase_2_behaviour/{slug}/evaluation_results.csv"
+    clean_summary_path  = args.clean_summary     or f"results/phase_3a_layer_patching/{slug}/layer_patch_summary.csv"
+    layer_out_dir_path  = args.layer_output_dir  or f"results/phase_3a_layer_patching/{slug}"
+    cross_out_dir_path  = args.cross_output_dir  or f"results/phase_3c_cross_condition/{slug}"
+    contrast_out_path   = args.contrast_output_dir or f"dataset/processed/{slug}"
+    fig_dir_path        = args.figure_dir        or f"figures/phase_3a_layer_patching/{slug}"
+
     overall_t0 = time.time()
 
-    layer_out_dir = Path(args.layer_output_dir)
+    layer_out_dir = Path(layer_out_dir_path)
     layer_out_dir.mkdir(parents=True, exist_ok=True)
-    cross_out_dir = Path(args.cross_output_dir)
+    cross_out_dir = Path(cross_out_dir_path)
     cross_out_dir.mkdir(parents=True, exist_ok=True)
-    contrast_out_dir = Path(args.contrast_output_dir)
+    contrast_out_dir = Path(contrast_out_path)
     contrast_out_dir.mkdir(parents=True, exist_ok=True)
-    fig_dir = Path(args.figure_dir)
+    fig_dir = Path(fig_dir_path)
     fig_dir.mkdir(parents=True, exist_ok=True)
 
     log(f"[main] Layer output directory:    {layer_out_dir.resolve()}")
@@ -976,14 +989,14 @@ def main():
     log(f"[main] patch_scope={args.patch_scope}  metric={args.metric}")
 
     # ---- Pre-flight: verify metric consistency with clean summary ----
-    verify_clean_summary_metric(args.clean_summary, args.metric)
+    verify_clean_summary_metric(clean_summary_path, args.metric)
 
     # ---- Step 1: Identify noisy contrast examples ----
     log("\n" + "=" * 70)
     log("Step 1: Identifying noisy contrast examples (B wrong \u2227 D correct)")
     log("=" * 70)
 
-    contrasts = identify_noisy_contrasts(args.dataset, args.eval_results)
+    contrasts = identify_noisy_contrasts(dataset_path, eval_results_path)
 
     # Save noisy contrasts for reproducibility
     contrast_path = contrast_out_dir / "noisy_contrast_examples.json"
@@ -1089,7 +1102,7 @@ def main():
     log("Step 5: Cross-condition layer-level comparison (clean vs. noisy)")
     log("=" * 70)
 
-    comparison_df = build_cross_condition_comparison(args.clean_summary, noisy_summary)
+    comparison_df = build_cross_condition_comparison(clean_summary_path, noisy_summary)
 
     if not comparison_df.empty:
         comp_path = cross_out_dir / "cross_condition_layer_comparison.csv"
@@ -1098,7 +1111,7 @@ def main():
         log(f"[save] {comp_path} in {format_seconds(time.time() - t0)}")
 
         # Load clean n_examples for the figure label
-        clean_summary = pd.read_csv(args.clean_summary)
+        clean_summary = pd.read_csv(clean_summary_path)
         n_clean = int(clean_summary["n_examples"].iloc[0]) if not clean_summary.empty else 0
 
         fig_path = fig_dir / "clean_vs_noisy_layer_patch_overlay.png"
