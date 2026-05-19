@@ -655,24 +655,21 @@ def main():
                         help="Print layer progress every N layers (default: 4)")
     args = parser.parse_args()
 
-    # ---- Resolve model-namespaced defaults ----
     slug = _model_slug(args.model)
-    # When non-default cells are used, append a subdir so results don't overwrite AC runs
-    cell_subdir = (
-        f"noisy_{args.source_cell.lower()}{args.donor_cell.lower()}"
-        if (args.source_cell != "A" or args.donor_cell != "C")
-        else ""
-    )
+    source_cell = args.source_cell.upper()
+    donor_cell = args.donor_cell.upper()
+    is_noisy_contrast = source_cell == "B" and donor_cell == "D"
+    file_prefix = "noisy_" if is_noisy_contrast else ""
     default_contrast = (
         f"dataset/processed/{slug}/contrast_examples.json"
-        if (args.source_cell == "A" and args.donor_cell == "C")
+        if not is_noisy_contrast
         else f"dataset/processed/{slug}/noisy_contrast_examples.json"
     )
     contrast_file = args.contrast_file or default_contrast
     base_out = f"results/phase_3a_layer_patching/{slug}"
     base_fig = f"figures/phase_3a_layer_patching/{slug}"
-    out_dir_path = args.output_dir or (f"{base_out}/{cell_subdir}" if cell_subdir else base_out)
-    fig_dir_path = args.figure_dir or (f"{base_fig}/{cell_subdir}" if cell_subdir else base_fig)
+    out_dir_path = args.output_dir or base_out
+    fig_dir_path = args.figure_dir or base_fig
 
     overall_t0 = time.time()
 
@@ -685,7 +682,7 @@ def main():
     log(f"[main] Figure directory: {fig_dir.resolve()}")
     log(f"[main] Starting Phase 3a activation patching pipeline")
 
-    examples = load_contrast_examples(contrast_file, args.source_cell, args.donor_cell)
+    examples = load_contrast_examples(contrast_file, source_cell, donor_cell)
     if args.max_examples is not None:
         examples = examples[:args.max_examples]
         log(f"[main] Limiting to first {args.max_examples} contrast examples")
@@ -705,7 +702,7 @@ def main():
     log(f"  examples:           {n_examples}")
     log(f"  layers per example: {n_layers}")
     log(f"  total patch runs:   {n_total}")
-    log(f"  contrast:           Cell {args.source_cell} (source) -> Cell {args.donor_cell} (donor)")
+    log(f"  contrast:           Cell {source_cell} (source) -> Cell {donor_cell} (donor)")
     log(f"  hook:               {args.hook_name}")
     log(f"  metric:             {args.metric}")
     log(f"  device:             {args.device}")
@@ -734,8 +731,8 @@ def main():
             device=args.device,
             verbose=args.verbose,
             layer_log_interval=max(1, args.layer_log_interval),
-            source_cell=args.source_cell,
-            donor_cell=args.donor_cell,
+            source_cell=source_cell,
+            donor_cell=donor_cell,
         )
         all_rows.extend(rows)
 
@@ -763,18 +760,18 @@ def main():
 
     results_df = pd.DataFrame(all_rows)
 
-    detail_path = out_dir / "layer_patch_results.csv"
+    detail_path = out_dir / f"{file_prefix}layer_patch_results.csv"
     t0 = time.time()
     results_df.to_csv(detail_path, index=False, encoding="utf-8")
     log(f"[save] {detail_path} ({len(results_df)} rows) in {format_seconds(time.time() - t0)}")
 
     summary_df = aggregate_layer_results(results_df, args.hook_name, args.metric)
-    summary_path = out_dir / "layer_patch_summary.csv"
+    summary_path = out_dir / f"{file_prefix}layer_patch_summary.csv"
     t0 = time.time()
     summary_df.to_csv(summary_path, index=False, encoding="utf-8")
     log(f"[save] {summary_path} in {format_seconds(time.time() - t0)}")
 
-    fig_path = fig_dir / "layer_patch_curve.png"
+    fig_path = fig_dir / f"{file_prefix}layer_patch_curve.png"
     plot_layer_curve(summary_df, str(fig_path), args.metric, n_valid)
 
     log("\n" + "=" * 70)

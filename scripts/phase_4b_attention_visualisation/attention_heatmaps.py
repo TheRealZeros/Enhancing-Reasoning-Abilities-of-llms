@@ -16,9 +16,9 @@ For a small subset of contrast examples, the script:
   - saves per-head attention values as JSON for later inspection
 
 Outputs:
-  figures/phase_4b_attention_visualisation/*.png
-  results/phase_4b_attention_visualisation/*.json
-  results/phase_4b_attention_visualisation/attention_manifest.json
+  figures/phase_4b_attention/<model>/*.png
+  results/phase_4b_attention/<model>/*.json
+  results/phase_4b_attention/<model>/attention_manifest.json
 """
 
 import argparse
@@ -716,14 +716,14 @@ def main():
         type=str,
         default=None,
         help="Output directory for PNG figures "
-             "(default: figures/phase_4b_attention_visualisation/<model-slug>/)",
+             "(default: figures/phase_4b_attention/<model-slug>/)",
     )
     parser.add_argument(
         "--outdir",
         type=str,
         default=None,
         help="Output directory for JSON results "
-             "(default: results/phase_4b_attention_visualisation/<model-slug>/)",
+             "(default: results/phase_4b_attention/<model-slug>/)",
     )
     parser.add_argument(
         "--model",
@@ -775,20 +775,17 @@ def main():
     slug = _model_slug(args.model)
     source_cell = args.source_cell.upper()
     donor_cell = args.donor_cell.upper()
-    requested_noisy_bd = source_cell == "B" and donor_cell == "D"
+    is_noisy_contrast = source_cell == "B" and donor_cell == "D"
+    file_prefix = "noisy_" if is_noisy_contrast else ""
     default_contrast = (
         f"dataset/processed/{slug}/noisy_contrast_examples.json"
-        if requested_noisy_bd
+        if is_noisy_contrast
         else f"dataset/processed/{slug}/contrast_examples.json"
     )
     contrast_file = args.contrast_file or default_contrast
     dataset_path  = args.dataset       or f"dataset/processed/{slug}/dataset.json"
-    if requested_noisy_bd:
-        fig_dir_path = args.figdir or f"figures/phase_4b_attention/{slug}/noisy_bd"
-        out_dir_path = args.outdir or f"results/phase_4b_attention/{slug}/noisy_bd"
-    else:
-        fig_dir_path = args.figdir or f"figures/phase_4b_attention_visualisation/{slug}"
-        out_dir_path = args.outdir or f"results/phase_4b_attention_visualisation/{slug}"
+    fig_dir_path = args.figdir or f"figures/phase_4b_attention/{slug}"
+    out_dir_path = args.outdir or f"results/phase_4b_attention/{slug}"
 
     fig_dir = Path(fig_dir_path)
     out_dir = Path(out_dir_path)
@@ -874,9 +871,9 @@ def main():
 
         for layer in args.layers:
             slug = sanitise_filename(example_id)
-            fig_path = fig_dir / f"{slug}_layer_{layer}_comparison.png"
-            json_path = out_dir / f"{slug}_layer_{layer}_comparison.json"
-            summary_path = out_dir / f"{slug}_layer_{layer}_summary.json"
+            fig_path = fig_dir / f"{file_prefix}{slug}_layer_{layer}_comparison.png"
+            json_path = out_dir / f"{file_prefix}{slug}_layer_{layer}_comparison.json"
+            summary_path = out_dir / f"{file_prefix}{slug}_layer_{layer}_summary.json"
 
             avg_a = attention_a["layers"][layer]["average"]
             avg_c = attention_c["layers"][layer]["average"]
@@ -1028,7 +1025,7 @@ def main():
     manifest["examples_skipped_alignment"] = skipped_alignment
     manifest["total_runtime_seconds"] = round(time.time() - overall_t0, 2)
 
-    manifest_path = out_dir / "attention_manifest.json"
+    manifest_path = out_dir / f"{file_prefix}attention_manifest.json"
     write_json(manifest, manifest_path)
 
     log("")

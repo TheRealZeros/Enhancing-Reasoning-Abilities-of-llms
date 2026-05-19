@@ -54,14 +54,14 @@ INPUT FILES
 
 OUTPUT FILES
 ------------
-  results/phase_4a_logit_lens/logit_lens_per_example_clean.csv  — per-example, per-layer (clean)
-  results/phase_4a_logit_lens/logit_lens_summary_clean.csv      — aggregated (clean)
-  results/phase_4a_logit_lens/logit_lens_per_example_noisy.csv  — per-example, per-layer (noisy)
-  results/phase_4a_logit_lens/logit_lens_summary_noisy.csv      — aggregated (noisy)
-  figures/phase_4a_logit_lens/logit_lens_top1_clean.png          — top-1 rate vs layer (clean)
-  figures/phase_4a_logit_lens/logit_lens_logit_clean.png         — mean gold logit vs layer (clean)
-  figures/phase_4a_logit_lens/logit_lens_top1_noisy.png          — top-1 rate vs layer (noisy)
-  figures/phase_4a_logit_lens/logit_lens_logit_noisy.png         — mean gold logit vs layer (noisy)
+  results/phase_4a_logit_lens/<model>/logit_lens_per_example.csv        — default A/C
+  results/phase_4a_logit_lens/<model>/logit_lens_summary.csv            — default A/C
+  results/phase_4a_logit_lens/<model>/noisy_logit_lens_per_example.csv  — B/D noisy
+  results/phase_4a_logit_lens/<model>/noisy_logit_lens_summary.csv      — B/D noisy
+  figures/phase_4a_logit_lens/<model>/logit_lens_top1.png               — default A/C
+  figures/phase_4a_logit_lens/<model>/logit_lens_logit.png              — default A/C
+  figures/phase_4a_logit_lens/<model>/noisy_logit_lens_top1.png         — B/D noisy
+  figures/phase_4a_logit_lens/<model>/noisy_logit_lens_logit.png        — B/D noisy
 
 Thesis terminology:
   direct prompt, structured prompt, filler control, contrast examples,
@@ -709,7 +709,7 @@ def run_pass(
     dataset_index: dict | None,
     outdir: str,
     figdir: str,
-    suffix: str,
+    file_prefix: str,
     max_examples: int | None,
     device: str,
 ) -> None:
@@ -721,7 +721,7 @@ def run_pass(
     examples       — contrast examples loaded from the appropriate file
     cell_baseline  — "A" for clean, "B" for noisy
     cell_structured — "C" for clean, "D" for noisy
-    suffix         — "_clean" or "_noisy" for output filenames
+    file_prefix    — "" for default A/C, "noisy_" for B/D outputs
     figdir         — directory for figure output (e.g. results/figures)
     """
     tag = "clean" if cell_baseline == "A" else "noisy"
@@ -797,12 +797,12 @@ def run_pass(
         return
 
     # Write per-example CSV
-    per_ex_path = str(Path(outdir) / f"logit_lens_per_example{suffix}.csv")
+    per_ex_path = str(Path(outdir) / f"{file_prefix}logit_lens_per_example.csv")
     write_csv(all_rows, per_ex_path, PER_EXAMPLE_FIELDS)
 
     # Write summary CSV
     summary = build_summary(all_rows)
-    sum_path = str(Path(outdir) / f"logit_lens_summary{suffix}.csv")
+    sum_path = str(Path(outdir) / f"{file_prefix}logit_lens_summary.csv")
     write_csv(summary, sum_path, SUMMARY_FIELDS)
 
     # Print summary to console
@@ -813,12 +813,12 @@ def run_pass(
 
     plot_top1_curve(
         summary,
-        str(Path(figdir) / f"logit_lens_top1{suffix}.png"),
+        str(Path(figdir) / f"{file_prefix}logit_lens_top1.png"),
         f"Logit Lens: Top-1 Rate by Layer ({tag_title} Contrast)",
     )
     plot_logit_curve(
         summary,
-        str(Path(figdir) / f"logit_lens_logit{suffix}.png"),
+        str(Path(figdir) / f"{file_prefix}logit_lens_logit.png"),
         f"Logit Lens: Mean Gold-Token Logit by Layer ({tag_title} Contrast)",
     )
 
@@ -907,26 +907,22 @@ def main():
     slug = _model_slug(args.model)
     source_cell = args.source_cell.upper()
     donor_cell = args.donor_cell.upper()
-    requested_noisy_bd = source_cell == "B" and donor_cell == "D"
+    is_noisy_contrast = source_cell == "B" and donor_cell == "D"
 
     clean_contrast = args.clean_contrast or f"dataset/processed/{slug}/contrast_examples.json"
     noisy_contrast = args.noisy_contrast or f"dataset/processed/{slug}/noisy_contrast_examples.json"
     dataset_path   = args.dataset        or f"dataset/processed/{slug}/dataset.json"
-    if requested_noisy_bd:
-        outdir = args.outdir or f"results/phase_4a_logit_lens/{slug}/noisy_bd"
-        figdir = args.figdir or f"figures/phase_4a_logit_lens/{slug}/noisy_bd"
-    else:
-        outdir = args.outdir or f"results/phase_4a_logit_lens/{slug}"
-        figdir = args.figdir or f"figures/phase_4a_logit_lens/{slug}"
+    outdir = args.outdir or f"results/phase_4a_logit_lens/{slug}"
+    figdir = args.figdir or f"figures/phase_4a_logit_lens/{slug}"
 
     # Determine which passes to run
     custom_cells = (source_cell, donor_cell) != ("A", "C")
     run_clean = (not args.noisy) and not custom_cells
     run_noisy = (args.noisy or args.include_noisy) and not custom_cells
     run_custom = custom_cells
-    custom_contrast = noisy_contrast if requested_noisy_bd else clean_contrast
-    custom_label = "noisy" if requested_noisy_bd else f"{source_cell.lower()}_{donor_cell.lower()}"
-    custom_suffix = "_noisy" if requested_noisy_bd else f"_{source_cell.lower()}_{donor_cell.lower()}"
+    custom_contrast = noisy_contrast if is_noisy_contrast else clean_contrast
+    custom_label = "noisy" if is_noisy_contrast else f"{source_cell.lower()}_{donor_cell.lower()}"
+    custom_file_prefix = "noisy_" if is_noisy_contrast else f"{source_cell.lower()}_{donor_cell.lower()}_"
 
     # ---- Ensure output directories exist ----
     Path(outdir).mkdir(parents=True, exist_ok=True)
@@ -980,7 +976,7 @@ def main():
             dataset_index=dataset_index,
             outdir=outdir,
             figdir=figdir,
-            suffix=custom_suffix,
+            file_prefix=custom_file_prefix,
             max_examples=args.max_examples,
             device=args.device,
         )
@@ -1004,7 +1000,7 @@ def main():
                 dataset_index=dataset_index,
                 outdir=outdir,
                 figdir=figdir,
-                suffix="_clean",
+                file_prefix="",
                 max_examples=args.max_examples,
                 device=args.device,
             )
@@ -1039,7 +1035,7 @@ def main():
                 dataset_index=dataset_index,
                 outdir=outdir,
                 figdir=figdir,
-                suffix="_noisy",
+                file_prefix="noisy_",
                 max_examples=args.max_examples,
                 device=args.device,
             )

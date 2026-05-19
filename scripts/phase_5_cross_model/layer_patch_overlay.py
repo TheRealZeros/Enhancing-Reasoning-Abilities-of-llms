@@ -211,7 +211,7 @@ def main() -> None:
     parser.add_argument(
         "--qwen-csv",
         type=str,
-        default="results/phase_3a_layer_patching/qwen2.5-3b/noisy_bd/layer_patch_summary.csv",
+        default="results/phase_3a_layer_patching/qwen2.5-3b/noisy_layer_patch_summary.csv",
     )
     parser.add_argument(
         "--figure-dir",

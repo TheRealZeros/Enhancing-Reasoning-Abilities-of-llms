@@ -755,21 +755,20 @@ def main():
     args = parser.parse_args()
 
     slug = _model_slug(args.model)
-    cell_subdir = (
-        f"noisy_{args.source_cell.lower()}{args.donor_cell.lower()}"
-        if (args.source_cell != "A" or args.donor_cell != "C")
-        else ""
-    )
+    source_cell = args.source_cell.upper()
+    donor_cell = args.donor_cell.upper()
+    is_noisy_contrast = source_cell == "B" and donor_cell == "D"
+    file_prefix = "noisy_" if is_noisy_contrast else ""
     default_contrast = (
         f"dataset/processed/{slug}/contrast_examples.json"
-        if (args.source_cell == "A" and args.donor_cell == "C")
+        if not is_noisy_contrast
         else f"dataset/processed/{slug}/noisy_contrast_examples.json"
     )
     base_out = f"results/phase_3b_component_patching/{slug}"
     base_fig = f"figures/phase_3b_component_patching/{slug}"
     contrast_file = args.contrast_file or default_contrast
-    out_dir_path  = args.output_dir   or (f"{base_out}/{cell_subdir}" if cell_subdir else base_out)
-    fig_dir_path  = args.figure_dir   or (f"{base_fig}/{cell_subdir}" if cell_subdir else base_fig)
+    out_dir_path  = args.output_dir   or base_out
+    fig_dir_path  = args.figure_dir   or base_fig
 
     overall_t0 = time.time()
 
@@ -787,7 +786,7 @@ def main():
     log(f"[main] Selected layers: {layers}")
 
     # ---- Load contrast examples ----
-    examples = load_contrast_examples(contrast_file, args.source_cell, args.donor_cell)
+    examples = load_contrast_examples(contrast_file, source_cell, donor_cell)
     if args.max_examples is not None:
         examples = examples[:args.max_examples]
         log(f"[main] Limiting to first {args.max_examples} contrast examples")
@@ -846,8 +845,8 @@ def main():
             device=args.device,
             verbose=args.verbose,
             component_log_interval=max(1, args.component_log_interval),
-            source_cell=args.source_cell,
-            donor_cell=args.donor_cell,
+            source_cell=source_cell,
+            donor_cell=donor_cell,
         )
         all_rows.extend(rows)
 
@@ -877,20 +876,20 @@ def main():
     # ---- Save detailed results ----
     results_df = pd.DataFrame(all_rows)
 
-    detail_path = out_dir / "component_patch_results.csv"
+    detail_path = out_dir / f"{file_prefix}component_patch_results.csv"
     t0 = time.time()
     results_df.to_csv(detail_path, index=False, encoding="utf-8")
     log(f"[save] {detail_path} ({len(results_df)} rows) in {format_seconds(time.time() - t0)}")
 
     # ---- Aggregate and save summary ----
     summary_df = aggregate_component_results(results_df, args.metric)
-    summary_path = out_dir / "component_patch_summary.csv"
+    summary_path = out_dir / f"{file_prefix}component_patch_summary.csv"
     t0 = time.time()
     summary_df.to_csv(summary_path, index=False, encoding="utf-8")
     log(f"[save] {summary_path} in {format_seconds(time.time() - t0)}")
 
     # ---- Plot heatmap ----
-    fig_path = fig_dir / "component_patch_heatmap.png"
+    fig_path = fig_dir / f"{file_prefix}component_patch_heatmap.png"
     plot_component_heatmap(summary_df, str(fig_path), args.metric, n_valid)
 
     # ---- Console summary ----
