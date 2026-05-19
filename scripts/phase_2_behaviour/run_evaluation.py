@@ -393,6 +393,9 @@ def main():
                         help="Limit to first N examples (for debugging)")
     parser.add_argument("--device", type=str, default="cuda",
                         help="Device to run on (cuda or cpu)")
+    parser.add_argument("--run-containment-audit", action="store_true",
+                        help="After Phase 2 exact-match outputs are saved, run the secondary "
+                             "answer-containment audit over evaluation_results.csv")
     args = parser.parse_args()
 
     # ---- Resolve model-namespaced defaults ----
@@ -500,6 +503,26 @@ def main():
         from collections import Counter
         dom_counts = Counter(c["domain"] for c in contrasts)
         print(f"  Domain breakdown: {dict(dom_counts)}")
+
+    # ---- Optional answer-containment diagnostic ----
+    if args.run_containment_audit:
+        print("\n[containment] Running secondary answer-containment audit...")
+        try:
+            from scripts.analysis.answer_containment_audit import run_answer_containment_audit
+        except ModuleNotFoundError:
+            project_root = Path(__file__).resolve().parents[2]
+            sys.path.insert(0, str(project_root))
+            from scripts.analysis.answer_containment_audit import run_answer_containment_audit
+
+        containment_result = run_answer_containment_audit(
+            model_name=args.model,
+            dataset_path=dataset_path,
+            evaluation_path=str(eval_path),
+            output_dir=f"results/model_agnostic_evaluation/{slug}",
+        )
+        print(f"[containment] rows:    {containment_result['audit_path']}")
+        print(f"[containment] summary: {containment_result['summary_path']}")
+        print(f"[containment] report:  {containment_result['markdown_path']}")
 
 if __name__ == "__main__":
     main()
