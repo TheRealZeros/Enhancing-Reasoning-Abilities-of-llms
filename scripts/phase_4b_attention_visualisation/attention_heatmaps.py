@@ -2,16 +2,17 @@
 """
 Phase 4b: Attention Pattern Visualisation
 =========================================
-Generates qualitative attention heatmaps for clean contrast examples
-(Cell A wrong, Cell C correct) to inspect whether structured prompting
-changes how the model routes information at the final answer position.
+Generates qualitative attention heatmaps for contrast examples to inspect
+whether structured prompting changes how the model routes information at the
+final answer position. Defaults to Cell A -> Cell C, and supports Cell B ->
+Cell D for noisy contrasts.
 
 For a small subset of contrast examples, the script:
   - loads Pythia-2.8B via TransformerLens
-  - reconstructs token-aligned Cell A / Cell C prompts
+  - reconstructs token-aligned source / donor prompts
   - caches attention patterns at selected layers
   - extracts final-token attention over all prior tokens
-  - saves side-by-side head-averaged heatmaps for Cell A vs Cell C
+  - saves side-by-side head-averaged heatmaps for source vs donor cells
   - saves per-head attention values as JSON for later inspection
 
 Outputs:
@@ -133,13 +134,18 @@ def format_token_label(token: str, max_len: int = 18) -> str:
     return token
 
 
-def build_comparison_labels(labels_a: list[str], labels_c: list[str]) -> list[str]:
+def build_comparison_labels(
+    labels_a: list[str],
+    labels_c: list[str],
+    source_cell: str = "A",
+    donor_cell: str = "C",
+) -> list[str]:
     combined = []
     for la, lc in zip(labels_a, labels_c):
         if la == lc:
             combined.append(la)
         else:
-            combined.append(f"A:{la}\nC:{lc}")
+            combined.append(f"{source_cell}:{la}\n{donor_cell}:{lc}")
     return combined
 
 
@@ -347,12 +353,15 @@ def build_condition_summary(
     }
 
 
-def load_contrast_file(path: str) -> list:
+def load_contrast_file(path: str, source_cell: str = "A", donor_cell: str = "C") -> list:
     p = Path(path)
     if not p.exists():
         raise FileNotFoundError(f"Contrast file not found: {p}")
 
-    log(f"[load] Reading clean contrast examples from {p}")
+    source_key = f"cell_{source_cell}"
+    donor_key = f"cell_{donor_cell}"
+
+    log(f"[load] Reading Cell {source_cell} -> Cell {donor_cell} contrast examples from {p}")
     with open(p, "r", encoding="utf-8") as f:
         data = json.load(f)
 
@@ -364,7 +373,7 @@ def load_contrast_file(path: str) -> list:
         if not isinstance(ex, dict):
             log(f"  WARN: contrast index {i}: not a dict, skipping")
             continue
-        missing = [k for k in ("example_id", "gold_answer", "cell_A", "cell_C") if k not in ex]
+        missing = [k for k in ("example_id", "gold_answer", source_key, donor_key) if k not in ex]
         if missing:
             log(f"  WARN: contrast index {i}: missing keys {missing}, skipping")
             continue
@@ -373,7 +382,7 @@ def load_contrast_file(path: str) -> list:
             continue
         valid.append(ex)
 
-    log(f"[load] {len(valid)}/{len(data)} clean contrast examples validated")
+    log(f"[load] {len(valid)}/{len(data)} contrast examples validated")
     return valid
 
 
@@ -395,12 +404,18 @@ def load_dataset_index(path: str) -> dict:
     return by_id
 
 
-def load_data(contrast_path: str, dataset_path: str, tokenizer) -> list:
+def load_data(
+    contrast_path: str,
+    dataset_path: str,
+    tokenizer,
+    source_cell: str = "A",
+    donor_cell: str = "C",
+) -> list:
     """
-    Resolve prompts for clean contrast examples, preferring embedded prompts
-    and falling back to dataset.json when available.
+    Resolve prompts for contrast examples, preferring embedded prompts and
+    falling back to dataset.json when available.
     """
-    examples = load_contrast_file(contrast_path)
+    examples = load_contrast_file(contrast_path, source_cell, donor_cell)
 
     dataset_index = None
     if Path(dataset_path).exists():
@@ -417,38 +432,42 @@ def load_data(contrast_path: str, dataset_path: str, tokenizer) -> list:
             return None
 
     resolved = []
+    source_key = f"cell_{source_cell}"
+    donor_key = f"cell_{donor_cell}"
     for ex in examples:
         eid = str(ex["example_id"])
         gold = ex["gold_answer"]
 
-        prompt_a = _extract(ex.get("cell_A"))
-        prompt_c = _extract(ex.get("cell_C"))
+        prompt_source = _extract(ex.get(source_key))
+        prompt_donor = _extract(ex.get(donor_key))
 
-        if (prompt_a is None or prompt_c is None) and dataset_index is not None:
+        if (prompt_source is None or prompt_donor is None) and dataset_index is not None:
             ds = dataset_index.get(eid)
             cells = ds.get("cells", {}) if isinstance(ds, dict) else {}
-            if prompt_a is None:
-                prompt_a = _extract(cells.get("A"))
-            if prompt_c is None:
-                prompt_c = _extract(cells.get("C"))
+            if prompt_source is None:
+                prompt_source = _extract(cells.get(source_cell))
+            if prompt_donor is None:
+                prompt_donor = _extract(cells.get(donor_cell))
 
-        if not prompt_a:
-            log(f"  WARN: {eid} - no runnable prompt for Cell A, skipping")
+        if not prompt_source:
+            log(f"  WARN: {eid} - no runnable prompt for Cell {source_cell}, skipping")
             continue
-        if not prompt_c:
-            log(f"  WARN: {eid} - no runnable prompt for Cell C, skipping")
+        if not prompt_donor:
+            log(f"  WARN: {eid} - no runnable prompt for Cell {donor_cell}, skipping")
             continue
 
         resolved.append({
             "example_id": eid,
             "gold_answer": gold,
             "domain": ex.get("domain", ""),
-            "prompt_a": prompt_a,
-            "prompt_c": prompt_c,
+            "prompt_source": prompt_source,
+            "prompt_donor": prompt_donor,
         })
 
     if not resolved:
-        raise ValueError("No valid clean contrast examples with resolved Cell A / Cell C prompts.")
+        raise ValueError(
+            f"No valid contrast examples with resolved Cell {source_cell} / Cell {donor_cell} prompts."
+        )
 
     return resolved
 
@@ -525,11 +544,17 @@ def extract_attention(model, prompt: str, layers: list[int]) -> dict:
     }
 
 
-def assert_token_alignment(example_id: str, token_ids_a: list[int], token_ids_c: list[int]) -> bool:
+def assert_token_alignment(
+    example_id: str,
+    token_ids_a: list[int],
+    token_ids_c: list[int],
+    source_cell: str = "A",
+    donor_cell: str = "C",
+) -> bool:
     if len(token_ids_a) != len(token_ids_c):
         log(
-            f"  ALIGNMENT FAIL: {example_id} - Cell A={len(token_ids_a)} tokens vs "
-            f"Cell C={len(token_ids_c)} tokens, skipping"
+            f"  ALIGNMENT FAIL: {example_id} - Cell {source_cell}={len(token_ids_a)} tokens vs "
+            f"Cell {donor_cell}={len(token_ids_c)} tokens, skipping"
         )
         return False
     return True
@@ -578,6 +603,8 @@ def plot_heatmap(
     region_summary_a: dict,
     region_summary_c: dict,
     output_path: Path,
+    source_cell: str = "A",
+    donor_cell: str = "C",
 ) -> None:
     data_a = attention_a[np.newaxis, :]
     data_c = attention_c[np.newaxis, :]
@@ -592,8 +619,8 @@ def plot_heatmap(
     )
 
     for ax, data, title, labels, region_boundaries in [
-        (axes[0], data_a, "Cell A (direct)", labels_a, region_boundaries_a),
-        (axes[1], data_c, "Cell C (structured)", labels_c, region_boundaries_c),
+        (axes[0], data_a, f"Cell {source_cell} (direct)", labels_a, region_boundaries_a),
+        (axes[1], data_c, f"Cell {donor_cell} (structured)", labels_c, region_boundaries_c),
     ]:
         im = ax.imshow(data, aspect="auto", cmap="viridis", interpolation="nearest", vmin=0.0, vmax=vmax)
         ax.set_yticks([0])
@@ -616,14 +643,14 @@ def plot_heatmap(
             [region_summary_a.get(name, 0.0) for name in summary_regions],
             width=width,
             color="#457b9d",
-            label="Cell A",
+            label=f"Cell {source_cell}",
         )
         summary_ax.bar(
             positions + width / 2,
             [region_summary_c.get(name, 0.0) for name in summary_regions],
             width=width,
             color="#e76f51",
-            label="Cell C",
+            label=f"Cell {donor_cell}",
         )
         summary_ax.set_xticks(positions)
         summary_ax.set_xticklabels(
@@ -674,8 +701,8 @@ def main():
         "--contrast-file",
         type=str,
         default=None,
-        help="Path to clean contrast examples JSON "
-             "(default: dataset/processed/<model-slug>/contrast_examples.json)",
+        help="Path to contrast examples JSON "
+             "(default: clean A/C file, or noisy B/D file when --source-cell B --donor-cell D)",
     )
     parser.add_argument(
         "--dataset",
@@ -718,6 +745,20 @@ def main():
         help="Layers to inspect",
     )
     parser.add_argument(
+        "--source-cell",
+        type=str,
+        default="A",
+        choices=["A", "B", "C", "D", "E"],
+        help="Baseline/source cell to visualise (default: A)",
+    )
+    parser.add_argument(
+        "--donor-cell",
+        type=str,
+        default="C",
+        choices=["A", "B", "C", "D", "E"],
+        help="Structured/donor cell to visualise (default: C)",
+    )
+    parser.add_argument(
         "--num-examples",
         type=int,
         default=3,
@@ -732,10 +773,22 @@ def main():
     VERBOSE = args.verbose
 
     slug = _model_slug(args.model)
-    contrast_file = args.contrast_file or f"dataset/processed/{slug}/contrast_examples.json"
+    source_cell = args.source_cell.upper()
+    donor_cell = args.donor_cell.upper()
+    requested_noisy_bd = source_cell == "B" and donor_cell == "D"
+    default_contrast = (
+        f"dataset/processed/{slug}/noisy_contrast_examples.json"
+        if requested_noisy_bd
+        else f"dataset/processed/{slug}/contrast_examples.json"
+    )
+    contrast_file = args.contrast_file or default_contrast
     dataset_path  = args.dataset       or f"dataset/processed/{slug}/dataset.json"
-    fig_dir_path  = args.figdir        or f"figures/phase_4b_attention_visualisation/{slug}"
-    out_dir_path  = args.outdir        or f"results/phase_4b_attention_visualisation/{slug}"
+    if requested_noisy_bd:
+        fig_dir_path = args.figdir or f"figures/phase_4b_attention/{slug}/noisy_bd"
+        out_dir_path = args.outdir or f"results/phase_4b_attention/{slug}/noisy_bd"
+    else:
+        fig_dir_path = args.figdir or f"figures/phase_4b_attention_visualisation/{slug}"
+        out_dir_path = args.outdir or f"results/phase_4b_attention_visualisation/{slug}"
 
     fig_dir = Path(fig_dir_path)
     out_dir = Path(out_dir_path)
@@ -748,6 +801,8 @@ def main():
     log(f"  Model:          {args.model}")
     log(f"  Contrast file:  {contrast_file}")
     log(f"  Dataset:        {dataset_path}")
+    log(f"  Source cell:    {source_cell}")
+    log(f"  Donor cell:     {donor_cell}")
     log(f"  Figure dir:     {fig_dir_path}")
     log(f"  Results dir:    {out_dir_path}")
     log(f"  Layers:         {args.layers}")
@@ -765,16 +820,24 @@ def main():
                 f"Requested layer {layer} is out of range for {args.model} "
                 f"(valid: 0-{model.cfg.n_layers - 1})."
             )
-    examples = load_data(contrast_file, dataset_path, model.tokenizer)
+    examples = load_data(
+        contrast_file,
+        dataset_path,
+        model.tokenizer,
+        source_cell=source_cell,
+        donor_cell=donor_cell,
+    )
     examples = examples[: args.num_examples]
 
-    log(f"[run] Analysing {len(examples)} clean contrast examples")
+    log(f"[run] Analysing {len(examples)} Cell {source_cell} -> Cell {donor_cell} contrast examples")
     manifest = {
         "created_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "model": args.model,
         "device": args.device,
         "contrast_file": contrast_file,
         "dataset": dataset_path,
+        "source_cell": source_cell,
+        "donor_cell": donor_cell,
         "layers": args.layers,
         "num_examples_requested": args.num_examples,
         "examples_processed": [],
@@ -787,10 +850,16 @@ def main():
         example_id = ex["example_id"]
         vlog(f"[example:{example_id}] Starting example {idx}/{len(examples)}")
 
-        attention_a = extract_attention(model, ex["prompt_a"], args.layers)
-        attention_c = extract_attention(model, ex["prompt_c"], args.layers)
+        attention_a = extract_attention(model, ex["prompt_source"], args.layers)
+        attention_c = extract_attention(model, ex["prompt_donor"], args.layers)
 
-        if not assert_token_alignment(example_id, attention_a["token_ids"], attention_c["token_ids"]):
+        if not assert_token_alignment(
+            example_id,
+            attention_a["token_ids"],
+            attention_c["token_ids"],
+            source_cell,
+            donor_cell,
+        ):
             skipped_alignment += 1
             continue
 
@@ -812,8 +881,8 @@ def main():
             avg_a = attention_a["layers"][layer]["average"]
             avg_c = attention_c["layers"][layer]["average"]
             summary_a = build_condition_summary(
-                condition_name="Cell A (direct)",
-                prompt=ex["prompt_a"],
+                condition_name=f"Cell {source_cell} (direct)",
+                prompt=ex["prompt_source"],
                 token_ids=attention_a["token_ids"],
                 token_text=attention_a["token_text"],
                 token_labels=attention_a["token_labels"],
@@ -822,8 +891,8 @@ def main():
                 eos_token=model.tokenizer.eos_token,
             )
             summary_c = build_condition_summary(
-                condition_name="Cell C (structured)",
-                prompt=ex["prompt_c"],
+                condition_name=f"Cell {donor_cell} (structured)",
+                prompt=ex["prompt_donor"],
                 token_ids=attention_c["token_ids"],
                 token_text=attention_c["token_text"],
                 token_labels=attention_c["token_labels"],
@@ -844,7 +913,14 @@ def main():
                 region_summary_a=summary_a["region_attention_summary"],
                 region_summary_c=summary_c["region_attention_summary"],
                 output_path=fig_path,
+                source_cell=source_cell,
+                donor_cell=donor_cell,
             )
+
+            source_key = f"cell_{source_cell}"
+            donor_key = f"cell_{donor_cell}"
+            source_top_key = f"top_tokens_cell_{source_cell}"
+            donor_top_key = f"top_tokens_cell_{donor_cell}"
 
             payload = {
                 "example_id": example_id,
@@ -854,17 +930,17 @@ def main():
                 "final_token_index": attention_a["final_token_index"],
                 "token_ids": attention_a["token_ids"],
                 "region_attention_summary": {
-                    "cell_A": summary_a["region_attention_summary"],
-                    "cell_C": summary_c["region_attention_summary"],
+                    source_key: summary_a["region_attention_summary"],
+                    donor_key: summary_c["region_attention_summary"],
                 },
                 "region_boundaries": {
-                    "cell_A": summary_a["region_boundaries"],
-                    "cell_C": summary_c["region_boundaries"],
+                    source_key: summary_a["region_boundaries"],
+                    donor_key: summary_c["region_boundaries"],
                 },
-                "top_tokens_cell_A": summary_a["top_tokens"],
-                "top_tokens_cell_C": summary_c["top_tokens"],
-                "cell_A": {
-                    "condition": "Cell A (direct)",
+                source_top_key: summary_a["top_tokens"],
+                donor_top_key: summary_c["top_tokens"],
+                source_key: {
+                    "condition": f"Cell {source_cell} (direct)",
                     "per_head_attention": attention_a["layers"][layer]["per_head"].tolist(),
                     "head_averaged_attention": avg_a.tolist(),
                     "token_text": attention_a["token_text"],
@@ -875,10 +951,10 @@ def main():
                     "max_attended_token_label": summary_a["max_attended_token_label"],
                     "max_attended_token_text": summary_a["max_attended_token_text"],
                     "max_attended_token_region": summary_a["max_attended_token_region"],
-                    "top_tokens_cell_A": summary_a["top_tokens"],
+                    source_top_key: summary_a["top_tokens"],
                 },
-                "cell_C": {
-                    "condition": "Cell C (structured)",
+                donor_key: {
+                    "condition": f"Cell {donor_cell} (structured)",
                     "per_head_attention": attention_c["layers"][layer]["per_head"].tolist(),
                     "head_averaged_attention": avg_c.tolist(),
                     "token_text": attention_c["token_text"],
@@ -889,7 +965,7 @@ def main():
                     "max_attended_token_label": summary_c["max_attended_token_label"],
                     "max_attended_token_text": summary_c["max_attended_token_text"],
                     "max_attended_token_region": summary_c["max_attended_token_region"],
-                    "top_tokens_cell_C": summary_c["top_tokens"],
+                    donor_top_key: summary_c["top_tokens"],
                 },
             }
             write_json(payload, json_path)
@@ -898,23 +974,23 @@ def main():
                 "example_id": example_id,
                 "layer": layer,
                 "final_token_index": attention_a["final_token_index"],
-                "cell_A": {
+                source_key: {
                     "region_attention_summary": summary_a["region_attention_summary"],
                     "max_attended_token_index": summary_a["max_attended_token_index"],
                     "max_attended_token_label": summary_a["max_attended_token_label"],
                     "max_attended_token_region": summary_a["max_attended_token_region"],
-                    "top_tokens_cell_A": summary_a["top_tokens"],
+                    source_top_key: summary_a["top_tokens"],
                 },
-                "cell_C": {
+                donor_key: {
                     "region_attention_summary": summary_c["region_attention_summary"],
                     "max_attended_token_index": summary_c["max_attended_token_index"],
                     "max_attended_token_label": summary_c["max_attended_token_label"],
                     "max_attended_token_region": summary_c["max_attended_token_region"],
-                    "top_tokens_cell_C": summary_c["top_tokens"],
+                    donor_top_key: summary_c["top_tokens"],
                 },
                 "region_boundaries": {
-                    "cell_A": summary_a["region_boundaries"],
-                    "cell_C": summary_c["region_boundaries"],
+                    source_key: summary_a["region_boundaries"],
+                    donor_key: summary_c["region_boundaries"],
                 },
             }
             write_json(compact_summary, summary_path)
@@ -924,17 +1000,17 @@ def main():
                 "figure_path": str(fig_path),
                 "result_path": str(json_path),
                 "summary_path": str(summary_path),
-                "cell_A_attention_sum": round(float(avg_a.sum()), 6),
-                "cell_C_attention_sum": round(float(avg_c.sum()), 6),
+                f"cell_{source_cell}_attention_sum": round(float(avg_a.sum()), 6),
+                f"cell_{donor_cell}_attention_sum": round(float(avg_c.sum()), 6),
                 "region_attention_summary": {
-                    "cell_A": summary_a["region_attention_summary"],
-                    "cell_C": summary_c["region_attention_summary"],
+                    source_key: summary_a["region_attention_summary"],
+                    donor_key: summary_c["region_attention_summary"],
                 },
-                "top_tokens_cell_A": summary_a["top_tokens"],
-                "top_tokens_cell_C": summary_c["top_tokens"],
+                source_top_key: summary_a["top_tokens"],
+                donor_top_key: summary_c["top_tokens"],
                 "region_boundaries": {
-                    "cell_A": summary_a["region_boundaries"],
-                    "cell_C": summary_c["region_boundaries"],
+                    source_key: summary_a["region_boundaries"],
+                    donor_key: summary_c["region_boundaries"],
                 },
             })
 

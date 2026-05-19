@@ -828,7 +828,7 @@ def run_pass(
 # ============================================================================
 
 def _model_slug(model_name: str) -> str:
-    """'EleutherAI/pythia-2.8b' -> 'pythia-2.8b', 'gpt2-large' -> 'gpt2-large'"""
+    """'EleutherAI/pythia-2.8b' -> 'pythia-2.8b', 'Qwen/Qwen2.5-3B' -> 'qwen2.5-3b'"""
     return model_name.split("/")[-1].lower()
 
 
@@ -871,6 +871,16 @@ def main():
         "--device", type=str, default="cuda",
         help="Device: 'cuda' or 'cpu'"
     )
+    parser.add_argument(
+        "--source-cell", type=str, default="A",
+        choices=["A", "B", "C", "D", "E"],
+        help="Baseline/source cell to analyse (default: A)"
+    )
+    parser.add_argument(
+        "--donor-cell", type=str, default="C",
+        choices=["A", "B", "C", "D", "E"],
+        help="Structured/donor cell to analyse (default: C)"
+    )
 
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument(
@@ -895,15 +905,28 @@ def main():
 
     # ---- Resolve model-namespaced defaults ----
     slug = _model_slug(args.model)
+    source_cell = args.source_cell.upper()
+    donor_cell = args.donor_cell.upper()
+    requested_noisy_bd = source_cell == "B" and donor_cell == "D"
+
     clean_contrast = args.clean_contrast or f"dataset/processed/{slug}/contrast_examples.json"
     noisy_contrast = args.noisy_contrast or f"dataset/processed/{slug}/noisy_contrast_examples.json"
     dataset_path   = args.dataset        or f"dataset/processed/{slug}/dataset.json"
-    outdir         = args.outdir         or f"results/phase_4a_logit_lens/{slug}"
-    figdir         = args.figdir         or f"figures/phase_4a_logit_lens/{slug}"
+    if requested_noisy_bd:
+        outdir = args.outdir or f"results/phase_4a_logit_lens/{slug}/noisy_bd"
+        figdir = args.figdir or f"figures/phase_4a_logit_lens/{slug}/noisy_bd"
+    else:
+        outdir = args.outdir or f"results/phase_4a_logit_lens/{slug}"
+        figdir = args.figdir or f"figures/phase_4a_logit_lens/{slug}"
 
     # Determine which passes to run
-    run_clean = not args.noisy            # default or --include-noisy
-    run_noisy = args.noisy or args.include_noisy
+    custom_cells = (source_cell, donor_cell) != ("A", "C")
+    run_clean = (not args.noisy) and not custom_cells
+    run_noisy = (args.noisy or args.include_noisy) and not custom_cells
+    run_custom = custom_cells
+    custom_contrast = noisy_contrast if requested_noisy_bd else clean_contrast
+    custom_label = "noisy" if requested_noisy_bd else f"{source_cell.lower()}_{donor_cell.lower()}"
+    custom_suffix = "_noisy" if requested_noisy_bd else f"_{source_cell.lower()}_{donor_cell.lower()}"
 
     # ---- Ensure output directories exist ----
     Path(outdir).mkdir(parents=True, exist_ok=True)
@@ -919,8 +942,11 @@ def main():
     log(f"  Clean contrast:  {clean_contrast}")
     log(f"  Noisy contrast:  {noisy_contrast}")
     log(f"  Dataset:         {dataset_path}")
+    log(f"  Source cell:     {source_cell}")
+    log(f"  Donor cell:      {donor_cell}")
     log(f"  Run clean:       {run_clean}")
     log(f"  Run noisy:       {run_noisy}")
+    log(f"  Run custom:      {run_custom}")
     log(f"  Output dir:      {outdir}")
     log(f"  Figure dir:      {figdir}")
     log(f"  Max examples:    {args.max_examples or 'all'}")
@@ -937,6 +963,27 @@ def main():
 
     # ---- Load model ----
     model = load_model(args.model, args.device)
+
+    # ---- Explicit source/donor pass ----
+    if run_custom:
+        try:
+            custom_examples = load_contrast_file(custom_contrast, custom_label)
+        except FileNotFoundError as e:
+            log(f"[ERROR] {e}")
+            sys.exit(1)
+
+        run_pass(
+            model=model,
+            examples=custom_examples,
+            cell_baseline=source_cell,
+            cell_structured=donor_cell,
+            dataset_index=dataset_index,
+            outdir=outdir,
+            figdir=figdir,
+            suffix=custom_suffix,
+            max_examples=args.max_examples,
+            device=args.device,
+        )
 
     # ---- Clean pass ----
     if run_clean:

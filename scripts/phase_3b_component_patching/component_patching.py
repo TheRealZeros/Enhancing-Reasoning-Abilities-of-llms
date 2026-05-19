@@ -152,11 +152,15 @@ def reset_cuda_peak_memory_stats(device: str) -> None:
 # Contrast example loading and validation
 # ---------------------------------------------------------------------------
 
-REQUIRED_KEYS = {"example_id", "domain", "gold_answer", "cell_A", "cell_C"}
+REQUIRED_KEYS = {"example_id", "domain", "gold_answer"}
 REQUIRED_CELL_KEYS = {"prompt"}
 
 
-def load_contrast_examples(path: str) -> list[dict]:
+def load_contrast_examples(
+    path: str,
+    source_cell: str = "A",
+    donor_cell: str = "C",
+) -> list[dict]:
     """Load the contrast examples JSON produced by Phase 2."""
     path = Path(path)
     if not path.exists():
@@ -173,7 +177,7 @@ def load_contrast_examples(path: str) -> list[dict]:
 
     valid = []
     for i, ex in enumerate(data):
-        ok, reason = validate_contrast_example(ex, i)
+        ok, reason = validate_contrast_example(ex, i, source_cell, donor_cell)
         if ok:
             valid.append(ex)
         else:
@@ -184,7 +188,12 @@ def load_contrast_examples(path: str) -> list[dict]:
     return valid
 
 
-def validate_contrast_example(ex: dict, idx: int) -> tuple[bool, str]:
+def validate_contrast_example(
+    ex: dict,
+    idx: int,
+    source_cell: str = "A",
+    donor_cell: str = "C",
+) -> tuple[bool, str]:
     """Check that a contrast example has all required fields."""
     if not isinstance(ex, dict):
         return False, f"index {idx} is not a dict"
@@ -193,7 +202,9 @@ def validate_contrast_example(ex: dict, idx: int) -> tuple[bool, str]:
     if missing:
         return False, f"missing top-level keys: {missing}"
 
-    for cell_name in ("cell_A", "cell_C"):
+    for cell_name in (f"cell_{source_cell}", f"cell_{donor_cell}"):
+        if cell_name not in ex:
+            return False, f"missing cell key: {cell_name}"
         cell = ex[cell_name]
         if not isinstance(cell, dict):
             return False, f"{cell_name} is not a dict"
@@ -363,6 +374,8 @@ def run_component_sweep_for_example(
     device: str,
     verbose: bool,
     component_log_interval: int = 1,
+    source_cell: str = "A",
+    donor_cell: str = "C",
 ) -> list[dict]:
     """
     For one contrast example, patch each component (attn_out, mlp_out)
@@ -373,8 +386,8 @@ def run_component_sweep_for_example(
     ex_id = example["example_id"]
     domain = example["domain"]
     gold = example["gold_answer"]
-    prompt_a = materialise_prompt(example["cell_A"], model.tokenizer)
-    prompt_c = materialise_prompt(example["cell_C"], model.tokenizer)
+    prompt_src = materialise_prompt(example[f"cell_{source_cell}"], model.tokenizer)
+    prompt_don = materialise_prompt(example[f"cell_{donor_cell}"], model.tokenizer)
 
     n_components = len(COMPONENTS)
     n_layers = len(layers)
@@ -384,17 +397,20 @@ def run_component_sweep_for_example(
 
     # ---- Stage 1: Tokenise and verify alignment ----
     token_t0 = time.time()
-    tokens_a = model.tokenizer.encode(prompt_a, return_tensors="pt").to(device)
-    tokens_c = model.tokenizer.encode(prompt_c, return_tensors="pt").to(device)
-    len_a = tokens_a.shape[1]
-    len_c = tokens_c.shape[1]
+    tokens_src = model.tokenizer.encode(prompt_src, return_tensors="pt").to(device)
+    tokens_don = model.tokenizer.encode(prompt_don, return_tensors="pt").to(device)
+    len_src = tokens_src.shape[1]
+    len_don = tokens_don.shape[1]
     token_elapsed = time.time() - token_t0
-    log(f"  [example:{ex_id}] Tokenisation done in {format_seconds(token_elapsed)} | len_A={len_a} len_C={len_c}")
+    log(
+        f"  [example:{ex_id}] Tokenisation done in {format_seconds(token_elapsed)} | "
+        f"len_{source_cell}={len_src} len_{donor_cell}={len_don}"
+    )
 
-    if len_a != len_c:
-        reason = f"token misalignment: Cell A={len_a}, Cell C={len_c}"
+    if len_src != len_don:
+        reason = f"token misalignment: Cell {source_cell}={len_src}, Cell {donor_cell}={len_don}"
         log(f"  [example:{ex_id}] SKIP | {reason}")
-        return [_make_skip_row(ex_id, domain, gold, metric, len_a, len_c, reason)]
+        return [_make_skip_row(ex_id, domain, gold, metric, len_src, len_don, reason)]
 
     # ---- Stage 2: Resolve gold token ----
     log(f"  [example:{ex_id}] Stage 2/5: resolving gold token")
@@ -403,7 +419,7 @@ def run_component_sweep_for_example(
     except ValueError as e:
         reason = f"tokenisation error: {e}"
         log(f"  [example:{ex_id}] SKIP | {reason}")
-        return [_make_skip_row(ex_id, domain, gold, metric, len_a, len_c, reason)]
+        return [_make_skip_row(ex_id, domain, gold, metric, len_src, len_don, reason)]
 
     gold_token_count = len(model.tokenizer.encode(" " + gold, add_special_tokens=False))
     log(
@@ -411,30 +427,30 @@ def run_component_sweep_for_example(
         f"gold='{gold}' first_token='{gold_token_str}' id={gold_token_id} token_count={gold_token_count}"
     )
 
-    # ---- Stage 3: Structured cached run ----
-    log(f"  [example:{ex_id}] Stage 3/5: structured cached run")
-    logits_c, cache = run_structured_with_cache(
+    # ---- Stage 3: Donor cached run ----
+    log(f"  [example:{ex_id}] Stage 3/5: donor cached run (cell_{donor_cell})")
+    logits_don, cache = run_structured_with_cache(
         model=model,
-        tokens=tokens_c,
+        tokens=tokens_don,
         verbose=verbose,
         device=device,
     )
 
-    # ---- Stage 4: Direct baseline run ----
-    log(f"  [example:{ex_id}] Stage 4/5: direct baseline run")
-    logits_a = run_direct_baseline(
+    # ---- Stage 4: Source baseline run ----
+    log(f"  [example:{ex_id}] Stage 4/5: source baseline run (cell_{source_cell})")
+    logits_src = run_direct_baseline(
         model=model,
-        tokens=tokens_a,
+        tokens=tokens_src,
         verbose=verbose,
         device=device,
     )
-    baseline_score = get_score_for_token(logits_a, gold_token_id, metric)
-    structured_score = get_score_for_token(logits_c, gold_token_id, metric)
+    baseline_score = get_score_for_token(logits_src, gold_token_id, metric)
+    donor_score = get_score_for_token(logits_don, gold_token_id, metric)
 
     log(
-        f"  [example:{ex_id}] Baseline vs structured | "
-        f"baseline={baseline_score:.6f} structured={structured_score:.6f} "
-        f"delta_structured_baseline={structured_score - baseline_score:+.6f}"
+        f"  [example:{ex_id}] Baseline vs donor | "
+        f"baseline={baseline_score:.6f} donor={donor_score:.6f} "
+        f"delta_donor_baseline={donor_score - baseline_score:+.6f}"
     )
 
     # ---- Stage 5: Component sweep ----
@@ -471,7 +487,7 @@ def run_component_sweep_for_example(
 
             with torch.no_grad():
                 patched_logits = model.run_with_hooks(
-                    tokens_a,
+                    tokens_src,
                     fwd_hooks=[(hook_name, hook_fn)],
                 )
 
@@ -492,8 +508,8 @@ def run_component_sweep_for_example(
                 "gold_token_id": gold_token_id,
                 "gold_token_str": gold_token_str,
                 "gold_token_count": gold_token_count,
-                "direct_token_count": len_a,
-                "structured_token_count": len_c,
+                "direct_token_count": len_src,
+                "structured_token_count": len_don,
                 "baseline_score": baseline_score,
                 "patched_score": patched_score,
                 "delta": delta,
@@ -519,7 +535,7 @@ def run_component_sweep_for_example(
     )
 
     # Free memory
-    del logits_c, cache, logits_a, patched_logits
+    del logits_don, cache, logits_src, patched_logits
 
     total_elapsed = time.time() - example_t0
     log(f"  [example:{ex_id}] COMPLETE in {format_seconds(total_elapsed)}")
@@ -732,12 +748,28 @@ def main():
                         help="Print per-patch details and stage timings")
     parser.add_argument("--component-log-interval", type=int, default=2,
                         help="Print patch progress every N patches (default: 2)")
+    parser.add_argument("--source-cell", type=str, default="A",
+                        help="Source (baseline/corrupted) cell letter, e.g. 'A' or 'B' (default: A)")
+    parser.add_argument("--donor-cell", type=str, default="C",
+                        help="Donor (structured/clean) cell letter, e.g. 'C' or 'D' (default: C)")
     args = parser.parse_args()
 
     slug = _model_slug(args.model)
-    contrast_file = args.contrast_file or f"dataset/processed/{slug}/contrast_examples.json"
-    out_dir_path  = args.output_dir   or f"results/phase_3b_component_patching/{slug}"
-    fig_dir_path  = args.figure_dir   or f"figures/phase_3b_component_patching/{slug}"
+    cell_subdir = (
+        f"noisy_{args.source_cell.lower()}{args.donor_cell.lower()}"
+        if (args.source_cell != "A" or args.donor_cell != "C")
+        else ""
+    )
+    default_contrast = (
+        f"dataset/processed/{slug}/contrast_examples.json"
+        if (args.source_cell == "A" and args.donor_cell == "C")
+        else f"dataset/processed/{slug}/noisy_contrast_examples.json"
+    )
+    base_out = f"results/phase_3b_component_patching/{slug}"
+    base_fig = f"figures/phase_3b_component_patching/{slug}"
+    contrast_file = args.contrast_file or default_contrast
+    out_dir_path  = args.output_dir   or (f"{base_out}/{cell_subdir}" if cell_subdir else base_out)
+    fig_dir_path  = args.figure_dir   or (f"{base_fig}/{cell_subdir}" if cell_subdir else base_fig)
 
     overall_t0 = time.time()
 
@@ -755,7 +787,7 @@ def main():
     log(f"[main] Selected layers: {layers}")
 
     # ---- Load contrast examples ----
-    examples = load_contrast_examples(contrast_file)
+    examples = load_contrast_examples(contrast_file, args.source_cell, args.donor_cell)
     if args.max_examples is not None:
         examples = examples[:args.max_examples]
         log(f"[main] Limiting to first {args.max_examples} contrast examples")
@@ -814,6 +846,8 @@ def main():
             device=args.device,
             verbose=args.verbose,
             component_log_interval=max(1, args.component_log_interval),
+            source_cell=args.source_cell,
+            donor_cell=args.donor_cell,
         )
         all_rows.extend(rows)
 
@@ -869,11 +903,11 @@ def main():
     if not summary_df.empty:
         # Show all (layer, component) pairs sorted by mean delta descending
         sorted_summary = summary_df.sort_values("mean_delta", ascending=False)
-        log(f"\n  All (layer, component) pairs by mean Δℓ,c ({args.metric}):")
+        log(f"\n  All (layer, component) pairs by mean delta ({args.metric}):")
         for _, row in sorted_summary.iterrows():
             log(
                 f"    Layer {int(row['layer']):2d} {row['component']:8s}: "
-                f"mean_Δ={row['mean_delta']:+.4f} "
+                f"mean_delta={row['mean_delta']:+.4f} "
                 f"std={row['std_delta']:.4f} "
                 f"n={int(row['n_examples'])}"
             )
@@ -882,7 +916,7 @@ def main():
         top = sorted_summary.iloc[0]
         log(
             f"\n  Strongest component: Layer {int(top['layer'])} {top['component']} "
-            f"(mean_Δ={top['mean_delta']:+.4f})"
+            f"(mean_delta={top['mean_delta']:+.4f})"
         )
 
     total_elapsed = time.time() - overall_t0

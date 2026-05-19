@@ -36,7 +36,7 @@ Storage format:
 
 Usage:
   python scripts/phase_1_dataset/build_dataset.py                          # Pythia-2.8B (default)
-  python scripts/phase_1_dataset/build_dataset.py --model gpt2-large       # GPT-2 Large
+  python scripts/phase_1_dataset/build_dataset.py --model Qwen/Qwen2.5-3B  # Qwen2.5-3B
   python scripts/phase_1_dataset/build_dataset.py --draft-only             # Build unaligned draft
   python scripts/phase_1_dataset/build_dataset.py --align-only             # Re-align existing JSON
 """
@@ -70,7 +70,6 @@ def _model_slug(model_name: str) -> str:
 
     Examples:
         'EleutherAI/pythia-2.8b' -> 'pythia-2.8b'
-        'gpt2-large'              -> 'gpt2-large'
         'Qwen/Qwen2.5-3B'        -> 'qwen2.5-3b'
     """
     return model_name.split("/")[-1].lower()

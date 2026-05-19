@@ -311,48 +311,51 @@ def build_accuracy_summary(df: pd.DataFrame) -> pd.DataFrame:
 def find_contrast_examples(
     df: pd.DataFrame,
     dataset_by_id: dict[str, dict],
+    baseline_cell: str = "A",
+    structured_cell: str = "C",
 ) -> list[dict]:
     """
-    Contrast examples: same example where Cell A is wrong AND Cell C is correct.
+    Contrast examples: same example where the baseline cell is wrong AND the
+    structured cell is correct.
     Returns a list of dicts with the cell schema (prompt + metadata) for both cells.
     """
-    # Pivot to one row per example
-    cell_a = df[df["cell"] == "A"].set_index("example_id")
-    cell_c = df[df["cell"] == "C"].set_index("example_id")
+    # Pivot to one row per example for the two requested cells.
+    baseline_rows = df[df["cell"] == baseline_cell].set_index("example_id")
+    structured_rows = df[df["cell"] == structured_cell].set_index("example_id")
 
-    common_ids = cell_a.index.intersection(cell_c.index)
+    common_ids = baseline_rows.index.intersection(structured_rows.index)
 
     contrasts = []
     for eid in common_ids:
-        a_row = cell_a.loc[eid]
-        c_row = cell_c.loc[eid]
-        if (not a_row["correct"]) and c_row["correct"]:
+        baseline_row = baseline_rows.loc[eid]
+        structured_row = structured_rows.loc[eid]
+        if (not baseline_row["correct"]) and structured_row["correct"]:
             ex = dataset_by_id[eid]
-            # Store the clean cell schema (dict with prompt + metadata),
+            # Store the original cell schema (dict with prompt + metadata),
             # NOT the materialised prompt with EOS padding.
-            cell_a_data = ex["cells"]["A"]
-            cell_c_data = ex["cells"]["C"]
+            baseline_data = ex["cells"][baseline_cell]
+            structured_data = ex["cells"][structured_cell]
 
             # Ensure cell data is a dict (handle legacy string format)
-            if isinstance(cell_a_data, str):
-                cell_a_data = {"prompt": cell_a_data, "prefix_eos_pad": 0}
-            if isinstance(cell_c_data, str):
-                cell_c_data = {"prompt": cell_c_data, "prefix_eos_pad": 0}
+            if isinstance(baseline_data, str):
+                baseline_data = {"prompt": baseline_data, "prefix_eos_pad": 0}
+            if isinstance(structured_data, str):
+                structured_data = {"prompt": structured_data, "prefix_eos_pad": 0}
 
             contrasts.append({
                 "example_id": eid,
                 "domain": ex["domain"],
                 "gold_answer": ex["answer"],
-                "cell_A": {
-                    **cell_a_data,
-                    "generated_answer_raw": a_row["generated_answer_raw"],
-                    "generated_answer_normalised": a_row["generated_answer_normalised"],
+                f"cell_{baseline_cell}": {
+                    **baseline_data,
+                    "generated_answer_raw": baseline_row["generated_answer_raw"],
+                    "generated_answer_normalised": baseline_row["generated_answer_normalised"],
                     "correct": False,
                 },
-                "cell_C": {
-                    **cell_c_data,
-                    "generated_answer_raw": c_row["generated_answer_raw"],
-                    "generated_answer_normalised": c_row["generated_answer_normalised"],
+                f"cell_{structured_cell}": {
+                    **structured_data,
+                    "generated_answer_raw": structured_row["generated_answer_raw"],
+                    "generated_answer_normalised": structured_row["generated_answer_normalised"],
                     "correct": True,
                 },
             })
@@ -366,7 +369,7 @@ def find_contrast_examples(
 
 
 def _model_slug(model_name: str) -> str:
-    """'EleutherAI/pythia-2.8b' -> 'pythia-2.8b', 'gpt2-large' -> 'gpt2-large'"""
+    """'EleutherAI/pythia-2.8b' -> 'pythia-2.8b', 'Qwen/Qwen2.5-3B' -> 'qwen2.5-3b'"""
     return model_name.split("/")[-1].lower()
 
 
@@ -436,7 +439,18 @@ def main():
     print(f"[save] {summary_path}")
 
     # ---- Contrast examples ----
-    contrasts = find_contrast_examples(results_df, dataset_by_id)
+    contrasts = find_contrast_examples(
+        results_df,
+        dataset_by_id,
+        baseline_cell="A",
+        structured_cell="C",
+    )
+    noisy_contrasts = find_contrast_examples(
+        results_df,
+        dataset_by_id,
+        baseline_cell="B",
+        structured_cell="D",
+    )
     # Route contrast examples to the model-specific processed dir so downstream
     # scripts find them alongside the model's dataset.json.
     dataset_dir = Path(dataset_path).parent
@@ -444,7 +458,15 @@ def main():
     contrast_path = dataset_dir / "contrast_examples.json"
     with open(contrast_path, "w", encoding="utf-8") as f:
         json.dump(contrasts, f, indent=2, ensure_ascii=False)
-    print(f"[save] {contrast_path}  ({len(contrasts)} contrast examples)")
+    print(f"[save] {contrast_path}  ({len(contrasts)} A wrong ^ C correct examples)")
+
+    noisy_contrast_path = dataset_dir / "noisy_contrast_examples.json"
+    with open(noisy_contrast_path, "w", encoding="utf-8") as f:
+        json.dump(noisy_contrasts, f, indent=2, ensure_ascii=False)
+    print(
+        f"[save] {noisy_contrast_path}  "
+        f"({len(noisy_contrasts)} B wrong ^ D correct examples)"
+    )
 
     # ---- Console summary ----
     print(f"\n{'='*60}")
@@ -456,8 +478,12 @@ def main():
               f"= {row['accuracy']:.1%}  {bar}")
 
     n_contrast = len(contrasts)
+    n_noisy_contrast = len(noisy_contrasts)
     status = "PASS" if n_contrast >= 20 else "BELOW TARGET"
     print(f"\nContrast examples (A wrong ^ C correct): {n_contrast}  [{status}]")
+    print(f"Noisy contrast examples (B wrong ^ D correct): {n_noisy_contrast}")
+    print(f"  Clean contrast output: {contrast_path}")
+    print(f"  Noisy contrast output: {noisy_contrast_path}")
     if n_contrast < 20:
         print("  → Consider expanding dataset or loosening contrast criterion "
               "(e.g., higher p(correct) under C even if not EM-correct).")

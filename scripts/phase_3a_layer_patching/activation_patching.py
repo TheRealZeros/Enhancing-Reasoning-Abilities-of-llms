@@ -615,7 +615,7 @@ def plot_layer_curve(
 # ---------------------------------------------------------------------------
 
 def _model_slug(model_name: str) -> str:
-    """'EleutherAI/pythia-2.8b' -> 'pythia-2.8b', 'gpt2-large' -> 'gpt2-large'"""
+    """'EleutherAI/pythia-2.8b' -> 'pythia-2.8b', 'Qwen/Qwen2.5-3B' -> 'qwen2.5-3b'"""
     return model_name.split("/")[-1].lower()
 
 
