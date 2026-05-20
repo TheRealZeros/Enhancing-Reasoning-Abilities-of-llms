@@ -29,12 +29,11 @@ ALL_STAGES = [
     "logit-lens",
     "attention",
     "overlay",
-    "steering-5a",
-    "steering-5a-controls",
-    "steering-5b-oracle",
-    "steering-5b-layer-sweep",
-    "steering-5b-helped-hurt",
-    "steering-5b-all",
+    "steering-calibration-oracle",
+    "steering-calibration-layer-sweep",
+    "steering-final",
+    "steering-controls",
+    "steering-analysis",
 ]
 
 DEFAULT_STAGES = [
@@ -49,13 +48,15 @@ DEFAULT_STAGES = [
 
 SETUP_STAGES = ["dataset", "evaluation", "containment"]
 ANALYSIS_STAGES = ["layer-patching", "component-patching", "logit-lens", "attention"]
-STEERING_5A_STAGES = ["steering-5a"]
-STEERING_5A_CONTROL_STAGES = ["steering-5a-controls"]
-STEERING_5B_STAGES = ["steering-5b-oracle", "steering-5b-layer-sweep", "steering-5b-helped-hurt"]
-STEERING_STAGES = STEERING_5A_STAGES + STEERING_5A_CONTROL_STAGES + STEERING_5B_STAGES + ["steering-5b-all"]
+STEERING_CALIBRATION_STAGES = ["steering-calibration-oracle", "steering-calibration-layer-sweep"]
+STEERING_FINAL_STAGES = ["steering-final"]
+STEERING_CONTROL_STAGES = ["steering-controls"]
+STEERING_ANALYSIS_STAGES = ["steering-analysis"]
+STEERING_STAGES = STEERING_CALIBRATION_STAGES + STEERING_FINAL_STAGES + STEERING_CONTROL_STAGES + STEERING_ANALYSIS_STAGES
 QWEN_MODEL = "Qwen/Qwen2.5-3B"
 QWEN_LATE_COMPONENT_LAYERS = [31, 32, 33, 34, 35]
 QWEN_LATE_ATTENTION_LAYERS = [20, 31, 33, 34, 35]
+QWEN_PHASE5_DEFAULT_FINAL_ALPHAS = [0.0, 0.25, 0.5, 0.75, 1.0]
 QWEN_FULL_SPREAD_CONTRASTS = [("A", "C"), ("B", "D"), ("B", "A"), ("C", "D"), ("C", "A")]
 OUTPUT_PREFIX_OVERRIDES = {
     ("qwen-full-spread", "A", "C"): "clean_",
@@ -71,12 +72,11 @@ STAGE_CONTEXT = {
     "logit-lens": "Phase 4a logit lens",
     "attention": "Phase 4b attention visualisation",
     "overlay": "Optional cross-model overlay",
-    "steering-5a": "Phase 5a activation steering first iteration",
-    "steering-5a-controls": "Phase 5a random and early-layer steering controls",
-    "steering-5b-oracle": "Phase 5b oracle per-example steering diagnostic",
-    "steering-5b-layer-sweep": "Phase 5b late-layer steering sweep",
-    "steering-5b-helped-hurt": "Phase 5b helped-vs-hurt analysis",
-    "steering-5b-all": "Phase 5b diagnostics bundle",
+    "steering-calibration-oracle": "Phase 5a oracle per-example steering calibration",
+    "steering-calibration-layer-sweep": "Phase 5a late-layer average-steering calibration",
+    "steering-final": "Phase 5b final average activation steering",
+    "steering-controls": "Phase 5b random and early-layer steering controls",
+    "steering-analysis": "Phase 5c helped-vs-hurt post-steering analysis",
 }
 
 
@@ -177,34 +177,44 @@ PRESETS = {
         attention_layers=QWEN_LATE_ATTENTION_LAYERS,
         full_spread=True,
     ),
-    "qwen-steering-5a": Preset(
+    "qwen-steering-calibration": Preset(
         model=QWEN_MODEL,
         source_cell="B",
         donor_cell="D",
         component_layers=QWEN_LATE_COMPONENT_LAYERS,
         attention_layers=QWEN_LATE_ATTENTION_LAYERS,
         output_prefix="noisy_",
-        default_stages=["steering-5a"],
+        default_stages=["steering-calibration-oracle", "steering-calibration-layer-sweep"],
         phase5_steering=True,
     ),
-    "qwen-steering-5a-controls": Preset(
+    "qwen-steering-final": Preset(
         model=QWEN_MODEL,
         source_cell="B",
         donor_cell="D",
         component_layers=QWEN_LATE_COMPONENT_LAYERS,
         attention_layers=QWEN_LATE_ATTENTION_LAYERS,
         output_prefix="noisy_",
-        default_stages=["steering-5a-controls"],
+        default_stages=["steering-final"],
         phase5_steering=True,
     ),
-    "qwen-steering-5b": Preset(
+    "qwen-steering-controls": Preset(
         model=QWEN_MODEL,
         source_cell="B",
         donor_cell="D",
         component_layers=QWEN_LATE_COMPONENT_LAYERS,
         attention_layers=QWEN_LATE_ATTENTION_LAYERS,
         output_prefix="noisy_",
-        default_stages=["steering-5b-all"],
+        default_stages=["steering-controls"],
+        phase5_steering=True,
+    ),
+    "qwen-steering-analysis": Preset(
+        model=QWEN_MODEL,
+        source_cell="B",
+        donor_cell="D",
+        component_layers=QWEN_LATE_COMPONENT_LAYERS,
+        attention_layers=QWEN_LATE_ATTENTION_LAYERS,
+        output_prefix="noisy_",
+        default_stages=["steering-analysis"],
         phase5_steering=True,
     ),
     "qwen-steering-full": Preset(
@@ -214,7 +224,13 @@ PRESETS = {
         component_layers=QWEN_LATE_COMPONENT_LAYERS,
         attention_layers=QWEN_LATE_ATTENTION_LAYERS,
         output_prefix="noisy_",
-        default_stages=["steering-5a", "steering-5a-controls", "steering-5b-all"],
+        default_stages=[
+            "steering-calibration-oracle",
+            "steering-calibration-layer-sweep",
+            "steering-final",
+            "steering-controls",
+            "steering-analysis",
+        ],
         phase5_steering=True,
     ),
 }
@@ -236,13 +252,6 @@ def parse_layers(value: str | None, fallback: list[int]) -> list[int]:
 
 def parse_stages(value: str | None, run_overlay: bool) -> list[str]:
     stages = list(DEFAULT_STAGES) if not value else [part.strip() for part in value.split(",") if part.strip()]
-    expanded: list[str] = []
-    for stage in stages:
-        if stage == "steering-5b-all":
-            expanded.extend(STEERING_5B_STAGES)
-        else:
-            expanded.append(stage)
-    stages = expanded
     unknown = [stage for stage in stages if stage not in ALL_STAGES]
     if unknown:
         raise ValueError(f"Unknown stage(s): {', '.join(unknown)}")
@@ -268,6 +277,45 @@ def script_path_from_command(command: list[str]) -> str:
     if len(command) > 1 and command[1].endswith(".py"):
         return command[1]
     return command[0]
+
+
+def phase5_prefix(source_cell: str, donor_cell: str, output_prefix: str | None = None) -> str:
+    return output_prefix_for(source_cell, donor_cell, output_prefix)
+
+
+def phase5_recommended_config_path(slug: str, source_cell: str, donor_cell: str, output_prefix: str | None = None) -> Path:
+    prefix = phase5_prefix(source_cell, donor_cell, output_prefix)
+    return Path(f"results/phase_5a_steering_calibration/{slug}/{prefix}recommended_steering_config.json")
+
+
+def load_phase5_recommended_config(
+    model: str,
+    source_cell: str,
+    donor_cell: str,
+    output_prefix: str | None = None,
+    allow_default: bool = False,
+) -> dict:
+    slug = model_slug(model)
+    path = phase5_recommended_config_path(slug, source_cell, donor_cell, output_prefix)
+    if path.exists():
+        data = json.loads(path.read_text(encoding="utf-8"))
+        alpha_range = data.get("alpha_range_for_final") or QWEN_PHASE5_DEFAULT_FINAL_ALPHAS
+        return {
+            "layer": int(data.get("recommended_layer", 34)),
+            "hook": str(data.get("hook", "resid_post")),
+            "alphas": [float(alpha) for alpha in alpha_range],
+            "path": path,
+            "source": "recommended_config",
+        }
+    if allow_default:
+        return {
+            "layer": 34,
+            "hook": "resid_post",
+            "alphas": list(QWEN_PHASE5_DEFAULT_FINAL_ALPHAS),
+            "path": path,
+            "source": "dry_run_default",
+        }
+    raise FileNotFoundError("Run qwen-steering-calibration first.")
 
 
 def configure_console_output() -> None:
@@ -317,33 +365,30 @@ def expected_outputs(
             Path(f"results/phase_4b_attention/{slug}/{prefix}attention_manifest.json"),
         ],
         "overlay": [
-            Path("results/phase_5_cross_model/layer_patch_overlay_summary.csv"),
+            Path("results/analysis/layer_patch_overlay/layer_patch_overlay_summary.csv"),
         ],
-        "steering-5a": [
-            Path(f"results/phase_5a_activation_steering/{slug}/{prefix}steering_results.csv"),
-            Path(f"results/phase_5a_activation_steering/{slug}/{prefix}steering_summary.csv"),
-            Path(f"results/phase_5a_activation_steering/{slug}/{prefix}steering_alpha_sweep.csv"),
-            Path(f"results/phase_5a_activation_steering/{slug}/{prefix}steering_report.md"),
+        "steering-calibration-oracle": [
+            Path(f"results/phase_5a_steering_calibration/{slug}/{prefix}oracle_steering_summary.csv"),
         ],
-        "steering-5a-controls": [
-            Path(f"results/phase_5a_activation_steering/{slug}/{prefix}random_steering_summary.csv"),
-            Path(f"results/phase_5a_activation_steering/{slug}/{prefix}early_layer_steering_summary.csv"),
+        "steering-calibration-layer-sweep": [
+            Path(f"results/phase_5a_steering_calibration/{slug}/{prefix}layer_sweep_steering_summary.csv"),
+            Path(f"results/phase_5a_steering_calibration/{slug}/{prefix}recommended_steering_config.json"),
+            Path(f"results/phase_5a_steering_calibration/{slug}/{prefix}steering_calibration_report.md"),
         ],
-        "steering-5b-oracle": [
-            Path(f"results/phase_5b_steering_diagnostics/{slug}/{prefix}oracle_steering_summary.csv"),
+        "steering-final": [
+            Path(f"results/phase_5b_activation_steering/{slug}/{prefix}steering_results.csv"),
+            Path(f"results/phase_5b_activation_steering/{slug}/{prefix}steering_summary.csv"),
+            Path(f"results/phase_5b_activation_steering/{slug}/{prefix}steering_alpha_sweep.csv"),
+            Path(f"results/phase_5b_activation_steering/{slug}/{prefix}steering_report.md"),
         ],
-        "steering-5b-layer-sweep": [
-            Path(f"results/phase_5b_steering_diagnostics/{slug}/{prefix}layer_sweep_steering_summary.csv"),
+        "steering-controls": [
+            Path(f"results/phase_5b_activation_steering/{slug}/{prefix}random_steering_summary.csv"),
+            Path(f"results/phase_5b_activation_steering/{slug}/{prefix}early_layer_steering_summary.csv"),
         ],
-        "steering-5b-helped-hurt": [
-            Path(f"results/phase_5b_steering_diagnostics/{slug}/{prefix}helped_hurt_report.md"),
-            Path(f"results/phase_5b_steering_diagnostics/{slug}/{prefix}steering_diagnostics_report.md"),
-        ],
-        "steering-5b-all": [
-            Path(f"results/phase_5b_steering_diagnostics/{slug}/{prefix}oracle_steering_summary.csv"),
-            Path(f"results/phase_5b_steering_diagnostics/{slug}/{prefix}layer_sweep_steering_summary.csv"),
-            Path(f"results/phase_5b_steering_diagnostics/{slug}/{prefix}helped_hurt_report.md"),
-            Path(f"results/phase_5b_steering_diagnostics/{slug}/{prefix}steering_diagnostics_report.md"),
+        "steering-analysis": [
+            Path(f"results/phase_5c_steering_analysis/{slug}/{prefix}helped_hurt_analysis.csv"),
+            Path(f"results/phase_5c_steering_analysis/{slug}/{prefix}helped_hurt_report.md"),
+            Path(f"results/phase_5c_steering_analysis/{slug}/{prefix}final_steering_interpretation.md"),
         ],
     }
     return checks.get(stage, [])
@@ -358,6 +403,7 @@ def build_command(
     attention_layers: list[int],
     run_containment_with_evaluation: bool = False,
     output_prefix: str | None = None,
+    dry_run: bool = False,
 ) -> list[str]:
     if stage == "dataset":
         return [sys.executable, "scripts/phase_1_dataset/build_dataset.py", "--model", model]
@@ -434,24 +480,11 @@ def build_command(
             command.extend(["--output-prefix", output_prefix])
         return command
     if stage == "overlay":
-        return [sys.executable, "scripts/phase_5_cross_model/layer_patch_overlay.py"]
-    if stage == "steering-5a":
+        return [sys.executable, "scripts/analysis/layer_patch_overlay.py"]
+    if stage == "steering-calibration-oracle":
         return [
             sys.executable,
-            "scripts/phase_5a_activation_steering/activation_steering.py",
-            "--model", model,
-            "--source-cell", source_cell,
-            "--donor-cell", donor_cell,
-            "--layer", "34",
-            "--hook", "resid_post",
-            "--alphas", "0.0", "0.5", "1.0", "2.0",
-            "--train-frac", "0.7",
-            "--seed", "42",
-        ]
-    if stage == "steering-5b-oracle":
-        return [
-            sys.executable,
-            "scripts/phase_5b_steering_diagnostics/steering_diagnostics.py",
+            "scripts/phase_5a_steering_calibration/steering_diagnostics.py",
             "--model", model,
             "--source-cell", source_cell,
             "--donor-cell", donor_cell,
@@ -461,10 +494,10 @@ def build_command(
             "--alphas", "0.25", "0.5", "0.75", "1.0",
             "--seed", "42",
         ]
-    if stage == "steering-5b-layer-sweep":
+    if stage == "steering-calibration-layer-sweep":
         return [
             sys.executable,
-            "scripts/phase_5b_steering_diagnostics/steering_diagnostics.py",
+            "scripts/phase_5a_steering_calibration/steering_diagnostics.py",
             "--model", model,
             "--source-cell", source_cell,
             "--donor-cell", donor_cell,
@@ -475,18 +508,38 @@ def build_command(
             "--train-frac", "0.7",
             "--seed", "42",
         ]
-    if stage == "steering-5b-helped-hurt":
+    if stage == "steering-final":
+        recommended = load_phase5_recommended_config(
+            model,
+            source_cell,
+            donor_cell,
+            output_prefix=output_prefix,
+            allow_default=dry_run,
+        )
+        return [
+            sys.executable,
+            "scripts/phase_5b_activation_steering/activation_steering.py",
+            "--model", model,
+            "--source-cell", source_cell,
+            "--donor-cell", donor_cell,
+            "--layer", str(recommended["layer"]),
+            "--hook", recommended["hook"],
+            "--alphas", *[str(alpha) for alpha in recommended["alphas"]],
+            "--train-frac", "0.7",
+            "--seed", "42",
+        ]
+    if stage == "steering-analysis":
         slug = model_slug(model)
         prefix = output_prefix_for(source_cell, donor_cell, output_prefix)
         return [
             sys.executable,
-            "scripts/phase_5b_steering_diagnostics/steering_diagnostics.py",
+            "scripts/phase_5a_steering_calibration/steering_diagnostics.py",
             "--model", model,
             "--source-cell", source_cell,
             "--donor-cell", donor_cell,
             "--diagnostic", "helped_hurt",
             "--steering-results",
-            f"results/phase_5a_activation_steering/{slug}/{prefix}steering_results.csv",
+            f"results/phase_5b_activation_steering/{slug}/{prefix}steering_results.csv",
         ]
     raise ValueError(f"Unsupported stage: {stage}")
 
@@ -500,29 +553,31 @@ def build_stage_commands(
     attention_layers: list[int],
     run_containment_with_evaluation: bool = False,
     output_prefix: str | None = None,
+    dry_run: bool = False,
 ) -> list[list[str]]:
-    if stage == "steering-5a-controls":
+    if stage == "steering-controls":
+        recommended = load_phase5_recommended_config(
+            model,
+            source_cell,
+            donor_cell,
+            output_prefix=output_prefix,
+            allow_default=dry_run,
+        )
         base = [
             sys.executable,
-            "scripts/phase_5a_activation_steering/activation_steering.py",
+            "scripts/phase_5b_activation_steering/activation_steering.py",
             "--model", model,
             "--source-cell", source_cell,
             "--donor-cell", donor_cell,
-            "--layer", "34",
-            "--hook", "resid_post",
-            "--alphas", "0.0", "0.5", "1.0", "2.0",
+            "--layer", str(recommended["layer"]),
+            "--hook", recommended["hook"],
+            "--alphas", *[str(alpha) for alpha in recommended["alphas"]],
             "--train-frac", "0.7",
             "--seed", "42",
         ]
         return [
             [*base, "--control", "random", "--random-seeds", "3"],
             [*base, "--control", "early_layer", "--early-layer", "8"],
-        ]
-    if stage == "steering-5b-all":
-        return [
-            build_command("steering-5b-oracle", model, source_cell, donor_cell, component_layers, attention_layers, output_prefix=output_prefix),
-            build_command("steering-5b-layer-sweep", model, source_cell, donor_cell, component_layers, attention_layers, output_prefix=output_prefix),
-            build_command("steering-5b-helped-hurt", model, source_cell, donor_cell, component_layers, attention_layers, output_prefix=output_prefix),
         ]
     return [
         build_command(
@@ -534,6 +589,7 @@ def build_stage_commands(
             attention_layers,
             run_containment_with_evaluation=run_containment_with_evaluation,
             output_prefix=output_prefix,
+            dry_run=dry_run,
         )
     ]
 
@@ -585,22 +641,24 @@ def check_stage_outputs(
 def phase5_required_paths(config: PipelineConfig) -> tuple[list[Path], list[Path]]:
     slug = model_slug(config.model)
     prefix = output_prefix_for(config.source_cell, config.donor_cell, config.output_prefix)
-    needs_5a = any(stage in {"steering-5a", "steering-5a-controls"} for stage in config.stages)
-    needs_5b = any(stage in {"steering-5b-oracle", "steering-5b-layer-sweep", "steering-5b-helped-hurt", "steering-5b-all"} for stage in config.stages)
-    produces_5a = "steering-5a" in config.stages
+    needs_calibration = any(stage in STEERING_CALIBRATION_STAGES for stage in config.stages)
+    needs_final = "steering-final" in config.stages
+    needs_controls = "steering-controls" in config.stages
+    needs_analysis = "steering-analysis" in config.stages
+    produces_recommended_config = "steering-calibration-layer-sweep" in config.stages
+    produces_final = "steering-final" in config.stages
 
     required: list[Path] = []
     recommended: list[Path] = []
-    if needs_5a or needs_5b:
+    if needs_calibration or needs_final or needs_controls:
         required.extend([
             Path(f"dataset/processed/{slug}/dataset.json"),
             Path(f"dataset/processed/{slug}/{get_contrast_config(config.source_cell, config.donor_cell).contrast_file}"),
         ])
-    if needs_5a:
-        required.append(Path(f"results/phase_2_behaviour/{slug}/evaluation_results.csv"))
-        recommended.append(Path(f"results/phase_3a_layer_patching/{slug}/{prefix}layer_patch_summary.csv"))
-    if needs_5b and not produces_5a:
-        required.append(Path(f"results/phase_5a_activation_steering/{slug}/{prefix}steering_results.csv"))
+    if (needs_final or needs_controls) and not produces_recommended_config:
+        required.append(phase5_recommended_config_path(slug, config.source_cell, config.donor_cell, config.output_prefix))
+    if needs_analysis and not produces_final:
+        required.append(Path(f"results/phase_5b_activation_steering/{slug}/{prefix}steering_results.csv"))
     return required, recommended
 
 
@@ -628,10 +686,12 @@ def check_phase5_prerequisites(config: PipelineConfig, interactive: bool = False
         print()
         for path in missing_required:
             print(f"[missing] {path}")
-        if any("phase_5a_activation_steering" in str(path) for path in missing_required):
-            print("Run qwen-steering-5a before Phase 5b diagnostics.")
+        if any("phase_5a_steering_calibration" in str(path) for path in missing_required):
+            print("Run qwen-steering-calibration first.")
+        elif any("phase_5b_activation_steering" in str(path) for path in missing_required):
+            print("Run qwen-steering-final first.")
         else:
-            print("Required Phase 1/2 prerequisite outputs are missing. Run the Qwen setup/evaluation pipeline first.")
+            print("Required Phase 5 prerequisite outputs are missing. Run the Qwen dataset/evaluation setup first if the dataset or contrast files are absent.")
         if config.dry_run:
             print("[dry-run] Missing required prerequisites reported; commands will be printed but not executed.")
             return True
@@ -945,6 +1005,7 @@ def run_pipeline(config: PipelineConfig) -> int:
                 config.attention_layers,
                 run_containment_with_evaluation=run_containment_with_evaluation,
                 output_prefix=config.output_prefix,
+                dry_run=config.dry_run,
             )
             command_text = "\n".join(command_to_text(command) for command in commands)
 
@@ -1126,10 +1187,11 @@ def select_preset_interactively() -> str | None:
         print("[4] qwen-direct-noise")
         print("[5] qwen-structured-noise")
         print("[6] qwen-full-spread")
-        print("[7] qwen-steering-5a")
-        print("[8] qwen-steering-5a-controls")
-        print("[9] qwen-steering-5b")
-        print("[10] qwen-steering-full")
+        print("[7] qwen-steering-calibration")
+        print("[8] qwen-steering-final")
+        print("[9] qwen-steering-controls")
+        print("[10] qwen-steering-analysis")
+        print("[11] qwen-steering-full")
         print("[q] quit")
         answer = input("> ").strip().lower()
         if answer == "1":
@@ -1145,16 +1207,18 @@ def select_preset_interactively() -> str | None:
         if answer == "6":
             return "qwen-full-spread"
         if answer == "7":
-            return "qwen-steering-5a"
+            return "qwen-steering-calibration"
         if answer == "8":
-            return "qwen-steering-5a-controls"
+            return "qwen-steering-final"
         if answer == "9":
-            return "qwen-steering-5b"
+            return "qwen-steering-controls"
         if answer == "10":
+            return "qwen-steering-analysis"
+        if answer == "11":
             return "qwen-steering-full"
         if answer == "q":
             return None
-        print("Please choose 1-10, or q.")
+        print("Please choose 1-11, or q.")
 
 
 def clean_targets(slug: str, include_overlay: bool) -> list[Path]:
@@ -1173,18 +1237,26 @@ def clean_targets(slug: str, include_overlay: bool) -> list[Path]:
     ]
     if include_overlay:
         targets.extend([
-            Path("results/phase_5_cross_model"),
-            Path("figures/phase_5_cross_model"),
+            Path("results/analysis/layer_patch_overlay"),
+            Path("figures/analysis/layer_patch_overlay"),
         ])
     return targets
 
 
 def phase5_clean_targets(slug: str) -> list[Path]:
     return [
-        Path(f"results/phase_5a_activation_steering/{slug}"),
-        Path(f"figures/phase_5a_activation_steering/{slug}"),
-        Path(f"results/phase_5b_steering_diagnostics/{slug}"),
-        Path(f"figures/phase_5b_steering_diagnostics/{slug}"),
+        Path(f"results/phase_5a_steering_calibration/{slug}"),
+        Path(f"figures/phase_5a_steering_calibration/{slug}"),
+        Path(f"results/phase_5b_activation_steering/{slug}"),
+        Path(f"figures/phase_5b_activation_steering/{slug}"),
+        Path(f"results/phase_5c_steering_analysis/{slug}"),
+        Path(f"figures/phase_5c_steering_analysis/{slug}"),
+        Path("results/phase_5_activation_steering"),
+        Path("figures/phase_5_activation_steering"),
+        Path("results/phase_5a_activation_steering"),
+        Path("figures/phase_5a_activation_steering"),
+        Path("results/phase_5b_steering_diagnostics"),
+        Path("figures/phase_5b_steering_diagnostics"),
     ]
 
 
@@ -1329,11 +1401,11 @@ def configure_full_spread_interactive(config: PipelineConfig) -> int:
 
 def manual_phase5_stage_selection(config: PipelineConfig) -> int:
     choices = [
-        "steering-5a",
-        "steering-5a-controls",
-        "steering-5b-oracle",
-        "steering-5b-layer-sweep",
-        "steering-5b-helped-hurt",
+        "steering-calibration-oracle",
+        "steering-calibration-layer-sweep",
+        "steering-final",
+        "steering-controls",
+        "steering-analysis",
     ]
     selected: list[str] = []
     for stage in choices:
@@ -1352,7 +1424,7 @@ def clean_phase5_interactive(config: PipelineConfig) -> int:
     slug = model_slug(config.model)
     targets = phase5_existing_targets(slug)
     print()
-    print(f"Existing Phase 5a/5b outputs found for {slug}.")
+    print(f"Existing Phase 5a/5b/5c outputs found for {slug}.")
     print("Delete targets:")
     if targets:
         for path in targets:
@@ -1382,16 +1454,16 @@ def configure_phase5_interactive(config: PipelineConfig) -> int:
     any_existing = bool(phase5_existing_targets(model_slug(config.model)))
     if not any_existing:
         print()
-        print("No existing Phase 5a/5b outputs found.")
+        print("No existing Phase 5a/5b/5c outputs found.")
         if ask_yes_no("Run selected Phase 5 stages now?", default=False):
             return run_pipeline(config)
         return 0
 
     print()
-    print(f"Existing Phase 5a/5b outputs found for {model_slug(config.model)}.")
+    print(f"Existing Phase 5a/5b/5c outputs found for {model_slug(config.model)}.")
     print("What do you want to do?")
     print("[1] Resume / skip existing")
-    print("[2] Delete Phase 5a/5b outputs and rerun")
+    print("[2] Delete Phase 5a/5b/5c outputs and rerun")
     print("[3] Choose manually")
     print("[q] quit")
     while True:
@@ -1468,7 +1540,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--run-overlay", action="store_true")
     parser.add_argument("--clean-phase5", action="store_true",
-                        help="Delete Phase 5a/5b generated outputs for the selected model before running.")
+                        help="Delete Phase 5a/5b/5c generated outputs for the selected model before running.")
     parser.add_argument("--yes", action="store_true",
                         help="Required with --clean-phase5 in non-interactive mode.")
     return parser

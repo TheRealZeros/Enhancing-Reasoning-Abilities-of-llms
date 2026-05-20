@@ -21,9 +21,10 @@ qwen-clean-degradation
 qwen-direct-noise
 qwen-structured-noise
 qwen-full-spread
-qwen-steering-5a
-qwen-steering-5a-controls
-qwen-steering-5b
+qwen-steering-calibration
+qwen-steering-final
+qwen-steering-controls
+qwen-steering-analysis
 qwen-steering-full
 ```
 
@@ -174,9 +175,10 @@ python scripts/run_model_pipeline.py --preset qwen-clean-degradation
 python scripts/run_model_pipeline.py --preset qwen-direct-noise
 python scripts/run_model_pipeline.py --preset qwen-structured-noise
 python scripts/run_model_pipeline.py --preset qwen-full-spread
-python scripts/run_model_pipeline.py --preset qwen-steering-5a
-python scripts/run_model_pipeline.py --preset qwen-steering-5a-controls
-python scripts/run_model_pipeline.py --preset qwen-steering-5b
+python scripts/run_model_pipeline.py --preset qwen-steering-calibration
+python scripts/run_model_pipeline.py --preset qwen-steering-final
+python scripts/run_model_pipeline.py --preset qwen-steering-controls
+python scripts/run_model_pipeline.py --preset qwen-steering-analysis
 python scripts/run_model_pipeline.py --preset qwen-steering-full
 ```
 
@@ -203,12 +205,11 @@ component-patching
 logit-lens
 attention
 overlay
-steering-5a
-steering-5a-controls
-steering-5b-oracle
-steering-5b-layer-sweep
-steering-5b-helped-hurt
-steering-5b-all
+steering-calibration-oracle
+steering-calibration-layer-sweep
+steering-final
+steering-controls
+steering-analysis
 ```
 
 ## Dry Runs
@@ -266,113 +267,137 @@ results/phase_3a_layer_patching/qwen2.5-3b/clean_degradation_layer_patch_summary
 
 The same prefix pattern applies to component patching, logit lens, attention, and figures.
 
-## Phase 5a / 5b Steering
+## Phase 5 Steering
 
-Phase 5 is split into:
+Phase 5 now uses a calibration-first workflow:
 
 ```text
-Phase 5a: activation steering first iteration
-Phase 5b: steering diagnostics / analysis
+Phase 5a: steering calibration diagnostics
+Phase 5b: final average activation steering intervention
+Phase 5c: post-steering helped/hurt analysis
 ```
 
-Qwen B->D remains the primary Phase 5 target.
+The pipeline order is:
+
+```text
+calibration -> final steering -> controls -> post-steering analysis
+```
+
+Qwen B->D remains the primary Phase 5 target. Phase 5 can skip earlier phases only when the required dataset and contrast files already exist. It does not rerun Phase 1-4.
 
 ### Steering Presets
 
-`qwen-steering-5a` runs learned Qwen B->D steering:
+`qwen-steering-calibration` runs oracle steering and the late-layer sweep:
 
 ```powershell
-python scripts/run_model_pipeline.py --preset qwen-steering-5a
+python scripts/run_model_pipeline.py --preset qwen-steering-calibration
 ```
 
-`qwen-steering-5a-controls` runs the random matched-norm and early-layer controls:
+`qwen-steering-final` runs learned average steering using the Phase 5a recommended config:
 
 ```powershell
-python scripts/run_model_pipeline.py --preset qwen-steering-5a-controls
+python scripts/run_model_pipeline.py --preset qwen-steering-final
 ```
 
-`qwen-steering-5b` runs oracle steering, late-layer sweep, and helped/hurt diagnostics:
+`qwen-steering-controls` runs random matched-norm and early-layer controls using the same recommended layer and alpha range:
 
 ```powershell
-python scripts/run_model_pipeline.py --preset qwen-steering-5b
+python scripts/run_model_pipeline.py --preset qwen-steering-controls
 ```
 
-`qwen-steering-full` runs Phase 5a learned steering, Phase 5a controls, then Phase 5b diagnostics:
+`qwen-steering-analysis` runs helped/hurt analysis after final steering:
+
+```powershell
+python scripts/run_model_pipeline.py --preset qwen-steering-analysis
+```
+
+`qwen-steering-full` runs calibration, final steering, controls, and analysis in order:
 
 ```powershell
 python scripts/run_model_pipeline.py --preset qwen-steering-full
 ```
 
-To regenerate clean Qwen Phase 5 outputs from existing Phase 1-4 prerequisites:
+To regenerate clean Qwen Phase 5 outputs from existing prerequisites:
 
 ```powershell
 python scripts/run_model_pipeline.py --preset qwen-steering-full --clean-phase5 --yes
 ```
 
-Phase 5 can skip earlier phases only when required Phase 1/2 outputs and contrast files exist. Phase 5b requires Phase 5a learned steering outputs unless the same pipeline run includes `steering-5a` before the diagnostics.
-
 ### Prerequisites
 
-Phase 5a requires:
+Calibration requires:
 
 ```text
 dataset/processed/qwen2.5-3b/dataset.json
 dataset/processed/qwen2.5-3b/noisy_contrast_examples.json
-results/phase_2_behaviour/qwen2.5-3b/evaluation_results.csv
 ```
 
-Phase 5a recommends:
+Final steering and controls require:
 
 ```text
-results/phase_3a_layer_patching/qwen2.5-3b/noisy_layer_patch_summary.csv
+results/phase_5a_steering_calibration/qwen2.5-3b/noisy_recommended_steering_config.json
 ```
 
-If the recommended Phase 3a file is missing, the runner warns that layer 34 is based on prior known Qwen B->D results.
-
-Phase 5b requires:
+If the recommended config is missing, the runner stops with:
 
 ```text
-dataset/processed/qwen2.5-3b/dataset.json
-dataset/processed/qwen2.5-3b/noisy_contrast_examples.json
-results/phase_5a_activation_steering/qwen2.5-3b/noisy_steering_results.csv
+Run qwen-steering-calibration first.
 ```
 
-If `noisy_steering_results.csv` is missing for a Phase 5b-only run, the runner tells you to run `qwen-steering-5a` first.
+Post-steering analysis requires:
+
+```text
+results/phase_5b_activation_steering/qwen2.5-3b/noisy_steering_results.csv
+```
+
+If final steering results are missing, the runner stops with:
+
+```text
+Run qwen-steering-final first.
+```
 
 ### Phase 5 Outputs
 
-Phase 5a learned steering:
+Phase 5a calibration:
 
 ```text
-results/phase_5a_activation_steering/qwen2.5-3b/noisy_steering_results.csv
-results/phase_5a_activation_steering/qwen2.5-3b/noisy_steering_summary.csv
-results/phase_5a_activation_steering/qwen2.5-3b/noisy_steering_alpha_sweep.csv
-results/phase_5a_activation_steering/qwen2.5-3b/noisy_steering_report.md
+results/phase_5a_steering_calibration/qwen2.5-3b/noisy_oracle_steering_summary.csv
+results/phase_5a_steering_calibration/qwen2.5-3b/noisy_layer_sweep_steering_summary.csv
+results/phase_5a_steering_calibration/qwen2.5-3b/noisy_recommended_steering_config.json
+results/phase_5a_steering_calibration/qwen2.5-3b/noisy_steering_calibration_report.md
 ```
 
-Phase 5a controls:
+Phase 5b final steering:
 
 ```text
-results/phase_5a_activation_steering/qwen2.5-3b/noisy_random_steering_summary.csv
-results/phase_5a_activation_steering/qwen2.5-3b/noisy_early_layer_steering_summary.csv
+results/phase_5b_activation_steering/qwen2.5-3b/noisy_steering_results.csv
+results/phase_5b_activation_steering/qwen2.5-3b/noisy_steering_summary.csv
+results/phase_5b_activation_steering/qwen2.5-3b/noisy_steering_alpha_sweep.csv
+results/phase_5b_activation_steering/qwen2.5-3b/noisy_steering_report.md
 ```
 
-Phase 5b diagnostics:
+Phase 5b controls:
 
 ```text
-results/phase_5b_steering_diagnostics/qwen2.5-3b/noisy_oracle_steering_summary.csv
-results/phase_5b_steering_diagnostics/qwen2.5-3b/noisy_layer_sweep_steering_summary.csv
-results/phase_5b_steering_diagnostics/qwen2.5-3b/noisy_helped_hurt_report.md
-results/phase_5b_steering_diagnostics/qwen2.5-3b/noisy_steering_diagnostics_report.md
+results/phase_5b_activation_steering/qwen2.5-3b/noisy_random_steering_summary.csv
+results/phase_5b_activation_steering/qwen2.5-3b/noisy_early_layer_steering_summary.csv
+```
+
+Phase 5c analysis:
+
+```text
+results/phase_5c_steering_analysis/qwen2.5-3b/noisy_helped_hurt_analysis.csv
+results/phase_5c_steering_analysis/qwen2.5-3b/noisy_helped_hurt_report.md
+results/phase_5c_steering_analysis/qwen2.5-3b/noisy_final_steering_interpretation.md
 ```
 
 ### Clean Phase 5
 
-Interactive Phase 5 presets detect existing Phase 5a/5b outputs and offer:
+Interactive Phase 5 presets detect existing Phase 5a/5b/5c outputs and offer:
 
 ```text
 [1] Resume / skip existing
-[2] Delete Phase 5a/5b outputs and rerun
+[2] Delete Phase 5a/5b/5c outputs and rerun
 [3] Choose manually
 [q] quit
 ```
@@ -380,11 +405,15 @@ Interactive Phase 5 presets detect existing Phase 5a/5b outputs and offer:
 Deletion is limited to:
 
 ```text
-results/phase_5a_activation_steering/qwen2.5-3b/
-figures/phase_5a_activation_steering/qwen2.5-3b/
-results/phase_5b_steering_diagnostics/qwen2.5-3b/
-figures/phase_5b_steering_diagnostics/qwen2.5-3b/
+results/phase_5a_steering_calibration/qwen2.5-3b/
+figures/phase_5a_steering_calibration/qwen2.5-3b/
+results/phase_5b_activation_steering/qwen2.5-3b/
+figures/phase_5b_activation_steering/qwen2.5-3b/
+results/phase_5c_steering_analysis/qwen2.5-3b/
+figures/phase_5c_steering_analysis/qwen2.5-3b/
 ```
+
+The clean option also removes legacy generated Phase 5 output folders if they exist. It does not delete scripts, docs, datasets, or Phase 1-4 outputs.
 
 Interactive deletion requires typing:
 
@@ -393,6 +422,12 @@ DELETE PHASE 5 QWEN
 ```
 
 ## Overlay
+
+The cross-model layer patch overlay is an analysis utility, not a Phase 5 experiment. The runner calls:
+
+```text
+scripts/analysis/layer_patch_overlay.py
+```
 
 After both model pipelines are complete:
 
@@ -404,6 +439,13 @@ or append overlay to a run:
 
 ```powershell
 python scripts/run_model_pipeline.py --preset qwen-full-spread --run-overlay
+```
+
+Overlay outputs are written under:
+
+```text
+results/analysis/layer_patch_overlay/
+figures/analysis/layer_patch_overlay/
 ```
 
 ## Clean Rerun

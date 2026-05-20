@@ -216,12 +216,12 @@ def main() -> None:
     parser.add_argument(
         "--figure-dir",
         type=str,
-        default="figures/phase_5_cross_model",
+        default="figures/analysis/layer_patch_overlay",
     )
     parser.add_argument(
         "--output-dir",
         type=str,
-        default="results/phase_5_cross_model",
+        default="results/analysis/layer_patch_overlay",
     )
     args = parser.parse_args()
 

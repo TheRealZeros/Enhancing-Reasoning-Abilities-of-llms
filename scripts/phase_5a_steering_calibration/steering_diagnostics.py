@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Phase 5b Steering Diagnostics
+Phase 5a Steering Calibration
 =============================
 
-Diagnostic analyses for Phase 5a activation steering. These routines explain
-why Qwen B->D steering may recover gold-answer logits/ranks without strong
-top-1 recovery.
+Calibration diagnostics for Phase 5 steering. These routines run before the
+final average-steering intervention so the selected layer and alpha range are
+grounded in oracle and late-layer sweep evidence.
 
-This script does not change the Phase 5a steering method. It reuses
+This script does not change the Phase 5b steering method. It reuses
 activation_steering.py helpers for model loading, prompt materialisation,
 train/test splitting, activation extraction, final-token-only injection, and
 gold-token scoring.
@@ -28,7 +28,7 @@ try:
     import activation_steering as steering
 except ModuleNotFoundError:
     project_root = Path(__file__).resolve().parents[2]
-    sys.path.insert(0, str(project_root / "scripts" / "phase_5a_activation_steering"))
+    sys.path.insert(0, str(project_root / "scripts" / "phase_5b_activation_steering"))
     import activation_steering as steering
 
 try:
@@ -42,6 +42,7 @@ except ModuleNotFoundError:
 DEFAULT_DIAGNOSTIC_ALPHAS = [0.25, 0.5, 0.75, 1.0, 1.25]
 DEFAULT_ORACLE_ALPHAS = [0.25, 0.5, 0.75, 1.0]
 DEFAULT_LATE_LAYERS = [31, 32, 33, 34, 35]
+DEFAULT_FINAL_ALPHA_RANGE = [0.0, 0.25, 0.5, 0.75, 1.0]
 HELPED_HURT_EPS = 1e-6
 
 
@@ -64,8 +65,10 @@ def resolve_common_paths(args) -> dict[str, Path | str]:
     source_cell = args.source_cell.upper()
     donor_cell = args.donor_cell.upper()
     prefix = output_prefix_for(source_cell, donor_cell, args.output_prefix)
-    result_dir = Path(args.output_dir or f"results/phase_5b_steering_diagnostics/{slug}")
-    figure_dir = Path(args.figure_dir or f"figures/phase_5b_steering_diagnostics/{slug}")
+    result_dir = Path(args.output_dir or f"results/phase_5a_steering_calibration/{slug}")
+    figure_dir = Path(args.figure_dir or f"figures/phase_5a_steering_calibration/{slug}")
+    analysis_result_dir = Path(args.analysis_output_dir or f"results/phase_5c_steering_analysis/{slug}")
+    analysis_figure_dir = Path(args.analysis_figure_dir or f"figures/phase_5c_steering_analysis/{slug}")
     dataset_path = Path(args.dataset or f"dataset/processed/{slug}/dataset.json")
     contrast_path = Path(args.contrast_file or contrast_path_for(slug, source_cell, donor_cell))
 
@@ -82,10 +85,14 @@ def resolve_common_paths(args) -> dict[str, Path | str]:
         "layer_sweep_results": result_dir / f"{prefix}layer_sweep_steering_results.csv",
         "layer_sweep_summary": result_dir / f"{prefix}layer_sweep_steering_summary.csv",
         "layer_sweep_figure": figure_dir / f"{prefix}layer_sweep_steering_heatmap.png",
-        "helped_hurt_csv": result_dir / f"{prefix}helped_hurt_analysis.csv",
-        "helped_hurt_report": result_dir / f"{prefix}helped_hurt_report.md",
-        "diagnostics_report": result_dir / f"{prefix}steering_diagnostics_report.md",
-        "default_steering_results": Path(f"results/phase_5a_activation_steering/{slug}/{prefix}steering_results.csv"),
+        "recommended_config": result_dir / f"{prefix}recommended_steering_config.json",
+        "calibration_report": result_dir / f"{prefix}steering_calibration_report.md",
+        "analysis_result_dir": analysis_result_dir,
+        "analysis_figure_dir": analysis_figure_dir,
+        "helped_hurt_csv": analysis_result_dir / f"{prefix}helped_hurt_analysis.csv",
+        "helped_hurt_report": analysis_result_dir / f"{prefix}helped_hurt_report.md",
+        "final_interpretation": analysis_result_dir / f"{prefix}final_steering_interpretation.md",
+        "default_steering_results": Path(f"results/phase_5b_activation_steering/{slug}/{prefix}steering_results.csv"),
     }
 
 
@@ -111,7 +118,7 @@ def print_dry_run(args, paths: dict[str, Path | str]) -> None:
     del dataset_index
 
     layers = args.layers or [args.layer]
-    log("[dry-run] Phase 5b Steering Diagnostics")
+    log("[dry-run] Phase 5a Steering Calibration / Phase 5c Analysis")
     log(f"[dry-run] diagnostic: {args.diagnostic}")
     log(f"[dry-run] model: {args.model}")
     log(f"[dry-run] source/donor: Cell {args.source_cell.upper()} -> Cell {args.donor_cell.upper()}")
@@ -126,8 +133,10 @@ def print_dry_run(args, paths: dict[str, Path | str]) -> None:
     log(f"[dry-run] alphas: {' '.join(str(alpha) for alpha in args.alphas)}")
     log(f"[dry-run] oracle results: {paths['oracle_results']}")
     log(f"[dry-run] layer sweep results: {paths['layer_sweep_results']}")
+    log(f"[dry-run] recommended config: {paths['recommended_config']}")
+    log(f"[dry-run] calibration report: {paths['calibration_report']}")
     log(f"[dry-run] helped/hurt report: {paths['helped_hurt_report']}")
-    log(f"[dry-run] diagnostics report: {paths['diagnostics_report']}")
+    log(f"[dry-run] final interpretation: {paths['final_interpretation']}")
     log("[dry-run] no model was loaded and no GPU diagnostics were run")
 
 
@@ -292,6 +301,47 @@ def summarise_by_layer_alpha(
     return summary
 
 
+def recommended_config_from_layer_sweep(summary, args, paths: dict[str, Path | str]) -> dict[str, Any] | None:
+    if summary.empty:
+        return None
+    candidates = summary[summary["alpha"].astype(float) <= 1.0].copy()
+    if candidates.empty:
+        candidates = summary.copy()
+    candidates = candidates.sort_values(
+        ["mean_delta_gold_logit", "alpha"],
+        ascending=[False, True],
+        kind="mergesort",
+    )
+    best = candidates.iloc[0]
+    return {
+        "model": args.model,
+        "source_cell": args.source_cell.upper(),
+        "donor_cell": args.donor_cell.upper(),
+        "hook": args.hook,
+        "recommended_layer": int(best["layer"]),
+        "recommended_alpha": float(best["alpha"]),
+        "alpha_range_for_final": list(DEFAULT_FINAL_ALPHA_RANGE),
+        "selection_metric": "highest mean_delta_gold_logit from layer_sweep with alpha <= 1.0; ties prefer lower alpha",
+        "mean_delta_gold_logit": float(best["mean_delta_gold_logit"]),
+        "mean_delta_gold_rank": float(best["mean_delta_gold_rank"]),
+        "top1_improvement": float(best["top1_improvement"]),
+        "contrast_file": str(paths["contrast_path"]),
+        "layer_sweep_summary": str(paths["layer_sweep_summary"]),
+        "note": "This recommendation is for held-out average steering, not oracle per-example steering.",
+    }
+
+
+def write_recommended_config(summary, args, paths: dict[str, Path | str]) -> dict[str, Any] | None:
+    config = recommended_config_from_layer_sweep(summary, args, paths)
+    if config is None:
+        return None
+    path = Path(paths["recommended_config"])
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(config, indent=2) + "\n", encoding="utf-8")
+    log(f"[save] {path}")
+    return config
+
+
 def run_layer_sweep(args, paths: dict[str, Path | str]) -> None:
     _np, pd, _plt, _torch = ensure_runtime_imports()
     source_cell = args.source_cell.upper()
@@ -360,6 +410,7 @@ def run_layer_sweep(args, paths: dict[str, Path | str]) -> None:
     save_df(results, paths["layer_sweep_results"])
     save_df(summary, paths["layer_sweep_summary"])
     plot_layer_sweep_heatmap(summary, paths["layer_sweep_figure"])
+    write_recommended_config(summary, args, paths)
     write_overall_report(paths, args)
 
 
@@ -481,7 +532,7 @@ def run_helped_hurt(args, paths: dict[str, Path | str]) -> None:
 
     write_csv(paths["helped_hurt_csv"], detail_rows, list(detail_rows[0].keys()))
     write_helped_hurt_report(paths["helped_hurt_report"], source_path, detail_rows, grouped)
-    write_overall_report(paths, args)
+    write_final_interpretation(paths["final_interpretation"], source_path, detail_rows, grouped)
 
 
 def write_csv(path: Path, rows: list[dict], fieldnames: list[str]) -> None:
@@ -508,7 +559,7 @@ def write_helped_hurt_report(
     grouped: dict[str, list[dict]],
 ) -> None:
     lines = [
-        "# Phase 5b Helped vs Hurt Analysis",
+        "# Phase 5c Helped vs Hurt Analysis",
         "",
         f"Source results: `{source_path}`",
         "",
@@ -562,6 +613,66 @@ def write_helped_hurt_report(
     log(f"[save] {path}")
 
 
+def write_final_interpretation(
+    path: Path,
+    source_path: Path,
+    detail_rows: list[dict],
+    grouped: dict[str, list[dict]],
+) -> None:
+    total = len(detail_rows)
+    helped = sum(1 for row in detail_rows if row["helped_hurt_label"] == "helped")
+    hurt = sum(1 for row in detail_rows if row["helped_hurt_label"] == "hurt")
+    unchanged = sum(1 for row in detail_rows if row["helped_hurt_label"] == "unchanged")
+    alpha_summaries = []
+    for alpha in sorted(grouped, key=lambda x: float(x) if x not in ("", None) else -999):
+        rows = grouped[alpha]
+        counts = Counter(row["helped_hurt_label"] for row in rows)
+        mean_delta = mean([as_float(row, "delta_gold_logit") for row in rows])
+        mean_rank_delta = mean([as_float(row, "delta_gold_rank") for row in rows])
+        alpha_summaries.append((alpha, counts, mean_delta, mean_rank_delta))
+
+    lines = [
+        "# Phase 5c Final Steering Interpretation",
+        "",
+        f"Source results: `{source_path}`",
+        "",
+        "This report interprets the final average-steering run after calibration. It is post-steering analysis, not a new intervention.",
+        "",
+        "## Overall Helped/Hurt Balance",
+        "",
+        f"- Rows analysed: `{total}`",
+        f"- Helped rows: `{helped}`",
+        f"- Hurt rows: `{hurt}`",
+        f"- Unchanged rows: `{unchanged}`",
+        "",
+        "## Alpha Safety",
+        "",
+        "| alpha | helped | hurt | unchanged | mean delta gold logit | mean delta gold rank |",
+        "|---:|---:|---:|---:|---:|---:|",
+    ]
+    for alpha, counts, mean_delta, mean_rank_delta in alpha_summaries:
+        lines.append(
+            f"| {alpha} | {counts['helped']} | {counts['hurt']} | {counts['unchanged']} | "
+            f"{mean_delta:.4f} | {mean_rank_delta:.4f} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Thesis-Safe Interpretation",
+            "",
+            "- If average steering improves gold-answer logits or ranks but does not improve top-1/generation, describe it as representation-level recovery.",
+            "- Do not claim that average steering fully fixes Qwen unless top-1 and generation clearly improve.",
+            "- If helped and hurt examples are both common, describe the steering direction as partially useful and example-sensitive.",
+            "- The calibrated layer and alpha range should be presented as selected from held-out score diagnostics, not hand-picked from the final steering outcome.",
+        ]
+    )
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    log(f"[save] {path}")
+
+
 def md(value: Any) -> str:
     return str(value).replace("\n", "<br>").replace("|", "\\|")
 
@@ -584,21 +695,33 @@ def best_top1_row_from_csv(path: Path) -> dict[str, str] | None:
     return max(rows, key=lambda row: as_float(row, "top1_improvement"))
 
 
+def load_recommended_config(path: Path) -> dict[str, Any] | None:
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return None
+
+
 def write_overall_report(paths: dict[str, Path | str], args) -> None:
-    learned_summary = Path(f"results/phase_5a_activation_steering/{paths['slug']}/{paths['prefix']}steering_summary.csv")
+    learned_summary = Path(f"results/phase_5b_activation_steering/{paths['slug']}/{paths['prefix']}steering_summary.csv")
     oracle_best = best_row_from_csv(paths["oracle_summary"])
     oracle_best_top1 = best_top1_row_from_csv(paths["oracle_summary"])
     layer_best = best_row_from_csv(paths["layer_sweep_summary"])
     layer_best_top1 = best_top1_row_from_csv(paths["layer_sweep_summary"])
     learned_best = best_row_from_csv(learned_summary)
     learned_best_top1 = best_top1_row_from_csv(learned_summary)
+    recommended = load_recommended_config(Path(paths["recommended_config"]))
 
     lines = [
-        "# Phase 5b Steering Diagnostics Report",
+        "# Phase 5a Steering Calibration Report",
         "",
         f"Model: `{args.model}`",
         f"Contrast: Cell {args.source_cell.upper()} -> Cell {args.donor_cell.upper()}",
         f"Contrast file: `{paths['contrast_path']}`",
+        "",
+        "Phase 5a runs calibration before the final average-steering intervention. Oracle steering is an upper bound on final-token intervention strength, and the layer sweep selects the average-steering layer and alpha range for Phase 5b.",
         "",
         "## Questions",
         "",
@@ -614,7 +737,7 @@ def write_overall_report(paths: dict[str, Path | str], args) -> None:
             f"at alpha `{learned_best.get('alpha')}`."
         )
     else:
-        lines.append("Oracle and/or learned steering summaries are not both available yet.")
+        lines.append("Oracle and/or Phase 5b learned steering summaries are not both available yet. This is expected before the final steering run.")
 
     lines.extend(["", "### Does average steering peak at layer 34 or another late layer?", ""])
     if layer_best:
@@ -624,6 +747,17 @@ def write_overall_report(paths: dict[str, Path | str], args) -> None:
         )
     else:
         lines.append("Layer-sweep summary is not available yet.")
+
+    lines.extend(["", "### Recommended Phase 5b configuration", ""])
+    if recommended:
+        alpha_range = " ".join(str(alpha) for alpha in recommended.get("alpha_range_for_final", []))
+        lines.append(
+            f"Recommended layer `{recommended.get('recommended_layer')}`, hook `{recommended.get('hook')}`, "
+            f"with final alpha range `{alpha_range}`. Selection metric: {recommended.get('selection_metric')}."
+        )
+        lines.append("This recommendation is for average steering, not oracle per-example steering.")
+    else:
+        lines.append("No recommended config has been written yet. Run the layer-sweep diagnostic to create it.")
 
     lines.extend(["", "### Which alpha range is safest?", ""])
     candidates = [row for row in [oracle_best, layer_best, learned_best] if row]
@@ -640,7 +774,7 @@ def write_overall_report(paths: dict[str, Path | str], args) -> None:
     if Path(paths["helped_hurt_report"]).exists():
         lines.append(f"See `{paths['helped_hurt_report']}` for helped/hurt counts, baseline-rank comparisons, domain breakdowns, and top examples.")
     else:
-        lines.append("Helped/hurt analysis has not been generated yet.")
+        lines.append("Helped/hurt analysis has not been generated yet. It belongs to Phase 5c and should run after Phase 5b final steering.")
 
     lines.extend(["", "### Does the evidence support representation-level recovery?", ""])
     if learned_best:
@@ -669,7 +803,7 @@ def write_overall_report(paths: dict[str, Path | str], args) -> None:
             "",
             "- If logit/rank improves but top-1/generation does not, describe the result as representation-level recovery.",
             "- If oracle steering is much stronger than average steering, describe the effect as partly example-specific and say the average vector is too blunt.",
-            "- If late layers outperform early layers, this supports the late-layer mediation story from activation patching.",
+            "- If late layers outperform early layers or the selected late layer improves logit/rank recovery, this supports the late-layer mediation story from activation patching.",
             "",
             "## What Not To Claim",
             "",
@@ -679,14 +813,14 @@ def write_overall_report(paths: dict[str, Path | str], args) -> None:
         ]
     )
 
-    report_path = Path(paths["diagnostics_report"])
+    report_path = Path(paths["calibration_report"])
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     log(f"[save] {report_path}")
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Phase 5b activation steering diagnostics")
+    parser = argparse.ArgumentParser(description="Phase 5a steering calibration diagnostics and Phase 5c analysis")
     parser.add_argument("--model", type=str, default="Qwen/Qwen2.5-3B")
     parser.add_argument("--source-cell", type=str, default="B")
     parser.add_argument("--donor-cell", type=str, default="D")
@@ -709,6 +843,8 @@ def parse_args():
     parser.add_argument("--contrast-file", type=str, default=None)
     parser.add_argument("--output-dir", type=str, default=None)
     parser.add_argument("--figure-dir", type=str, default=None)
+    parser.add_argument("--analysis-output-dir", type=str, default=None)
+    parser.add_argument("--analysis-figure-dir", type=str, default=None)
     parser.add_argument("--output-prefix", type=str, default=None)
     parser.add_argument("--steering-results", type=str, default=None)
     parser.add_argument("--dry-run", action="store_true")
