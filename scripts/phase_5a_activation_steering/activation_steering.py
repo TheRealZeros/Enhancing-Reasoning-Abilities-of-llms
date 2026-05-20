@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Phase 5: Activation Steering
-============================
+Phase 5a: Activation Steering
+=============================
 
-Tests whether the late-layer donor-minus-source signal identified by
+First-iteration activation steering test for whether the late-layer donor-minus-source signal identified by
 activation patching can be reused as a held-out intervention.
 
 Core method:
@@ -345,7 +345,7 @@ def hook_name_for(hook: str, layer: int) -> str:
     if hook not in SUPPORTED_HOOKS:
         supported = ", ".join(SUPPORTED_HOOKS)
         raise ValueError(
-            f"Unsupported hook {hook!r}. Phase 5 currently supports: {supported}"
+            f"Unsupported hook {hook!r}. Phase 5a currently supports: {supported}"
         )
     return SUPPORTED_HOOKS[hook].format(layer=layer)
 
@@ -957,7 +957,7 @@ def write_filler_not_implemented_report(
 ) -> None:
     report_path.parent.mkdir(parents=True, exist_ok=True)
     lines = [
-        "# Phase 5 Activation Steering Report",
+        "# Phase 5a Activation Steering Report",
         "",
         f"Model: `{model_name}`",
         f"Contrast: Cell {source_cell} -> Cell {donor_cell}",
@@ -967,7 +967,7 @@ def write_filler_not_implemented_report(
         "",
         "## Status",
         "",
-        "The filler control was requested, but it is not implemented in this first Phase 5 script.",
+        "The filler control was requested, but it is not implemented in this first Phase 5a script.",
         "",
         "This is intentional: the project plan marks filler as optional and says to document it as a limitation if it is not straightforward. The script does not invent a new filler methodology.",
         "",
@@ -983,7 +983,7 @@ def write_filler_not_implemented_report(
         "token_position": TOKEN_POSITION_LABEL,
         "control": "filler",
         "status": "not_implemented",
-        "reason": "Filler control requires a separately specified contrast direction; the Phase 5 plan permits documenting it as a limitation.",
+        "reason": "Filler control requires a separately specified contrast direction; the Phase 5a plan permits documenting it as a limitation.",
     }
     stats_path.write_text(json.dumps(stats, indent=2) + "\n", encoding="utf-8")
     log("[control] WARNING: filler control is not implemented; wrote limitation report")
@@ -1009,7 +1009,7 @@ def plot_alpha_sweep(summary: pd.DataFrame, path: Path) -> None:
     ax.axhline(0, color="gray", linewidth=0.8, linestyle="--")
     ax.set_xlabel("Alpha")
     ax.set_ylabel("Mean delta gold logit")
-    ax.set_title("Phase 5 Steering Alpha Sweep")
+    ax.set_title("Phase 5a Steering Alpha Sweep")
     ax.legend()
     fig.tight_layout()
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -1122,7 +1122,7 @@ def write_markdown_report(
     alpha_zero_sanity: dict[str, Any] | None,
 ) -> None:
     lines = [
-        "# Phase 5 Activation Steering Report",
+        "# Phase 5a Activation Steering Report",
         "",
         "## Experiment Configuration",
         "",
@@ -1320,8 +1320,8 @@ def resolve_paths(args) -> dict[str, Path | str]:
 
     dataset_path = Path(args.dataset or f"dataset/processed/{slug}/dataset.json")
     contrast_path = Path(args.contrast_file or contrast_path_for(slug, source_cell, donor_cell))
-    result_dir = Path(args.output_dir or f"results/phase_5_activation_steering/{slug}")
-    figure_dir = Path(args.figure_dir or f"figures/phase_5_activation_steering/{slug}")
+    result_dir = Path(args.output_dir or f"results/phase_5a_activation_steering/{slug}")
+    figure_dir = Path(args.figure_dir or f"figures/phase_5a_activation_steering/{slug}")
 
     return {
         "slug": slug,
@@ -1361,7 +1361,7 @@ def print_dry_run(args, paths: dict[str, Path | str]) -> None:
     applied_layer = args.early_layer if args.control == "early_layer" else args.layer
     hook_name = hook_name_for(args.hook, applied_layer)
 
-    log("[dry-run] Phase 5 Activation Steering")
+    log("[dry-run] Phase 5a Activation Steering")
     log(f"[dry-run] model: {args.model}")
     log(f"[dry-run] source/donor: Cell {args.source_cell.upper()} -> Cell {args.donor_cell.upper()}")
     log(f"[dry-run] dataset: {dataset_path}")
@@ -1381,7 +1381,7 @@ def print_dry_run(args, paths: dict[str, Path | str]) -> None:
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Phase 5: final-token activation steering intervention"
+        description="Phase 5a: final-token activation steering intervention"
     )
     parser.add_argument("--model", type=str, default="Qwen/Qwen2.5-3B")
     parser.add_argument("--source-cell", type=str, required=True)
@@ -1468,7 +1468,7 @@ def main() -> int:
     train_examples, test_examples = split_examples(examples, args.train_frac, args.seed)
 
     log("=" * 70)
-    log("Phase 5: Activation Steering")
+    log("Phase 5a: Activation Steering")
     log(f"  model:          {args.model}")
     log(f"  contrast:       Cell {source_cell} -> Cell {donor_cell}")
     log(f"  contrast file:  {paths['contrast_path']}")
@@ -1599,7 +1599,7 @@ def main() -> int:
     )
 
     log("=" * 70)
-    log("Phase 5 activation steering complete")
+    log("Phase 5a activation steering complete")
     if alpha_zero_check is not None:
         status = "passed" if alpha_zero_check["passed"] else "FAILED"
         log(
