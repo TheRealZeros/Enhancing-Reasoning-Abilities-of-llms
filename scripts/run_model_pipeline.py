@@ -2,6 +2,7 @@
 """Orchestrate existing thesis experiment scripts for a selected model preset."""
 
 import argparse
+import json
 import os
 import shutil
 import stat
@@ -12,6 +13,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import TextIO
+
+try:
+    from utils.contrast_config import CONTRAST_CONFIGS, contrast_path_for, get_contrast_config, output_prefix_for
+except ModuleNotFoundError:
+    from scripts.utils.contrast_config import CONTRAST_CONFIGS, contrast_path_for, get_contrast_config, output_prefix_for
 
 
 ALL_STAGES = [
@@ -35,6 +41,17 @@ DEFAULT_STAGES = [
     "attention",
 ]
 
+SETUP_STAGES = ["dataset", "evaluation", "containment"]
+ANALYSIS_STAGES = ["layer-patching", "component-patching", "logit-lens", "attention"]
+QWEN_MODEL = "Qwen/Qwen2.5-3B"
+QWEN_LATE_COMPONENT_LAYERS = [31, 32, 33, 34, 35]
+QWEN_LATE_ATTENTION_LAYERS = [20, 31, 33, 34, 35]
+QWEN_FULL_SPREAD_CONTRASTS = [("A", "C"), ("B", "D"), ("B", "A"), ("C", "D"), ("C", "A")]
+OUTPUT_PREFIX_OVERRIDES = {
+    ("qwen-full-spread", "A", "C"): "clean_",
+}
+LOW_N_THRESHOLD = 20
+
 STAGE_CONTEXT = {
     "dataset": "Phase 1 dataset construction",
     "evaluation": "Phase 2 behavioural evaluation",
@@ -54,6 +71,8 @@ class Preset:
     donor_cell: str
     component_layers: list[int]
     attention_layers: list[int]
+    output_prefix: str | None = None
+    full_spread: bool = False
 
 
 @dataclass
@@ -67,6 +86,10 @@ class PipelineConfig:
     stages: list[str]
     skip_existing: bool = False
     dry_run: bool = False
+    output_prefix: str | None = None
+    full_spread: bool = False
+    spread_mode: str = "recommended"
+    spread_contrasts: list[tuple[str, str]] | None = None
 
 
 @dataclass
@@ -86,11 +109,52 @@ PRESETS = {
         attention_layers=[20, 30, 31],
     ),
     "qwen-noisy": Preset(
-        model="Qwen/Qwen2.5-3B",
+        model=QWEN_MODEL,
         source_cell="B",
         donor_cell="D",
-        component_layers=[31, 32, 33, 34, 35],
-        attention_layers=[20, 31, 33, 34, 35],
+        component_layers=QWEN_LATE_COMPONENT_LAYERS,
+        attention_layers=QWEN_LATE_ATTENTION_LAYERS,
+        output_prefix="noisy_",
+    ),
+    "qwen-noisy-recovery": Preset(
+        model=QWEN_MODEL,
+        source_cell="B",
+        donor_cell="D",
+        component_layers=QWEN_LATE_COMPONENT_LAYERS,
+        attention_layers=QWEN_LATE_ATTENTION_LAYERS,
+        output_prefix="noisy_",
+    ),
+    "qwen-clean-degradation": Preset(
+        model=QWEN_MODEL,
+        source_cell="C",
+        donor_cell="A",
+        component_layers=QWEN_LATE_COMPONENT_LAYERS,
+        attention_layers=QWEN_LATE_ATTENTION_LAYERS,
+        output_prefix="clean_degradation_",
+    ),
+    "qwen-direct-noise": Preset(
+        model=QWEN_MODEL,
+        source_cell="B",
+        donor_cell="A",
+        component_layers=QWEN_LATE_COMPONENT_LAYERS,
+        attention_layers=QWEN_LATE_ATTENTION_LAYERS,
+        output_prefix="direct_noise_",
+    ),
+    "qwen-structured-noise": Preset(
+        model=QWEN_MODEL,
+        source_cell="C",
+        donor_cell="D",
+        component_layers=QWEN_LATE_COMPONENT_LAYERS,
+        attention_layers=QWEN_LATE_ATTENTION_LAYERS,
+        output_prefix="structured_noise_",
+    ),
+    "qwen-full-spread": Preset(
+        model=QWEN_MODEL,
+        source_cell="B",
+        donor_cell="D",
+        component_layers=QWEN_LATE_COMPONENT_LAYERS,
+        attention_layers=QWEN_LATE_ATTENTION_LAYERS,
+        full_spread=True,
     ),
 }
 
@@ -138,9 +202,20 @@ def script_path_from_command(command: list[str]) -> str:
     return command[0]
 
 
-def expected_outputs(stage: str, slug: str, source_cell: str, donor_cell: str) -> list[Path]:
-    noisy = is_noisy(source_cell, donor_cell)
-    prefix = "noisy_" if noisy else ""
+def configure_console_output() -> None:
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(errors="replace")
+
+
+def expected_outputs(
+    stage: str,
+    slug: str,
+    source_cell: str,
+    donor_cell: str,
+    output_prefix: str | None = None,
+) -> list[Path]:
+    prefix = output_prefix_for(source_cell, donor_cell, output_prefix)
 
     checks = {
         "dataset": [
@@ -150,6 +225,10 @@ def expected_outputs(stage: str, slug: str, source_cell: str, donor_cell: str) -
             Path(f"results/phase_2_behaviour/{slug}/evaluation_results.csv"),
             Path(f"results/phase_2_behaviour/{slug}/accuracy_summary.csv"),
             Path(f"dataset/processed/{slug}/contrast_examples.json"),
+            Path(f"dataset/processed/{slug}/noisy_contrast_examples.json"),
+            Path(f"dataset/processed/{slug}/direct_noise_contrast_examples.json"),
+            Path(f"dataset/processed/{slug}/structured_noise_contrast_examples.json"),
+            Path(f"dataset/processed/{slug}/clean_degradation_contrast_examples.json"),
         ],
         "containment": [
             Path(f"results/model_agnostic_evaluation/{slug}/answer_containment_summary.csv"),
@@ -173,8 +252,6 @@ def expected_outputs(stage: str, slug: str, source_cell: str, donor_cell: str) -
             Path("results/phase_5_cross_model/layer_patch_overlay_summary.csv"),
         ],
     }
-    if stage == "evaluation" and noisy:
-        checks["evaluation"].append(Path(f"dataset/processed/{slug}/noisy_contrast_examples.json"))
     return checks.get(stage, [])
 
 
@@ -186,6 +263,7 @@ def build_command(
     component_layers: list[int],
     attention_layers: list[int],
     run_containment_with_evaluation: bool = False,
+    output_prefix: str | None = None,
 ) -> list[str]:
     if stage == "dataset":
         return [sys.executable, "scripts/phase_1_dataset/build_dataset.py", "--model", model]
@@ -202,7 +280,7 @@ def build_command(
     if stage == "containment":
         return [sys.executable, "scripts/analysis/answer_containment_audit.py", "--model", model]
     if stage == "layer-patching":
-        return [
+        command = [
             sys.executable,
             "scripts/phase_3a_layer_patching/activation_patching.py",
             "--model",
@@ -212,8 +290,11 @@ def build_command(
             "--donor-cell",
             donor_cell,
         ]
+        if output_prefix is not None:
+            command.extend(["--output-prefix", output_prefix])
+        return command
     if stage == "component-patching":
-        return [
+        command = [
             sys.executable,
             "scripts/phase_3b_component_patching/component_patching.py",
             "--model",
@@ -225,8 +306,11 @@ def build_command(
             "--layers",
             *[str(layer) for layer in component_layers],
         ]
+        if output_prefix is not None:
+            command.extend(["--output-prefix", output_prefix])
+        return command
     if stage == "logit-lens":
-        return [
+        command = [
             sys.executable,
             "scripts/phase_4a_logit_lens/logit_lens_analysis.py",
             "--model",
@@ -236,8 +320,11 @@ def build_command(
             "--donor-cell",
             donor_cell,
         ]
+        if output_prefix is not None:
+            command.extend(["--output-prefix", output_prefix])
+        return command
     if stage == "attention":
-        return [
+        command = [
             sys.executable,
             "scripts/phase_4b_attention/attention_heatmaps.py",
             "--model",
@@ -249,19 +336,34 @@ def build_command(
             "--layers",
             *[str(layer) for layer in attention_layers],
         ]
+        if output_prefix is not None:
+            command.extend(["--output-prefix", output_prefix])
+        return command
     if stage == "overlay":
         return [sys.executable, "scripts/phase_5_cross_model/layer_patch_overlay.py"]
     raise ValueError(f"Unsupported stage: {stage}")
 
 
-def output_status(stage: str, slug: str, source_cell: str, donor_cell: str) -> tuple[str, list[str]]:
-    expected = expected_outputs(stage, slug, source_cell, donor_cell)
+def output_status(
+    stage: str,
+    slug: str,
+    source_cell: str,
+    donor_cell: str,
+    output_prefix: str | None = None,
+) -> tuple[str, list[str]]:
+    expected = expected_outputs(stage, slug, source_cell, donor_cell, output_prefix)
     missing = [str(path) for path in expected if not path.exists()]
     return ("exists" if expected and not missing else "missing"), missing
 
 
-def check_outputs(stage: str, slug: str, source_cell: str, donor_cell: str) -> tuple[bool, list[str]]:
-    status, missing = output_status(stage, slug, source_cell, donor_cell)
+def check_outputs(
+    stage: str,
+    slug: str,
+    source_cell: str,
+    donor_cell: str,
+    output_prefix: str | None = None,
+) -> tuple[bool, list[str]]:
+    status, missing = output_status(stage, slug, source_cell, donor_cell, output_prefix)
     return status == "exists", missing
 
 
@@ -270,6 +372,7 @@ def check_stage_outputs(
     slug: str,
     source_cell: str,
     donor_cell: str,
+    output_prefix: str | None = None,
     include_containment: bool = False,
 ) -> tuple[bool, list[str]]:
     stages = [stage]
@@ -279,7 +382,7 @@ def check_stage_outputs(
     for stage_name in stages:
         missing.extend(
             str(path)
-            for path in expected_outputs(stage_name, slug, source_cell, donor_cell)
+            for path in expected_outputs(stage_name, slug, source_cell, donor_cell, output_prefix)
             if not path.exists()
         )
     return not missing, missing
@@ -306,6 +409,8 @@ def build_config_from_args(args: argparse.Namespace) -> PipelineConfig:
         stages=stages,
         skip_existing=args.skip_existing,
         dry_run=args.dry_run,
+        output_prefix=args.output_prefix if args.output_prefix is not None else (preset.output_prefix if preset else None),
+        full_spread=bool(preset.full_spread) if preset else False,
     )
 
 
@@ -326,12 +431,18 @@ def stream_command(
     overall_start: float,
 ) -> int:
     script_path = script_path_from_command(command)
+    env = os.environ.copy()
+    env["PYTHONIOENCODING"] = "utf-8"
+    env["PYTHONUTF8"] = "1"
     process = subprocess.Popen(
         command,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
+        encoding="utf-8",
+        errors="replace",
         bufsize=1,
+        env=env,
     )
     assert process.stdout is not None
     for line in process.stdout:
@@ -374,7 +485,145 @@ def print_stage_summary(records: list[StageRecord], total_runtime: float, log_pa
     emit(f"Log file: {log_path}", log_file)
 
 
+def contrast_count(model: str, source_cell: str, donor_cell: str) -> int | None:
+    path = Path(contrast_path_for(model_slug(model), source_cell, donor_cell))
+    if not path.exists():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return None
+    return len(data) if isinstance(data, list) else None
+
+
+def contrast_output_prefix(preset_label: str, source_cell: str, donor_cell: str) -> str | None:
+    override = OUTPUT_PREFIX_OVERRIDES.get((preset_label, source_cell, donor_cell))
+    if override is not None:
+        return override
+    return output_prefix_for(source_cell, donor_cell)
+
+
+def print_contrast_counts(model: str, contrast_keys: list[tuple[str, str]]) -> None:
+    print()
+    print(f"{'Contrast':<12} {'Count':<8} Description")
+    for source_cell, donor_cell in contrast_keys:
+        cfg = get_contrast_config(source_cell, donor_cell)
+        count = contrast_count(model, source_cell, donor_cell)
+        count_text = "missing" if count is None else str(count)
+        low_n = count is not None and count < LOW_N_THRESHOLD
+        suffix = " [low-n]" if low_n else ""
+        print(f"{source_cell}->{donor_cell:<8} {count_text:<8} {cfg.description}{suffix}")
+
+
+def choose_spread_contrasts(config: PipelineConfig) -> list[tuple[str, str]]:
+    if config.spread_contrasts is not None:
+        return config.spread_contrasts
+    if config.spread_mode == "all":
+        return list(QWEN_FULL_SPREAD_CONTRASTS)
+    selected: list[tuple[str, str]] = []
+    for key in QWEN_FULL_SPREAD_CONTRASTS:
+        count = contrast_count(config.model, *key)
+        if count is None:
+            if config.dry_run:
+                selected.append(key)
+            continue
+        if count >= LOW_N_THRESHOLD:
+            selected.append(key)
+        else:
+            cfg = get_contrast_config(*key)
+            print(
+                f"[low-n] {key[0]}->{key[1]} has {count} examples "
+                f"({cfg.description}); skipping by default."
+            )
+    return selected
+
+
+def analysis_config_for_contrast(base: PipelineConfig, source_cell: str, donor_cell: str) -> PipelineConfig:
+    prefix = contrast_output_prefix(base.preset_label, source_cell, donor_cell)
+    return PipelineConfig(
+        preset_label=f"{base.preset_label}_{source_cell.lower()}{donor_cell.lower()}",
+        model=base.model,
+        source_cell=source_cell,
+        donor_cell=donor_cell,
+        component_layers=list(base.component_layers),
+        attention_layers=list(base.attention_layers),
+        stages=[stage for stage in base.stages if stage in ANALYSIS_STAGES],
+        skip_existing=base.skip_existing,
+        dry_run=base.dry_run,
+        output_prefix=prefix,
+    )
+
+
+def setup_config_for_full_spread(base: PipelineConfig) -> PipelineConfig:
+    return PipelineConfig(
+        preset_label=f"{base.preset_label}_setup",
+        model=base.model,
+        source_cell=base.source_cell,
+        donor_cell=base.donor_cell,
+        component_layers=list(base.component_layers),
+        attention_layers=list(base.attention_layers),
+        stages=[stage for stage in base.stages if stage in SETUP_STAGES],
+        skip_existing=base.skip_existing,
+        dry_run=base.dry_run,
+        output_prefix=base.output_prefix,
+    )
+
+
+def run_full_spread_pipeline(config: PipelineConfig) -> int:
+    print("[spread] Qwen full spread runs dataset/evaluation once, then repeats Phase 3/4 per contrast.")
+    setup = setup_config_for_full_spread(config)
+    if setup.stages:
+        exit_code = run_pipeline(setup)
+        if exit_code != 0:
+            return exit_code
+
+    print_contrast_counts(config.model, QWEN_FULL_SPREAD_CONTRASTS)
+    selected = choose_spread_contrasts(config)
+    if not selected:
+        print("[spread] No contrasts selected for Phase 3/4 analysis.")
+        return 0
+
+    print()
+    print("[spread] Contrasts selected for Phase 3/4:")
+    for source_cell, donor_cell in selected:
+        count = contrast_count(config.model, source_cell, donor_cell)
+        count_text = "unknown" if count is None else str(count)
+        low_note = " LOW-N WARNING" if count is not None and count < LOW_N_THRESHOLD else ""
+        print(f"  - {source_cell}->{donor_cell}: {count_text} examples{low_note}")
+
+    for source_cell, donor_cell in selected:
+        sub_config = analysis_config_for_contrast(config, source_cell, donor_cell)
+        if not sub_config.stages:
+            continue
+        count = contrast_count(config.model, source_cell, donor_cell)
+        if count is not None and count < LOW_N_THRESHOLD:
+            print(
+                f"[low-n] Running expensive stages for {source_cell}->{donor_cell} "
+                f"with only {count} examples because it was explicitly selected."
+            )
+        exit_code = run_pipeline(sub_config)
+        if exit_code != 0:
+            return exit_code
+    if "overlay" in config.stages:
+        overlay_config = PipelineConfig(
+            preset_label=f"{config.preset_label}_overlay",
+            model=config.model,
+            source_cell=config.source_cell,
+            donor_cell=config.donor_cell,
+            component_layers=list(config.component_layers),
+            attention_layers=list(config.attention_layers),
+            stages=["overlay"],
+            skip_existing=config.skip_existing,
+            dry_run=config.dry_run,
+        )
+        return run_pipeline(overlay_config)
+    return 0
+
+
 def run_pipeline(config: PipelineConfig) -> int:
+    if config.full_spread:
+        return run_full_spread_pipeline(config)
+
     slug = model_slug(config.model)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     log_path = Path("logs/pipeline_runs") / f"{timestamp}_{config.preset_label}_{slug}.log"
@@ -406,11 +655,12 @@ def run_pipeline(config: PipelineConfig) -> int:
                 config.component_layers,
                 config.attention_layers,
                 run_containment_with_evaluation=run_containment_with_evaluation,
+                output_prefix=config.output_prefix,
             )
             command_text = command_to_text(command)
 
             if config.skip_existing:
-                ok, _ = check_outputs(stage, slug, config.source_cell, config.donor_cell)
+                ok, _ = check_outputs(stage, slug, config.source_cell, config.donor_cell, config.output_prefix)
                 if ok:
                     emit(f"[skip] {stage}: expected outputs already exist", log_file)
                     records.append(StageRecord(stage=stage, status="SKIPPED", runtime=0.0))
@@ -463,6 +713,7 @@ def run_pipeline(config: PipelineConfig) -> int:
                 slug,
                 config.source_cell,
                 config.donor_cell,
+                output_prefix=config.output_prefix,
                 include_containment=run_containment_with_evaluation,
             )
             if not ok:
@@ -504,6 +755,8 @@ def config_for_preset(preset_name: str, stages: list[str] | None = None) -> Pipe
         component_layers=list(preset.component_layers),
         attention_layers=list(preset.attention_layers),
         stages=list(stages or DEFAULT_STAGES),
+        output_prefix=preset.output_prefix,
+        full_spread=preset.full_spread,
     )
 
 
@@ -516,6 +769,8 @@ def print_preset_config(config: PipelineConfig) -> None:
     print(f"Donor cell: {config.donor_cell}")
     print(f"Component layers: {' '.join(str(layer) for layer in config.component_layers)}")
     print(f"Attention layers: {' '.join(str(layer) for layer in config.attention_layers)}")
+    if config.output_prefix is not None:
+        print(f"Output prefix: {config.output_prefix or '(base filenames)'}")
 
 
 def status_table(config: PipelineConfig, include_overlay: bool = False) -> dict[str, str]:
@@ -527,7 +782,7 @@ def status_table(config: PipelineConfig, include_overlay: bool = False) -> dict[
     print()
     print(f"{'Stage':<22} Status")
     for stage in stages:
-        status, _ = output_status(stage, slug, config.source_cell, config.donor_cell)
+        status, _ = output_status(stage, slug, config.source_cell, config.donor_cell, config.output_prefix)
         statuses[stage] = status
         display_stage = "overlay (optional)" if stage == "overlay" else stage
         print(f"{display_stage:<22} {status}")
@@ -556,17 +811,29 @@ def ask_yes_no(prompt: str, default: bool | None = None) -> bool:
 def select_preset_interactively() -> str | None:
     while True:
         print("Select pipeline preset:")
-        print("[1] pythia-clean  - Pythia A->C full pipeline")
-        print("[2] qwen-noisy    - Qwen B->D noisy full pipeline")
+        print("[1] pythia-clean")
+        print("[2] qwen-noisy-recovery")
+        print("[3] qwen-clean-degradation")
+        print("[4] qwen-direct-noise")
+        print("[5] qwen-structured-noise")
+        print("[6] qwen-full-spread")
         print("[q] quit")
         answer = input("> ").strip().lower()
         if answer == "1":
             return "pythia-clean"
         if answer == "2":
-            return "qwen-noisy"
+            return "qwen-noisy-recovery"
+        if answer == "3":
+            return "qwen-clean-degradation"
+        if answer == "4":
+            return "qwen-direct-noise"
+        if answer == "5":
+            return "qwen-structured-noise"
+        if answer == "6":
+            return "qwen-full-spread"
         if answer == "q":
             return None
-        print("Please choose 1, 2, or q.")
+        print("Please choose 1, 2, 3, 4, 5, 6, or q.")
 
 
 def clean_targets(slug: str, include_overlay: bool) -> list[Path]:
@@ -687,6 +954,39 @@ def manual_stage_selection(config: PipelineConfig, statuses: dict[str, str]) -> 
     return run_pipeline(config)
 
 
+def configure_full_spread_interactive(config: PipelineConfig) -> int:
+    print_contrast_counts(config.model, QWEN_FULL_SPREAD_CONTRASTS)
+    print()
+    print("Qwen full-spread contrast choice:")
+    print("[1] run only recommended contrasts (n >= 20)")
+    print("[2] run all contrasts anyway")
+    print("[3] choose contrasts manually")
+    print("[q] quit")
+    while True:
+        answer = input("> ").strip().lower()
+        if answer == "1":
+            config.spread_mode = "recommended"
+            return run_pipeline(config)
+        if answer == "2":
+            config.spread_mode = "all"
+            return run_pipeline(config)
+        if answer == "3":
+            selected: list[tuple[str, str]] = []
+            for key in QWEN_FULL_SPREAD_CONTRASTS:
+                cfg = get_contrast_config(*key)
+                count = contrast_count(config.model, *key)
+                default = count is not None and count >= LOW_N_THRESHOLD
+                count_text = "missing" if count is None else str(count)
+                if ask_yes_no(f"Run {key[0]}->{key[1]} ({cfg.description}, n={count_text})?", default=default):
+                    selected.append(key)
+            config.spread_mode = "manual"
+            config.spread_contrasts = selected
+            return run_pipeline(config)
+        if answer == "q":
+            return 0
+        print("Please choose 1, 2, 3, or q.")
+
+
 def interactive_main() -> int:
     preset_name = select_preset_interactively()
     if preset_name is None:
@@ -694,6 +994,9 @@ def interactive_main() -> int:
 
     config = config_for_preset(preset_name)
     print_preset_config(config)
+    if config.full_spread:
+        return configure_full_spread_interactive(config)
+
     statuses = status_table(config, include_overlay=True)
     any_existing = any(statuses.get(stage) == "exists" for stage in DEFAULT_STAGES)
 
@@ -736,6 +1039,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--donor-cell", default=None)
     parser.add_argument("--component-layers", default=None, help="Space- or comma-separated layer list.")
     parser.add_argument("--attention-layers", default=None, help="Space- or comma-separated layer list.")
+    parser.add_argument("--output-prefix", default=None, help="Advanced filename prefix override for Phase 3/4 outputs.")
     parser.add_argument("--stages", default=None, help="Comma-separated stage list.")
     parser.add_argument("--skip-existing", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
@@ -744,6 +1048,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    configure_console_output()
+
     if len(sys.argv) == 1:
         return interactive_main()
 

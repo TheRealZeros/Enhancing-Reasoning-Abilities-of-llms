@@ -83,6 +83,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
+try:
+    from scripts.utils.contrast_config import contrast_path_for, output_prefix_for
+except ModuleNotFoundError:
+    project_root = Path(__file__).resolve().parents[2]
+    sys.path.insert(0, str(project_root))
+    from scripts.utils.contrast_config import contrast_path_for, output_prefix_for
+
 # ============================================================================
 # Prompt materialisation (shared utility — identical to build_dataset.py)
 # ============================================================================
@@ -849,6 +856,10 @@ def main():
              "(default: dataset/processed/<model-slug>/noisy_contrast_examples.json)"
     )
     parser.add_argument(
+        "--contrast-file", type=str, default=None,
+        help="Path to the source/donor contrast examples JSON. Overrides contrast routing."
+    )
+    parser.add_argument(
         "--dataset", type=str, default=None,
         help="Path to full dataset JSON (fallback for prompt lookup) "
              "(default: dataset/processed/<model-slug>/dataset.json)"
@@ -881,6 +892,10 @@ def main():
         choices=["A", "B", "C", "D", "E"],
         help="Structured/donor cell to analyse (default: C)"
     )
+    parser.add_argument(
+        "--output-prefix", type=str, default=None,
+        help="Optional filename prefix override. Defaults come from source/donor contrast routing."
+    )
 
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument(
@@ -907,7 +922,6 @@ def main():
     slug = _model_slug(args.model)
     source_cell = args.source_cell.upper()
     donor_cell = args.donor_cell.upper()
-    is_noisy_contrast = source_cell == "B" and donor_cell == "D"
 
     clean_contrast = args.clean_contrast or f"dataset/processed/{slug}/contrast_examples.json"
     noisy_contrast = args.noisy_contrast or f"dataset/processed/{slug}/noisy_contrast_examples.json"
@@ -917,12 +931,12 @@ def main():
 
     # Determine which passes to run
     custom_cells = (source_cell, donor_cell) != ("A", "C")
-    run_clean = (not args.noisy) and not custom_cells
-    run_noisy = (args.noisy or args.include_noisy) and not custom_cells
-    run_custom = custom_cells
-    custom_contrast = noisy_contrast if is_noisy_contrast else clean_contrast
-    custom_label = "noisy" if is_noisy_contrast else f"{source_cell.lower()}_{donor_cell.lower()}"
-    custom_file_prefix = "noisy_" if is_noisy_contrast else f"{source_cell.lower()}_{donor_cell.lower()}_"
+    run_custom = custom_cells or args.contrast_file is not None or args.output_prefix is not None
+    run_clean = (not args.noisy) and not run_custom
+    run_noisy = (args.noisy or args.include_noisy) and not run_custom
+    custom_contrast = args.contrast_file or contrast_path_for(slug, source_cell, donor_cell)
+    custom_label = f"{source_cell.lower()}_{donor_cell.lower()}"
+    custom_file_prefix = output_prefix_for(source_cell, donor_cell, args.output_prefix)
 
     # ---- Ensure output directories exist ----
     Path(outdir).mkdir(parents=True, exist_ok=True)

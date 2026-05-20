@@ -41,6 +41,13 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import torch
 
+try:
+    from scripts.utils.contrast_config import contrast_path_for, output_prefix_for
+except ModuleNotFoundError:
+    project_root = Path(__file__).resolve().parents[2]
+    sys.path.insert(0, str(project_root))
+    from scripts.utils.contrast_config import contrast_path_for, output_prefix_for
+
 
 # ---------------------------------------------------------------------------
 # Prompt materialisation (shared utility — identical to build_dataset.py)
@@ -649,6 +656,8 @@ def main():
                         help="Source (baseline/corrupted) cell letter, e.g. 'A' or 'B' (default: A)")
     parser.add_argument("--donor-cell", type=str, default="C",
                         help="Donor (structured/clean) cell letter, e.g. 'C' or 'D' (default: C)")
+    parser.add_argument("--output-prefix", type=str, default=None,
+                        help="Optional filename prefix override. Defaults come from source/donor contrast routing.")
     parser.add_argument("--verbose", action="store_true",
                         help="Print per-example details and stage timings")
     parser.add_argument("--layer-log-interval", type=int, default=4,
@@ -658,13 +667,8 @@ def main():
     slug = _model_slug(args.model)
     source_cell = args.source_cell.upper()
     donor_cell = args.donor_cell.upper()
-    is_noisy_contrast = source_cell == "B" and donor_cell == "D"
-    file_prefix = "noisy_" if is_noisy_contrast else ""
-    default_contrast = (
-        f"dataset/processed/{slug}/contrast_examples.json"
-        if not is_noisy_contrast
-        else f"dataset/processed/{slug}/noisy_contrast_examples.json"
-    )
+    file_prefix = output_prefix_for(source_cell, donor_cell, args.output_prefix)
+    default_contrast = contrast_path_for(slug, source_cell, donor_cell)
     contrast_file = args.contrast_file or default_contrast
     base_out = f"results/phase_3a_layer_patching/{slug}"
     base_fig = f"figures/phase_3a_layer_patching/{slug}"

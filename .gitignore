@@ -83,3 +83,5 @@ figures/
 # =========================
 .claude/settings.local.json
 .claude/settings.json
+
+docs/results_analysis

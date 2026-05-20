@@ -29,6 +29,13 @@ from typing import Any
 import pandas as pd
 import torch
 
+try:
+    from scripts.utils.contrast_config import CONTRAST_CONFIGS
+except ModuleNotFoundError:
+    project_root = Path(__file__).resolve().parents[2]
+    sys.path.insert(0, str(project_root))
+    from scripts.utils.contrast_config import CONTRAST_CONFIGS
+
 # ---------------------------------------------------------------------------
 # Prompt materialisation (shared utility — identical to build_dataset.py)
 # ---------------------------------------------------------------------------
@@ -363,6 +370,14 @@ def find_contrast_examples(
     return contrasts
 
 
+def count_correct_overlap(df: pd.DataFrame, cell_a: str, cell_b: str) -> int:
+    """Count examples where both requested cells are exact-match correct."""
+    rows_a = df[df["cell"] == cell_a].set_index("example_id")
+    rows_b = df[df["cell"] == cell_b].set_index("example_id")
+    common_ids = rows_a.index.intersection(rows_b.index)
+    return sum(bool(rows_a.loc[eid]["correct"]) and bool(rows_b.loc[eid]["correct"]) for eid in common_ids)
+
+
 # ---------------------------------------------------------------------------
 # CLI and main
 # ---------------------------------------------------------------------------
@@ -442,34 +457,30 @@ def main():
     print(f"[save] {summary_path}")
 
     # ---- Contrast examples ----
-    contrasts = find_contrast_examples(
-        results_df,
-        dataset_by_id,
-        baseline_cell="A",
-        structured_cell="C",
-    )
-    noisy_contrasts = find_contrast_examples(
-        results_df,
-        dataset_by_id,
-        baseline_cell="B",
-        structured_cell="D",
-    )
+    contrast_outputs: dict[tuple[str, str], dict[str, Any]] = {}
+    for (source_cell, donor_cell), config in CONTRAST_CONFIGS.items():
+        examples = find_contrast_examples(
+            results_df,
+            dataset_by_id,
+            baseline_cell=source_cell,
+            structured_cell=donor_cell,
+        )
+        contrast_outputs[(source_cell, donor_cell)] = {
+            "config": config,
+            "examples": examples,
+        }
+
     # Route contrast examples to the model-specific processed dir so downstream
     # scripts find them alongside the model's dataset.json.
     dataset_dir = Path(dataset_path).parent
     dataset_dir.mkdir(parents=True, exist_ok=True)
-    contrast_path = dataset_dir / "contrast_examples.json"
-    with open(contrast_path, "w", encoding="utf-8") as f:
-        json.dump(contrasts, f, indent=2, ensure_ascii=False)
-    print(f"[save] {contrast_path}  ({len(contrasts)} A wrong ^ C correct examples)")
-
-    noisy_contrast_path = dataset_dir / "noisy_contrast_examples.json"
-    with open(noisy_contrast_path, "w", encoding="utf-8") as f:
-        json.dump(noisy_contrasts, f, indent=2, ensure_ascii=False)
-    print(
-        f"[save] {noisy_contrast_path}  "
-        f"({len(noisy_contrasts)} B wrong ^ D correct examples)"
-    )
+    for payload in contrast_outputs.values():
+        config = payload["config"]
+        examples = payload["examples"]
+        contrast_path = dataset_dir / config.contrast_file
+        with open(contrast_path, "w", encoding="utf-8") as f:
+            json.dump(examples, f, indent=2, ensure_ascii=False)
+        print(f"[save] {contrast_path}  ({len(examples)} {config.criterion} examples)")
 
     # ---- Console summary ----
     print(f"\n{'='*60}")
@@ -480,16 +491,18 @@ def main():
         print(f"  Cell {row['cell']}: {row['num_correct']:3.0f}/{row['total_examples']:3.0f} "
               f"= {row['accuracy']:.1%}  {bar}")
 
-    n_contrast = len(contrasts)
-    n_noisy_contrast = len(noisy_contrasts)
-    status = "PASS" if n_contrast >= 20 else "BELOW TARGET"
-    print(f"\nContrast examples (A wrong ^ C correct): {n_contrast}  [{status}]")
-    print(f"Noisy contrast examples (B wrong ^ D correct): {n_noisy_contrast}")
-    print(f"  Clean contrast output: {contrast_path}")
-    print(f"  Noisy contrast output: {noisy_contrast_path}")
-    if n_contrast < 20:
-        print("  → Consider expanding dataset or loosening contrast criterion "
-              "(e.g., higher p(correct) under C even if not EM-correct).")
+    print("\nCONTRAST SUMMARY")
+    for payload in contrast_outputs.values():
+        config = payload["config"]
+        examples = payload["examples"]
+        status = "PASS" if len(examples) >= 20 else "LOW-N WARNING"
+        contrast_path = dataset_dir / config.contrast_file
+        print(f"  {config.criterion}: {len(examples)}  [{status}]")
+        print(f"    Output: {contrast_path}")
+        if len(examples) < 20:
+            print("    -> Low sample size: saved anyway; skip expensive patching unless needed.")
+    cd_overlap = count_correct_overlap(results_df, "C", "D")
+    print(f"  C correct and D correct overlap: {cd_overlap}")
 
     # Error count
     n_errors = int(results_df["error"].sum())
@@ -499,9 +512,10 @@ def main():
         print(f"\nRuntime errors: 0")
 
     # Domain breakdown for contrasts
-    if contrasts:
+    clean_contrast = contrast_outputs[("A", "C")]["examples"]
+    if clean_contrast:
         from collections import Counter
-        dom_counts = Counter(c["domain"] for c in contrasts)
+        dom_counts = Counter(c["domain"] for c in clean_contrast)
         print(f"  Domain breakdown: {dict(dom_counts)}")
 
     # ---- Optional answer-containment diagnostic ----
