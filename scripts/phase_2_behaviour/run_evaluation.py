@@ -30,11 +30,11 @@ import pandas as pd
 import torch
 
 try:
-    from scripts.utils.contrast_config import CONTRAST_CONFIGS
+    from scripts.utils.contrast_config import CONTRAST_CONFIGS, model_file_prefix
 except ModuleNotFoundError:
     project_root = Path(__file__).resolve().parents[2]
     sys.path.insert(0, str(project_root))
-    from scripts.utils.contrast_config import CONTRAST_CONFIGS
+    from scripts.utils.contrast_config import CONTRAST_CONFIGS, model_file_prefix
 
 # ---------------------------------------------------------------------------
 # Prompt materialisation (shared utility — identical to build_dataset.py)
@@ -446,13 +446,14 @@ def main():
     print(f"\n[eval] Finished in {elapsed:.1f}s")
 
     # ---- Save detailed results ----
-    eval_path = out_dir / "evaluation_results.csv"
+    file_prefix = model_file_prefix(slug)
+    eval_path = out_dir / f"{file_prefix}evaluation_results.csv"
     results_df.to_csv(eval_path, index=False, encoding="utf-8")
     print(f"[save] {eval_path}  ({len(results_df)} rows)")
 
     # ---- Accuracy summary ----
     summary_df = build_accuracy_summary(results_df)
-    summary_path = out_dir / "accuracy_summary.csv"
+    summary_path = out_dir / f"{file_prefix}accuracy_summary.csv"
     summary_df.to_csv(summary_path, index=False, encoding="utf-8")
     print(f"[save] {summary_path}")
 

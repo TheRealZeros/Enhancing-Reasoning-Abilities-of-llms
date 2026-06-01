@@ -38,14 +38,14 @@ python scripts/run_model_pipeline.py --preset qwen-steering-calibration
 ## Outputs
 
 ```text
-results/phase_5a_steering_calibration/qwen2.5-3b/noisy_oracle_steering_results.csv
-results/phase_5a_steering_calibration/qwen2.5-3b/noisy_oracle_steering_summary.csv
-results/phase_5a_steering_calibration/qwen2.5-3b/noisy_layer_sweep_steering_results.csv
-results/phase_5a_steering_calibration/qwen2.5-3b/noisy_layer_sweep_steering_summary.csv
-results/phase_5a_steering_calibration/qwen2.5-3b/noisy_recommended_steering_config.json
-results/phase_5a_steering_calibration/qwen2.5-3b/noisy_steering_calibration_report.md
-figures/phase_5a_steering_calibration/qwen2.5-3b/noisy_oracle_steering_alpha_sweep.png
-figures/phase_5a_steering_calibration/qwen2.5-3b/noisy_layer_sweep_steering_heatmap.png
+results/phase_5a_steering_calibration/qwen2.5-3b/qwen2.5-3b_noisy_oracle_steering_results.csv
+results/phase_5a_steering_calibration/qwen2.5-3b/qwen2.5-3b_noisy_oracle_steering_summary.csv
+results/phase_5a_steering_calibration/qwen2.5-3b/qwen2.5-3b_noisy_layer_sweep_steering_results.csv
+results/phase_5a_steering_calibration/qwen2.5-3b/qwen2.5-3b_noisy_layer_sweep_steering_summary.csv
+results/phase_5a_steering_calibration/qwen2.5-3b/qwen2.5-3b_noisy_recommended_steering_config.json
+results/phase_5a_steering_calibration/qwen2.5-3b/qwen2.5-3b_noisy_steering_calibration_report.md
+figures/phase_5a_steering_calibration/qwen2.5-3b/qwen2.5-3b_noisy_oracle_steering_alpha_sweep.png
+figures/phase_5a_steering_calibration/qwen2.5-3b/qwen2.5-3b_noisy_layer_sweep_steering_heatmap.png
 ```
 
 ## Thesis-Safe Wording

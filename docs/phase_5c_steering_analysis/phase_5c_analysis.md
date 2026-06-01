@@ -11,13 +11,13 @@ python scripts/run_model_pipeline.py --preset qwen-steering-analysis
 Direct script command:
 
 ```powershell
-python scripts/phase_5a_steering_calibration/steering_diagnostics.py --model Qwen/Qwen2.5-3B --source-cell B --donor-cell D --diagnostic helped_hurt --steering-results results/phase_5b_activation_steering/qwen2.5-3b/noisy_steering_results.csv
+python scripts/phase_5a_steering_calibration/steering_diagnostics.py --model Qwen/Qwen2.5-3B --source-cell B --donor-cell D --diagnostic helped_hurt --steering-results results/phase_5b_activation_steering/qwen2.5-3b/qwen2.5-3b_noisy_steering_results.csv
 ```
 
 ## Prerequisite
 
 ```text
-results/phase_5b_activation_steering/qwen2.5-3b/noisy_steering_results.csv
+results/phase_5b_activation_steering/qwen2.5-3b/qwen2.5-3b_noisy_steering_results.csv
 ```
 
 If this file is missing, run:
@@ -29,9 +29,9 @@ python scripts/run_model_pipeline.py --preset qwen-steering-final
 ## Outputs
 
 ```text
-results/phase_5c_steering_analysis/qwen2.5-3b/noisy_helped_hurt_analysis.csv
-results/phase_5c_steering_analysis/qwen2.5-3b/noisy_helped_hurt_report.md
-results/phase_5c_steering_analysis/qwen2.5-3b/noisy_final_steering_interpretation.md
+results/phase_5c_steering_analysis/qwen2.5-3b/qwen2.5-3b_noisy_helped_hurt_analysis.csv
+results/phase_5c_steering_analysis/qwen2.5-3b/qwen2.5-3b_noisy_helped_hurt_report.md
+results/phase_5c_steering_analysis/qwen2.5-3b/qwen2.5-3b_noisy_final_steering_interpretation.md
 ```
 
 ## Interpretation

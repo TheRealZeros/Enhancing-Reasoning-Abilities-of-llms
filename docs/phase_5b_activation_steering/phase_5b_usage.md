@@ -47,19 +47,19 @@ python scripts/phase_5b_activation_steering/activation_steering.py --model Qwen/
 ## Outputs
 
 ```text
-results/phase_5b_activation_steering/qwen2.5-3b/noisy_steering_results.csv
-results/phase_5b_activation_steering/qwen2.5-3b/noisy_steering_summary.csv
-results/phase_5b_activation_steering/qwen2.5-3b/noisy_steering_alpha_sweep.csv
-results/phase_5b_activation_steering/qwen2.5-3b/noisy_steering_vector_stats.json
-results/phase_5b_activation_steering/qwen2.5-3b/noisy_steering_report.md
-figures/phase_5b_activation_steering/qwen2.5-3b/noisy_steering_alpha_sweep.png
-figures/phase_5b_activation_steering/qwen2.5-3b/noisy_steering_logit_shift.png
-figures/phase_5b_activation_steering/qwen2.5-3b/noisy_steering_rank_shift.png
+results/phase_5b_activation_steering/qwen2.5-3b/qwen2.5-3b_noisy_steering_results.csv
+results/phase_5b_activation_steering/qwen2.5-3b/qwen2.5-3b_noisy_steering_summary.csv
+results/phase_5b_activation_steering/qwen2.5-3b/qwen2.5-3b_noisy_steering_alpha_sweep.csv
+results/phase_5b_activation_steering/qwen2.5-3b/qwen2.5-3b_noisy_steering_vector_stats.json
+results/phase_5b_activation_steering/qwen2.5-3b/qwen2.5-3b_noisy_steering_report.md
+figures/phase_5b_activation_steering/qwen2.5-3b/qwen2.5-3b_noisy_steering_alpha_sweep.png
+figures/phase_5b_activation_steering/qwen2.5-3b/qwen2.5-3b_noisy_steering_logit_shift.png
+figures/phase_5b_activation_steering/qwen2.5-3b/qwen2.5-3b_noisy_steering_rank_shift.png
 ```
 
 Control outputs use separate prefixes:
 
 ```text
-results/phase_5b_activation_steering/qwen2.5-3b/noisy_random_steering_*
-results/phase_5b_activation_steering/qwen2.5-3b/noisy_early_layer_steering_*
+results/phase_5b_activation_steering/qwen2.5-3b/qwen2.5-3b_noisy_random_steering_*
+results/phase_5b_activation_steering/qwen2.5-3b/qwen2.5-3b_noisy_early_layer_steering_*
 ```

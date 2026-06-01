@@ -87,3 +87,8 @@ def output_prefix_for(source_cell: str, donor_cell: str, override: str | None = 
     if override is not None:
         return override
     return get_contrast_config(source_cell, donor_cell).output_prefix
+
+
+def model_file_prefix(model_slug: str, output_prefix: str | None = "") -> str:
+    """Prefix generated result/figure filenames with the model slug."""
+    return f"{model_slug}_{output_prefix or ''}"

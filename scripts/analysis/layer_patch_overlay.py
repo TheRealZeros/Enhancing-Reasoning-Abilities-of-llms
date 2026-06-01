@@ -206,12 +206,12 @@ def main() -> None:
     parser.add_argument(
         "--pythia-csv",
         type=str,
-        default="results/phase_3a_layer_patching/pythia-2.8b/layer_patch_summary.csv",
+        default="results/phase_3a_layer_patching/pythia-2.8b/pythia-2.8b_layer_patch_summary.csv",
     )
     parser.add_argument(
         "--qwen-csv",
         type=str,
-        default="results/phase_3a_layer_patching/qwen2.5-3b/noisy_layer_patch_summary.csv",
+        default="results/phase_3a_layer_patching/qwen2.5-3b/qwen2.5-3b_noisy_layer_patch_summary.csv",
     )
     parser.add_argument(
         "--figure-dir",
@@ -229,6 +229,7 @@ def main() -> None:
     out_dir = Path(args.output_dir)
     ensure_dir(fig_dir)
     ensure_dir(out_dir)
+    file_prefix = "pythia-2.8b_qwen2.5-3b_"
 
     log(f"[load] Pythia CSV : {args.pythia_csv}")
     pythia_df = load_summary(args.pythia_csv, "Pythia-2.8B A->C")
@@ -240,15 +241,15 @@ def main() -> None:
 
     plot_raw_depth(
         pythia_df, qwen_df,
-        out_path=fig_dir / "layer_patch_overlay_raw_depth.png",
+        out_path=fig_dir / f"{file_prefix}layer_patch_overlay_raw_depth.png",
     )
     plot_relative_depth(
         pythia_df, qwen_df,
-        out_path=fig_dir / "layer_patch_overlay_relative_depth.png",
+        out_path=fig_dir / f"{file_prefix}layer_patch_overlay_relative_depth.png",
     )
 
     summary_df = build_overlay_summary(pythia_df, qwen_df)
-    summary_path = out_dir / "layer_patch_overlay_summary.csv"
+    summary_path = out_dir / f"{file_prefix}layer_patch_overlay_summary.csv"
     summary_df.to_csv(summary_path, index=False, encoding="utf-8")
     log(f"[save] {summary_path.resolve()}")
 

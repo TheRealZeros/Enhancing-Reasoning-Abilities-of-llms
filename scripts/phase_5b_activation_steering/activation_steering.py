@@ -34,11 +34,11 @@ from pathlib import Path
 from typing import Any
 
 try:
-    from scripts.utils.contrast_config import contrast_path_for, output_prefix_for
+    from scripts.utils.contrast_config import contrast_path_for, model_file_prefix, output_prefix_for
 except ModuleNotFoundError:
     project_root = Path(__file__).resolve().parents[2]
     sys.path.insert(0, str(project_root))
-    from scripts.utils.contrast_config import contrast_path_for, output_prefix_for
+    from scripts.utils.contrast_config import contrast_path_for, model_file_prefix, output_prefix_for
 
 
 np = None
@@ -1316,7 +1316,7 @@ def resolve_paths(args) -> dict[str, Path | str]:
         "filler": "filler_",
     }
     control_prefix = control_prefixes[args.control]
-    prefix = f"{contrast_prefix}{control_prefix}"
+    prefix = model_file_prefix(slug, f"{contrast_prefix}{control_prefix}")
 
     dataset_path = Path(args.dataset or f"dataset/processed/{slug}/dataset.json")
     contrast_path = Path(args.contrast_file or contrast_path_for(slug, source_cell, donor_cell))

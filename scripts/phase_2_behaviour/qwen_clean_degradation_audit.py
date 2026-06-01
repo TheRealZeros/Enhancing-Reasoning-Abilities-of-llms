@@ -218,9 +218,10 @@ def main() -> None:
     args = parser.parse_args()
 
     slug = _model_slug(args.model)
+    file_prefix = f"{slug}_"
     dataset_path = args.dataset or Path(f"dataset/processed/{slug}/dataset.json")
-    evaluation_path = args.evaluation or Path(f"results/phase_2_behaviour/{slug}/evaluation_results.csv")
-    output_path = args.output or Path(f"results/phase_2_behaviour/{slug}/qwen_clean_degradation_audit.md")
+    evaluation_path = args.evaluation or Path(f"results/phase_2_behaviour/{slug}/{file_prefix}evaluation_results.csv")
+    output_path = args.output or Path(f"results/phase_2_behaviour/{slug}/{file_prefix}qwen_clean_degradation_audit.md")
 
     dataset = load_dataset(dataset_path)
     eval_rows = load_eval_rows(evaluation_path)

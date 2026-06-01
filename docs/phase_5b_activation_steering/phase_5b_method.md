@@ -3,7 +3,7 @@
 Phase 5b is the final average activation-steering intervention. It runs after Phase 5a calibration and uses the calibrated layer, hook, and alpha range written to:
 
 ```text
-results/phase_5a_steering_calibration/qwen2.5-3b/noisy_recommended_steering_config.json
+results/phase_5a_steering_calibration/qwen2.5-3b/qwen2.5-3b_noisy_recommended_steering_config.json
 ```
 
 The scientific method is unchanged from the first steering implementation:

@@ -861,20 +861,21 @@ def main():
     # ---- Save detailed results ----
     results_df = pd.DataFrame(all_rows)
 
-    detail_path = out_dir / "head_patch_results.csv"
+    file_prefix = f"{slug}_"
+    detail_path = out_dir / f"{file_prefix}head_patch_results.csv"
     t0 = time.time()
     results_df.to_csv(detail_path, index=False, encoding="utf-8")
     log(f"[save] {detail_path} ({len(results_df)} rows) in {format_seconds(time.time() - t0)}")
 
     # ---- Aggregate and save summary ----
     summary_df = aggregate_head_results(results_df, args.metric)
-    summary_path = out_dir / "head_patch_summary.csv"
+    summary_path = out_dir / f"{file_prefix}head_patch_summary.csv"
     t0 = time.time()
     summary_df.to_csv(summary_path, index=False, encoding="utf-8")
     log(f"[save] {summary_path} in {format_seconds(time.time() - t0)}")
 
     # ---- Plot heatmap ----
-    fig_path = fig_dir / "head_patch_heatmap.png"
+    fig_path = fig_dir / f"{file_prefix}head_patch_heatmap.png"
     plot_head_heatmap(summary_df, str(fig_path), args.metric, n_valid)
 
     # ---- Console summary ----

@@ -18,6 +18,15 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Optional
 
+try:
+    from scripts.utils.contrast_config import model_file_prefix
+except ModuleNotFoundError:
+    import sys
+
+    project_root = Path(__file__).resolve().parents[2]
+    sys.path.insert(0, str(project_root))
+    from scripts.utils.contrast_config import model_file_prefix
+
 
 CELL_ORDER = ["A", "B", "C", "D", "E"]
 LABEL_EXACT = "exact_match"
@@ -292,7 +301,7 @@ def run_answer_containment_audit(
     resolved_evaluation = (
         Path(evaluation_path)
         if evaluation_path
-        else Path(f"results/phase_2_behaviour/{slug}/evaluation_results.csv")
+        else Path(f"results/phase_2_behaviour/{slug}/{model_file_prefix(slug)}evaluation_results.csv")
     )
     resolved_output_dir = (
         Path(output_dir)
@@ -303,9 +312,10 @@ def run_answer_containment_audit(
     rows = load_audit_rows(resolved_evaluation, resolved_dataset)
     summary_rows = summarise(rows)
 
-    audit_path = resolved_output_dir / "answer_containment_audit.csv"
-    summary_path = resolved_output_dir / "answer_containment_summary.csv"
-    markdown_path = resolved_output_dir / "answer_containment_audit.md"
+    file_prefix = model_file_prefix(slug)
+    audit_path = resolved_output_dir / f"{file_prefix}answer_containment_audit.csv"
+    summary_path = resolved_output_dir / f"{file_prefix}answer_containment_summary.csv"
+    markdown_path = resolved_output_dir / f"{file_prefix}answer_containment_audit.md"
 
     write_csv(
         audit_path,

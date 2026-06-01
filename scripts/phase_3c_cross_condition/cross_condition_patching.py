@@ -962,9 +962,10 @@ def main():
     args = parser.parse_args()
 
     slug = _model_slug(args.model)
+    file_prefix = f"{slug}_"
     dataset_path        = args.dataset           or f"dataset/processed/{slug}/dataset.json"
-    eval_results_path   = args.eval_results      or f"results/phase_2_behaviour/{slug}/evaluation_results.csv"
-    clean_summary_path  = args.clean_summary     or f"results/phase_3a_layer_patching/{slug}/layer_patch_summary.csv"
+    eval_results_path   = args.eval_results      or f"results/phase_2_behaviour/{slug}/{file_prefix}evaluation_results.csv"
+    clean_summary_path  = args.clean_summary     or f"results/phase_3a_layer_patching/{slug}/{file_prefix}layer_patch_summary.csv"
     layer_out_dir_path  = args.layer_output_dir  or f"results/phase_3a_layer_patching/{slug}"
     cross_out_dir_path  = args.cross_output_dir  or f"results/phase_3c_cross_condition/{slug}"
     contrast_out_path   = args.contrast_output_dir or f"dataset/processed/{slug}"
@@ -1086,13 +1087,13 @@ def main():
     # ---- Step 4: Save noisy results ----
     results_df = pd.DataFrame(all_rows)
 
-    detail_path = layer_out_dir / "noisy_layer_patch_results.csv"
+    detail_path = layer_out_dir / f"{file_prefix}noisy_layer_patch_results.csv"
     t0 = time.time()
     results_df.to_csv(detail_path, index=False, encoding="utf-8")
     log(f"[save] {detail_path} ({len(results_df)} rows) in {format_seconds(time.time() - t0)}")
 
     noisy_summary = aggregate_layer_results(results_df, args.hook_name, args.metric)
-    noisy_summary_path = layer_out_dir / "noisy_layer_patch_summary.csv"
+    noisy_summary_path = layer_out_dir / f"{file_prefix}noisy_layer_patch_summary.csv"
     t0 = time.time()
     noisy_summary.to_csv(noisy_summary_path, index=False, encoding="utf-8")
     log(f"[save] {noisy_summary_path} in {format_seconds(time.time() - t0)}")
@@ -1105,7 +1106,7 @@ def main():
     comparison_df = build_cross_condition_comparison(clean_summary_path, noisy_summary)
 
     if not comparison_df.empty:
-        comp_path = cross_out_dir / "cross_condition_layer_comparison.csv"
+        comp_path = cross_out_dir / f"{file_prefix}cross_condition_layer_comparison.csv"
         t0 = time.time()
         comparison_df.to_csv(comp_path, index=False, encoding="utf-8")
         log(f"[save] {comp_path} in {format_seconds(time.time() - t0)}")
@@ -1114,7 +1115,7 @@ def main():
         clean_summary = pd.read_csv(clean_summary_path)
         n_clean = int(clean_summary["n_examples"].iloc[0]) if not clean_summary.empty else 0
 
-        fig_path = fig_dir / "clean_vs_noisy_layer_patch_overlay.png"
+        fig_path = fig_dir / f"{file_prefix}clean_vs_noisy_layer_patch_overlay.png"
         plot_overlay(comparison_df, str(fig_path), args.metric, n_clean, n_valid)
 
     # ---- Console summary ----

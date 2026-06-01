@@ -84,11 +84,11 @@ import numpy as np
 import torch
 
 try:
-    from scripts.utils.contrast_config import contrast_path_for, output_prefix_for
+    from scripts.utils.contrast_config import contrast_path_for, model_file_prefix, output_prefix_for
 except ModuleNotFoundError:
     project_root = Path(__file__).resolve().parents[2]
     sys.path.insert(0, str(project_root))
-    from scripts.utils.contrast_config import contrast_path_for, output_prefix_for
+    from scripts.utils.contrast_config import contrast_path_for, model_file_prefix, output_prefix_for
 
 # ============================================================================
 # Prompt materialisation (shared utility — identical to build_dataset.py)
@@ -936,7 +936,7 @@ def main():
     run_noisy = (args.noisy or args.include_noisy) and not run_custom
     custom_contrast = args.contrast_file or contrast_path_for(slug, source_cell, donor_cell)
     custom_label = f"{source_cell.lower()}_{donor_cell.lower()}"
-    custom_file_prefix = output_prefix_for(source_cell, donor_cell, args.output_prefix)
+    custom_file_prefix = model_file_prefix(slug, output_prefix_for(source_cell, donor_cell, args.output_prefix))
 
     # ---- Ensure output directories exist ----
     Path(outdir).mkdir(parents=True, exist_ok=True)
@@ -1014,7 +1014,7 @@ def main():
                 dataset_index=dataset_index,
                 outdir=outdir,
                 figdir=figdir,
-                file_prefix="",
+                file_prefix=model_file_prefix(slug),
                 max_examples=args.max_examples,
                 device=args.device,
             )
@@ -1049,7 +1049,7 @@ def main():
                 dataset_index=dataset_index,
                 outdir=outdir,
                 figdir=figdir,
-                file_prefix="noisy_",
+                file_prefix=model_file_prefix(slug, "noisy_"),
                 max_examples=args.max_examples,
                 device=args.device,
             )

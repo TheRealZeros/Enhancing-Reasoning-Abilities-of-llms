@@ -32,11 +32,11 @@ except ModuleNotFoundError:
     import activation_steering as steering
 
 try:
-    from scripts.utils.contrast_config import contrast_path_for, output_prefix_for
+    from scripts.utils.contrast_config import contrast_path_for, model_file_prefix, output_prefix_for
 except ModuleNotFoundError:
     project_root = Path(__file__).resolve().parents[2]
     sys.path.insert(0, str(project_root))
-    from scripts.utils.contrast_config import contrast_path_for, output_prefix_for
+    from scripts.utils.contrast_config import contrast_path_for, model_file_prefix, output_prefix_for
 
 
 DEFAULT_DIAGNOSTIC_ALPHAS = [0.25, 0.5, 0.75, 1.0, 1.25]
@@ -64,7 +64,7 @@ def resolve_common_paths(args) -> dict[str, Path | str]:
     slug = model_slug(args.model)
     source_cell = args.source_cell.upper()
     donor_cell = args.donor_cell.upper()
-    prefix = output_prefix_for(source_cell, donor_cell, args.output_prefix)
+    prefix = model_file_prefix(slug, output_prefix_for(source_cell, donor_cell, args.output_prefix))
     result_dir = Path(args.output_dir or f"results/phase_5a_steering_calibration/{slug}")
     figure_dir = Path(args.figure_dir or f"figures/phase_5a_steering_calibration/{slug}")
     analysis_result_dir = Path(args.analysis_output_dir or f"results/phase_5c_steering_analysis/{slug}")

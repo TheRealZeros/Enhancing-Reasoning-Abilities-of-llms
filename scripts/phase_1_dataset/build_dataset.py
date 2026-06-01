@@ -85,7 +85,7 @@ def _model_paths(model_name: str):
     return (
         os.path.join(processed, "dataset.json"),
         os.path.join(processed, "dataset_draft.json"),
-        os.path.join(results, "dataset_alignment_report.csv"),
+        os.path.join(results, f"{slug}_dataset_alignment_report.csv"),
     )
 
 # Maximum EOS-padding tokens. Cell D (structured + noisy) is naturally

@@ -55,11 +55,11 @@ import pandas as pd
 import torch
 
 try:
-    from scripts.utils.contrast_config import contrast_path_for, output_prefix_for
+    from scripts.utils.contrast_config import contrast_path_for, model_file_prefix, output_prefix_for
 except ModuleNotFoundError:
     project_root = Path(__file__).resolve().parents[2]
     sys.path.insert(0, str(project_root))
-    from scripts.utils.contrast_config import contrast_path_for, output_prefix_for
+    from scripts.utils.contrast_config import contrast_path_for, model_file_prefix, output_prefix_for
 
 
 # ---------------------------------------------------------------------------
@@ -766,7 +766,7 @@ def main():
     slug = _model_slug(args.model)
     source_cell = args.source_cell.upper()
     donor_cell = args.donor_cell.upper()
-    file_prefix = output_prefix_for(source_cell, donor_cell, args.output_prefix)
+    file_prefix = model_file_prefix(slug, output_prefix_for(source_cell, donor_cell, args.output_prefix))
     default_contrast = contrast_path_for(slug, source_cell, donor_cell)
     base_out = f"results/phase_3b_component_patching/{slug}"
     base_fig = f"figures/phase_3b_component_patching/{slug}"

@@ -15,9 +15,9 @@ from pathlib import Path
 from typing import TextIO
 
 try:
-    from utils.contrast_config import CONTRAST_CONFIGS, contrast_path_for, get_contrast_config, output_prefix_for
+    from utils.contrast_config import CONTRAST_CONFIGS, contrast_path_for, get_contrast_config, model_file_prefix, output_prefix_for
 except ModuleNotFoundError:
-    from scripts.utils.contrast_config import CONTRAST_CONFIGS, contrast_path_for, get_contrast_config, output_prefix_for
+    from scripts.utils.contrast_config import CONTRAST_CONFIGS, contrast_path_for, get_contrast_config, model_file_prefix, output_prefix_for
 
 
 ALL_STAGES = [
@@ -53,10 +53,15 @@ STEERING_FINAL_STAGES = ["steering-final"]
 STEERING_CONTROL_STAGES = ["steering-controls"]
 STEERING_ANALYSIS_STAGES = ["steering-analysis"]
 STEERING_STAGES = STEERING_CALIBRATION_STAGES + STEERING_FINAL_STAGES + STEERING_CONTROL_STAGES + STEERING_ANALYSIS_STAGES
+FULL_CORE_STAGES = DEFAULT_STAGES
+QWEN_FULL_STEERING_STAGES = STEERING_CALIBRATION_STAGES + STEERING_FINAL_STAGES + STEERING_CONTROL_STAGES + STEERING_ANALYSIS_STAGES
+PYTHIA_FULL_STEERING_STAGES = STEERING_FINAL_STAGES + STEERING_CONTROL_STAGES + STEERING_ANALYSIS_STAGES
 QWEN_MODEL = "Qwen/Qwen2.5-3B"
+PYTHIA_MODEL = "EleutherAI/pythia-2.8b"
 QWEN_LATE_COMPONENT_LAYERS = [31, 32, 33, 34, 35]
 QWEN_LATE_ATTENTION_LAYERS = [20, 31, 33, 34, 35]
 QWEN_PHASE5_DEFAULT_FINAL_ALPHAS = [0.0, 0.25, 0.5, 0.75, 1.0]
+PYTHIA_PHASE5_FINAL_ALPHAS = [0.0, 0.5, 1.0, 2.0]
 QWEN_FULL_SPREAD_CONTRASTS = [("A", "C"), ("B", "D"), ("B", "A"), ("C", "D"), ("C", "A")]
 OUTPUT_PREFIX_OVERRIDES = {
     ("qwen-full-spread", "A", "C"): "clean_",
@@ -91,6 +96,7 @@ class Preset:
     full_spread: bool = False
     default_stages: list[str] | None = None
     phase5_steering: bool = False
+    clean_model: bool = False
 
 
 @dataclass
@@ -110,6 +116,7 @@ class PipelineConfig:
     spread_contrasts: list[tuple[str, str]] | None = None
     phase5_steering: bool = False
     clean_phase5: bool = False
+    clean_model: bool = False
     yes: bool = False
 
 
@@ -123,11 +130,30 @@ class StageRecord:
 
 PRESETS = {
     "pythia-clean": Preset(
-        model="EleutherAI/pythia-2.8b",
+        model=PYTHIA_MODEL,
         source_cell="A",
         donor_cell="C",
         component_layers=[24, 25, 29, 30, 31],
         attention_layers=[20, 30, 31],
+    ),
+    "pythia-full-end-to-end": Preset(
+        model=PYTHIA_MODEL,
+        source_cell="A",
+        donor_cell="C",
+        component_layers=[24, 25, 29, 30, 31],
+        attention_layers=[20, 30, 31],
+        default_stages=[*FULL_CORE_STAGES, *PYTHIA_FULL_STEERING_STAGES],
+        phase5_steering=True,
+    ),
+    "pythia-full-clean": Preset(
+        model=PYTHIA_MODEL,
+        source_cell="A",
+        donor_cell="C",
+        component_layers=[24, 25, 29, 30, 31],
+        attention_layers=[20, 30, 31],
+        default_stages=[*FULL_CORE_STAGES, *PYTHIA_FULL_STEERING_STAGES],
+        phase5_steering=True,
+        clean_model=True,
     ),
     "qwen-noisy": Preset(
         model=QWEN_MODEL,
@@ -176,6 +202,27 @@ PRESETS = {
         component_layers=QWEN_LATE_COMPONENT_LAYERS,
         attention_layers=QWEN_LATE_ATTENTION_LAYERS,
         full_spread=True,
+    ),
+    "qwen-full-end-to-end": Preset(
+        model=QWEN_MODEL,
+        source_cell="B",
+        donor_cell="D",
+        component_layers=QWEN_LATE_COMPONENT_LAYERS,
+        attention_layers=QWEN_LATE_ATTENTION_LAYERS,
+        output_prefix="noisy_",
+        default_stages=[*FULL_CORE_STAGES, *QWEN_FULL_STEERING_STAGES],
+        phase5_steering=True,
+    ),
+    "qwen-full-clean": Preset(
+        model=QWEN_MODEL,
+        source_cell="B",
+        donor_cell="D",
+        component_layers=QWEN_LATE_COMPONENT_LAYERS,
+        attention_layers=QWEN_LATE_ATTENTION_LAYERS,
+        output_prefix="noisy_",
+        default_stages=[*FULL_CORE_STAGES, *QWEN_FULL_STEERING_STAGES],
+        phase5_steering=True,
+        clean_model=True,
     ),
     "qwen-steering-calibration": Preset(
         model=QWEN_MODEL,
@@ -284,8 +331,16 @@ def phase5_prefix(source_cell: str, donor_cell: str, output_prefix: str | None =
 
 
 def phase5_recommended_config_path(slug: str, source_cell: str, donor_cell: str, output_prefix: str | None = None) -> Path:
-    prefix = phase5_prefix(source_cell, donor_cell, output_prefix)
+    prefix = model_file_prefix(slug, phase5_prefix(source_cell, donor_cell, output_prefix))
     return Path(f"results/phase_5a_steering_calibration/{slug}/{prefix}recommended_steering_config.json")
+
+
+def uses_direct_pythia_steering(model: str, source_cell: str, donor_cell: str) -> bool:
+    return (
+        model_slug(model) == "pythia-2.8b"
+        and source_cell.upper() == "A"
+        and donor_cell.upper() == "C"
+    )
 
 
 def load_phase5_recommended_config(
@@ -295,6 +350,15 @@ def load_phase5_recommended_config(
     output_prefix: str | None = None,
     allow_default: bool = False,
 ) -> dict:
+    if uses_direct_pythia_steering(model, source_cell, donor_cell):
+        return {
+            "layer": 31,
+            "hook": "resid_post",
+            "alphas": list(PYTHIA_PHASE5_FINAL_ALPHAS),
+            "path": None,
+            "source": "pythia_known_layer",
+        }
+
     slug = model_slug(model)
     path = phase5_recommended_config_path(slug, source_cell, donor_cell, output_prefix)
     if path.exists():
@@ -331,15 +395,16 @@ def expected_outputs(
     donor_cell: str,
     output_prefix: str | None = None,
 ) -> list[Path]:
-    prefix = output_prefix_for(source_cell, donor_cell, output_prefix)
+    prefix = model_file_prefix(slug, output_prefix_for(source_cell, donor_cell, output_prefix))
+    model_prefix = model_file_prefix(slug)
 
     checks = {
         "dataset": [
             Path(f"dataset/processed/{slug}/dataset.json"),
         ],
         "evaluation": [
-            Path(f"results/phase_2_behaviour/{slug}/evaluation_results.csv"),
-            Path(f"results/phase_2_behaviour/{slug}/accuracy_summary.csv"),
+            Path(f"results/phase_2_behaviour/{slug}/{model_prefix}evaluation_results.csv"),
+            Path(f"results/phase_2_behaviour/{slug}/{model_prefix}accuracy_summary.csv"),
             Path(f"dataset/processed/{slug}/contrast_examples.json"),
             Path(f"dataset/processed/{slug}/noisy_contrast_examples.json"),
             Path(f"dataset/processed/{slug}/direct_noise_contrast_examples.json"),
@@ -347,8 +412,8 @@ def expected_outputs(
             Path(f"dataset/processed/{slug}/clean_degradation_contrast_examples.json"),
         ],
         "containment": [
-            Path(f"results/model_agnostic_evaluation/{slug}/answer_containment_summary.csv"),
-            Path(f"results/model_agnostic_evaluation/{slug}/answer_containment_audit.md"),
+            Path(f"results/model_agnostic_evaluation/{slug}/{model_prefix}answer_containment_summary.csv"),
+            Path(f"results/model_agnostic_evaluation/{slug}/{model_prefix}answer_containment_audit.md"),
         ],
         "layer-patching": [
             Path(f"results/phase_3a_layer_patching/{slug}/{prefix}layer_patch_summary.csv"),
@@ -365,7 +430,7 @@ def expected_outputs(
             Path(f"results/phase_4b_attention/{slug}/{prefix}attention_manifest.json"),
         ],
         "overlay": [
-            Path("results/analysis/layer_patch_overlay/layer_patch_overlay_summary.csv"),
+            Path("results/analysis/layer_patch_overlay/pythia-2.8b_qwen2.5-3b_layer_patch_overlay_summary.csv"),
         ],
         "steering-calibration-oracle": [
             Path(f"results/phase_5a_steering_calibration/{slug}/{prefix}oracle_steering_summary.csv"),
@@ -530,7 +595,7 @@ def build_command(
         ]
     if stage == "steering-analysis":
         slug = model_slug(model)
-        prefix = output_prefix_for(source_cell, donor_cell, output_prefix)
+        prefix = model_file_prefix(slug, output_prefix_for(source_cell, donor_cell, output_prefix))
         return [
             sys.executable,
             "scripts/phase_5a_steering_calibration/steering_diagnostics.py",
@@ -640,22 +705,25 @@ def check_stage_outputs(
 
 def phase5_required_paths(config: PipelineConfig) -> tuple[list[Path], list[Path]]:
     slug = model_slug(config.model)
-    prefix = output_prefix_for(config.source_cell, config.donor_cell, config.output_prefix)
+    prefix = model_file_prefix(slug, output_prefix_for(config.source_cell, config.donor_cell, config.output_prefix))
     needs_calibration = any(stage in STEERING_CALIBRATION_STAGES for stage in config.stages)
     needs_final = "steering-final" in config.stages
     needs_controls = "steering-controls" in config.stages
     needs_analysis = "steering-analysis" in config.stages
     produces_recommended_config = "steering-calibration-layer-sweep" in config.stages
     produces_final = "steering-final" in config.stages
+    produces_dataset = "dataset" in config.stages
+    produces_contrast = "evaluation" in config.stages
+    direct_pythia_steering = uses_direct_pythia_steering(config.model, config.source_cell, config.donor_cell)
 
     required: list[Path] = []
     recommended: list[Path] = []
     if needs_calibration or needs_final or needs_controls:
-        required.extend([
-            Path(f"dataset/processed/{slug}/dataset.json"),
-            Path(f"dataset/processed/{slug}/{get_contrast_config(config.source_cell, config.donor_cell).contrast_file}"),
-        ])
-    if (needs_final or needs_controls) and not produces_recommended_config:
+        if not produces_dataset:
+            required.append(Path(f"dataset/processed/{slug}/dataset.json"))
+        if not produces_contrast:
+            required.append(Path(f"dataset/processed/{slug}/{get_contrast_config(config.source_cell, config.donor_cell).contrast_file}"))
+    if (needs_final or needs_controls) and not produces_recommended_config and not direct_pythia_steering:
         required.append(phase5_recommended_config_path(slug, config.source_cell, config.donor_cell, config.output_prefix))
     if needs_analysis and not produces_final:
         required.append(Path(f"results/phase_5b_activation_steering/{slug}/{prefix}steering_results.csv"))
@@ -689,9 +757,12 @@ def check_phase5_prerequisites(config: PipelineConfig, interactive: bool = False
         if any("phase_5a_steering_calibration" in str(path) for path in missing_required):
             print("Run qwen-steering-calibration first.")
         elif any("phase_5b_activation_steering" in str(path) for path in missing_required):
-            print("Run qwen-steering-final first.")
+            if config.model == QWEN_MODEL:
+                print("Run qwen-steering-final first.")
+            else:
+                print("Run Phase 5 final steering first.")
         else:
-            print("Required Phase 5 prerequisite outputs are missing. Run the Qwen dataset/evaluation setup first if the dataset or contrast files are absent.")
+            print("Required Phase 5 prerequisite outputs are missing. Run the dataset/evaluation setup first if the dataset or contrast files are absent.")
         if config.dry_run:
             print("[dry-run] Missing required prerequisites reported; commands will be printed but not executed.")
             return True
@@ -735,6 +806,7 @@ def build_config_from_args(args: argparse.Namespace) -> PipelineConfig:
         full_spread=bool(preset.full_spread) if preset else False,
         phase5_steering=bool(preset.phase5_steering) if preset else False,
         clean_phase5=args.clean_phase5,
+        clean_model=args.clean_model or (bool(preset.clean_model) if preset else False),
         yes=args.yes,
     )
 
@@ -946,10 +1018,32 @@ def run_full_spread_pipeline(config: PipelineConfig) -> int:
 
 
 def run_pipeline(config: PipelineConfig) -> int:
+    slug = model_slug(config.model)
+    if config.clean_model:
+        if not config.yes and not config.dry_run:
+            print("[error] model clean reruns require --yes in non-interactive mode.")
+            return 1
+        if config.dry_run:
+            targets = model_existing_targets(slug)
+            print(f"[dry-run] Generated outputs for {slug} that would be deleted:")
+            if targets:
+                for path in targets:
+                    print(f"  - {path}")
+            else:
+                print("  - none")
+        else:
+            deleted = delete_model_generated_outputs(slug)
+            print(f"Deleted generated outputs for {slug}:")
+            if deleted:
+                for path in deleted:
+                    print(f"  - {path}")
+            else:
+                print("  - none")
+        config.clean_model = False
+
     if config.full_spread:
         return run_full_spread_pipeline(config)
 
-    slug = model_slug(config.model)
     if config.clean_phase5:
         if not config.yes:
             print("[error] --clean-phase5 requires --yes in non-interactive mode.")
@@ -1115,6 +1209,7 @@ def config_for_preset(preset_name: str, stages: list[str] | None = None) -> Pipe
         output_prefix=preset.output_prefix,
         full_spread=preset.full_spread,
         phase5_steering=preset.phase5_steering,
+        clean_model=preset.clean_model,
     )
 
 
@@ -1178,47 +1273,116 @@ def ask_yes_no(prompt: str, default: bool | None = None) -> bool:
         print("Please enter y or n.")
 
 
-def select_preset_interactively() -> str | None:
+def select_model_family_interactively() -> str | None:
     while True:
-        print("Select pipeline preset:")
-        print("[1] pythia-clean")
-        print("[2] qwen-noisy-recovery")
-        print("[3] qwen-clean-degradation")
-        print("[4] qwen-direct-noise")
-        print("[5] qwen-structured-noise")
-        print("[6] qwen-full-spread")
-        print("[7] qwen-steering-calibration")
-        print("[8] qwen-steering-final")
-        print("[9] qwen-steering-controls")
-        print("[10] qwen-steering-analysis")
-        print("[11] qwen-steering-full")
+        print("Select model / workflow:")
+        print()
+        print("[1] Pythia-2.8B")
+        print("[2] Qwen2.5-3B")
         print("[q] quit")
         answer = input("> ").strip().lower()
         if answer == "1":
-            return "pythia-clean"
+            return "pythia"
         if answer == "2":
-            return "qwen-noisy-recovery"
-        if answer == "3":
-            return "qwen-clean-degradation"
-        if answer == "4":
-            return "qwen-direct-noise"
-        if answer == "5":
-            return "qwen-structured-noise"
-        if answer == "6":
-            return "qwen-full-spread"
-        if answer == "7":
-            return "qwen-steering-calibration"
-        if answer == "8":
-            return "qwen-steering-final"
-        if answer == "9":
-            return "qwen-steering-controls"
-        if answer == "10":
-            return "qwen-steering-analysis"
-        if answer == "11":
-            return "qwen-steering-full"
+            return "qwen"
         if answer == "q":
             return None
-        print("Please choose 1-11, or q.")
+        print("Please choose 1, 2, or q.")
+
+
+def phase_labels_for_stages(stages: list[str]) -> list[str]:
+    labels = []
+    stage_to_phase = {
+        "dataset": "Phase 1",
+        "evaluation": "Phase 2",
+        "containment": "Phase 2 containment audit",
+        "layer-patching": "Phase 3a",
+        "component-patching": "Phase 3b",
+        "logit-lens": "Phase 4a",
+        "attention": "Phase 4b",
+        "steering-calibration-oracle": "Phase 5a",
+        "steering-calibration-layer-sweep": "Phase 5a",
+        "steering-final": "Phase 5b",
+        "steering-controls": "Phase 5b controls",
+        "steering-analysis": "Phase 5c",
+    }
+    for stage in stages:
+        label = stage_to_phase.get(stage, stage)
+        if label not in labels:
+            labels.append(label)
+    return labels
+
+
+def workflow_output_folders(config: PipelineConfig) -> list[Path]:
+    slug = model_slug(config.model)
+    folders = [Path(f"dataset/processed/{slug}")]
+    stage_roots = {
+        "evaluation": Path(f"results/phase_2_behaviour/{slug}"),
+        "containment": Path(f"results/model_agnostic_evaluation/{slug}"),
+        "layer-patching": Path(f"results/phase_3a_layer_patching/{slug}"),
+        "component-patching": Path(f"results/phase_3b_component_patching/{slug}"),
+        "logit-lens": Path(f"results/phase_4a_logit_lens/{slug}"),
+        "attention": Path(f"results/phase_4b_attention/{slug}"),
+        "steering-calibration-oracle": Path(f"results/phase_5a_steering_calibration/{slug}"),
+        "steering-calibration-layer-sweep": Path(f"results/phase_5a_steering_calibration/{slug}"),
+        "steering-final": Path(f"results/phase_5b_activation_steering/{slug}"),
+        "steering-controls": Path(f"results/phase_5b_activation_steering/{slug}"),
+        "steering-analysis": Path(f"results/phase_5c_steering_analysis/{slug}"),
+    }
+    for stage in config.stages:
+        folder = stage_roots.get(stage)
+        if folder and folder not in folders:
+            folders.append(folder)
+    return folders
+
+
+def print_workflow_prerequisite_status(config: PipelineConfig) -> None:
+    required, _recommended = phase5_required_paths(config)
+    print("Prerequisite status:")
+    if not required:
+        print("  Phase 5 inputs are produced earlier in this workflow or are not required.")
+        return
+    for path in required:
+        status = "exists" if path.exists() else "MISSING"
+        print(f"  {status:<7} {path}")
+
+
+def print_workflow_summary(config: PipelineConfig, workflow_label: str, run_mode: str) -> None:
+    print()
+    print(f"Selected model: {config.model}")
+    print(f"Selected workflow: {workflow_label}")
+    print(f"Phases to run: {', '.join(phase_labels_for_stages(config.stages))}")
+    print(f"Source -> donor cells: {config.source_cell} -> {config.donor_cell}")
+    print(f"Existing outputs: {run_mode}")
+    print("Expected key output folders:")
+    for folder in workflow_output_folders(config):
+        print(f"  - {folder}")
+    print_workflow_prerequisite_status(config)
+
+
+def print_model_status(config: PipelineConfig) -> None:
+    slug = model_slug(config.model)
+    print_workflow_summary(config, "Status / dry run", "status only; no deletion and no GPU/model run")
+    print()
+    print(f"{'Stage':<34} Status")
+    first_missing = None
+    for stage in config.stages:
+        status, missing = output_status(stage, slug, config.source_cell, config.donor_cell, config.output_prefix)
+        print(f"{stage:<34} {status}")
+        if missing:
+            for path in missing:
+                print(f"  missing: {path}")
+            if first_missing is None:
+                first_missing = stage
+    print()
+    if first_missing is None:
+        print("Recommended next action: outputs for this workflow exist; inspect reports or rerun only if needed.")
+    elif first_missing in SETUP_STAGES:
+        print("Recommended next action: run the full end-to-end resume workflow or the behaviour/core workflow.")
+    elif first_missing in ANALYSIS_STAGES:
+        print("Recommended next action: run the core or mechanistic workflow for the selected model.")
+    else:
+        print("Recommended next action: run the selected model's steering workflow or full end-to-end resume workflow.")
 
 
 def clean_targets(slug: str, include_overlay: bool) -> list[Path]:
@@ -1258,6 +1422,32 @@ def phase5_clean_targets(slug: str) -> list[Path]:
         Path("results/phase_5b_steering_diagnostics"),
         Path("figures/phase_5b_steering_diagnostics"),
     ]
+
+
+def model_generated_targets(slug: str) -> list[Path]:
+    targets = [Path(f"dataset/processed/{slug}")]
+    for root in (Path("results"), Path("figures")):
+        if root.exists():
+            targets.extend(sorted(root.glob(f"*/{slug}")))
+    return targets
+
+
+def model_existing_targets(slug: str) -> list[Path]:
+    return [path for path in model_generated_targets(slug) if path.exists()]
+
+
+def delete_model_generated_outputs(slug: str) -> list[Path]:
+    targets = model_existing_targets(slug)
+    delete_targets(targets)
+    return targets
+
+
+def model_clean_confirmation(slug: str) -> str:
+    if slug == "pythia-2.8b":
+        return "DELETE PYTHIA GENERATED OUTPUTS"
+    if slug == "qwen2.5-3b":
+        return "DELETE QWEN GENERATED OUTPUTS"
+    return f"DELETE {slug.upper()} GENERATED OUTPUTS"
 
 
 def phase5_existing_targets(slug: str) -> list[Path]:
@@ -1447,6 +1637,56 @@ def clean_phase5_interactive(config: PipelineConfig) -> int:
     return run_pipeline(config)
 
 
+def clean_model_interactive(config: PipelineConfig) -> int:
+    slug = model_slug(config.model)
+    targets = model_existing_targets(slug)
+    confirmation = model_clean_confirmation(slug)
+    print()
+    print(f"Clean full rerun will delete these generated folders for {slug}:")
+    if targets:
+        for path in targets:
+            print(f"  - {path}")
+    else:
+        print("  - no generated model folders currently exist")
+    answer = input(f"Type {confirmation} to confirm: ").strip()
+    if answer != confirmation:
+        print("Clean model rerun cancelled.")
+        return 0
+    deleted = delete_model_generated_outputs(slug)
+    print(f"Deleted generated outputs for {slug}:")
+    if deleted:
+        for path in deleted:
+            print(f"  - {path}")
+    else:
+        print("  - none")
+    config.skip_existing = False
+    config.clean_model = False
+    config.dry_run = False
+    return run_pipeline(config)
+
+
+def run_full_workflow_interactive(config: PipelineConfig, workflow_label: str, clean: bool) -> int:
+    run_mode = "delete selected model generated outputs before rerun" if clean else "resume/skip existing outputs where safe"
+    config.skip_existing = not clean
+    print_workflow_summary(config, workflow_label, run_mode)
+    if clean:
+        return clean_model_interactive(config)
+    if not ask_yes_no("Start this full workflow now?", default=False):
+        print("Run cancelled.")
+        return 0
+    return run_pipeline(config)
+
+
+def run_selected_workflow_interactive(config: PipelineConfig, workflow_label: str, skip_existing: bool = True) -> int:
+    config.skip_existing = skip_existing
+    run_mode = "resume/skip existing outputs where safe" if skip_existing else "run selected stages"
+    print_workflow_summary(config, workflow_label, run_mode)
+    if not ask_yes_no("Start this workflow now?", default=False):
+        print("Run cancelled.")
+        return 0
+    return run_pipeline(config)
+
+
 def configure_phase5_interactive(config: PipelineConfig) -> int:
     if not check_phase5_prerequisites(config, interactive=True):
         return 1
@@ -1480,50 +1720,127 @@ def configure_phase5_interactive(config: PipelineConfig) -> int:
         print("Please choose 1, 2, 3, or q.")
 
 
-def interactive_main() -> int:
-    preset_name = select_preset_interactively()
-    if preset_name is None:
-        return 0
-
-    config = config_for_preset(preset_name)
-    print_preset_config(config)
-    if config.phase5_steering:
-        return configure_phase5_interactive(config)
-    if config.full_spread:
-        return configure_full_spread_interactive(config)
-
-    statuses = status_table(config, include_overlay=True)
-    any_existing = any(statuses.get(stage) == "exists" for stage in DEFAULT_STAGES)
-
-    if not any_existing:
-        print()
-        print("No existing outputs found for this preset.")
-        if ask_yes_no("Run full pipeline now?", default=False):
-            return run_pipeline(config)
-        return 0
-
-    print()
-    print("Existing outputs found. What do you want to do?")
-    print("[1] Resume: skip stages with existing outputs, run only missing stages")
-    print("[2] Clean rerun: delete existing outputs for this preset, then run full pipeline")
-    print("[3] Choose stages manually")
-    print("[4] Dry run only")
-    print("[q] quit")
+def pythia_options_interactively() -> int | None:
     while True:
+        print()
+        print("Pythia-2.8B options:")
+        print()
+        print("[a] Full end-to-end run, Phase 1 -> Phase 5, resume/skip existing")
+        print("[b] Clean full end-to-end rerun, Phase 1 -> Phase 5, delete Pythia generated outputs first")
+        print("[c] Core pipeline only, Phase 1 -> Phase 4")
+        print("[d] Behaviour only, Phase 1 -> Phase 2")
+        print("[e] Mechanistic only, Phase 3 -> Phase 4")
+        print("[f] Steering only, Phase 5")
+        print("[g] Status / dry run")
+        print("[q] back")
         answer = input("> ").strip().lower()
-        if answer == "1":
-            config.skip_existing = True
-            return run_pipeline(config)
-        if answer == "2":
-            return clean_rerun_interactive(config, statuses)
-        if answer == "3":
-            return manual_stage_selection(config, statuses)
-        if answer == "4":
-            config.dry_run = True
-            return run_pipeline(config)
-        if answer == "q":
+        if answer == "a":
+            return run_full_workflow_interactive(
+                config_for_preset("pythia-full-end-to-end"),
+                "Pythia full end-to-end run",
+                clean=False,
+            )
+        if answer == "b":
+            return run_full_workflow_interactive(
+                config_for_preset("pythia-full-end-to-end"),
+                "Pythia clean full end-to-end rerun",
+                clean=True,
+            )
+        if answer == "c":
+            return run_selected_workflow_interactive(
+                config_for_preset("pythia-clean"),
+                "Pythia core pipeline only",
+            )
+        if answer == "d":
+            return run_selected_workflow_interactive(
+                config_for_preset("pythia-clean", SETUP_STAGES),
+                "Pythia behaviour only",
+            )
+        if answer == "e":
+            return run_selected_workflow_interactive(
+                config_for_preset("pythia-clean", ANALYSIS_STAGES),
+                "Pythia mechanistic phases only",
+            )
+        if answer == "f":
+            return run_selected_workflow_interactive(
+                config_for_preset("pythia-full-end-to-end", PYTHIA_FULL_STEERING_STAGES),
+                "Pythia steering only",
+            )
+        if answer == "g":
+            print_model_status(config_for_preset("pythia-full-end-to-end"))
             return 0
-        print("Please choose 1, 2, 3, 4, or q.")
+        if answer == "q":
+            return None
+        print("Please choose a, b, c, d, e, f, g, or q.")
+
+
+def qwen_options_interactively() -> int | None:
+    while True:
+        print()
+        print("Qwen2.5-3B options:")
+        print()
+        print("[a] Full end-to-end run, Phase 1 -> Phase 5, resume/skip existing")
+        print("[b] Clean full end-to-end rerun, Phase 1 -> Phase 5, delete Qwen generated outputs first")
+        print("[c] Core noisy-recovery pipeline only, Phase 1 -> Phase 4")
+        print("[d] Full-spread behavioural/mechanistic contrasts")
+        print("[e] Steering calibration only, Phase 5a")
+        print("[f] Final steering only, Phase 5b")
+        print("[g] Steering controls only")
+        print("[h] Steering analysis only, Phase 5c")
+        print("[i] Full steering only, Phase 5a -> 5c")
+        print("[j] Status / dry run")
+        print("[q] back")
+        answer = input("> ").strip().lower()
+        if answer == "a":
+            return run_full_workflow_interactive(
+                config_for_preset("qwen-full-end-to-end"),
+                "Qwen full end-to-end run",
+                clean=False,
+            )
+        if answer == "b":
+            return run_full_workflow_interactive(
+                config_for_preset("qwen-full-end-to-end"),
+                "Qwen clean full end-to-end rerun",
+                clean=True,
+            )
+        if answer == "c":
+            return run_selected_workflow_interactive(
+                config_for_preset("qwen-noisy-recovery"),
+                "Qwen noisy-recovery core pipeline only",
+            )
+        if answer == "d":
+            config = config_for_preset("qwen-full-spread")
+            print_workflow_summary(config, "Qwen full-spread behavioural/mechanistic contrasts", "interactive contrast selection")
+            return configure_full_spread_interactive(config)
+        if answer == "e":
+            return configure_phase5_interactive(config_for_preset("qwen-steering-calibration"))
+        if answer == "f":
+            return configure_phase5_interactive(config_for_preset("qwen-steering-final"))
+        if answer == "g":
+            return configure_phase5_interactive(config_for_preset("qwen-steering-controls"))
+        if answer == "h":
+            return configure_phase5_interactive(config_for_preset("qwen-steering-analysis"))
+        if answer == "i":
+            return configure_phase5_interactive(config_for_preset("qwen-steering-full"))
+        if answer == "j":
+            print_model_status(config_for_preset("qwen-full-end-to-end"))
+            return 0
+        if answer == "q":
+            return None
+        print("Please choose a through j, or q.")
+
+
+def interactive_main() -> int:
+    while True:
+        model_family = select_model_family_interactively()
+        if model_family is None:
+            return 0
+        if model_family == "pythia":
+            result = pythia_options_interactively()
+        else:
+            result = qwen_options_interactively()
+        if result is not None:
+            return result
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -1541,8 +1858,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--run-overlay", action="store_true")
     parser.add_argument("--clean-phase5", action="store_true",
                         help="Delete Phase 5a/5b/5c generated outputs for the selected model before running.")
+    parser.add_argument("--clean-model", action="store_true",
+                        help="Delete generated outputs for the selected model slug before running.")
     parser.add_argument("--yes", action="store_true",
-                        help="Required with --clean-phase5 in non-interactive mode.")
+                        help="Required with destructive non-interactive cleanup.")
     return parser
 
 
