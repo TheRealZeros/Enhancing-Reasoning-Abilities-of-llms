@@ -1,0 +1,22 @@
+{
+  "model": "Qwen/Qwen2.5-3B",
+  "source_cell": "B",
+  "donor_cell": "D",
+  "hook": "resid_post",
+  "recommended_layer": 32,
+  "recommended_alpha": 1.0,
+  "alpha_range_for_final": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "selection_metric": "highest mean_delta_gold_logit from layer_sweep with alpha <= 1.0; ties prefer lower alpha",
+  "mean_delta_gold_logit": 1.69384765625,
+  "mean_delta_gold_rank": 6.6875,
+  "top1_improvement": 0.03125,
+  "contrast_file": "dataset\\processed\\qwen2.5-3b\\noisy_contrast_examples.json",
+  "layer_sweep_summary": "results\\phase_5a_steering_calibration\\qwen2.5-3b\\noisy_layer_sweep_steering_summary.csv",
+  "note": "This recommendation is for held-out average steering, not oracle per-example steering."
+}

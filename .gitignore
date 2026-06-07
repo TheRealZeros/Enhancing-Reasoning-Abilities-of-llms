@@ -7,6 +7,11 @@ __pycache__/
 *.pyd
 *.py[cod]
 *.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
 # Python packaging
 build/
@@ -31,6 +36,9 @@ conda-meta/
 .idea/
 *.swp
 *.swo
+*.tmp
+*.bak
+*.orig
 .DS_Store
 
 # =========================
@@ -59,16 +67,19 @@ logs/
 *.log
 
 # =========================
-# Experiment artifacts — generated, not source
+# Generated experiment artifacts
 # =========================
-# Processed datasets (built from raw sources by build_dataset.py)
-dataset/processed/
+# results/
+# figures/
 
-# Experiment results (CSVs, JSONs produced by pipeline scripts)
-results/
-
-# Generated figures (PNGs produced by pipeline scripts)
-figures/
+# =========================
+# Local AI coding assistants / agents
+# =========================
+.codex/
+.agents/
+.agent/
+AGENTS.md
+.mcp.json
 
 # =========================
 # Large files
@@ -81,8 +92,6 @@ figures/
 # =========================
 # Local config / secrets
 # =========================
-.claude/settings.local.json
-.claude/settings.json
-
-docs/results_analysis
-docs/final_thesis_results_inventory.md
+.env
+.env.*
+!.env.example

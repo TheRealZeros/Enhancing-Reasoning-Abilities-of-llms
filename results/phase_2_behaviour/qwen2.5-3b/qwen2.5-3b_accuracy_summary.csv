@@ -1,0 +1,6 @@
+cell,total_examples,num_correct,accuracy
+A,200,171,0.855
+B,200,37,0.185
+C,200,131,0.655
+D,200,133,0.665
+E,200,0,0.0

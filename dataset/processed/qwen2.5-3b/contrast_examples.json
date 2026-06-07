@@ -1,0 +1,78 @@
+[
+  {
+    "example_id": "bio_002",
+    "domain": "biology",
+    "gold_answer": "the digestive system",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is an organ in the digestive system.\n\nQ: Insulin is produced by an organ in what system?\nA:",
+      "prefix_eos_pad": 117,
+      "generated_answer_raw": " digestive\n\nFact 1: Insulin is produced by the pancreas.\nFact",
+      "generated_answer_normalised": "digestive",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is an organ in the digestive system.\n\nQ: Insulin is produced by an organ in what system?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is an organ in the digestive system.\nAnswer:",
+      "prefix_eos_pad": 40,
+      "generated_answer_raw": " the digestive system\n\nFact 1: Insulin is produced by the pancreas",
+      "generated_answer_normalised": "the digestive system",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "bio_036",
+    "domain": "biology",
+    "gold_answer": "the circulatory system",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Capillaries are the smallest blood vessels.\nFact 2: Blood vessels form the circulatory system.\n\nQ: The smallest structures in what system are capillaries?\nA:",
+      "prefix_eos_pad": 114,
+      "generated_answer_raw": " circulatory\n\nFact 1: The pancreas is located in the abdomen.\n",
+      "generated_answer_normalised": "circulatory",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Capillaries are the smallest blood vessels.\nFact 2: Blood vessels form the circulatory system.\n\nQ: The smallest structures in what system are capillaries?\nStep 1: Capillaries are the smallest blood vessels.\nStep 2: Blood vessels form the circulatory system.\nAnswer:",
+      "prefix_eos_pad": 40,
+      "generated_answer_raw": " the circulatory system\n\nFact 1: The pancreas is located in the",
+      "generated_answer_normalised": "the circulatory system",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "cul_025",
+    "domain": "culture",
+    "gold_answer": "the Inca Empire",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Machu Picchu is located in Peru.\nFact 2: Peru was part of the Inca Empire.\n\nQ: Machu Picchu is in a country that was part of what empire?\nA:",
+      "prefix_eos_pad": 122,
+      "generated_answer_raw": " Inca Empire\n\nFact 1: The Danube River flows through the capital",
+      "generated_answer_normalised": "inca empire",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Machu Picchu is located in Peru.\nFact 2: Peru was part of the Inca Empire.\n\nQ: Machu Picchu is in a country that was part of what empire?\nStep 1: Machu Picchu is located in Peru.\nStep 2: Peru was part of the Inca Empire.\nAnswer:",
+      "prefix_eos_pad": 47,
+      "generated_answer_raw": " the Inca Empire\n\nFact 1: Machu Picchu is located in",
+      "generated_answer_normalised": "the inca empire",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "cul_035",
+    "domain": "culture",
+    "gold_answer": "the Pacific Ring of Fire",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Kabuki is a theater form from Japan.\nFact 2: Japan is located in the Pacific Ring of Fire.\n\nQ: Kabuki is from a country in what geographic zone?\nA:",
+      "prefix_eos_pad": 119,
+      "generated_answer_raw": " Pacific Ring of Fire\n\nFact 1: The Danube River flows through the",
+      "generated_answer_normalised": "pacific ring of fire",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Kabuki is a theater form from Japan.\nFact 2: Japan is located in the Pacific Ring of Fire.\n\nQ: Kabuki is from a country in what geographic zone?\nStep 1: Kabuki is a theater form from Japan.\nStep 2: Japan is located in the Pacific Ring of Fire.\nAnswer:",
+      "prefix_eos_pad": 43,
+      "generated_answer_raw": " the Pacific Ring of Fire\n\nFact 1: Kabuki is a theater form",
+      "generated_answer_normalised": "the pacific ring of fire",
+      "correct": true
+    }
+  }
+]

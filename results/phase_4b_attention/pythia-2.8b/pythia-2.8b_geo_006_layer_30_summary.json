@@ -1,0 +1,211 @@
+{
+  "example_id": "geo_006",
+  "layer": 30,
+  "final_token_index": 249,
+  "cell_A": {
+    "region_attention_summary": {
+      "few_shot_prefix": 0.706689,
+      "final_example_fact_1": 0.029638,
+      "final_example_fact_2": 0.044708,
+      "final_example_question": 0.127453,
+      "final_example_answer_cue": 0.01323,
+      "support_facts_total": 0.074346,
+      "structured_scaffold_total": 0.0
+    },
+    "max_attended_token_index": 249,
+    "max_attended_token_label": ":",
+    "max_attended_token_region": null,
+    "top_tokens_cell_A": [
+      {
+        "token_index": 249,
+        "token_label": ":",
+        "token_text": ":",
+        "attention": 0.064668,
+        "region": null
+      },
+      {
+        "token_index": 117,
+        "token_label": "Fact",
+        "token_text": "Fact",
+        "attention": 0.059399,
+        "region": "few_shot_prefix"
+      },
+      {
+        "token_index": 236,
+        "token_label": " The",
+        "token_text": " The",
+        "attention": 0.040528,
+        "region": "final_example_question"
+      },
+      {
+        "token_index": 233,
+        "token_label": "\\n",
+        "token_text": "\n",
+        "attention": 0.034606,
+        "region": "final_example_question"
+      },
+      {
+        "token_index": 223,
+        "token_label": " 2",
+        "token_text": " 2",
+        "attention": 0.030406,
+        "region": "final_example_fact_2"
+      }
+    ]
+  },
+  "cell_C": {
+    "region_attention_summary": {
+      "few_shot_prefix": 0.707615,
+      "final_example_fact_1": 0.010161,
+      "final_example_fact_2": 0.013191,
+      "final_example_question": 0.034159,
+      "final_example_step_1": 0.03988,
+      "final_example_step_2": 0.086903,
+      "final_example_answer_cue": 0.016395,
+      "support_facts_total": 0.023352,
+      "structured_scaffold_total": 0.126783
+    },
+    "max_attended_token_index": 249,
+    "max_attended_token_label": ":",
+    "max_attended_token_region": null,
+    "top_tokens_cell_C": [
+      {
+        "token_index": 249,
+        "token_label": ":",
+        "token_text": ":",
+        "attention": 0.085362,
+        "region": null
+      },
+      {
+        "token_index": 57,
+        "token_label": ".",
+        "token_text": ".",
+        "attention": 0.039921,
+        "region": "few_shot_prefix"
+      },
+      {
+        "token_index": 239,
+        "token_label": ":",
+        "token_text": ":",
+        "attention": 0.033293,
+        "region": "final_example_step_2"
+      },
+      {
+        "token_index": 231,
+        "token_label": " the",
+        "token_text": " the",
+        "attention": 0.022465,
+        "region": "final_example_step_1"
+      },
+      {
+        "token_index": 47,
+        "token_label": "Fact",
+        "token_text": "Fact",
+        "attention": 0.021195,
+        "region": "few_shot_prefix"
+      }
+    ]
+  },
+  "region_boundaries": {
+    "cell_A": [
+      {
+        "name": "few_shot_prefix",
+        "label": "Few-shot prefix",
+        "char_start": 0,
+        "char_end": 1852,
+        "token_start": 0,
+        "token_end": 207
+      },
+      {
+        "name": "final_example_fact_1",
+        "label": "Fact 1",
+        "char_start": 1852,
+        "char_end": 1895,
+        "token_start": 206,
+        "token_end": 218
+      },
+      {
+        "name": "final_example_fact_2",
+        "label": "Fact 2",
+        "char_start": 1895,
+        "char_end": 1940,
+        "token_start": 217,
+        "token_end": 230
+      },
+      {
+        "name": "final_example_question",
+        "label": "Question",
+        "char_start": 1940,
+        "char_end": 1994,
+        "token_start": 229,
+        "token_end": 245
+      },
+      {
+        "name": "final_example_answer_cue",
+        "label": "Answer cue",
+        "char_start": 1994,
+        "char_end": 1996,
+        "token_start": 244,
+        "token_end": 246
+      }
+    ],
+    "cell_C": [
+      {
+        "name": "few_shot_prefix",
+        "label": "Few-shot prefix",
+        "char_start": 0,
+        "char_end": 1134,
+        "token_start": 0,
+        "token_end": 184
+      },
+      {
+        "name": "final_example_fact_1",
+        "label": "Fact 1",
+        "char_start": 1134,
+        "char_end": 1177,
+        "token_start": 183,
+        "token_end": 195
+      },
+      {
+        "name": "final_example_fact_2",
+        "label": "Fact 2",
+        "char_start": 1177,
+        "char_end": 1222,
+        "token_start": 194,
+        "token_end": 207
+      },
+      {
+        "name": "final_example_question",
+        "label": "Question",
+        "char_start": 1222,
+        "char_end": 1276,
+        "token_start": 206,
+        "token_end": 222
+      },
+      {
+        "name": "final_example_step_1",
+        "label": "Step 1",
+        "char_start": 1276,
+        "char_end": 1319,
+        "token_start": 221,
+        "token_end": 233
+      },
+      {
+        "name": "final_example_step_2",
+        "label": "Step 2",
+        "char_start": 1319,
+        "char_end": 1363,
+        "token_start": 232,
+        "token_end": 245
+      },
+      {
+        "name": "final_example_answer_cue",
+        "label": "Answer cue",
+        "char_start": 1363,
+        "char_end": 1370,
+        "token_start": 244,
+        "token_end": 246
+      }
+    ]
+  }
+}

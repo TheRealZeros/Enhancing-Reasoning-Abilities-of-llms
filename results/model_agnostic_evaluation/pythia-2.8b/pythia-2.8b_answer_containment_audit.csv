@@ -1,0 +1,3328 @@
+example_id,domain,cell,gold_answer,generated_answer,normalised_gold,normalised_generated,exact_match_correct,answer_containment_label
+geo_001,geography,A,Europe," Europe
+
+Fact 1: The capital of France is located in what continent?",europe,europe fact 1: the capital of france is located in what continent,True,exact_match
+geo_001,geography,B,Europe," Europe
+
+Q: The capital of France is located in what country?
+",europe,europe q: the capital of france is located in what country,True,exact_match
+geo_001,geography,C,Europe," Europe
+
+Q: The city of Paris is located in what continent?
+",europe,europe q: the city of paris is located in what continent,True,exact_match
+geo_001,geography,D,Europe," Europe
+
+Fact 1: The Danube River flows through the capital of what",europe,europe fact 1: the danube river flows through the capital of what,True,exact_match
+geo_001,geography,E,Europe,"
+
+The following is a list of the most common questions and answers to the",europe,following is a list of the most common questions and answers to the,False,wrong
+geo_002,geography,A,Asia," Asia
+
+Q: The capital of Japan is located in what country?
+",asia,asia q: the capital of japan is located in what country,True,exact_match
+geo_002,geography,B,Asia," Asia
+
+Q: The city of Tokyo is located in what country?
+",asia,asia q: the city of tokyo is located in what country,True,exact_match
+geo_002,geography,C,Asia," Asia
+
+Q: The city of Tokyo is located on what continent?
+",asia,asia q: the city of tokyo is located on what continent,True,exact_match
+geo_002,geography,D,Asia," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,asia fact 1: the danube river flows through the capital of what,True,exact_match
+geo_002,geography,E,Asia,"
+
+The following is a list of the top 10 most popular questions asked by",asia,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_003,geography,A,the Australian dollar," Australia
+
+Q: What is the capital of Australia?
+A: Can",australian dollar,australia q: what is the capital of australia? a: can,False,wrong
+geo_003,geography,B,the Australian dollar," Australian dollar
+
+Q: What is the capital of Australia?
+A:",australian dollar,australian dollar q: what is the capital of australia? a,False,contains_correct_answer
+geo_003,geography,C,the Australian dollar," Australian dollar
+
+Q: The capital of the United States is Washington, D",australian dollar,"australian dollar q: the capital of the united states is washington, d",False,contains_correct_answer
+geo_003,geography,D,the Australian dollar," Australian dollar
+
+Fact 1: The Danube River flows through Vienna.
+",australian dollar,australian dollar fact 1: the danube river flows through vienna,False,contains_correct_answer
+geo_003,geography,E,the Australian dollar,"
+
+The following is a list of the top 10 most popular questions asked by",australian dollar,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_004,geography,A,North America," North America
+
+Q: What is the capital of Canada?
+A:",north america,north america q: what is the capital of canada? a,True,exact_match
+geo_004,geography,B,North America," North America
+
+Q: The capital of what country?
+A: Canada",north america,north america q: the capital of what country? a: canada,True,exact_match
+geo_004,geography,C,North America," North America
+
+Fact 1: The city of Ottawa is the capital of Canada",north america,north america fact 1: the city of ottawa is the capital of canada,True,exact_match
+geo_004,geography,D,North America," North America
+
+Fact 1: The Danube River flows through the capital of",north america,north america fact 1: the danube river flows through the capital of,True,exact_match
+geo_004,geography,E,North America,"
+
+The following is a list of the most common questions and answers to the",north america,following is a list of the most common questions and answers to the,False,wrong
+geo_005,geography,A,the European Union," Germany
+
+Q: The capital of Germany is the most populous country in",european union,germany q: the capital of germany is the most populous country in,False,wrong
+geo_005,geography,B,the European Union," Europe
+
+Q: The most populous country in the European Union is Germany",european union,europe q: the most populous country in the european union is germany,False,contains_correct_answer
+geo_005,geography,C,the European Union," Germany
+
+Q: The capital of the United States is Washington, D.",european union,"germany q: the capital of the united states is washington, d",False,wrong
+geo_005,geography,D,the European Union," Europe
+
+Fact 1: The Danube River flows through Vienna.
+Fact",european union,europe fact 1: the danube river flows through vienna. fact,False,wrong
+geo_005,geography,E,the European Union,"
+
+The following is a list of the most common questions and answers to the",european union,following is a list of the most common questions and answers to the,False,wrong
+geo_006,geography,A,South America," North America
+
+Q: The capital of what country?
+A: United",south america,north america q: the capital of what country? a: united,False,wrong
+geo_006,geography,B,South America," North America
+
+Q: The first skyscraper was built in what",south america,north america q: the first skyscraper was built in what,False,wrong
+geo_006,geography,C,South America," South America
+
+Q: The city of Brasilia is located on what continent",south america,south america q: the city of brasilia is located on what continent,True,exact_match
+geo_006,geography,D,South America," South America
+
+Fact 1: The first skyscraper was built in",south america,south america fact 1: the first skyscraper was built in,True,exact_match
+geo_006,geography,E,South America,"
+
+The following is a list of the top 10 most popular questions asked by",south america,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_007,geography,A,Africa," Africa
+
+Q: The Nile River flows through what country?
+A:",africa,africa q: the nile river flows through what country? a,True,exact_match
+geo_007,geography,B,Africa," Africa
+
+Q: The Nile River flows through what country?
+A:",africa,africa q: the nile river flows through what country? a,True,exact_match
+geo_007,geography,C,Africa," Africa
+
+Q: The city of Cairo is located in what country?
+",africa,africa q: the city of cairo is located in what country,True,exact_match
+geo_007,geography,D,Africa," Africa
+
+Fact 1: The Danube River flows through the capital of what",africa,africa fact 1: the danube river flows through the capital of what,True,exact_match
+geo_007,geography,E,Africa,"
+
+The following is a list of the most common questions and answers to the",africa,following is a list of the most common questions and answers to the,False,wrong
+geo_008,geography,A,Asia," Asia
+
+Q: The capital of what country?
+A: China
+",asia,asia q: the capital of what country? a: china,True,exact_match
+geo_008,geography,B,Asia," Asia
+
+Q: The city of Beijing is located in what country?
+",asia,asia q: the city of beijing is located in what country,True,exact_match
+geo_008,geography,C,Asia," Asia
+
+Q: The city of Beijing is located in what continent?
+",asia,asia q: the city of beijing is located in what continent,True,exact_match
+geo_008,geography,D,Asia," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,asia fact 1: the danube river flows through the capital of what,True,exact_match
+geo_008,geography,E,Asia,"
+
+The following is a list of the top 10 most popular questions asked by",asia,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_009,geography,A,largest land area," Russia is the capital of Russia.
+
+Q: What is the capital of",largest land area,russia is the capital of russia. q: what is the capital of,False,wrong
+geo_009,geography,B,largest land area," Russia
+
+Q: What is the capital of Russia?
+A: Moscow",largest land area,russia q: what is the capital of russia? a: moscow,False,wrong
+geo_009,geography,C,largest land area," Russia is the largest country in the world
+
+Q: The capital of the",largest land area,russia is the largest country in the world q: the capital of the,False,wrong
+geo_009,geography,D,largest land area," the largest land area of any country
+
+Fact 1: The Danube River",largest land area,largest land area of any country fact 1: the danube river,False,contains_correct_answer
+geo_009,geography,E,largest land area,"
+
+The following is a list of the top 10 most popular questions asked by",largest land area,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_010,geography,A,the Pacific Ocean," The Pacific Ocean
+
+Fact 1: The capital of Peru is the capital of",pacific ocean,pacific ocean fact 1: the capital of peru is the capital of,True,exact_match
+geo_010,geography,B,the Pacific Ocean," The Pacific Ocean
+
+Q: What is the capital of Peru?
+A",pacific ocean,pacific ocean q: what is the capital of peru? a,True,exact_match
+geo_010,geography,C,the Pacific Ocean," the Pacific Ocean
+
+Q: The Pacific Ocean is the largest ocean in the",pacific ocean,pacific ocean q: the pacific ocean is the largest ocean in the,True,exact_match
+geo_010,geography,D,the Pacific Ocean," the Pacific Ocean
+
+Fact 1: The Danube River flows through Vienna.",pacific ocean,pacific ocean fact 1: the danube river flows through vienna,True,exact_match
+geo_010,geography,E,the Pacific Ocean,"
+
+The following is a list of the top 10 most popular questions asked by",pacific ocean,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_011,geography,A,Europe," Europe
+
+Q: The capital of Spain is located in what continent?
+",europe,europe q: the capital of spain is located in what continent,True,exact_match
+geo_011,geography,B,Europe," Europe
+
+Q: The capital of Spain is located in what country?
+",europe,europe q: the capital of spain is located in what country,True,exact_match
+geo_011,geography,C,Europe," Europe
+
+Q: The city of Madrid is located in what continent?
+",europe,europe q: the city of madrid is located in what continent,True,exact_match
+geo_011,geography,D,Europe," Europe
+
+Fact 1: The Danube River flows through the capital of what",europe,europe fact 1: the danube river flows through the capital of what,True,exact_match
+geo_011,geography,E,Europe,"
+
+The following is a list of the most common questions and answers to the",europe,following is a list of the most common questions and answers to the,False,wrong
+geo_012,geography,A,the euro," The euro
+
+Q: What is the capital of the United States?
+",euro,euro q: what is the capital of the united states,True,exact_match
+geo_012,geography,B,the euro," The euro
+
+Q: The Fibonacci sequence is a sequence of numbers",euro,euro q: the fibonacci sequence is a sequence of numbers,True,exact_match
+geo_012,geography,C,the euro," the euro
+
+Q: The capital of the United States is Washington, D",euro,"euro q: the capital of the united states is washington, d",True,exact_match
+geo_012,geography,D,the euro," the euro
+
+Fact 1: The human body is made up of about 60",euro,euro fact 1: the human body is made up of about 60,True,exact_match
+geo_012,geography,E,the euro,"
+
+The following is a list of the top 10 most popular questions asked by",euro,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_013,geography,A,Africa," Africa
+
+Q: The capital of what country?
+A: Africa
+",africa,africa q: the capital of what country? a: africa,True,exact_match
+geo_013,geography,B,Africa," Africa
+
+Q: The city of Nairobi is located in what country",africa,africa q: the city of nairobi is located in what country,True,exact_match
+geo_013,geography,C,Africa," Africa
+
+Q: The city of Nairobi is located in what continent",africa,africa q: the city of nairobi is located in what continent,True,exact_match
+geo_013,geography,D,Africa," Africa
+
+Fact 1: The Danube River flows through the capital of what",africa,africa fact 1: the danube river flows through the capital of what,True,exact_match
+geo_013,geography,E,Africa,"
+
+The following is a list of the top 10 most popular questions asked by",africa,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_014,geography,A,South America," South America
+
+Q: Buenos Aires is the capital of what country?
+",south america,south america q: buenos aires is the capital of what country,True,exact_match
+geo_014,geography,B,South America," South America
+
+Q: What is the capital of Argentina?
+A:",south america,south america q: what is the capital of argentina? a,True,exact_match
+geo_014,geography,C,South America," South America
+
+Q: The capital of the United States is Washington, D",south america,"south america q: the capital of the united states is washington, d",True,exact_match
+geo_014,geography,D,South America," South America
+
+Fact 1: The Danube River flows through the capital of",south america,south america fact 1: the danube river flows through the capital of,True,exact_match
+geo_014,geography,E,South America,"
+
+The following is a list of the top 10 most popular questions asked by",south america,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_015,geography,A,Asia," Asia
+
+Q: The capital of Thailand is located in what country?
+",asia,asia q: the capital of thailand is located in what country,True,exact_match
+geo_015,geography,B,Asia," Asia
+
+Q: The capital of Thailand is located in what country?
+",asia,asia q: the capital of thailand is located in what country,True,exact_match
+geo_015,geography,C,Asia," Asia
+
+Q: The city of Bangkok is located on what continent?
+",asia,asia q: the city of bangkok is located on what continent,True,exact_match
+geo_015,geography,D,Asia," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,asia fact 1: the danube river flows through the capital of what,True,exact_match
+geo_015,geography,E,Asia,"
+
+The following is a list of the top 10 most popular questions asked by",asia,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_016,geography,A,the United Kingdom," England
+
+Fact 3: The capital of the United Kingdom is London.
+",united kingdom,england fact 3: the capital of the united kingdom is london,False,contains_correct_answer
+geo_016,geography,B,the United Kingdom," England
+
+Q: The first modern novel was written by what author?
+",united kingdom,england q: the first modern novel was written by what author,False,wrong
+geo_016,geography,C,the United Kingdom," United Kingdom
+
+Q: The capital of the United States is Washington, D",united kingdom,"united kingdom q: the capital of the united states is washington, d",False,contains_correct_answer
+geo_016,geography,D,the United Kingdom," the United Kingdom
+
+Fact 1: The Danube River flows through Vienna.",united kingdom,united kingdom fact 1: the danube river flows through vienna,True,exact_match
+geo_016,geography,E,the United Kingdom,"
+
+The following is a list of the top 10 most popular questions asked by",united kingdom,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_017,geography,A,2004," 2004
+
+Q: What is the capital of Poland?
+A: Warsaw",2004,2004 q: what is the capital of poland? a: warsaw,True,exact_match
+geo_017,geography,B,2004," 2004
+
+Q: The uncertainty principle was formulated by Heisenberg.
+A:",2004,2004 q: the uncertainty principle was formulated by heisenberg. a,True,exact_match
+geo_017,geography,C,2004," 2004
+
+Q: The capital of Poland is Warsaw.
+Step 1:",2004,2004 q: the capital of poland is warsaw. step 1,True,exact_match
+geo_017,geography,D,2004," 2004
+
+Fact 1: The Danube River flows through the capital of what",2004,2004 fact 1: the danube river flows through the capital of what,True,exact_match
+geo_017,geography,E,2004,"
+
+The following is a list of the top 10 most popular questions asked by",2004,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_018,geography,A,the Mediterranean Sea," The Mediterranean Sea
+
+Q: The Mediterranean Sea
+
+A: The Mediterranean",mediterranean sea,mediterranean sea q: the mediterranean sea a: the mediterranean,True,exact_match
+geo_018,geography,B,the Mediterranean Sea," The Mediterranean Sea
+
+Q: What is the capital of Greece?
+A",mediterranean sea,mediterranean sea q: what is the capital of greece? a,True,exact_match
+geo_018,geography,C,the Mediterranean Sea," the Mediterranean Sea
+
+Q: The capital of the United States is Washington,",mediterranean sea,mediterranean sea q: the capital of the united states is washington,True,exact_match
+geo_018,geography,D,the Mediterranean Sea," Mediterranean Sea
+
+Fact 1: The Danube River flows through Vienna.
+",mediterranean sea,mediterranean sea fact 1: the danube river flows through vienna,False,contains_correct_answer
+geo_018,geography,E,the Mediterranean Sea,"
+
+The following is a list of the top 10 most popular questions asked by",mediterranean sea,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_019,geography,A,Asia," Asia
+
+Q: The capital of what country?
+A: China
+",asia,asia q: the capital of what country? a: china,True,exact_match
+geo_019,geography,B,Asia," Asia
+
+Q: The capital of what country?
+A: Vietnam
+",asia,asia q: the capital of what country? a: vietnam,True,exact_match
+geo_019,geography,C,Asia," Asia
+
+Fact 1: The city of Hanoi is the capital of Vietnam",asia,asia fact 1: the city of hanoi is the capital of vietnam,True,exact_match
+geo_019,geography,D,Asia," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,asia fact 1: the danube river flows through the capital of what,True,exact_match
+geo_019,geography,E,Asia,"
+
+The following is a list of the most common questions and answers to the",asia,following is a list of the most common questions and answers to the,False,wrong
+geo_020,geography,A,the Atlantic Ocean," The Atlantic Ocean
+
+Q: The Atlantic Ocean
+
+Q: The Atlantic",atlantic ocean,atlantic ocean q: the atlantic ocean q: the atlantic,True,exact_match
+geo_020,geography,B,the Atlantic Ocean," Atlantic Ocean
+
+Q: The Danube River flows through what country?
+",atlantic ocean,atlantic ocean q: the danube river flows through what country,False,contains_correct_answer
+geo_020,geography,C,the Atlantic Ocean," Atlantic Ocean
+
+Q: The Atlantic Ocean is the largest ocean in the world",atlantic ocean,atlantic ocean q: the atlantic ocean is the largest ocean in the world,False,contains_correct_answer
+geo_020,geography,D,the Atlantic Ocean," Atlantic Ocean
+
+Fact 1: The Danube River flows through Vienna.
+",atlantic ocean,atlantic ocean fact 1: the danube river flows through vienna,False,contains_correct_answer
+geo_020,geography,E,the Atlantic Ocean,"
+
+The following is a list of the top 10 most popular questions asked by",atlantic ocean,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_021,geography,A,the Swedish krona," Sweden uses the Swedish krona.
+
+Q: What is the capital",swedish krona,sweden uses the swedish krona. q: what is the capital,False,contains_correct_answer
+geo_021,geography,B,the Swedish krona," Swedish krona
+
+Q: What is the capital of Sweden?
+",swedish krona,swedish krona q: what is the capital of sweden,False,contains_correct_answer
+geo_021,geography,C,the Swedish krona," Swedish krona
+
+Q: The capital of Sweden is located in what",swedish krona,swedish krona q: the capital of sweden is located in what,False,contains_correct_answer
+geo_021,geography,D,the Swedish krona," Sweden
+
+Fact 1: The Danube River flows through Vienna.
+Fact",swedish krona,sweden fact 1: the danube river flows through vienna. fact,False,wrong
+geo_021,geography,E,the Swedish krona,"
+
+The following is a list of the top 10 most popular questions asked by",swedish krona,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_022,geography,A,South America," South America
+
+Q: The capital of Chile is located in what country?",south america,south america q: the capital of chile is located in what country,True,exact_match
+geo_022,geography,B,South America," South America
+
+Q: The capital of Chile is located in what country?",south america,south america q: the capital of chile is located in what country,True,exact_match
+geo_022,geography,C,South America," South America
+
+Q: The city of Santiago is located in what continent?",south america,south america q: the city of santiago is located in what continent,True,exact_match
+geo_022,geography,D,South America," South America
+
+Fact 1: The Danube River flows through the capital of",south america,south america fact 1: the danube river flows through the capital of,True,exact_match
+geo_022,geography,E,South America,"
+
+The following is a list of the top 10 most popular questions asked by",south america,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_023,geography,A,Asia," Asia
+
+Q: The capital of what country?
+A: South Korea",asia,asia q: the capital of what country? a: south korea,True,exact_match
+geo_023,geography,B,Asia," Asia
+
+Q: The capital of what country?
+A: South Korea",asia,asia q: the capital of what country? a: south korea,True,exact_match
+geo_023,geography,C,Asia," Asia
+
+Fact 1: The city of Seoul is the capital of South Korea",asia,asia fact 1: the city of seoul is the capital of south korea,True,exact_match
+geo_023,geography,D,Asia," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,asia fact 1: the danube river flows through the capital of what,True,exact_match
+geo_023,geography,E,Asia,"
+
+The following is a list of the top 10 most popular questions asked by",asia,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_024,geography,A,the North Atlantic," The Atlantic Ocean
+
+Q: What is the capital of Ireland?
+A",north atlantic,atlantic ocean q: what is the capital of ireland? a,False,wrong
+geo_024,geography,B,the North Atlantic," Atlantic Ocean
+
+Q: What is the capital of Ireland?
+A:",north atlantic,atlantic ocean q: what is the capital of ireland? a,False,wrong
+geo_024,geography,C,the North Atlantic," Atlantic Ocean
+
+Q: The capital of Ireland is Dublin.
+Step 1",north atlantic,atlantic ocean q: the capital of ireland is dublin. step 1,False,wrong
+geo_024,geography,D,the North Atlantic," the North Atlantic
+
+Fact 1: The Danube River flows through Vienna.",north atlantic,north atlantic fact 1: the danube river flows through vienna,True,exact_match
+geo_024,geography,E,the North Atlantic,"
+
+The following is a list of the top 10 most popular questions asked by",north atlantic,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_025,geography,A,NATO," NATO
+
+Q: What is the capital of Turkey?
+A: Ank",nato,nato q: what is the capital of turkey? a: ank,True,exact_match
+geo_025,geography,B,NATO," NATO
+
+Q: The capital of what country?
+A: Turkey
+",nato,nato q: the capital of what country? a: turkey,True,exact_match
+geo_025,geography,C,NATO," NATO
+
+Q: The capital of the United States is Washington, D.",nato,"nato q: the capital of the united states is washington, d",True,exact_match
+geo_025,geography,D,NATO," NATO
+
+Fact 1: The Danube River flows through the capital of what",nato,nato fact 1: the danube river flows through the capital of what,True,exact_match
+geo_025,geography,E,NATO,"
+
+The following is a list of the top 10 most popular questions asked by",nato,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_026,geography,A,Africa," Africa
+
+Q: The Nile River flows through what country?
+A:",africa,africa q: the nile river flows through what country? a,True,exact_match
+geo_026,geography,B,Africa," Africa
+
+Q: The Nile River flows through what country?
+A:",africa,africa q: the nile river flows through what country? a,True,exact_match
+geo_026,geography,C,Africa," Africa
+
+Q: The Nile River flows through what country?
+Step 1",africa,africa q: the nile river flows through what country? step 1,True,exact_match
+geo_026,geography,D,Africa," Africa
+
+Fact 1: The Nile River flows through a country on what continent",africa,africa fact 1: the nile river flows through a country on what continent,True,exact_match
+geo_026,geography,E,Africa,"
+
+The following is a list of the top 10 most popular questions asked by",africa,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_027,geography,A,England," England
+
+Fact 1: The river flows through a city in what country?",england,england fact 1: the river flows through a city in what country,True,exact_match
+geo_027,geography,B,England," England
+
+Q: The river flows through a city in what country?
+",england,england q: the river flows through a city in what country,True,exact_match
+geo_027,geography,C,England," England
+
+Q: The Thames River flows through a city in what country?",england,england q: the thames river flows through a city in what country,True,exact_match
+geo_027,geography,D,England," England
+
+Fact 1: The Danube River flows through Vienna.
+Fact",england,england fact 1: the danube river flows through vienna. fact,True,exact_match
+geo_027,geography,E,England,"
+
+The following is a list of the top 10 most popular questions asked by",england,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_028,geography,A,Asia," Asia
+
+Fact 1: The mountain is located in what continent?
+A",asia,asia fact 1: the mountain is located in what continent? a,True,exact_match
+geo_028,geography,B,Asia," Asia
+
+Q: What is the capital of Austria?
+A: Vienna",asia,asia q: what is the capital of austria? a: vienna,True,exact_match
+geo_028,geography,C,Asia," Asia
+
+Q: The United States is the largest country in the world.",asia,asia q: the united states is the largest country in the world,True,exact_match
+geo_028,geography,D,Asia," Asia
+
+Fact 1: The Danube River flows through Vienna.
+Fact",asia,asia fact 1: the danube river flows through vienna. fact,True,exact_match
+geo_028,geography,E,Asia,"
+
+The following is a list of the top 10 most popular questions asked by",asia,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_029,geography,A,the Pacific Ocean," Australia
+
+Q: The Great Barrier Reef is in a country in",pacific ocean,australia q: the great barrier reef is in a country in,False,wrong
+geo_029,geography,B,the Pacific Ocean," Australia
+
+Q: The first transatlantic telegraph cable was laid in",pacific ocean,australia q: the first transatlantic telegraph cable was laid in,False,wrong
+geo_029,geography,C,the Pacific Ocean," the Pacific Ocean
+
+Q: The Great Barrier Reef is in a",pacific ocean,pacific ocean q: the great barrier reef is in a,True,exact_match
+geo_029,geography,D,the Pacific Ocean," the Pacific Ocean
+
+Fact 1: The Great Barrier Reef is in",pacific ocean,pacific ocean fact 1: the great barrier reef is in,True,exact_match
+geo_029,geography,E,the Pacific Ocean,"
+
+The following is a list of the top 10 most popular questions asked by",pacific ocean,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_030,geography,A,the Atlantic Ocean," The Amazon River
+
+Q: The Amazon River flows through what country?
+",atlantic ocean,amazon river q: the amazon river flows through what country,False,wrong
+geo_030,geography,B,the Atlantic Ocean," Brazil
+
+Q: The Amazon River flows through what country?
+A:",atlantic ocean,brazil q: the amazon river flows through what country? a,False,wrong
+geo_030,geography,C,the Atlantic Ocean," the Atlantic Ocean
+
+Q: The Amazon River flows through a country bordering",atlantic ocean,atlantic ocean q: the amazon river flows through a country bordering,True,exact_match
+geo_030,geography,D,the Atlantic Ocean," the Atlantic Ocean
+
+Fact 1: The Amazon River flows through Brazil.
+",atlantic ocean,atlantic ocean fact 1: the amazon river flows through brazil,True,exact_match
+geo_030,geography,E,the Atlantic Ocean,"
+
+The following is a list of the most common questions and answers to the",atlantic ocean,following is a list of the most common questions and answers to the,False,wrong
+geo_031,geography,A,Europe," Norway
+
+Fact 1: Norway is the only country in the world with the",europe,norway fact 1: norway is the only country in the world with the,False,wrong
+geo_031,geography,B,Europe," Norway
+
+Q: The metric system was adopted in France in 1795.",europe,norway q: the metric system was adopted in france in 1795,False,wrong
+geo_031,geography,C,Europe," Norway
+
+Q: The capital of Norway is Oslo.
+Step 1:",europe,norway q: the capital of norway is oslo. step 1,False,wrong
+geo_031,geography,D,Europe," Europe
+
+Fact 1: The Danube River flows through the capital of what",europe,europe fact 1: the danube river flows through the capital of what,True,exact_match
+geo_031,geography,E,Europe,"
+
+The following is a list of the top 10 most popular questions asked by",europe,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_032,geography,A,Russia," Russia
+
+Fact 1: Helsinki is the capital of Finland.
+Fact 2",russia,russia fact 1: helsinki is the capital of finland. fact 2,True,exact_match
+geo_032,geography,B,Russia," Russia
+
+Q: The first skyscraper was built in what city",russia,russia q: the first skyscraper was built in what city,True,exact_match
+geo_032,geography,C,Russia," Russia
+
+Q: Helsinki is the capital of what country?
+Step 1",russia,russia q: helsinki is the capital of what country? step 1,True,exact_match
+geo_032,geography,D,Russia," Russia
+
+Fact 1: The Danube River flows through Vienna.
+Fact",russia,russia fact 1: the danube river flows through vienna. fact,True,exact_match
+geo_032,geography,E,Russia,"
+
+The following is a list of the top 10 most popular questions asked by",russia,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_033,geography,A,landlocked," Austria is a country in Central Europe.
+
+Q: What is the capital",landlocked,austria is a country in central europe. q: what is the capital,False,wrong
+geo_033,geography,B,landlocked," Austria is a landlocked country.
+
+Q: Vienna is the capital of",landlocked,austria is a landlocked country. q: vienna is the capital of,False,contains_correct_answer
+geo_033,geography,C,landlocked," a landlocked country
+
+Q: Vienna is the capital of what country?",landlocked,landlocked country q: vienna is the capital of what country,False,contains_correct_answer
+geo_033,geography,D,landlocked," landlocked
+
+Fact 1: The Danube River flows through Vienna.
+",landlocked,landlocked fact 1: the danube river flows through vienna,True,exact_match
+geo_033,geography,E,landlocked,"
+
+The following is a list of the top 10 most popular questions asked by",landlocked,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_034,geography,A,Scandinavia," Scandinavia
+
+Q: What is the capital of Denmark?
+A:",scandinavia,scandinavia q: what is the capital of denmark? a,True,exact_match
+geo_034,geography,B,Scandinavia," Scandinavia
+
+Q: The Rosetta Stone was discovered in what country?",scandinavia,scandinavia q: the rosetta stone was discovered in what country,True,exact_match
+geo_034,geography,C,Scandinavia," Scandinavia
+
+Q: Copenhagen is the capital of what country?
+Step",scandinavia,scandinavia q: copenhagen is the capital of what country? step,True,exact_match
+geo_034,geography,D,Scandinavia," Scandinavia
+
+Fact 1: The Danube River flows through Vienna.
+",scandinavia,scandinavia fact 1: the danube river flows through vienna,True,exact_match
+geo_034,geography,E,Scandinavia,"
+
+The following is a list of the top 10 most popular questions asked by",scandinavia,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_035,geography,A,Asia," Asia
+
+Q: The capital of what country is India?
+A:",asia,asia q: the capital of what country is india? a,True,exact_match
+geo_035,geography,B,Asia," Asia
+
+Q: The capital of what country?
+A: India
+",asia,asia q: the capital of what country? a: india,True,exact_match
+geo_035,geography,C,Asia," Asia
+
+Q: The city of New Delhi is located on what continent?",asia,asia q: the city of new delhi is located on what continent,True,exact_match
+geo_035,geography,D,Asia," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,asia fact 1: the danube river flows through the capital of what,True,exact_match
+geo_035,geography,E,Asia,"
+
+The following is a list of the most common questions and answers to the",asia,following is a list of the most common questions and answers to the,False,wrong
+geo_036,geography,A,archipelago," Indonesia is the largest archipelago in the world.
+
+Q: What",archipelago,indonesia is the largest archipelago in the world. q: what,False,contains_correct_answer
+geo_036,geography,B,archipelago," Indonesia
+
+Q: The waltz is a popular dance form.
+",archipelago,indonesia q: the waltz is a popular dance form,False,wrong
+geo_036,geography,C,archipelago," Indonesia
+
+Q: The capital of the United States is Washington, D.",archipelago,"indonesia q: the capital of the united states is washington, d",False,wrong
+geo_036,geography,D,archipelago," Indonesia
+
+Fact 1: The Danube River flows through the capital of what",archipelago,indonesia fact 1: the danube river flows through the capital of what,False,wrong
+geo_036,geography,E,archipelago,"
+
+The following is a list of the top 10 most popular questions asked by",archipelago,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_037,geography,A,South America," North America
+
+Q: The capital of what country?
+A: United",south america,north america q: the capital of what country? a: united,False,wrong
+geo_037,geography,B,South America," North America
+
+Q: The capital of what country?
+A: United",south america,north america q: the capital of what country? a: united,False,wrong
+geo_037,geography,C,South America," South America
+
+Q: The city of Bogota is located on what continent",south america,south america q: the city of bogota is located on what continent,True,exact_match
+geo_037,geography,D,South America," South America
+
+Fact 1: The Danube River flows through the capital of",south america,south america fact 1: the danube river flows through the capital of,True,exact_match
+geo_037,geography,E,South America,"
+
+The following is a list of the top 10 most popular questions asked by",south america,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_038,geography,A,three," 2
+
+Q: What is the capital of South Africa?
+A:",three,2 q: what is the capital of south africa? a,False,wrong
+geo_038,geography,B,three," 2
+
+Q: What is the capital of South Africa?
+A:",three,2 q: what is the capital of south africa? a,False,wrong
+geo_038,geography,C,three," three
+
+Q: The capital of the United States is Washington, D.",three,"three q: the capital of the united states is washington, d",True,exact_match
+geo_038,geography,D,three," three
+
+Fact 1: The Danube River flows through the capital of what",three,three fact 1: the danube river flows through the capital of what,True,exact_match
+geo_038,geography,E,three,"
+
+The following is a list of the top 10 most popular questions asked by",three,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_039,geography,A,Asia," Asia
+
+Fact 1: The capital of the Philippines is located in what country",asia,asia fact 1: the capital of the philippines is located in what country,True,exact_match
+geo_039,geography,B,Asia," Asia
+
+Q: The capital of the Philippines is located in what country?",asia,asia q: the capital of the philippines is located in what country,True,exact_match
+geo_039,geography,C,Asia," Asia
+
+Fact 1: The city of Manila is the capital of the Philippines",asia,asia fact 1: the city of manila is the capital of the philippines,True,exact_match
+geo_039,geography,D,Asia," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,asia fact 1: the danube river flows through the capital of what,True,exact_match
+geo_039,geography,E,Asia,"
+
+The following is a list of the top 10 most popular questions asked by",asia,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_040,geography,A,the Caribbean," The Caribbean
+
+Q: What is the capital of the Caribbean?
+A",caribbean,caribbean q: what is the capital of the caribbean? a,True,exact_match
+geo_040,geography,B,the Caribbean," The Caribbean
+
+Q: The first modern novel is often considered to be Don",caribbean,caribbean q: the first modern novel is often considered to be don,True,exact_match
+geo_040,geography,C,the Caribbean," Caribbean
+
+Q: The capital of the United States is Washington, D.",caribbean,"caribbean q: the capital of the united states is washington, d",False,contains_correct_answer
+geo_040,geography,D,the Caribbean," the Caribbean
+
+Fact 1: The Danube River flows through Vienna.
+",caribbean,caribbean fact 1: the danube river flows through vienna,True,exact_match
+geo_040,geography,E,the Caribbean,"
+
+The following is a list of the top 10 most popular questions asked by",caribbean,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_041,geography,A,Asia," Asia
+
+Q: The capital of what country?
+A: Malaysia
+",asia,asia q: the capital of what country? a: malaysia,True,exact_match
+geo_041,geography,B,Asia," Asia
+
+Q: What is the capital of Malaysia?
+A: K",asia,asia q: what is the capital of malaysia? a: k,True,exact_match
+geo_041,geography,C,Asia," Asia
+
+Q: The capital of the United States is Washington, D.",asia,"asia q: the capital of the united states is washington, d",True,exact_match
+geo_041,geography,D,Asia," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,asia fact 1: the danube river flows through the capital of what,True,exact_match
+geo_041,geography,E,Asia,"
+
+The following is a list of the top 10 most popular questions asked by",asia,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_042,geography,A,1957," 1957
+
+Fact 1: Accra is the capital of what country?
+",1957,1957 fact 1: accra is the capital of what country,True,exact_match
+geo_042,geography,B,1957," 1957
+
+Q: What is the capital of Ghana?
+A: Acc",1957,1957 q: what is the capital of ghana? a: acc,True,exact_match
+geo_042,geography,C,1957," 1957
+
+Fact 1: The United States is the largest country in the world",1957,1957 fact 1: the united states is the largest country in the world,True,exact_match
+geo_042,geography,D,1957," 1957
+
+Fact 1: The Danube River flows through the capital of what",1957,1957 fact 1: the danube river flows through the capital of what,True,exact_match
+geo_042,geography,E,1957,"
+
+The following is a list of the top 10 most popular questions asked by",1957,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_043,geography,A,South America," North America
+
+Q: The capital of Ecuador is located in what continent?",south america,north america q: the capital of ecuador is located in what continent,False,wrong
+geo_043,geography,B,South America," North America
+
+Q: The first movie theater was opened in what year?",south america,north america q: the first movie theater was opened in what year,False,wrong
+geo_043,geography,C,South America," South America
+
+Q: The city of Quito is located in what",south america,south america q: the city of quito is located in what,True,exact_match
+geo_043,geography,D,South America," South America
+
+Fact 1: The Danube River flows through the capital of",south america,south america fact 1: the danube river flows through the capital of,True,exact_match
+geo_043,geography,E,South America,"
+
+The following is a list of the top 10 most popular questions asked by",south america,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_044,geography,A,geothermal energy," Geothermal energy
+
+Q: What is the capital of Iceland?
+A",geothermal energy,geothermal energy q: what is the capital of iceland? a,True,exact_match
+geo_044,geography,B,geothermal energy," Geothermal energy
+
+Q: What is the capital of Iceland?
+A",geothermal energy,geothermal energy q: what is the capital of iceland? a,True,exact_match
+geo_044,geography,C,geothermal energy," geothermal energy
+
+Q: The capital of Iceland is located in what country",geothermal energy,geothermal energy q: the capital of iceland is located in what country,True,exact_match
+geo_044,geography,D,geothermal energy," geothermal energy
+
+Fact 1: The Danube River flows through the capital",geothermal energy,geothermal energy fact 1: the danube river flows through the capital,True,exact_match
+geo_044,geography,E,geothermal energy,"
+
+The following is a list of the top 10 most popular questions asked by",geothermal energy,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_045,geography,A,Asia," Asia
+
+Q: The capital of Nepal is located in what country?
+",asia,asia q: the capital of nepal is located in what country,True,exact_match
+geo_045,geography,B,Asia," Asia
+
+Q: The first dictionary in English was published in 1604.",asia,asia q: the first dictionary in english was published in 1604,True,exact_match
+geo_045,geography,C,Asia," Asia
+
+Q: The city of Kathmandu is on what continent?",asia,asia q: the city of kathmandu is on what continent,True,exact_match
+geo_045,geography,D,Asia," Asia
+
+Fact 1: The first dictionary in English was published in 1604",asia,asia fact 1: the first dictionary in english was published in 1604,True,exact_match
+geo_045,geography,E,Asia,"
+
+The following is a list of the top 10 most popular questions asked by",asia,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_046,geography,A,230 million," Pakistan has a population of over 230 million.
+
+Q: What is the",230 million,pakistan has a population of over 230 million. q: what is the,False,contains_correct_answer
+geo_046,geography,B,230 million," Pakistan has a population of over 230 million.
+
+Q: The Danube",230 million,pakistan has a population of over 230 million. q: the danube,False,contains_correct_answer
+geo_046,geography,C,230 million," 230 million
+
+Q: The capital of the United States is Washington, D",230 million,"230 million q: the capital of the united states is washington, d",True,exact_match
+geo_046,geography,D,230 million," 230 million
+
+Fact 1: The Danube River flows through Vienna.
+",230 million,230 million fact 1: the danube river flows through vienna,True,exact_match
+geo_046,geography,E,230 million,"
+
+The following is a list of the top 10 most popular questions asked by",230 million,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_047,geography,A,Africa," Africa
+
+Q: What is the capital of Ethiopia?
+A: Add",africa,africa q: what is the capital of ethiopia? a: add,True,exact_match
+geo_047,geography,B,Africa," Africa
+
+Q: What is the capital of Ethiopia?
+A: Add",africa,africa q: what is the capital of ethiopia? a: add,True,exact_match
+geo_047,geography,C,Africa," Africa
+
+Q: The Nile River flows through what country?
+Step 1",africa,africa q: the nile river flows through what country? step 1,True,exact_match
+geo_047,geography,D,Africa," Africa
+
+Fact 1: The Danube River flows through Vienna.
+Fact",africa,africa fact 1: the danube river flows through vienna. fact,True,exact_match
+geo_047,geography,E,Africa,"
+
+The following is a list of the top 10 most popular questions asked by",africa,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_048,geography,A,oil," Venezuela
+
+Q: What is the capital of Venezuela?
+A: Car",oil,venezuela q: what is the capital of venezuela? a: car,False,wrong
+geo_048,geography,B,oil," oil
+
+Q: What is the capital of Venezuela?
+A: Car",oil,oil q: what is the capital of venezuela? a: car,True,exact_match
+geo_048,geography,C,oil," Venezuela
+
+Q: The capital of the United States is Washington, D.",oil,"venezuela q: the capital of the united states is washington, d",False,wrong
+geo_048,geography,D,oil," oil
+
+Fact 1: The Danube River flows through the capital of what",oil,oil fact 1: the danube river flows through the capital of what,True,exact_match
+geo_048,geography,E,oil,"
+
+The following is a list of the top 10 most popular questions asked by",oil,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_049,geography,A,Africa," Africa
+
+Q: Rabat is the capital of what country?
+A",africa,africa q: rabat is the capital of what country? a,True,exact_match
+geo_049,geography,B,Africa," Africa
+
+Q: The capital of Morocco is Rabat.
+A:",africa,africa q: the capital of morocco is rabat. a,True,exact_match
+geo_049,geography,C,Africa," Africa
+
+Q: The city of Rabat is located on what continent?",africa,africa q: the city of rabat is located on what continent,True,exact_match
+geo_049,geography,D,Africa," Africa
+
+Fact 1: The Danube River flows through the capital of what",africa,africa fact 1: the danube river flows through the capital of what,True,exact_match
+geo_049,geography,E,Africa,"
+
+The following is a list of the top 10 most popular questions asked by",africa,following is a list of the top 10 most popular questions asked by,False,wrong
+geo_050,geography,A,Asia," Asia
+
+Q: What is the capital of Cambodia?
+A: Ph",asia,asia q: what is the capital of cambodia? a: ph,True,exact_match
+geo_050,geography,B,Asia," Asia
+
+Q: What is the capital of Cambodia?
+A: Ph",asia,asia q: what is the capital of cambodia? a: ph,True,exact_match
+geo_050,geography,C,Asia," Asia
+
+Q: The Nile River flows through what country?
+Step 1",asia,asia q: the nile river flows through what country? step 1,True,exact_match
+geo_050,geography,D,Asia," Asia
+
+Fact 1: The periodic table has 118 confirmed elements.
+Fact",asia,asia fact 1: the periodic table has 118 confirmed elements. fact,True,exact_match
+geo_050,geography,E,Asia,"
+
+The following is a list of the top 10 most popular questions asked by",asia,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_001,science,A,8," Hydrogen
+
+Q: What is the atomic number of oxygen?
+A",8,hydrogen q: what is the atomic number of oxygen? a,False,wrong
+sci_001,science,B,8," 8
+
+Q: What is the atomic number of oxygen?
+A:",8,8 q: what is the atomic number of oxygen? a,True,exact_match
+sci_001,science,C,8," hydrogen
+
+Q: The human body is made up of what type of cells",8,hydrogen q: the human body is made up of what type of cells,False,wrong
+sci_001,science,D,8," 8
+
+Fact 1: The human body contains about 70% water.
+",8,8 fact 1: the human body contains about 70% water,True,exact_match
+sci_001,science,E,8,"
+
+The following is a list of the top 10 most popular questions asked by",8,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_002,science,A,11," sodium
+
+Q: What is the atomic number of sodium?
+A:",11,sodium q: what is the atomic number of sodium? a,False,wrong
+sci_002,science,B,11," Sodium
+
+Q: What is the atomic number of sodium?
+A",11,sodium q: what is the atomic number of sodium? a,False,wrong
+sci_002,science,C,11," sodium
+
+Q: What is the atomic number of sodium?
+Step 1",11,sodium q: what is the atomic number of sodium? step 1,False,wrong
+sci_002,science,D,11," 11
+
+Fact 1: The human body contains about 70% water.
+",11,11 fact 1: the human body contains about 70% water,True,exact_match
+sci_002,science,E,11,"
+
+The following is a list of the top 10 most popular questions asked by",11,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_003,science,A,reddish brown, Rust is a metal that is a metal that is composed of iron and oxygen.,reddish brown,rust is a metal that is a metal that is composed of iron and oxygen,False,wrong
+sci_003,science,B,reddish brown," Brown
+
+Q: What is the capital of Austria?
+A: Vienna",reddish brown,brown q: what is the capital of austria? a: vienna,False,wrong
+sci_003,science,C,reddish brown," rust
+
+Q: What is the capital of the United States?
+Step",reddish brown,rust q: what is the capital of the united states? step,False,wrong
+sci_003,science,D,reddish brown," rust
+
+Fact 1: The Panama Canal connects the Atlantic and Pacific Oceans",reddish brown,rust fact 1: the panama canal connects the atlantic and pacific oceans,False,wrong
+sci_003,science,E,reddish brown,"
+
+The following is a list of the top 10 most popular questions asked by",reddish brown,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_004,science,A,spiral," spiral
+
+Q: What is the capital of Austria?
+A: Vienna",spiral,spiral q: what is the capital of austria? a: vienna,True,exact_match
+sci_004,science,B,spiral," spiral
+
+Q: The Milky Way is a spiral galaxy.
+A:",spiral,spiral q: the milky way is a spiral galaxy. a,True,exact_match
+sci_004,science,C,spiral," Milky Way
+
+Q: The Sun is in what type of galaxy?
+",spiral,milky way q: the sun is in what type of galaxy,False,wrong
+sci_004,science,D,spiral," spiral galaxy
+
+Fact 1: The Sun is a star in the Milky Way",spiral,spiral galaxy fact 1: the sun is a star in the milky way,False,contains_correct_answer
+sci_004,science,E,spiral,"
+
+The following is a list of the top 10 most popular questions asked by",spiral,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_005,science,A,yellow dwarf," yellow dwarf
+
+Q: The Sun is a yellow dwarf.
+A:",yellow dwarf,yellow dwarf q: the sun is a yellow dwarf. a,True,exact_match
+sci_005,science,B,yellow dwarf," A red dwarf
+Q: What is the name of the planet that orbits the",yellow dwarf,red dwarf q: what is the name of the planet that orbits the,False,wrong
+sci_005,science,C,yellow dwarf," yellow dwarf star
+
+Q: The Sun is the closest star to the Earth",yellow dwarf,yellow dwarf star q: the sun is the closest star to the earth,False,contains_correct_answer
+sci_005,science,D,yellow dwarf," a yellow dwarf star
+
+Fact 1: The Sun is classified as a yellow",yellow dwarf,yellow dwarf star fact 1: the sun is classified as a yellow,False,contains_correct_answer
+sci_005,science,E,yellow dwarf,"
+
+The following is a list of the top 10 most popular questions asked by",yellow dwarf,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_006,science,A,electric charge," Static electricity is a buildup of electric charge.
+
+Q: What is",electric charge,static electricity is a buildup of electric charge. q: what is,False,contains_correct_answer
+sci_006,science,B,electric charge," static electricity
+
+Q: What is the capital of Austria?
+A:",electric charge,static electricity q: what is the capital of austria? a,False,wrong
+sci_006,science,C,electric charge," static electricity
+
+Q: What is the capital of Austria?
+Step 1",electric charge,static electricity q: what is the capital of austria? step 1,False,wrong
+sci_006,science,D,electric charge," static electricity
+
+Fact 1: The Danube River flows through the capital of",electric charge,static electricity fact 1: the danube river flows through the capital of,False,wrong
+sci_006,science,E,electric charge,"
+
+The following is a list of the top 10 most popular questions asked by",electric charge,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_007,science,A,6," Carbon
+
+Q: What is the atomic number of carbon?
+A:",6,carbon q: what is the atomic number of carbon? a,False,wrong
+sci_007,science,B,6," Carbon
+
+Q: What is the atomic number of carbon?
+A:",6,carbon q: what is the atomic number of carbon? a,False,wrong
+sci_007,science,C,6," 6
+
+Q: The number of atoms in a diamond is the same as",6,6 q: the number of atoms in a diamond is the same as,True,exact_match
+sci_007,science,D,6," carbon
+
+Fact 1: The human body is made up of about 60%",6,carbon fact 1: the human body is made up of about 60%,False,contains_correct_answer
+sci_007,science,E,6,"
+
+The following is a list of the most common questions and answers to the",6,following is a list of the most common questions and answers to the,False,wrong
+sci_008,science,A,29," 29
+
+Q: What is the atomic number of copper?
+A:",29,29 q: what is the atomic number of copper? a,True,exact_match
+sci_008,science,B,29," 29
+
+Q: What is the atomic number of copper?
+A:",29,29 q: what is the atomic number of copper? a,True,exact_match
+sci_008,science,C,29," 29
+
+Q: The atomic number of copper is 29.
+Step 1",29,29 q: the atomic number of copper is 29. step 1,True,exact_match
+sci_008,science,D,29," 29
+
+Fact 1: The human body contains about 70% water.
+",29,29 fact 1: the human body contains about 70% water,True,exact_match
+sci_008,science,E,29,"
+
+The following is a list of the top 10 most popular questions asked by",29,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_009,science,A,12742 kilometers," The Moon orbits the Earth.
+
+Q: The Moon orbits the Earth.",12742 kilometers,moon orbits the earth. q: the moon orbits the earth,False,wrong
+sci_009,science,B,12742 kilometers," The Moon orbits the Earth.
+
+Q: The Moon orbits the Earth.",12742 kilometers,moon orbits the earth. q: the moon orbits the earth,False,wrong
+sci_009,science,C,12742 kilometers," the Earth
+
+Q: The Moon orbits the Earth.
+Step 1:",12742 kilometers,earth q: the moon orbits the earth. step 1,False,wrong
+sci_009,science,D,12742 kilometers," Earth
+
+Fact 1: The Moon orbits the Earth.
+Fact 2:",12742 kilometers,earth fact 1: the moon orbits the earth. fact 2,False,wrong
+sci_009,science,E,12742 kilometers,"
+
+The following is a list of the top 10 most popular questions asked by",12742 kilometers,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_010,science,A,nitrogen," nitrogen
+
+Q: What is the capital of Austria?
+A: Vienna",nitrogen,nitrogen q: what is the capital of austria? a: vienna,True,exact_match
+sci_010,science,B,nitrogen," Air
+
+Q: The Ural Mountains separate Europe and Asia.
+A",nitrogen,air q: the ural mountains separate europe and asia. a,False,wrong
+sci_010,science,C,nitrogen," nitrogen
+
+Q: Sound travels through a medium composed of what element?
+",nitrogen,nitrogen q: sound travels through a medium composed of what element,True,exact_match
+sci_010,science,D,nitrogen," nitrogen
+
+Fact 1: The Danube River flows through Vienna.
+Fact",nitrogen,nitrogen fact 1: the danube river flows through vienna. fact,True,exact_match
+sci_010,science,E,nitrogen,"
+
+The following is a list of the top 10 most popular questions asked by",nitrogen,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_011,science,A,8 minutes," 8 minutes
+
+Q: What is the capital of Austria?
+A:",8 minutes,8 minutes q: what is the capital of austria? a,True,exact_match
+sci_011,science,B,8 minutes," 8 minutes
+
+Q: The Danube River flows through ten countries.
+",8 minutes,8 minutes q: the danube river flows through ten countries,True,exact_match
+sci_011,science,C,8 minutes," 8 minutes
+
+Q: What is the name of the planet that is closest",8 minutes,8 minutes q: what is the name of the planet that is closest,True,exact_match
+sci_011,science,D,8 minutes," 8 minutes
+
+Fact 1: The Danube River flows through ten countries.",8 minutes,8 minutes fact 1: the danube river flows through ten countries,True,exact_match
+sci_011,science,E,8 minutes,"
+
+The following is a list of the top 10 most popular questions asked by",8 minutes,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_012,science,A,Fe," Iron
+
+Fact 1: The word ""steel"" is a chemical element",fe,"iron fact 1: the word ""steel"" is a chemical element",False,wrong
+sci_012,science,B,Fe," Iron
+
+Q: What is the chemical symbol for the element iron?
+",fe,iron q: what is the chemical symbol for the element iron,False,wrong
+sci_012,science,C,Fe," Fe
+
+Q: The chemical symbol for iron is Fe.
+Step 1",fe,fe q: the chemical symbol for iron is fe. step 1,True,exact_match
+sci_012,science,D,Fe," Fe
+
+Fact 1: The human body contains about 60% water.
+",fe,fe fact 1: the human body contains about 60% water,True,exact_match
+sci_012,science,E,Fe,"
+
+The following is a list of the top 10 most popular questions asked by",fe,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_013,science,A,carbon dioxide," Carbon dioxide
+
+Q: Mars is the second largest planet in the solar system",carbon dioxide,carbon dioxide q: mars is the second largest planet in the solar system,True,exact_match
+sci_013,science,B,carbon dioxide," Carbon dioxide
+
+Q: The Yangtze River flows through what part of",carbon dioxide,carbon dioxide q: the yangtze river flows through what part of,True,exact_match
+sci_013,science,C,carbon dioxide," carbon dioxide
+
+Q: The atmosphere of Mars is mostly composed of what?",carbon dioxide,carbon dioxide q: the atmosphere of mars is mostly composed of what,True,exact_match
+sci_013,science,D,carbon dioxide," carbon dioxide
+
+Fact 1: The Yangtze is the longest river in",carbon dioxide,carbon dioxide fact 1: the yangtze is the longest river in,True,exact_match
+sci_013,science,E,carbon dioxide,"
+
+The following is a list of the top 10 most popular questions asked by",carbon dioxide,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_014,science,A,SiO2," SiO2
+
+Q: What is the chemical formula of silica?
+A",sio2,sio2 q: what is the chemical formula of silica? a,True,exact_match
+sci_014,science,B,SiO2," SiO2
+
+Q: What is the capital of Austria?
+A:",sio2,sio2 q: what is the capital of austria? a,True,exact_match
+sci_014,science,C,SiO2," SiO2
+
+Q: What is the chemical formula of the element silicon?",sio2,sio2 q: what is the chemical formula of the element silicon,True,exact_match
+sci_014,science,D,SiO2," SiO2
+
+Fact 1: The Danube River flows through the capital of",sio2,sio2 fact 1: the danube river flows through the capital of,True,exact_match
+sci_014,science,E,SiO2,"
+
+The following is a list of the top 10 most popular questions asked by",sio2,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_015,science,A,atoms," atoms
+
+Fact 1: The pancreas is a gland in the abdomen.
+",atoms,atoms fact 1: the pancreas is a gland in the abdomen,True,exact_match
+sci_015,science,B,atoms," atoms
+
+Q: The Yangtze River flows through what part of the",atoms,atoms q: the yangtze river flows through what part of the,True,exact_match
+sci_015,science,C,atoms," atoms
+
+Q: What is the most common type of battery?
+Step",atoms,atoms q: what is the most common type of battery? step,True,exact_match
+sci_015,science,D,atoms," atoms
+
+Fact 1: The Danube River flows through the capital of what",atoms,atoms fact 1: the danube river flows through the capital of what,True,exact_match
+sci_015,science,E,atoms,"
+
+The following is a list of the top 10 most popular questions asked by",atoms,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_016,science,A,visible light," Ultraviolet radiation
+
+Q: What is the ozone layer?
+A:",visible light,ultraviolet radiation q: what is the ozone layer? a,False,wrong
+sci_016,science,B,visible light," Ultraviolet radiation
+
+Q: What is the capital of Austria?
+A",visible light,ultraviolet radiation q: what is the capital of austria? a,False,wrong
+sci_016,science,C,visible light," ultraviolet radiation
+
+Q: The ozone layer is a layer of gas in the",visible light,ultraviolet radiation q: the ozone layer is a layer of gas in the,False,wrong
+sci_016,science,D,visible light," visible light
+
+Fact 1: The ozone layer protects Earth from ultraviolet radiation.",visible light,visible light fact 1: the ozone layer protects earth from ultraviolet radiation,True,exact_match
+sci_016,science,E,visible light,"
+
+The following is a list of the top 10 most popular questions asked by",visible light,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_017,science,A,1538 degrees Celsius," Magnets attract iron.
+
+Q: Magnets attract iron.
+A",1538 degrees celsius,magnets attract iron. q: magnets attract iron. a,False,wrong
+sci_017,science,B,1538 degrees Celsius," Iron
+
+Q: What is the name of the first person to invent the",1538 degrees celsius,iron q: what is the name of the first person to invent the,False,wrong
+sci_017,science,C,1538 degrees Celsius," Magnets attract iron
+
+Q: Magnets attract iron.
+Step 1",1538 degrees celsius,magnets attract iron q: magnets attract iron. step 1,False,wrong
+sci_017,science,D,1538 degrees Celsius," 1538 degrees Celsius
+
+Fact 1: The human body is made",1538 degrees celsius,1538 degrees celsius fact 1: the human body is made,True,exact_match
+sci_017,science,E,1538 degrees Celsius,"
+
+The following is a list of the top 10 most popular questions asked by",1538 degrees celsius,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_018,science,A,second," Helium is the second lightest element.
+
+Q: What is the",second,helium is the second lightest element. q: what is the,False,contains_correct_answer
+sci_018,science,B,second," Helium
+
+Q: What is the capital of Austria?
+A:",second,helium q: what is the capital of austria? a,False,wrong
+sci_018,science,C,second," Helium
+
+Q: What is the name of the element with the highest",second,helium q: what is the name of the element with the highest,False,wrong
+sci_018,science,D,second," helium
+
+Fact 1: The Danube River flows through the capital of what",second,helium fact 1: the danube river flows through the capital of what,False,wrong
+sci_018,science,E,second,"
+
+The following is a list of the top 10 most popular questions asked by",second,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_019,science,A,99.86 percent," 99.86%
+
+Fact 3: The Sun orbits the Sun.
+",99.86 percent,99.86% fact 3: the sun orbits the sun,False,wrong
+sci_019,science,B,99.86 percent," 0.9986
+
+Q: The Sun contains what percentage of the solar",99.86 percent,0.9986 q: the sun contains what percentage of the solar,False,wrong
+sci_019,science,C,99.86 percent," 99.86 percent
+
+Q: The Sun is the closest star to the",99.86 percent,99.86 percent q: the sun is the closest star to the,True,exact_match
+sci_019,science,D,99.86 percent," 99.86%
+
+Fact 1: The Sun is the center of the",99.86 percent,99.86% fact 1: the sun is the center of the,False,wrong
+sci_019,science,E,99.86 percent,"
+
+The following is a list of the top 10 most popular questions asked by",99.86 percent,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_020,science,A,5500 degrees Celsius," Mercury is the closest planet to the Sun.
+
+Q: The Sun is",5500 degrees celsius,mercury is the closest planet to the sun. q: the sun is,False,wrong
+sci_020,science,B,5500 degrees Celsius," Venus
+
+Q: The Sun is the closest planet to the Sun.
+",5500 degrees celsius,venus q: the sun is the closest planet to the sun,False,wrong
+sci_020,science,C,5500 degrees Celsius," Mercury
+
+Q: The Sun is the closest planet to what star?
+",5500 degrees celsius,mercury q: the sun is the closest planet to what star,False,wrong
+sci_020,science,D,5500 degrees Celsius," Mercury
+
+Fact 1: The Sun is the closest star to Earth.
+",5500 degrees celsius,mercury fact 1: the sun is the closest star to earth,False,wrong
+sci_020,science,E,5500 degrees Celsius,"
+
+The following is a list of the top 10 most popular questions asked by",5500 degrees celsius,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_021,science,A,condensation," Condensation
+
+Q: What is the capital of Austria?
+A:",condensation,condensation q: what is the capital of austria? a,True,exact_match
+sci_021,science,B,condensation," Condensation
+
+Q: What is the capital of Austria?
+A:",condensation,condensation q: what is the capital of austria? a,True,exact_match
+sci_021,science,C,condensation," through condensation
+
+Q: What is the capital of Austria?
+Step 1",condensation,through condensation q: what is the capital of austria? step 1,False,contains_correct_answer
+sci_021,science,D,condensation," condensation
+
+Fact 1: The Danube River flows through Vienna.
+Fact",condensation,condensation fact 1: the danube river flows through vienna. fact,True,exact_match
+sci_021,science,E,condensation,"
+
+The following is a list of the top 10 most popular questions asked by",condensation,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_022,science,A,fossil fuels," sulfur dioxide
+
+Q: What is the capital of Austria?
+A:",fossil fuels,sulfur dioxide q: what is the capital of austria? a,False,wrong
+sci_022,science,B,fossil fuels," sulfur dioxide
+
+Q: What is the capital of Austria?
+A:",fossil fuels,sulfur dioxide q: what is the capital of austria? a,False,wrong
+sci_022,science,C,fossil fuels," sulfur dioxide
+
+Q: Acid rain is caused by what?
+Step 1",fossil fuels,sulfur dioxide q: acid rain is caused by what? step 1,False,wrong
+sci_022,science,D,fossil fuels," sulfur dioxide
+
+Fact 1: The Nile River is the longest river in Africa",fossil fuels,sulfur dioxide fact 1: the nile river is the longest river in africa,False,wrong
+sci_022,science,E,fossil fuels,"
+
+The following is a list of the top 10 most popular questions asked by",fossil fuels,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_023,science,A,the Earth crust," The fault lines are cracks in the crust of the Earth.
+
+Q:",earth crust,fault lines are cracks in the crust of the earth. q,False,wrong
+sci_023,science,B,the Earth crust," fault lines
+
+Q: What is the capital of Austria?
+A:",earth crust,fault lines q: what is the capital of austria? a,False,wrong
+sci_023,science,C,the Earth crust," fault lines
+
+Q: What is the capital of Austria?
+Step 1",earth crust,fault lines q: what is the capital of austria? step 1,False,wrong
+sci_023,science,D,the Earth crust," the Earth crust
+
+Fact 1: The human body is made up of cells",earth crust,earth crust fact 1: the human body is made up of cells,True,exact_match
+sci_023,science,E,the Earth crust,"
+
+The following is a list of the top 10 most popular questions asked by",earth crust,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_024,science,A,light," refraction
+
+Q: What is the capital of Austria?
+A:",light,refraction q: what is the capital of austria? a,False,wrong
+sci_024,science,B,light," refraction
+
+Q: What is the Bay of Bengal?
+A:",light,refraction q: what is the bay of bengal? a,False,wrong
+sci_024,science,C,light," the bending of light as it passes through different media
+
+Q: What is",light,bending of light as it passes through different media q: what is,False,contains_correct_answer
+sci_024,science,D,light," refraction
+
+Fact 1: The Danube River flows through the capital of",light,refraction fact 1: the danube river flows through the capital of,False,wrong
+sci_024,science,E,light,"
+
+The following is a list of the top 10 most popular questions asked by",light,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_025,science,A,ice particles," ice
+
+Q: The rings of Saturn are made of what?
+A",ice particles,ice q: the rings of saturn are made of what? a,False,wrong
+sci_025,science,B,ice particles," ice particles
+
+Q: The first zoo was in what country?
+A",ice particles,ice particles q: the first zoo was in what country? a,True,exact_match
+sci_025,science,C,ice particles," ice particles
+
+Q: The rings of Saturn are made mostly of what?",ice particles,ice particles q: the rings of saturn are made mostly of what,True,exact_match
+sci_025,science,D,ice particles," ice particles
+
+Fact 1: The Danube River flows through the capital of",ice particles,ice particles fact 1: the danube river flows through the capital of,True,exact_match
+sci_025,science,E,ice particles,"
+
+The following is a list of the top 10 most popular questions asked by",ice particles,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_026,science,A,one," Two
+
+Q: What is the capital of Austria?
+A: Vienna",one,two q: what is the capital of austria? a: vienna,False,wrong
+sci_026,science,B,one," Two
+
+Q: The Great Rift Valley stretches across eastern Africa.
+",one,two q: the great rift valley stretches across eastern africa,False,wrong
+sci_026,science,C,one," 2
+
+Q: The Earth is the only planet in the solar system with",one,2 q: the earth is the only planet in the solar system with,False,wrong
+sci_026,science,D,one," one
+
+Fact 1: The Earth is the only planet in the solar system",one,one fact 1: the earth is the only planet in the solar system,True,exact_match
+sci_026,science,E,one,"
+
+The following is a list of the top 10 most popular questions asked by",one,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_027,science,A,30," 30
+
+Fact 1: The atomic number of zinc is 30.
+Fact",30,30 fact 1: the atomic number of zinc is 30. fact,True,exact_match
+sci_027,science,B,30," 30
+
+Q: What is the atomic number of zinc?
+A:",30,30 q: what is the atomic number of zinc? a,True,exact_match
+sci_027,science,C,30," 30
+
+Q: What is the atomic number of zinc?
+Step 1",30,30 q: what is the atomic number of zinc? step 1,True,exact_match
+sci_027,science,D,30," 30
+
+Fact 1: The human body contains about 70% water.
+",30,30 fact 1: the human body contains about 70% water,True,exact_match
+sci_027,science,E,30,"
+
+The following is a list of the top 10 most popular questions asked by",30,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_028,science,A,CO2," Carbon dioxide
+
+Q: What is the chemical formula of dry ice?
+",co2,carbon dioxide q: what is the chemical formula of dry ice,False,wrong
+sci_028,science,B,CO2," Carbon dioxide
+
+Q: What is the capital of Austria?
+A:",co2,carbon dioxide q: what is the capital of austria? a,False,wrong
+sci_028,science,C,CO2," CO2
+
+Q: What is the chemical formula of dry ice?
+",co2,co2 q: what is the chemical formula of dry ice,True,exact_match
+sci_028,science,D,CO2," CO2
+
+Fact 1: The modern calendar is based on the Gregorian",co2,co2 fact 1: the modern calendar is based on the gregorian,True,exact_match
+sci_028,science,E,CO2,"
+
+The following is a list of the top 10 most popular questions asked by",co2,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_029,science,A,7," 7
+
+Fact 1: The atomic number of nitrogen is 7.
+Fact",7,7 fact 1: the atomic number of nitrogen is 7. fact,True,exact_match
+sci_029,science,B,7," 7
+
+Q: What is the atomic number of nitrogen?
+A:",7,7 q: what is the atomic number of nitrogen? a,True,exact_match
+sci_029,science,C,7," 7
+
+Q: The atomic number of nitrogen is 7.
+Step 1",7,7 q: the atomic number of nitrogen is 7. step 1,True,exact_match
+sci_029,science,D,7," 7
+
+Fact 1: The Alps stretch across eight European countries.
+",7,7 fact 1: the alps stretch across eight european countries,True,exact_match
+sci_029,science,E,7,"
+
+The following is a list of the top 10 most popular questions asked by",7,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_030,science,A,4.6 billion years," 4.6 billion years ago.
+
+Q: What is the name of",4.6 billion years,4.6 billion years ago. q: what is the name of,False,contains_correct_answer
+sci_030,science,B,4.6 billion years," 4.6 billion years ago.
+
+Q: What is the name of",4.6 billion years,4.6 billion years ago. q: what is the name of,False,contains_correct_answer
+sci_030,science,C,4.6 billion years," 4.6 billion years ago
+
+Q: What is the name of the",4.6 billion years,4.6 billion years ago q: what is the name of the,False,contains_correct_answer
+sci_030,science,D,4.6 billion years," 4.6 billion years ago
+
+Fact 1: The Voyager 1 probe",4.6 billion years,4.6 billion years ago fact 1: the voyager 1 probe,False,contains_correct_answer
+sci_030,science,E,4.6 billion years,"
+
+The following is a list of the top 10 most popular questions asked by",4.6 billion years,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_031,science,A,electromagnetic radiation," Chlorophyll is a green pigment in plants.
+
+Q: What is",electromagnetic radiation,chlorophyll is a green pigment in plants. q: what is,False,wrong
+sci_031,science,B,electromagnetic radiation," light
+
+Q: What is the capital of Austria?
+A: Vienna",electromagnetic radiation,light q: what is the capital of austria? a: vienna,False,wrong
+sci_031,science,C,electromagnetic radiation," electromagnetic radiation
+
+Q: What is the name of the plant that produces chlor",electromagnetic radiation,electromagnetic radiation q: what is the name of the plant that produces chlor,True,exact_match
+sci_031,science,D,electromagnetic radiation," electromagnetic radiation
+
+Fact 1: The human body is made up of cells.",electromagnetic radiation,electromagnetic radiation fact 1: the human body is made up of cells,True,exact_match
+sci_031,science,E,electromagnetic radiation,"
+
+The following is a list of the top 10 most popular questions asked by",electromagnetic radiation,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_032,science,A,carbon dioxide," Carbon dioxide
+
+Q: What is the capital of Austria?
+A:",carbon dioxide,carbon dioxide q: what is the capital of austria? a,True,exact_match
+sci_032,science,B,carbon dioxide," Carbon dioxide
+
+Q: The atmosphere of Venus is mostly what gas?
+",carbon dioxide,carbon dioxide q: the atmosphere of venus is mostly what gas,True,exact_match
+sci_032,science,C,carbon dioxide," carbon dioxide
+
+Q: The atmosphere of Venus is mostly what gas?
+",carbon dioxide,carbon dioxide q: the atmosphere of venus is mostly what gas,True,exact_match
+sci_032,science,D,carbon dioxide," carbon dioxide
+
+Fact 1: The Great Lakes contain 21 percent of the world",carbon dioxide,carbon dioxide fact 1: the great lakes contain 21 percent of the world,True,exact_match
+sci_032,science,E,carbon dioxide,"
+
+The following is a list of the top 10 most popular questions asked by",carbon dioxide,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_033,science,A,92," 92
+
+Fact 1: The atomic number of uranium is 92.
+Fact",92,92 fact 1: the atomic number of uranium is 92. fact,True,exact_match
+sci_033,science,B,92," 92
+
+Q: What is the atomic number of uranium?
+A:",92,92 q: what is the atomic number of uranium? a,True,exact_match
+sci_033,science,C,92," 92
+
+Q: What is the atomic number of the element?
+Step",92,92 q: what is the atomic number of the element? step,True,exact_match
+sci_033,science,D,92," 92
+
+Fact 1: The human body contains about 5% water.
+",92,92 fact 1: the human body contains about 5% water,True,exact_match
+sci_033,science,E,92,"
+
+The following is a list of the top 10 most popular questions asked by",92,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_034,science,A,3474 kilometers," The Moon
+
+Q: The Moon is the second largest of the four large",3474 kilometers,moon q: the moon is the second largest of the four large,False,wrong
+sci_034,science,B,3474 kilometers," The Moon
+
+Q: The rafflesia produces the largest flower in",3474 kilometers,moon q: the rafflesia produces the largest flower in,False,wrong
+sci_034,science,C,3474 kilometers," the Moon
+
+Q: The Moon is the only planet in the solar system",3474 kilometers,moon q: the moon is the only planet in the solar system,False,wrong
+sci_034,science,D,3474 kilometers," the Moon
+
+Fact 1: The Danube River flows through the capital of",3474 kilometers,moon fact 1: the danube river flows through the capital of,False,wrong
+sci_034,science,E,3474 kilometers,"
+
+The following is a list of the top 10 most popular questions asked by",3474 kilometers,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_035,science,A,4.6 billion years," The Sun is 4.6 billion years old.
+
+Q: What is",4.6 billion years,sun is 4.6 billion years old. q: what is,False,contains_correct_answer
+sci_035,science,B,4.6 billion years," The Sun is 4.6 billion years old.
+
+Q: What is",4.6 billion years,sun is 4.6 billion years old. q: what is,False,contains_correct_answer
+sci_035,science,C,4.6 billion years," 4.6 billion years
+
+Q: What is the name of the planet",4.6 billion years,4.6 billion years q: what is the name of the planet,True,exact_match
+sci_035,science,D,4.6 billion years," 4.6 billion years
+
+Fact 1: The human body is made up",4.6 billion years,4.6 billion years fact 1: the human body is made up,True,exact_match
+sci_035,science,E,4.6 billion years,"
+
+The following is a list of the top 10 most popular questions asked by",4.6 billion years,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_036,science,A,CaCO3," CaCO3
+
+Q: What is the chemical formula of calcium carbonate?",caco3,caco3 q: what is the chemical formula of calcium carbonate,True,exact_match
+sci_036,science,B,CaCO3," CaCO3
+
+Q: What is the chemical formula of calcium carbonate?",caco3,caco3 q: what is the chemical formula of calcium carbonate,True,exact_match
+sci_036,science,C,CaCO3," CaCO3
+
+Q: What is the chemical formula of calcium carbonate?",caco3,caco3 q: what is the chemical formula of calcium carbonate,True,exact_match
+sci_036,science,D,CaCO3," CaCO3
+
+Fact 1: The human body is made up of about",caco3,caco3 fact 1: the human body is made up of about,True,exact_match
+sci_036,science,E,CaCO3,"
+
+The following is a list of the top 10 most popular questions asked by",caco3,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_037,science,A,one," Two
+
+Q: What is the capital of Austria?
+A: Vienna",one,two q: what is the capital of austria? a: vienna,False,wrong
+sci_037,science,B,one," 7
+
+Q: What is the capital of Austria?
+A: Vienna",one,7 q: what is the capital of austria? a: vienna,False,wrong
+sci_037,science,C,one," one
+
+Q: The Earth is the only planet in the solar system that",one,one q: the earth is the only planet in the solar system that,True,exact_match
+sci_037,science,D,one," one
+
+Fact 1: The Earth is the only planet in the solar system",one,one fact 1: the earth is the only planet in the solar system,True,exact_match
+sci_037,science,E,one,"
+
+The following is a list of the top 10 most popular questions asked by",one,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_038,science,A,noble gas," Neon is a noble gas.
+
+Q: What is the capital of",noble gas,neon is a noble gas. q: what is the capital of,False,contains_correct_answer
+sci_038,science,B,noble gas," Neon
+
+Q: What is the capital of Austria?
+A:",noble gas,neon q: what is the capital of austria? a,False,wrong
+sci_038,science,C,noble gas," Neon is a noble gas
+
+Q: What is the name of the",noble gas,neon is a noble gas q: what is the name of the,False,contains_correct_answer
+sci_038,science,D,noble gas," neon
+
+Fact 1: The first typewriter was patented in 1868.
+",noble gas,neon fact 1: the first typewriter was patented in 1868,False,wrong
+sci_038,science,E,noble gas,"
+
+The following is a list of the top 10 most popular questions asked by",noble gas,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_039,science,A,all known life," Graphite is a form of carbon.
+
+Q: What is the capital",all known life,graphite is a form of carbon. q: what is the capital,False,wrong
+sci_039,science,B,all known life," Carbon
+
+Q: What is the capital of Austria?
+A: Vienna",all known life,carbon q: what is the capital of austria? a: vienna,False,wrong
+sci_039,science,C,all known life," Carbon is essential for all known life.
+
+Q: What is the capital",all known life,carbon is essential for all known life. q: what is the capital,False,contains_correct_answer
+sci_039,science,D,all known life," carbon
+
+Fact 1: The human body is made up of about 60%",all known life,carbon fact 1: the human body is made up of about 60%,False,wrong
+sci_039,science,E,all known life,"
+
+The following is a list of the top 10 most popular questions asked by",all known life,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_040,science,A,SiO2," SiO2
+
+Q: Quartz is made of what?
+A:",sio2,sio2 q: quartz is made of what? a,True,exact_match
+sci_040,science,B,SiO2," SiO2
+
+Q: Quartz is made of what?
+A:",sio2,sio2 q: quartz is made of what? a,True,exact_match
+sci_040,science,C,SiO2," SiO2
+
+Q: Quartz is made of what element?
+Step",sio2,sio2 q: quartz is made of what element? step,True,exact_match
+sci_040,science,D,SiO2," SiO2
+
+Fact 1: The first dictionary in English was published in 160",sio2,sio2 fact 1: the first dictionary in english was published in 160,True,exact_match
+sci_040,science,E,SiO2,"
+
+The following is a list of the top 10 most popular questions asked by",sio2,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_041,science,A,a massive storm," A storm
+
+Q: What is the name of the planet Jupiter?
+",massive storm,storm q: what is the name of the planet jupiter,False,wrong
+sci_041,science,B,a massive storm," A storm
+
+Q: What is the name of the planet that is the",massive storm,storm q: what is the name of the planet that is the,False,wrong
+sci_041,science,C,a massive storm," a storm
+
+Q: The Great Red Spot is a feature of what planet",massive storm,storm q: the great red spot is a feature of what planet,False,wrong
+sci_041,science,D,a massive storm," a storm
+
+Fact 1: The Great Red Spot is a massive storm.",massive storm,storm fact 1: the great red spot is a massive storm,False,contains_correct_answer
+sci_041,science,E,a massive storm,"
+
+The following is a list of the top 10 most popular questions asked by",massive storm,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_042,science,A,the Earth surface," The Earth's crust.
+
+Q: What is the capital of Austria?",earth surface,earth's crust. q: what is the capital of austria,False,wrong
+sci_042,science,B,the Earth surface," The Earth's crust
+
+Q: What is the capital of Austria?
+",earth surface,earth's crust q: what is the capital of austria,False,wrong
+sci_042,science,C,the Earth surface," the Earth's crust
+
+Q: What is the capital of Austria?
+",earth surface,earth's crust q: what is the capital of austria,False,wrong
+sci_042,science,D,the Earth surface," the Earth surface
+
+Fact 1: The Danube River flows through Vienna.",earth surface,earth surface fact 1: the danube river flows through vienna,True,exact_match
+sci_042,science,E,the Earth surface,"
+
+The following is a list of the top 10 most popular questions asked by",earth surface,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_043,science,A,thunderstorms," Hail is a cloud that forms inside thunderstorms.
+
+Q:",thunderstorms,hail is a cloud that forms inside thunderstorms. q,False,contains_correct_answer
+sci_043,science,B,thunderstorms, The cumulonimbus clouds are formed when warm air rises and cools,thunderstorms,cumulonimbus clouds are formed when warm air rises and cools,False,wrong
+sci_043,science,C,thunderstorms," thunderstorms
+
+Q: What is the capital of Austria?
+Step",thunderstorms,thunderstorms q: what is the capital of austria? step,True,exact_match
+sci_043,science,D,thunderstorms," thunderstorms
+
+Fact 1: The Danube River flows through the capital",thunderstorms,thunderstorms fact 1: the danube river flows through the capital,True,exact_match
+sci_043,science,E,thunderstorms,"
+
+The following is a list of the top 10 most popular questions asked by",thunderstorms,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_044,science,A,dense ice," Ice
+
+Q: What is the capital of Austria?
+A: Vienna",dense ice,ice q: what is the capital of austria? a: vienna,False,wrong
+sci_044,science,B,dense ice," Ice
+
+Q: What is the largest river in the world?
+A",dense ice,ice q: what is the largest river in the world? a,False,wrong
+sci_044,science,C,dense ice," ice
+
+Q: What is the capital of Austria?
+Step 1:",dense ice,ice q: what is the capital of austria? step 1,False,wrong
+sci_044,science,D,dense ice," ice
+
+Fact 1: The Danube River flows through the capital of what",dense ice,ice fact 1: the danube river flows through the capital of what,False,wrong
+sci_044,science,E,dense ice,"
+
+The following is a list of the top 10 most popular questions asked by",dense ice,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_045,science,A,1789," 1789
+
+Q: What is the capital of Austria?
+A:",1789,1789 q: what is the capital of austria? a,True,exact_match
+sci_045,science,B,1789," 1789
+
+Q: What is the capital of Austria?
+A:",1789,1789 q: what is the capital of austria? a,True,exact_match
+sci_045,science,C,1789," 1789
+
+Q: What is the name of the element carbon?
+",1789,1789 q: what is the name of the element carbon,True,exact_match
+sci_045,science,D,1789," 1789
+
+Fact 1: The first typewriter was patented in 1868.",1789,1789 fact 1: the first typewriter was patented in 1868,True,exact_match
+sci_045,science,E,1789,"
+
+The following is a list of the top 10 most popular questions asked by",1789,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_046,science,A,thousands of years," The stalactites form from mineral deposits.
+
+Q: What is the",thousands of years,stalactites form from mineral deposits. q: what is the,False,wrong
+sci_046,science,B,thousands of years," The word ""stalactite"" is derived from the Greek word ""st",thousands of years,"word ""stalactite"" is derived from the greek word ""st",False,wrong
+sci_046,science,C,thousands of years," thousands of years
+
+Q: What is the name of the country where the",thousands of years,thousands of years q: what is the name of the country where the,True,exact_match
+sci_046,science,D,thousands of years," thousands of years
+
+Fact 1: The human body is made up of cells",thousands of years,thousands of years fact 1: the human body is made up of cells,True,exact_match
+sci_046,science,E,thousands of years,"
+
+The following is a list of the top 10 most popular questions asked by",thousands of years,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_047,science,A,certain conditions," semiconductors
+
+Q: What is the difference between a semiconductor and a semiconductor",certain conditions,semiconductors q: what is the difference between a semiconductor and a semiconductor,False,wrong
+sci_047,science,B,certain conditions," Semiconductors
+
+Q: What is the difference between a semiconductor and",certain conditions,semiconductors q: what is the difference between a semiconductor and,False,wrong
+sci_047,science,C,certain conditions," semiconductors
+
+Q: What is the difference between a semiconductor and a conductor",certain conditions,semiconductors q: what is the difference between a semiconductor and a conductor,False,wrong
+sci_047,science,D,certain conditions," semiconductors
+
+Fact 1: The human body is made up of cells.",certain conditions,semiconductors fact 1: the human body is made up of cells,False,wrong
+sci_047,science,E,certain conditions,"
+
+The following is a list of the top 10 most popular questions asked by",certain conditions,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_048,science,A,light, The black hole is a region of space where gravity is so strong that nothing can,light,black hole is a region of space where gravity is so strong that nothing can,False,wrong
+sci_048,science,B,light," Light
+
+Q: What is the capital of Austria?
+A: Vienna",light,light q: what is the capital of austria? a: vienna,True,exact_match
+sci_048,science,C,light," light
+
+Q: What is the name of the planet that is the closest",light,light q: what is the name of the planet that is the closest,True,exact_match
+sci_048,science,D,light," light
+
+Fact 1: The human body is made up of cells.
+",light,light fact 1: the human body is made up of cells,True,exact_match
+sci_048,science,E,light,"
+
+The following is a list of the top 10 most popular questions asked by",light,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_049,science,A,tiny marine animals," Coral reefs are built by coral polyps.
+
+Q: What",tiny marine animals,coral reefs are built by coral polyps. q: what,False,wrong
+sci_049,science,B,tiny marine animals," Coral reefs are built by what type of organism?
+
+A:",tiny marine animals,coral reefs are built by what type of organism? a,False,wrong
+sci_049,science,C,tiny marine animals," Coral polyps are tiny marine animals
+
+Q: What is the name",tiny marine animals,coral polyps are tiny marine animals q: what is the name,False,contains_correct_answer
+sci_049,science,D,tiny marine animals," coral polyps
+
+Fact 1: The human body is made up of cells",tiny marine animals,coral polyps fact 1: the human body is made up of cells,False,wrong
+sci_049,science,E,tiny marine animals,"
+
+The following is a list of the top 10 most popular questions asked by",tiny marine animals,following is a list of the top 10 most popular questions asked by,False,wrong
+sci_050,science,A,tectonic plate boundaries," The ocean floor
+
+Q: What is the capital of Austria?
+A",tectonic plate boundaries,ocean floor q: what is the capital of austria? a,False,wrong
+sci_050,science,B,tectonic plate boundaries," tectonic plates
+
+Q: What is the capital of Austria?
+",tectonic plate boundaries,tectonic plates q: what is the capital of austria,False,wrong
+sci_050,science,C,tectonic plate boundaries," tectonic plate boundaries
+
+Q: What is the capital of Austria?",tectonic plate boundaries,tectonic plate boundaries q: what is the capital of austria,True,exact_match
+sci_050,science,D,tectonic plate boundaries," tectonic plate boundaries
+
+Fact 1: The human body is made up",tectonic plate boundaries,tectonic plate boundaries fact 1: the human body is made up,True,exact_match
+sci_050,science,E,tectonic plate boundaries,"
+
+The following is a list of the top 10 most popular questions asked by",tectonic plate boundaries,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_001,biology,A,cellular respiration," Oxygen is carried in the blood.
+
+Q: What is the name",cellular respiration,oxygen is carried in the blood. q: what is the name,False,wrong
+bio_001,biology,B,cellular respiration," Oxygen is carried in the blood by hemoglobin.
+
+Q: What is",cellular respiration,oxygen is carried in the blood by hemoglobin. q: what is,False,wrong
+bio_001,biology,C,cellular respiration," cellular respiration
+
+Q: What is the name of the body's largest organ",cellular respiration,cellular respiration q: what is the name of the body's largest organ,True,exact_match
+bio_001,biology,D,cellular respiration," cellular respiration
+
+Fact 1: The Yangtze is the longest river in",cellular respiration,cellular respiration fact 1: the yangtze is the longest river in,True,exact_match
+bio_001,biology,E,cellular respiration,"
+
+The following is a list of the top 10 most popular questions asked by",cellular respiration,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_002,biology,A,the digestive system," The pancreas is an organ in the digestive system.
+
+Q: What is",digestive system,pancreas is an organ in the digestive system. q: what is,False,contains_correct_answer
+bio_002,biology,B,the digestive system," The pancreas
+
+Q: The pancreas is an organ in the digestive system.",digestive system,pancreas q: the pancreas is an organ in the digestive system,False,contains_correct_answer
+bio_002,biology,C,the digestive system," the digestive system
+
+Q: What is the pancreas?
+Step 1:",digestive system,digestive system q: what is the pancreas? step 1,True,exact_match
+bio_002,biology,D,the digestive system," the digestive system
+
+Fact 1: Insulin is produced by the pancreas.",digestive system,digestive system fact 1: insulin is produced by the pancreas,True,exact_match
+bio_002,biology,E,the digestive system,"
+
+The following is a list of the top 10 most popular questions asked by",digestive system,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_003,biology,A,membrane-bound," the nucleus
+
+Q: What is the difference between the nucleus and the cytoplasm",membrane-bound,nucleus q: what is the difference between the nucleus and the cytoplasm,False,wrong
+bio_003,biology,B,membrane-bound," The nucleus
+
+Q: What is the periodic table?
+A: The",membrane-bound,nucleus q: what is the periodic table? a: the,False,wrong
+bio_003,biology,C,membrane-bound," the nucleus
+
+Q: The pancreas is located in what part of the body",membrane-bound,nucleus q: the pancreas is located in what part of the body,False,wrong
+bio_003,biology,D,membrane-bound," the nucleus
+
+Fact 1: The human body is made up of cells.",membrane-bound,nucleus fact 1: the human body is made up of cells,False,wrong
+bio_003,biology,E,membrane-bound,"
+
+The following is a list of the top 10 most popular questions asked by",membrane-bound,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_004,biology,A,bones," the bone marrow
+
+Fact 1: The pancreas is a gland in the abdomen",bones,bone marrow fact 1: the pancreas is a gland in the abdomen,False,wrong
+bio_004,biology,B,bones," bone marrow
+
+Q: What is the pancreas?
+A: The pancreas",bones,bone marrow q: what is the pancreas? a: the pancreas,False,wrong
+bio_004,biology,C,bones," bone marrow
+
+Q: The pancreas is located in what part of the body",bones,bone marrow q: the pancreas is located in what part of the body,False,wrong
+bio_004,biology,D,bones," bone marrow
+
+Fact 1: The human body is made up of cells.",bones,bone marrow fact 1: the human body is made up of cells,False,wrong
+bio_004,biology,E,bones,"
+
+The following is a list of the top 10 most popular questions asked by",bones,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_005,biology,A,largest," The liver is the largest internal organ in the body.
+
+Q: What",largest,liver is the largest internal organ in the body. q: what,False,contains_correct_answer
+bio_005,biology,B,largest," The pancreas
+
+Q: The pancreas is located in what part of the body",largest,pancreas q: the pancreas is located in what part of the body,False,wrong
+bio_005,biology,C,largest," The liver
+
+Q: The liver is the largest internal organ.
+Step",largest,liver q: the liver is the largest internal organ. step,False,contains_correct_answer
+bio_005,biology,D,largest," the largest internal organ
+
+Fact 1: The pancreas is located in the abdomen",largest,largest internal organ fact 1: the pancreas is located in the abdomen,False,contains_correct_answer
+bio_005,biology,E,largest,"
+
+The following is a list of the top 10 most popular questions asked by",largest,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_006,biology,A,male reproductive," The stamen is the male reproductive organ of a flower.
+
+Q:",male reproductive,stamen is the male reproductive organ of a flower. q,False,contains_correct_answer
+bio_006,biology,B,male reproductive," The stamen
+
+Q: The stamen is the male reproductive organ of",male reproductive,stamen q: the stamen is the male reproductive organ of,False,contains_correct_answer
+bio_006,biology,C,male reproductive," the stamen
+
+Q: What is the name of the plant that produces",male reproductive,stamen q: what is the name of the plant that produces,False,wrong
+bio_006,biology,D,male reproductive," the stamen
+
+Fact 1: The Danube River flows through Vienna.",male reproductive,stamen fact 1: the danube river flows through vienna,False,wrong
+bio_006,biology,E,male reproductive,"
+
+The following is a list of the top 10 most popular questions asked by",male reproductive,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_007,biology,A,exposure to sunlight," Melanin
+
+Q: What is the difference between the two types of",exposure to sunlight,melanin q: what is the difference between the two types of,False,wrong
+bio_007,biology,B,exposure to sunlight," Melanin
+
+Q: What is the first satellite launched into orbit?",exposure to sunlight,melanin q: what is the first satellite launched into orbit,False,wrong
+bio_007,biology,C,exposure to sunlight," Melanin
+
+Q: The substance that determines skin color is influenced by",exposure to sunlight,melanin q: the substance that determines skin color is influenced by,False,wrong
+bio_007,biology,D,exposure to sunlight," exposure to sunlight
+
+Fact 1: The first satellite Sputnik was launched",exposure to sunlight,exposure to sunlight fact 1: the first satellite sputnik was launched,True,exact_match
+bio_007,biology,E,exposure to sunlight,"
+
+The following is a list of the top 10 most popular questions asked by",exposure to sunlight,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_008,biology,A,excessive bleeding," Blood clots are the blood cells that help stop bleeding.
+
+Q:",excessive bleeding,blood clots are the blood cells that help stop bleeding. q,False,wrong
+bio_008,biology,B,excessive bleeding," Blood clotting
+
+Q: What is the capital of Austria?
+A",excessive bleeding,blood clotting q: what is the capital of austria? a,False,wrong
+bio_008,biology,C,excessive bleeding," Platelets help prevent excessive bleeding
+
+Q: What is the difference between a",excessive bleeding,platelets help prevent excessive bleeding q: what is the difference between a,False,contains_correct_answer
+bio_008,biology,D,excessive bleeding," excessive bleeding
+
+Fact 1: The human body is made up of cells.",excessive bleeding,excessive bleeding fact 1: the human body is made up of cells,True,exact_match
+bio_008,biology,E,excessive bleeding,"
+
+The following is a list of the top 10 most popular questions asked by",excessive bleeding,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_009,biology,A,nerve fibers," Neurons transmit electrical signals along nerve fibers.
+
+Q: What is",nerve fibers,neurons transmit electrical signals along nerve fibers. q: what is,False,contains_correct_answer
+bio_009,biology,B,nerve fibers," nerve fibers
+
+Q: What is the brain?
+A: The brain",nerve fibers,nerve fibers q: what is the brain? a: the brain,True,exact_match
+bio_009,biology,C,nerve fibers," nerve fibers
+
+Q: What is the name of the nerve fiber that carries",nerve fibers,nerve fibers q: what is the name of the nerve fiber that carries,True,exact_match
+bio_009,biology,D,nerve fibers," nerve fibers
+
+Fact 1: The human body contains about 100 trillion cells.",nerve fibers,nerve fibers fact 1: the human body contains about 100 trillion cells,True,exact_match
+bio_009,biology,E,nerve fibers,"
+
+The following is a list of the top 10 most popular questions asked by",nerve fibers,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_010,biology,A,green," green
+
+Fact 1: The pancreas is a glandular organ in the abdomen",green,green fact 1: the pancreas is a glandular organ in the abdomen,True,exact_match
+bio_010,biology,B,green," green
+
+Fact 1: The Nile is the longest river in the world.",green,green fact 1: the nile is the longest river in the world,True,exact_match
+bio_010,biology,C,green," green
+
+Q: What is the name of the substance that gives the color",green,green q: what is the name of the substance that gives the color,True,exact_match
+bio_010,biology,D,green," green
+
+Fact 1: The human body contains about 60% water.
+",green,green fact 1: the human body contains about 60% water,True,exact_match
+bio_010,biology,E,green,"
+
+The following is a list of the top 10 most popular questions asked by",green,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_011,biology,A,amino acids," Ribosomes are the ribosomes.
+
+Q: What is the difference between",amino acids,ribosomes are the ribosomes. q: what is the difference between,False,wrong
+bio_011,biology,B,amino acids," Amino acids
+
+Q: What is the name of the pancreas?
+",amino acids,amino acids q: what is the name of the pancreas,True,exact_match
+bio_011,biology,C,amino acids," Amino acids
+
+Q: The pancreas is located in what part of the",amino acids,amino acids q: the pancreas is located in what part of the,True,exact_match
+bio_011,biology,D,amino acids," amino acids
+
+Fact 1: The human body is made up of cells.",amino acids,amino acids fact 1: the human body is made up of cells,True,exact_match
+bio_011,biology,E,amino acids,"
+
+The following is a list of the top 10 most popular questions asked by",amino acids,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_012,biology,A,nutrients," The heart pumps blood.
+
+Q: What is the heart pumping blood?",nutrients,heart pumps blood. q: what is the heart pumping blood,False,wrong
+bio_012,biology,B,nutrients," blood
+
+Q: What is the heart pumping blood?
+A: The",nutrients,blood q: what is the heart pumping blood? a: the,False,wrong
+bio_012,biology,C,nutrients," blood
+
+Q: The heart pumps a fluid that delivers what to cells?",nutrients,blood q: the heart pumps a fluid that delivers what to cells,False,wrong
+bio_012,biology,D,nutrients," nutrients
+
+Fact 1: The heart pumps a fluid that delivers what to cells",nutrients,nutrients fact 1: the heart pumps a fluid that delivers what to cells,True,exact_match
+bio_012,biology,E,nutrients,"
+
+The following is a list of the most common questions and answers to the",nutrients,following is a list of the most common questions and answers to the,False,wrong
+bio_013,biology,A,energy for cellular processes," ATP
+
+Q: What is the name of the pancreas?
+A:",energy for cellular processes,atp q: what is the name of the pancreas? a,False,wrong
+bio_013,biology,B,energy for cellular processes," ATP
+
+Q: What is the difference between a cell and a cell?",energy for cellular processes,atp q: what is the difference between a cell and a cell,False,wrong
+bio_013,biology,C,energy for cellular processes," ATP
+
+Q: Mitochondria produce a molecule that provides what?
+",energy for cellular processes,atp q: mitochondria produce a molecule that provides what,False,wrong
+bio_013,biology,D,energy for cellular processes," ATP
+
+Fact 1: Mitochondria produce a molecule that provides what?",energy for cellular processes,atp fact 1: mitochondria produce a molecule that provides what,False,wrong
+bio_013,biology,E,energy for cellular processes,"
+
+The following is a list of the top 10 most popular questions asked by",energy for cellular processes,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_014,biology,A,chemical reactions," The pancreas is the organ that produces insulin.
+
+Q: What is the",chemical reactions,pancreas is the organ that produces insulin. q: what is the,False,wrong
+bio_014,biology,B,chemical reactions," Chemical reactions.
+
+Q: What is the capital of Austria?
+A",chemical reactions,chemical reactions. q: what is the capital of austria? a,True,exact_match
+bio_014,biology,C,chemical reactions," chemical reactions
+
+Q: What is the most common cause of death in the",chemical reactions,chemical reactions q: what is the most common cause of death in the,True,exact_match
+bio_014,biology,D,chemical reactions," chemical reactions
+
+Fact 1: The Danube River flows through Vienna.
+",chemical reactions,chemical reactions fact 1: the danube river flows through vienna,True,exact_match
+bio_014,biology,E,chemical reactions,"
+
+The following is a list of the top 10 most popular questions asked by",chemical reactions,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_015,biology,A,light," The retina is the part of the eye that detects light.
+
+Q:",light,retina is the part of the eye that detects light. q,False,contains_correct_answer
+bio_015,biology,B,light," light
+
+Q: What is the name of the organ that contains the retina",light,light q: what is the name of the organ that contains the retina,True,exact_match
+bio_015,biology,C,light," Photoreceptor cells detect light
+
+Q: The retina contains what?
+",light,photoreceptor cells detect light q: the retina contains what,False,contains_correct_answer
+bio_015,biology,D,light," light
+
+Fact 1: The retina contains photoreceptor cells.
+Fact 2",light,light fact 1: the retina contains photoreceptor cells. fact 2,True,exact_match
+bio_015,biology,E,light,"
+
+The following is a list of the top 10 most popular questions asked by",light,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_016,biology,A,white blood cell," B cells
+
+Q: What is the function of the pancreas?
+A",white blood cell,b cells q: what is the function of the pancreas? a,False,wrong
+bio_016,biology,B,white blood cell," B cells
+
+Q: What is the difference between a blood cell and a",white blood cell,b cells q: what is the difference between a blood cell and a,False,wrong
+bio_016,biology,C,white blood cell," B cells
+
+Q: What is the name of the body's immune system",white blood cell,b cells q: what is the name of the body's immune system,False,wrong
+bio_016,biology,D,white blood cell," B cells
+
+Fact 1: The human body is made up of cells.",white blood cell,b cells fact 1: the human body is made up of cells,False,wrong
+bio_016,biology,E,white blood cell,"
+
+The following is a list of the top 10 most popular questions asked by",white blood cell,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_017,biology,A,colonize new areas," The wind
+
+Q: What is the capital of Austria?
+A:",colonize new areas,wind q: what is the capital of austria? a,False,wrong
+bio_017,biology,B,colonize new areas," Wind
+
+Q: What is the capital of Austria?
+A: Vienna",colonize new areas,wind q: what is the capital of austria? a: vienna,False,wrong
+bio_017,biology,C,colonize new areas," dispersal
+
+Q: The word ""dispersal"" is a verb.",colonize new areas,"dispersal q: the word ""dispersal"" is a verb",False,wrong
+bio_017,biology,D,colonize new areas," wind dispersal helps plants colonize new areas
+
+Fact 1: The human body",colonize new areas,wind dispersal helps plants colonize new areas fact 1: the human body,False,contains_correct_answer
+bio_017,biology,E,colonize new areas,"
+
+The following is a list of the top 10 most popular questions asked by",colonize new areas,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_018,biology,A,follicles in the skin," hair
+
+Q: What is the name of the body part that contains the",follicles in the skin,hair q: what is the name of the body part that contains the,False,wrong
+bio_018,biology,B,follicles in the skin," hair
+
+Q: What is the most common cause of death in the United",follicles in the skin,hair q: what is the most common cause of death in the united,False,wrong
+bio_018,biology,C,follicles in the skin," hair follicles
+
+Q: What is the name of the body part that contains",follicles in the skin,hair follicles q: what is the name of the body part that contains,False,wrong
+bio_018,biology,D,follicles in the skin," the skin
+
+Fact 1: The first modern novel is often considered to be",follicles in the skin,skin fact 1: the first modern novel is often considered to be,False,wrong
+bio_018,biology,E,follicles in the skin,"
+
+The following is a list of the top 10 most popular questions asked by",follicles in the skin,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_019,biology,A,carbon dioxide," the leaves
+
+Fact 1: The pancreas is a gland in the abdomen.",carbon dioxide,leaves fact 1: the pancreas is a gland in the abdomen,False,wrong
+bio_019,biology,B,carbon dioxide," the leaves of plants
+
+Q: The Nile is the longest river in the",carbon dioxide,leaves of plants q: the nile is the longest river in the,False,wrong
+bio_019,biology,C,carbon dioxide," carbon dioxide
+
+Q: The human body is made up of what tissue?",carbon dioxide,carbon dioxide q: the human body is made up of what tissue,True,exact_match
+bio_019,biology,D,carbon dioxide," carbon dioxide
+
+Fact 1: The human body is made up of cells.",carbon dioxide,carbon dioxide fact 1: the human body is made up of cells,True,exact_match
+bio_019,biology,E,carbon dioxide,"
+
+The following is a list of the top 10 most popular questions asked by",carbon dioxide,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_020,biology,A,the vestibular system," The cerebellum is a part of the brain.
+
+Q: What is the",vestibular system,cerebellum is a part of the brain. q: what is the,False,wrong
+bio_020,biology,B,the vestibular system," The vestibular system
+
+Q: The Appalachian Mountains are among",vestibular system,vestibular system q: the appalachian mountains are among,True,exact_match
+bio_020,biology,C,the vestibular system," the vestibular system
+
+Q: The cerebellum is located in what part of",vestibular system,vestibular system q: the cerebellum is located in what part of,True,exact_match
+bio_020,biology,D,the vestibular system," the vestibular system
+
+Fact 1: The cerebellum controls balance.
+Fact",vestibular system,vestibular system fact 1: the cerebellum controls balance. fact,True,exact_match
+bio_020,biology,E,the vestibular system,"
+
+The following is a list of the top 10 most popular questions asked by",vestibular system,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_021,biology,A,roots," Roots
+
+Q: What is the name of the plant that produces the",roots,roots q: what is the name of the plant that produces the,True,exact_match
+bio_021,biology,B,roots," Roots
+
+Q: What is the capital of Austria?
+A:",roots,roots q: what is the capital of austria? a,True,exact_match
+bio_021,biology,C,roots," roots
+
+Q: What is the name of the plant that produces the most",roots,roots q: what is the name of the plant that produces the most,True,exact_match
+bio_021,biology,D,roots," roots
+
+Fact 1: The human body is made up of cells.
+",roots,roots fact 1: the human body is made up of cells,True,exact_match
+bio_021,biology,E,roots,"
+
+The following is a list of the top 10 most popular questions asked by",roots,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_022,biology,A,tendons," The pancreas is a glandular organ in the abdomen.
+
+Q: What",tendons,pancreas is a glandular organ in the abdomen. q: what,False,wrong
+bio_022,biology,B,tendons," The pancreas is the organ that produces insulin.
+
+Q: The pancreas is",tendons,pancreas is the organ that produces insulin. q: the pancreas is,False,wrong
+bio_022,biology,C,tendons," tendons
+
+Q: The pancreas is located in what part of the body",tendons,tendons q: the pancreas is located in what part of the body,True,exact_match
+bio_022,biology,D,tendons," tendons
+
+Fact 1: The Danube River flows through the capital of",tendons,tendons fact 1: the danube river flows through the capital of,True,exact_match
+bio_022,biology,E,tendons,"
+
+The following is a list of the most common questions and answers to the",tendons,following is a list of the most common questions and answers to the,False,wrong
+bio_023,biology,A,respiration," the lungs
+
+Q: The lungs are the primary organs of respiration.
+",respiration,lungs q: the lungs are the primary organs of respiration,False,contains_correct_answer
+bio_023,biology,B,respiration," lungs
+
+Q: The pancreas is located in what part of the body?",respiration,lungs q: the pancreas is located in what part of the body,False,wrong
+bio_023,biology,C,respiration," the lungs
+
+Q: The trachea carries air to the lungs.
+",respiration,lungs q: the trachea carries air to the lungs,False,wrong
+bio_023,biology,D,respiration," the lungs
+
+Fact 1: The trachea carries air to the lungs.",respiration,lungs fact 1: the trachea carries air to the lungs,False,wrong
+bio_023,biology,E,respiration,"
+
+The following is a list of the top 10 most popular questions asked by",respiration,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_024,biology,A,the kidneys," The adrenal glands are located in the abdomen.
+
+Q: What is the",kidneys,adrenal glands are located in the abdomen. q: what is the,False,wrong
+bio_024,biology,B,the kidneys," The pancreas
+
+Q: The pancreas is located in what part of the body",kidneys,pancreas q: the pancreas is located in what part of the body,False,wrong
+bio_024,biology,C,the kidneys," the kidneys
+
+Q: The adrenal glands are located above the kidneys.
+",kidneys,kidneys q: the adrenal glands are located above the kidneys,True,exact_match
+bio_024,biology,D,the kidneys," the kidneys
+
+Fact 1: The human body contains about 5 liters of",kidneys,kidneys fact 1: the human body contains about 5 liters of,True,exact_match
+bio_024,biology,E,the kidneys,"
+
+The following is a list of the top 10 most popular questions asked by",kidneys,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_025,biology,A,about 120 days," The lifespan of red blood cells is 120 days.
+
+Q: What is",about 120 days,lifespan of red blood cells is 120 days. q: what is,False,wrong
+bio_025,biology,B,about 120 days," red blood cells
+
+Q: What is the capital of Austria?
+A",about 120 days,red blood cells q: what is the capital of austria? a,False,wrong
+bio_025,biology,C,about 120 days," 120 days
+
+Q: The human body has a total of what number of",about 120 days,120 days q: the human body has a total of what number of,False,wrong
+bio_025,biology,D,about 120 days," 120 days
+
+Fact 1: The human body contains about 100 trillion cells.",about 120 days,120 days fact 1: the human body contains about 100 trillion cells,False,wrong
+bio_025,biology,E,about 120 days,"
+
+The following is a list of the top 10 most popular questions asked by",about 120 days,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_026,biology,A,the eye," the retina
+
+Fact 1: The retina is a layer of cells in the",eye,retina fact 1: the retina is a layer of cells in the,False,wrong
+bio_026,biology,B,the eye," the retina
+
+Q: The Renaissance began in what country?
+A:",eye,retina q: the renaissance began in what country? a,False,wrong
+bio_026,biology,C,the eye," the retina
+
+Q: The retina is located in what part of the body",eye,retina q: the retina is located in what part of the body,False,wrong
+bio_026,biology,D,the eye," the retina
+
+Fact 1: The human body is made up of cells.",eye,retina fact 1: the human body is made up of cells,False,wrong
+bio_026,biology,E,the eye,"
+
+The following is a list of the top 10 most popular questions asked by",eye,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_027,biology,A,CO2," the process of breathing.
+
+Q: What is the difference between the lungs",co2,process of breathing. q: what is the difference between the lungs,False,wrong
+bio_027,biology,B,CO2," CO2
+
+Q: What is the name of the country that has the",co2,co2 q: what is the name of the country that has the,True,exact_match
+bio_027,biology,C,CO2," CO2
+
+Q: The human body is made up of what?
+",co2,co2 q: the human body is made up of what,True,exact_match
+bio_027,biology,D,CO2," O2
+
+Fact 1: The Danube River flows through the capital of",co2,o2 fact 1: the danube river flows through the capital of,False,wrong
+bio_027,biology,E,CO2,"
+
+The following is a list of the top 10 most popular questions asked by",co2,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_028,biology,A,about 2," stomach
+
+Q: What is the pH of the stomach?
+A:",about 2,stomach q: what is the ph of the stomach? a,False,wrong
+bio_028,biology,B,about 2," stomach
+
+Q: What is the pH of the stomach?
+A:",about 2,stomach q: what is the ph of the stomach? a,False,wrong
+bio_028,biology,C,about 2," stomach
+
+Q: The stomach is a digestive organ.
+Step 1:",about 2,stomach q: the stomach is a digestive organ. step 1,False,wrong
+bio_028,biology,D,about 2," stomach
+
+Fact 1: The pancreas is located in the abdomen.
+Fact",about 2,stomach fact 1: the pancreas is located in the abdomen. fact,False,wrong
+bio_028,biology,E,about 2,"
+
+The following is a list of the top 10 most popular questions asked by",about 2,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_029,biology,A,signals between neurons," the nerves
+
+Q: What is the pancreas?
+A: The pancreas",signals between neurons,nerves q: what is the pancreas? a: the pancreas,False,wrong
+bio_029,biology,B,signals between neurons," Nerve axons
+
+Q: What is the half-life of carbon-",signals between neurons,nerve axons q: what is the half-life of carbon-,False,wrong
+bio_029,biology,C,signals between neurons," between neurons
+
+Q: Myelin is a fatty substance that covers nerve axons",signals between neurons,between neurons q: myelin is a fatty substance that covers nerve axons,False,wrong
+bio_029,biology,D,signals between neurons," signals
+
+Fact 1: The human body has two kidneys.
+Fact 2",signals between neurons,signals fact 1: the human body has two kidneys. fact 2,False,wrong
+bio_029,biology,E,signals between neurons,"
+
+The following is a list of the most common questions and answers to the",signals between neurons,following is a list of the most common questions and answers to the,False,wrong
+bio_030,biology,A,two or more bones," The cartilage is a tissue that cushions the ends of bones.
+
+Q",two or more bones,cartilage is a tissue that cushions the ends of bones. q,False,wrong
+bio_030,biology,B,two or more bones," Joints
+
+Q: What is the capital of Austria?
+A:",two or more bones,joints q: what is the capital of austria? a,False,wrong
+bio_030,biology,C,two or more bones," bones
+
+Q: What is the name of the body part that has the",two or more bones,bones q: what is the name of the body part that has the,False,wrong
+bio_030,biology,D,two or more bones," bones
+
+Fact 1: The Danube River flows through Vienna.
+Fact",two or more bones,bones fact 1: the danube river flows through vienna. fact,False,wrong
+bio_030,biology,E,two or more bones,"
+
+The following is a list of the top 10 most popular questions asked by",two or more bones,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_031,biology,A,pathogenic microorganisms," The immune system
+
+Q: What is the pancreas?
+A: The",pathogenic microorganisms,immune system q: what is the pancreas? a: the,False,wrong
+bio_031,biology,B,pathogenic microorganisms," infections
+
+Q: What is the capital of Austria?
+A: Vienna",pathogenic microorganisms,infections q: what is the capital of austria? a: vienna,False,wrong
+bio_031,biology,C,pathogenic microorganisms," pathogens
+
+Q: The pancreas is located in what part of the body?",pathogenic microorganisms,pathogens q: the pancreas is located in what part of the body,False,wrong
+bio_031,biology,D,pathogenic microorganisms," infections
+
+Fact 1: The human body is made up of cells.
+",pathogenic microorganisms,infections fact 1: the human body is made up of cells,False,wrong
+bio_031,biology,E,pathogenic microorganisms,"
+
+The following is a list of the top 10 most popular questions asked by",pathogenic microorganisms,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_032,biology,A,480 million," 480 million
+
+Q: What is the average number of alveoli in",480 million,480 million q: what is the average number of alveoli in,True,exact_match
+bio_032,biology,B,480 million," About 480 million
+
+Q: What is the average number of alveoli",480 million,about 480 million q: what is the average number of alveoli,False,contains_correct_answer
+bio_032,biology,C,480 million," 480 million
+
+Q: The lungs are the organs that exchange gases in the",480 million,480 million q: the lungs are the organs that exchange gases in the,True,exact_match
+bio_032,biology,D,480 million," 480 million
+
+Fact 1: The human body contains about how many bones?",480 million,480 million fact 1: the human body contains about how many bones,True,exact_match
+bio_032,biology,E,480 million,"
+
+The following is a list of the top 10 most popular questions asked by",480 million,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_033,biology,A,the nervous system," the nervous system
+
+Q: What is the name of the pancreas?
+",nervous system,nervous system q: what is the name of the pancreas,True,exact_match
+bio_033,biology,B,the nervous system," the nervous system
+
+Q: What is the fundamental unit of the nervous system",nervous system,nervous system q: what is the fundamental unit of the nervous system,True,exact_match
+bio_033,biology,C,the nervous system," the nervous system
+
+Q: What is the name of the nerve cell that",nervous system,nervous system q: what is the name of the nerve cell that,True,exact_match
+bio_033,biology,D,the nervous system," the nervous system
+
+Fact 1: The human body is made up of cells",nervous system,nervous system fact 1: the human body is made up of cells,True,exact_match
+bio_033,biology,E,the nervous system,"
+
+The following is a list of the top 10 most popular questions asked by",nervous system,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_034,biology,A,several stages," Melatonin is a hormone produced by the pineal gland.
+
+Q:",several stages,melatonin is a hormone produced by the pineal gland. q,False,wrong
+bio_034,biology,B,several stages," The sleep cycle
+
+Q: What is the name of the hormone that regulates",several stages,sleep cycle q: what is the name of the hormone that regulates,False,wrong
+bio_034,biology,C,several stages," the sleep cycle consists of several stages
+
+Q: The body temperature is regulated",several stages,sleep cycle consists of several stages q: the body temperature is regulated,False,contains_correct_answer
+bio_034,biology,D,several stages," the sleep cycle
+
+Fact 1: The human body is made up of what",several stages,sleep cycle fact 1: the human body is made up of what,False,wrong
+bio_034,biology,E,several stages,"
+
+The following is a list of the top 10 most popular questions asked by",several stages,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_035,biology,A,calcium," bones
+
+Q: What is the name of the pancreas?
+A:",calcium,bones q: what is the name of the pancreas? a,False,wrong
+bio_035,biology,B,calcium," bones
+
+Q: What is the name of the country that has the highest",calcium,bones q: what is the name of the country that has the highest,False,wrong
+bio_035,biology,C,calcium," calcium
+
+Q: What is the name of the body's largest organ?",calcium,calcium q: what is the name of the body's largest organ,True,exact_match
+bio_035,biology,D,calcium," calcium
+
+Fact 1: The human body contains about 2 liters of blood",calcium,calcium fact 1: the human body contains about 2 liters of blood,True,exact_match
+bio_035,biology,E,calcium,"
+
+The following is a list of the top 10 most popular questions asked by",calcium,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_036,biology,A,the circulatory system," The smallest blood vessels in the body are the capillaries.
+
+Q",circulatory system,smallest blood vessels in the body are the capillaries. q,False,wrong
+bio_036,biology,B,the circulatory system," The smallest structures in the circulatory system are capillaries.
+
+Q",circulatory system,smallest structures in the circulatory system are capillaries. q,False,contains_correct_answer
+bio_036,biology,C,the circulatory system," the circulatory system
+
+Q: The circulatory system is the system of",circulatory system,circulatory system q: the circulatory system is the system of,True,exact_match
+bio_036,biology,D,the circulatory system," the circulatory system
+
+Fact 1: The human body is made up of",circulatory system,circulatory system fact 1: the human body is made up of,True,exact_match
+bio_036,biology,E,the circulatory system,"
+
+The following is a list of the top 10 most popular questions asked by",circulatory system,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_037,biology,A,plants," Starch is a carbohydrate that is a carbohydrate that is found in plants.
+",plants,starch is a carbohydrate that is a carbohydrate that is found in plants,False,contains_correct_answer
+bio_037,biology,B,plants," starch
+
+Q: What is the capital of Austria?
+A: Vienna",plants,starch q: what is the capital of austria? a: vienna,False,wrong
+bio_037,biology,C,plants," a polysaccharide
+
+Q: What is the name of the enzyme that breaks",plants,polysaccharide q: what is the name of the enzyme that breaks,False,wrong
+bio_037,biology,D,plants," plants
+
+Fact 1: The human body produces about 1.5 liters",plants,plants fact 1: the human body produces about 1.5 liters,True,exact_match
+bio_037,biology,E,plants,"
+
+The following is a list of the top 10 most popular questions asked by",plants,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_038,biology,A,oxygen," The diaphragm is a muscle that controls breathing.
+
+Q: What is the",oxygen,diaphragm is a muscle that controls breathing. q: what is the,False,wrong
+bio_038,biology,B,oxygen," The diaphragm is a muscle that moves in and out of the lungs.
+
+",oxygen,diaphragm is a muscle that moves in and out of the lungs,False,wrong
+bio_038,biology,C,oxygen," the lungs
+
+Q: The diaphragm controls breathing.
+Step 1: The",oxygen,lungs q: the diaphragm controls breathing. step 1: the,False,wrong
+bio_038,biology,D,oxygen," oxygen
+
+Fact 1: The Mariana Trench is the deepest part of",oxygen,oxygen fact 1: the mariana trench is the deepest part of,True,exact_match
+bio_038,biology,E,oxygen,"
+
+The following is a list of the top 10 most popular questions asked by",oxygen,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_039,biology,A,the female reproductive cycle," Insulin is a hormone produced by the pancreas.
+
+Q: What is",female reproductive cycle,insulin is a hormone produced by the pancreas. q: what is,False,wrong
+bio_039,biology,B,the female reproductive cycle," Estrogen
+
+Q: What is the most common cause of infertility?
+",female reproductive cycle,estrogen q: what is the most common cause of infertility,False,wrong
+bio_039,biology,C,the female reproductive cycle," estrogen
+
+Q: What is the name of the hormone that regulates the female",female reproductive cycle,estrogen q: what is the name of the hormone that regulates the female,False,wrong
+bio_039,biology,D,the female reproductive cycle," estrogen
+
+Fact 1: The human body produces about 1.5 liters",female reproductive cycle,estrogen fact 1: the human body produces about 1.5 liters,False,wrong
+bio_039,biology,E,the female reproductive cycle,"
+
+The following is a list of the top 10 most popular questions asked by",female reproductive cycle,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_040,biology,A,the tongue," The taste buds are located in the mouth.
+
+Q: What is the",tongue,taste buds are located in the mouth. q: what is the,False,wrong
+bio_040,biology,B,the tongue," The tongue
+
+Q: What is the capital of Austria?
+A:",tongue,tongue q: what is the capital of austria? a,True,exact_match
+bio_040,biology,C,the tongue," Flavors are perceived through chemical receptors on the tongue.
+
+Q:",tongue,flavors are perceived through chemical receptors on the tongue. q,False,contains_correct_answer
+bio_040,biology,D,the tongue," the tongue
+
+Fact 1: The Danube River flows through the capital of",tongue,tongue fact 1: the danube river flows through the capital of,True,exact_match
+bio_040,biology,E,the tongue,"
+
+The following is a list of the top 10 most popular questions asked by",tongue,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_041,biology,A,bacteria," bacteria
+
+Q: What is the pancreas?
+A: The pancreas is",bacteria,bacteria q: what is the pancreas? a: the pancreas is,True,exact_match
+bio_041,biology,B,bacteria," bacteria
+
+Q: What is the first movie screening?
+A: Lum",bacteria,bacteria q: what is the first movie screening? a: lum,True,exact_match
+bio_041,biology,C,bacteria," bacteria
+
+Q: The pancreas is located in the abdomen.
+Step 1",bacteria,bacteria q: the pancreas is located in the abdomen. step 1,True,exact_match
+bio_041,biology,D,bacteria," bacteria
+
+Fact 1: The human body is made up of cells.
+",bacteria,bacteria fact 1: the human body is made up of cells,True,exact_match
+bio_041,biology,E,bacteria,"
+
+The following is a list of the top 10 most popular questions asked by",bacteria,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_042,biology,A,living tissue," ligaments
+
+Q: What is the name of the ligament that connects the",living tissue,ligaments q: what is the name of the ligament that connects the,False,wrong
+bio_042,biology,B,living tissue," bones
+
+Q: What is the difference between a ligament and a ligament?",living tissue,bones q: what is the difference between a ligament and a ligament,False,wrong
+bio_042,biology,C,living tissue," ligaments
+
+Q: What is the name of the ligament that connects the",living tissue,ligaments q: what is the name of the ligament that connects the,False,wrong
+bio_042,biology,D,living tissue," bones
+
+Fact 1: The human body is made up of what type of",living tissue,bones fact 1: the human body is made up of what type of,False,wrong
+bio_042,biology,E,living tissue,"
+
+The following is a list of the top 10 most popular questions asked by",living tissue,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_043,biology,A,the pupil," The cornea refracts light.
+
+Q: What is the cornea",pupil,cornea refracts light. q: what is the cornea,False,wrong
+bio_043,biology,B,the pupil," The cornea refracts light.
+
+Q: What is the cornea",pupil,cornea refracts light. q: what is the cornea,False,wrong
+bio_043,biology,C,the pupil," the pupil
+
+Q: The cornea refracts a form of energy that",pupil,pupil q: the cornea refracts a form of energy that,True,exact_match
+bio_043,biology,D,the pupil," the pupil
+
+Fact 1: The cornea refracts a form of energy",pupil,pupil fact 1: the cornea refracts a form of energy,True,exact_match
+bio_043,biology,E,the pupil,"
+
+The following is a list of the top 10 most popular questions asked by",pupil,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_044,biology,A,arthropods," Crustaceans are a group of arthropods.
+
+Q:",arthropods,crustaceans are a group of arthropods. q,False,contains_correct_answer
+bio_044,biology,B,arthropods," Crustaceans
+
+Q: The Caspian Sea is the largest",arthropods,crustaceans q: the caspian sea is the largest,False,wrong
+bio_044,biology,C,arthropods," arthropods
+
+Q: What is the capital of Austria?
+Step",arthropods,arthropods q: what is the capital of austria? step,True,exact_match
+bio_044,biology,D,arthropods," arthropods
+
+Fact 1: The human body is made up of cells",arthropods,arthropods fact 1: the human body is made up of cells,True,exact_match
+bio_044,biology,E,arthropods,"
+
+The following is a list of the top 10 most popular questions asked by",arthropods,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_045,biology,A,37 degrees Celsius," 37 degrees Celsius
+
+Q: What is the temperature of the hypothalamus",37 degrees celsius,37 degrees celsius q: what is the temperature of the hypothalamus,True,exact_match
+bio_045,biology,B,37 degrees Celsius," 37 degrees Celsius
+
+Q: What is the average temperature of the",37 degrees celsius,37 degrees celsius q: what is the average temperature of the,True,exact_match
+bio_045,biology,C,37 degrees Celsius," 37 degrees Celsius
+
+Q: The hypothalamus regulates a parameter normally at",37 degrees celsius,37 degrees celsius q: the hypothalamus regulates a parameter normally at,True,exact_match
+bio_045,biology,D,37 degrees Celsius," 37 degrees Celsius
+
+Fact 1: The Gutenberg Bible was",37 degrees celsius,37 degrees celsius fact 1: the gutenberg bible was,True,exact_match
+bio_045,biology,E,37 degrees Celsius,"
+
+The following is a list of the top 10 most popular questions asked by",37 degrees celsius,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_046,biology,A,nutrients from food," the intestine
+
+Q: What is the pancreas?
+A: The pancreas",nutrients from food,intestine q: what is the pancreas? a: the pancreas,False,wrong
+bio_046,biology,B,nutrients from food," The intestine
+
+Q: The cosmological constant is a constant that is introduced by",nutrients from food,intestine q: the cosmological constant is a constant that is introduced by,False,wrong
+bio_046,biology,C,nutrients from food," the intestine
+
+Q: The pancreas is located in what part of the body",nutrients from food,intestine q: the pancreas is located in what part of the body,False,wrong
+bio_046,biology,D,nutrients from food," food
+
+Fact 1: The Danube River flows through the capital of what",nutrients from food,food fact 1: the danube river flows through the capital of what,False,wrong
+bio_046,biology,E,nutrients from food,"
+
+The following is a list of the top 10 most popular questions asked by",nutrients from food,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_047,biology,A,the dermis," The dermis layer of the skin.
+
+Q: What is the pancreas",dermis,dermis layer of the skin. q: what is the pancreas,False,contains_correct_answer
+bio_047,biology,B,the dermis," The dermis layer of skin.
+
+Q: What is the name of",dermis,dermis layer of skin. q: what is the name of,False,contains_correct_answer
+bio_047,biology,C,the dermis," the dermis layer of skin
+
+Q: What is the name of the",dermis,dermis layer of skin q: what is the name of the,False,contains_correct_answer
+bio_047,biology,D,the dermis," the dermis layer of skin
+
+Fact 1: The human body is made",dermis,dermis layer of skin fact 1: the human body is made,False,contains_correct_answer
+bio_047,biology,E,the dermis,"
+
+The following is a list of the top 10 most popular questions asked by",dermis,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_048,biology,A,dim light," The rod cells in the retina of the eye.
+
+Q: What is",dim light,rod cells in the retina of the eye. q: what is,False,wrong
+bio_048,biology,B,dim light," rod cells
+
+Q: What is the name of the organ that produces insulin",dim light,rod cells q: what is the name of the organ that produces insulin,False,wrong
+bio_048,biology,C,dim light," rod cells
+
+Q: Rhodopsin is found in what part of",dim light,rod cells q: rhodopsin is found in what part of,False,wrong
+bio_048,biology,D,dim light," rod cells
+
+Fact 1: The human body is made up of cells.",dim light,rod cells fact 1: the human body is made up of cells,False,wrong
+bio_048,biology,E,dim light,"
+
+The following is a list of the top 10 most popular questions asked by",dim light,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_049,biology,A,oxygen," Blood
+
+Q: What is the spleen?
+A: The spleen is",oxygen,blood q: what is the spleen? a: the spleen is,False,wrong
+bio_049,biology,B,oxygen," Blood
+
+Q: What is the capital of Austria?
+A: Vienna",oxygen,blood q: what is the capital of austria? a: vienna,False,wrong
+bio_049,biology,C,oxygen," The spleen filters a fluid that carries oxygen
+
+Q: The spleen filters a",oxygen,spleen filters a fluid that carries oxygen q: the spleen filters a,False,contains_correct_answer
+bio_049,biology,D,oxygen," blood
+
+Fact 1: The spleen filters a fluid that carries what?
+",oxygen,blood fact 1: the spleen filters a fluid that carries what,False,wrong
+bio_049,biology,E,oxygen,"
+
+The following is a list of the top 10 most popular questions asked by",oxygen,following is a list of the top 10 most popular questions asked by,False,wrong
+bio_050,biology,A,nerve impulses," The ear
+
+Q: What is the name of the organ that transmits sound",nerve impulses,ear q: what is the name of the organ that transmits sound,False,wrong
+bio_050,biology,B,nerve impulses," nerves
+
+Q: The pancreas is located in what part of the body?",nerve impulses,nerves q: the pancreas is located in what part of the body,False,wrong
+bio_050,biology,C,nerve impulses," nerves
+
+Q: The ear is an organ that converts sound waves into what",nerve impulses,nerves q: the ear is an organ that converts sound waves into what,False,wrong
+bio_050,biology,D,nerve impulses," the ear
+
+Fact 1: The pancreas produces insulin.
+Fact 2:",nerve impulses,ear fact 1: the pancreas produces insulin. fact 2,False,wrong
+bio_050,biology,E,nerve impulses,"
+
+The following is a list of the top 10 most popular questions asked by",nerve impulses,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_001,culture,A,Italy," Italy
+
+Q: The Mona Lisa was painted by an artist born in",italy,italy q: the mona lisa was painted by an artist born in,True,exact_match
+cul_001,culture,B,Italy," Italy
+
+Q: The Great Rift Valley stretches across eastern Africa.
+",italy,italy q: the great rift valley stretches across eastern africa,True,exact_match
+cul_001,culture,C,Italy," Italy
+
+Q: The Mona Lisa was painted by an artist born in",italy,italy q: the mona lisa was painted by an artist born in,True,exact_match
+cul_001,culture,D,Italy," Italy
+
+Fact 1: The Mona Lisa was painted by an artist born",italy,italy fact 1: the mona lisa was painted by an artist born,True,exact_match
+cul_001,culture,E,Italy,"
+
+The following is a list of the top 10 most popular questions asked by",italy,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_002,culture,A,France," France
+
+Q: The Eiffel Tower is located in what country?",france,france q: the eiffel tower is located in what country,True,exact_match
+cul_002,culture,B,France," France
+
+Q: The Black Forest is located in what country?
+A",france,france q: the black forest is located in what country? a,True,exact_match
+cul_002,culture,C,France," France
+
+Q: The Eiffel Tower is located in what country?",france,france q: the eiffel tower is located in what country,True,exact_match
+cul_002,culture,D,France," France
+
+Fact 1: The Eiffel Tower is located in the capital",france,france fact 1: the eiffel tower is located in the capital,True,exact_match
+cul_002,culture,E,France,"
+
+The following is a list of the top 10 most popular questions asked by",france,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_003,culture,A,East Asia," Japan
+
+Q: What is the capital of Japan?
+A: Tokyo",east asia,japan q: what is the capital of japan? a: tokyo,False,wrong
+cul_003,culture,B,East Asia," Japan
+
+Q: What is the capital of Austria?
+A: Vienna",east asia,japan q: what is the capital of austria? a: vienna,False,wrong
+cul_003,culture,C,East Asia," Japan
+
+Q: The United States is a country in the western hemisphere.",east asia,japan q: the united states is a country in the western hemisphere,False,wrong
+cul_003,culture,D,East Asia," East Asia
+
+Fact 1: The Danube River flows through the capital of",east asia,east asia fact 1: the danube river flows through the capital of,True,exact_match
+cul_003,culture,E,East Asia,"
+
+The following is a list of the top 10 most popular questions asked by",east asia,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_004,culture,A,largest," China
+
+Q: The Great Wall of China is a long wall built by",largest,china q: the great wall of china is a long wall built by,False,wrong
+cul_004,culture,B,largest," China
+
+Q: The electromagnetic spectrum includes radio waves to gamma rays.
+",largest,china q: the electromagnetic spectrum includes radio waves to gamma rays,False,wrong
+cul_004,culture,C,largest," China
+
+Q: The Great Wall was built in what country?
+Step",largest,china q: the great wall was built in what country? step,False,wrong
+cul_004,culture,D,largest," China
+
+Fact 1: The Great Wall was built in China.
+Fact",largest,china fact 1: the great wall was built in china. fact,False,wrong
+cul_004,culture,E,largest,"
+
+The following is a list of the top 10 most popular questions asked by",largest,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_005,culture,A,Spain," Spain
+
+Q: What is the capital of Andalusia?
+A",spain,spain q: what is the capital of andalusia? a,True,exact_match
+cul_005,culture,B,Spain," Spain
+
+Q: The pancreas is an organ located in what part of the",spain,spain q: the pancreas is an organ located in what part of the,True,exact_match
+cul_005,culture,C,Spain," Andalusia
+
+Q: The word ""flamenco"" is Spanish",spain,"andalusia q: the word ""flamenco"" is spanish",False,wrong
+cul_005,culture,D,Spain," Spain
+
+Fact 1: The Danube River flows through the capital of what",spain,spain fact 1: the danube river flows through the capital of what,True,exact_match
+cul_005,culture,E,Spain,"
+
+The following is a list of the top 10 most popular questions asked by",spain,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_006,culture,A,the Roman Empire," Italy
+
+Q: The Colosseum is a Roman amphitheater in",roman empire,italy q: the colosseum is a roman amphitheater in,False,wrong
+cul_006,culture,B,the Roman Empire," Rome
+
+Q: The Colosseum is in what country?
+A",roman empire,rome q: the colosseum is in what country? a,False,wrong
+cul_006,culture,C,the Roman Empire," Rome
+
+Q: The Colosseum is in a city that was the",roman empire,rome q: the colosseum is in a city that was the,False,wrong
+cul_006,culture,D,the Roman Empire," Rome
+
+Fact 1: The Colosseum is located in Rome.
+",roman empire,rome fact 1: the colosseum is located in rome,False,wrong
+cul_006,culture,E,the Roman Empire,"
+
+The following is a list of the top 10 most popular questions asked by",roman empire,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_007,culture,A,second largest," The second largest in the world.
+
+Q: What is the capital of",second largest,second largest in the world. q: what is the capital of,False,contains_correct_answer
+cul_007,culture,B,second largest," The second largest in the world.
+
+Q: The Danube River flows",second largest,second largest in the world. q: the danube river flows,False,contains_correct_answer
+cul_007,culture,C,second largest," India
+
+Q: The United States is the largest country in the world.",second largest,india q: the united states is the largest country in the world,False,wrong
+cul_007,culture,D,second largest," the world
+
+Fact 1: The Danube River flows through the capital of",second largest,world fact 1: the danube river flows through the capital of,False,wrong
+cul_007,culture,E,second largest,"
+
+The following is a list of the top 10 most popular questions asked by",second largest,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_008,culture,A,Brazil," Brazil
+
+Q: What is the capital of Brazil?
+A: Rio",brazil,brazil q: what is the capital of brazil? a: rio,True,exact_match
+cul_008,culture,B,Brazil," Brazil
+
+Q: The Panama Canal is a canal that connects the Atlantic and",brazil,brazil q: the panama canal is a canal that connects the atlantic and,True,exact_match
+cul_008,culture,C,Brazil," Brazil
+
+Q: The word ""carnival"" is a portm",brazil,"brazil q: the word ""carnival"" is a portm",True,exact_match
+cul_008,culture,D,Brazil," Brazil
+
+Fact 1: The Panama Canal connects the Atlantic and Pacific Oceans",brazil,brazil fact 1: the panama canal connects the atlantic and pacific oceans,True,exact_match
+cul_008,culture,E,Brazil,"
+
+The following is a list of the top 10 most popular questions asked by",brazil,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_009,culture,A,Egypt," Egypt
+
+Q: The pyramids are located in what country?
+A",egypt,egypt q: the pyramids are located in what country? a,True,exact_match
+cul_009,culture,B,Egypt," Egypt
+
+Q: The pyramids are located near Cairo in what country?",egypt,egypt q: the pyramids are located near cairo in what country,True,exact_match
+cul_009,culture,C,Egypt," Egypt
+
+Q: The pyramids are located in what country?
+Step",egypt,egypt q: the pyramids are located in what country? step,True,exact_match
+cul_009,culture,D,Egypt," Egypt
+
+Fact 1: The pyramids are located in Giza.
+",egypt,egypt fact 1: the pyramids are located in giza,True,exact_match
+cul_009,culture,E,Egypt,"
+
+The following is a list of the top 10 most popular questions asked by",egypt,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_010,culture,A,East Asia," China
+
+Q: The Kung Fu is a martial art that originated in",east asia,china q: the kung fu is a martial art that originated in,False,wrong
+cul_010,culture,B,East Asia," China
+
+Q: What is the capital of Austria?
+A: Vienna",east asia,china q: what is the capital of austria? a: vienna,False,wrong
+cul_010,culture,C,East Asia," China
+
+Q: The United States is the largest country in the world.",east asia,china q: the united states is the largest country in the world,False,wrong
+cul_010,culture,D,East Asia," China
+
+Fact 1: The human body is made up of cells.
+",east asia,china fact 1: the human body is made up of cells,False,wrong
+cul_010,culture,E,East Asia,"
+
+The following is a list of the top 10 most popular questions asked by",east asia,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_011,culture,A,Greece," Greece
+
+Q: The Parthenon is the Parthenon is the",greece,greece q: the parthenon is the parthenon is the,True,exact_match
+cul_011,culture,B,Greece," Greece
+
+Q: The Parthenon is the largest building in the world",greece,greece q: the parthenon is the largest building in the world,True,exact_match
+cul_011,culture,C,Greece," Greece
+
+Q: The Parthenon is located in what country?
+",greece,greece q: the parthenon is located in what country,True,exact_match
+cul_011,culture,D,Greece," Greece
+
+Fact 1: The Parthenon is located in the capital of",greece,greece fact 1: the parthenon is located in the capital of,True,exact_match
+cul_011,culture,E,Greece,"
+
+The following is a list of the top 10 most popular questions asked by",greece,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_012,culture,A,cherry blossoms," Japan
+
+Q: Origami is a traditional art of Japan.
+A",cherry blossoms,japan q: origami is a traditional art of japan. a,False,wrong
+cul_012,culture,B,cherry blossoms," Japan
+
+Q: The Yangtze River is the longest river in Asia",cherry blossoms,japan q: the yangtze river is the longest river in asia,False,wrong
+cul_012,culture,C,cherry blossoms," Japan
+
+Q: The word ""origami"" is a Japanese word.",cherry blossoms,"japan q: the word ""origami"" is a japanese word",False,wrong
+cul_012,culture,D,cherry blossoms," cherry blossoms
+
+Fact 1: The Danube River flows through the capital",cherry blossoms,cherry blossoms fact 1: the danube river flows through the capital,True,exact_match
+cul_012,culture,E,cherry blossoms,"
+
+The following is a list of the top 10 most popular questions asked by",cherry blossoms,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_013,culture,A,England," England
+
+Fact 1: The capital of the United States is Washington, D",england,"england fact 1: the capital of the united states is washington, d",True,exact_match
+cul_013,culture,B,England," England
+
+Q: What is the capital of Austria?
+A: Vienna",england,england q: what is the capital of austria? a: vienna,True,exact_match
+cul_013,culture,C,England," England
+
+Q: The United States is the largest country in the world.",england,england q: the united states is the largest country in the world,True,exact_match
+cul_013,culture,D,England," England
+
+Fact 1: The Danube River flows through Vienna.
+Fact",england,england fact 1: the danube river flows through vienna. fact,True,exact_match
+cul_013,culture,E,England,"
+
+The following is a list of the top 10 most popular questions asked by",england,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_014,culture,A,East Asia," South Korea
+
+Q: What is the capital of Austria?
+A:",east asia,south korea q: what is the capital of austria? a,False,wrong
+cul_014,culture,B,East Asia," South Korea
+
+Q: The Great Rift Valley is a long, narrow",east asia,"south korea q: the great rift valley is a long, narrow",False,wrong
+cul_014,culture,C,East Asia," South Korea
+
+Q: The United States is the largest country in the world",east asia,south korea q: the united states is the largest country in the world,False,wrong
+cul_014,culture,D,East Asia," East Asia
+
+Fact 1: The Danube River flows through the capital of",east asia,east asia fact 1: the danube river flows through the capital of,True,exact_match
+cul_014,culture,E,East Asia,"
+
+The following is a list of the top 10 most popular questions asked by",east asia,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_015,culture,A,the City of Light," The Louvre is a museum in Paris, France.
+
+Q: The",city of light,"louvre is a museum in paris, france. q: the",False,wrong
+cul_015,culture,B,the City of Light," Paris
+
+Q: The Louvre is in what country?
+A:",city of light,paris q: the louvre is in what country? a,False,wrong
+cul_015,culture,C,the City of Light," Paris
+
+Q: The Louvre is in a city known as what?",city of light,paris q: the louvre is in a city known as what,False,wrong
+cul_015,culture,D,the City of Light," Paris
+
+Fact 1: The Louvre museum is in Paris.
+Fact",city of light,paris fact 1: the louvre museum is in paris. fact,False,wrong
+cul_015,culture,E,the City of Light,"
+
+The following is a list of the top 10 most popular questions asked by",city of light,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_016,culture,A,a boot," Italy
+
+Fact 3: The capital of Italy is the capital of what country",boot,italy fact 3: the capital of italy is the capital of what country,False,wrong
+cul_016,culture,B,a boot," Italy
+
+Q: The Sahara Desert is the largest desert in the world",boot,italy q: the sahara desert is the largest desert in the world,False,wrong
+cul_016,culture,C,a boot," Italy
+
+Q: The capital of the United States is Washington, D.",boot,"italy q: the capital of the united states is washington, d",False,wrong
+cul_016,culture,D,a boot," Italy
+
+Fact 1: The Sahara Desert is the largest hot desert in",boot,italy fact 1: the sahara desert is the largest hot desert in,False,wrong
+cul_016,culture,E,a boot,"
+
+The following is a list of the top 10 most popular questions asked by",boot,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_017,culture,A,India," India
+
+Q: The Taj Mahal is a monumental mausole",india,india q: the taj mahal is a monumental mausole,True,exact_match
+cul_017,culture,B,India," India
+
+Q: The Taj Mahal is in what country?
+A",india,india q: the taj mahal is in what country? a,True,exact_match
+cul_017,culture,C,India," Agra
+
+Q: The Taj Mahal is in a city in what",india,agra q: the taj mahal is in a city in what,False,wrong
+cul_017,culture,D,India," India
+
+Fact 1: The Taj Mahal is located in Agra.",india,india fact 1: the taj mahal is located in agra,True,exact_match
+cul_017,culture,E,India,"
+
+The following is a list of the top 10 most popular questions asked by",india,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_018,culture,A,North America," North America
+
+Q: What is the capital of Mexico?
+A:",north america,north america q: what is the capital of mexico? a,True,exact_match
+cul_018,culture,B,North America," Mexico
+
+Q: The Congo River is the deepest river in the world.",north america,mexico q: the congo river is the deepest river in the world,False,wrong
+cul_018,culture,C,North America," North America
+
+Q: The United States is the largest country in the world",north america,north america q: the united states is the largest country in the world,True,exact_match
+cul_018,culture,D,North America," North America
+
+Fact 1: The Danube River flows through the capital of",north america,north america fact 1: the danube river flows through the capital of,True,exact_match
+cul_018,culture,E,North America,"
+
+The following is a list of the most common questions and answers to the",north america,following is a list of the most common questions and answers to the,False,wrong
+cul_019,culture,A,the smallest," The Vatican City is the smallest country in the world.
+
+Q: The",smallest,vatican city is the smallest country in the world. q: the,False,contains_correct_answer
+cul_019,culture,B,the smallest," Vatican City
+
+Q: The Maldives is the flattest country in",smallest,vatican city q: the maldives is the flattest country in,False,wrong
+cul_019,culture,C,the smallest," Vatican City
+
+Q: The Sistine Chapel is in what country?
+",smallest,vatican city q: the sistine chapel is in what country,False,wrong
+cul_019,culture,D,the smallest," Vatican City
+
+Fact 1: The Sistine Chapel is in what rank smallest",smallest,vatican city fact 1: the sistine chapel is in what rank smallest,False,contains_correct_answer
+cul_019,culture,E,the smallest,"
+
+The following is a list of the top 10 most popular questions asked by",smallest,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_020,culture,A,the Caribbean," The Caribbean
+
+Q: The Caribbean is an island country in the Caribbean Sea",caribbean,caribbean q: the caribbean is an island country in the caribbean sea,True,exact_match
+cul_020,culture,B,the Caribbean," The Caribbean
+
+Q: The Kalahari Desert is in what country?",caribbean,caribbean q: the kalahari desert is in what country,True,exact_match
+cul_020,culture,C,the Caribbean," Caribbean Sea
+
+Q: The United States is the largest country in the world",caribbean,caribbean sea q: the united states is the largest country in the world,False,contains_correct_answer
+cul_020,culture,D,the Caribbean," the Caribbean Sea
+
+Fact 1: The Danube River flows through Vienna.",caribbean,caribbean sea fact 1: the danube river flows through vienna,False,contains_correct_answer
+cul_020,culture,E,the Caribbean,"
+
+The following is a list of the top 10 most popular questions asked by",caribbean,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_021,culture,A,East Asia," Korea
+
+Q: What is the capital of Korea?
+A: Seoul",east asia,korea q: what is the capital of korea? a: seoul,False,wrong
+cul_021,culture,B,East Asia," Korea
+
+Q: What is the capital of Austria?
+A: Vienna",east asia,korea q: what is the capital of austria? a: vienna,False,wrong
+cul_021,culture,C,East Asia," Korea
+
+Q: The word ""Korea"" is a country in what",east asia,"korea q: the word ""korea"" is a country in what",False,wrong
+cul_021,culture,D,East Asia," East Asia
+
+Fact 1: The Danube River flows through the capital of",east asia,east asia fact 1: the danube river flows through the capital of,True,exact_match
+cul_021,culture,E,East Asia,"
+
+The following is a list of the top 10 most popular questions asked by",east asia,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_022,culture,A,Argentina," Argentina
+
+Q: What is the capital of Argentina?
+A: Buenos",argentina,argentina q: what is the capital of argentina? a: buenos,True,exact_match
+cul_022,culture,B,Argentina," Argentina
+
+Q: What is the capital of Argentina?
+A: Buenos",argentina,argentina q: what is the capital of argentina? a: buenos,True,exact_match
+cul_022,culture,C,Argentina," Buenos Aires
+
+Q: The United States is the largest country in the world",argentina,buenos aires q: the united states is the largest country in the world,False,wrong
+cul_022,culture,D,Argentina," Argentina
+
+Fact 1: The Danube River flows through Vienna.
+Fact",argentina,argentina fact 1: the danube river flows through vienna. fact,True,exact_match
+cul_022,culture,E,Argentina,"
+
+The following is a list of the top 10 most popular questions asked by",argentina,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_023,culture,A,democracy," Athens is the birthplace of democracy.
+
+Q: What is the capital",democracy,athens is the birthplace of democracy. q: what is the capital,False,contains_correct_answer
+cul_023,culture,B,democracy," Democracy
+
+Q: The Acropolis is in what country?
+A:",democracy,democracy q: the acropolis is in what country? a,True,exact_match
+cul_023,culture,C,democracy," democracy
+
+Q: The Acropolis is in a city considered the birthplace",democracy,democracy q: the acropolis is in a city considered the birthplace,True,exact_match
+cul_023,culture,D,democracy," democracy
+
+Fact 1: The Acropolis is located in Athens.
+Fact",democracy,democracy fact 1: the acropolis is located in athens. fact,True,exact_match
+cul_023,culture,E,democracy,"
+
+The following is a list of the top 10 most popular questions asked by",democracy,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_024,culture,A,6000," 6000
+
+Q: What is the capital of Japan?
+A:",6000,6000 q: what is the capital of japan? a,True,exact_match
+cul_024,culture,B,6000," 6000
+
+Q: What is the capital of Japan?
+A:",6000,6000 q: what is the capital of japan? a,True,exact_match
+cul_024,culture,C,6000," 6000
+
+Q: The United States is the largest country in the world",6000,6000 q: the united states is the largest country in the world,True,exact_match
+cul_024,culture,D,6000," 6000
+
+Fact 1: The human body is made up of about 60",6000,6000 fact 1: the human body is made up of about 60,True,exact_match
+cul_024,culture,E,6000,"
+
+The following is a list of the top 10 most popular questions asked by",6000,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_025,culture,A,the Inca Empire," Peru
+
+Q: What is the capital of Peru?
+A: L",inca empire,peru q: what is the capital of peru? a: l,False,wrong
+cul_025,culture,B,the Inca Empire," Inca Empire
+
+Q: What is the capital of Peru?
+A",inca empire,inca empire q: what is the capital of peru? a,False,contains_correct_answer
+cul_025,culture,C,the Inca Empire," Inca Empire
+
+Q: The Inca Empire was a large empire that",inca empire,inca empire q: the inca empire was a large empire that,False,contains_correct_answer
+cul_025,culture,D,the Inca Empire," Inca Empire
+
+Fact 1: The Danube River flows through the capital",inca empire,inca empire fact 1: the danube river flows through the capital,False,contains_correct_answer
+cul_025,culture,E,the Inca Empire,"
+
+The following is a list of the top 10 most popular questions asked by",inca empire,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_026,culture,A,Russia," Russia
+
+Q: The Kremlin is the capital of what country?
+A",russia,russia q: the kremlin is the capital of what country? a,True,exact_match
+cul_026,culture,B,Russia," Russia
+
+Q: The Kremlin is the capital of what country?
+A",russia,russia q: the kremlin is the capital of what country? a,True,exact_match
+cul_026,culture,C,Russia," Moscow
+
+Fact 1: The Kremlin is in the capital of Russia.
+",russia,moscow fact 1: the kremlin is in the capital of russia,False,contains_correct_answer
+cul_026,culture,D,Russia," Russia
+
+Fact 1: The Danube River flows through Vienna.
+Fact",russia,russia fact 1: the danube river flows through vienna. fact,True,exact_match
+cul_026,culture,E,Russia,"
+
+The following is a list of the top 10 most popular questions asked by",russia,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_027,culture,A,about 125 million," Japan
+
+Fact 1: The capital of Japan is Tokyo.
+Fact 2",about 125 million,japan fact 1: the capital of japan is tokyo. fact 2,False,wrong
+cul_027,culture,B,about 125 million," Japan
+
+Q: The Kelvin scale is a scale of temperature.
+",about 125 million,japan q: the kelvin scale is a scale of temperature,False,wrong
+cul_027,culture,C,about 125 million," Japan
+
+Q: The United States is the largest country in the world.",about 125 million,japan q: the united states is the largest country in the world,False,wrong
+cul_027,culture,D,about 125 million," Japan
+
+Fact 1: The Danube River flows through Vienna.
+Fact",about 125 million,japan fact 1: the danube river flows through vienna. fact,False,wrong
+cul_027,culture,E,about 125 million,"
+
+The following is a list of the top 10 most popular questions asked by",about 125 million,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_028,culture,A,the Caribbean," Cuba is the largest island in the Caribbean.
+
+Q: What is the",caribbean,cuba is the largest island in the caribbean. q: what is the,False,contains_correct_answer
+cul_028,culture,B,the Caribbean," Cuba
+
+Q: What is the capital of the United States?
+A",caribbean,cuba q: what is the capital of the united states? a,False,wrong
+cul_028,culture,C,the Caribbean," Cuba
+
+Q: The United States is the largest country in the world.",caribbean,cuba q: the united states is the largest country in the world,False,wrong
+cul_028,culture,D,the Caribbean," Cuba
+
+Fact 1: The human body is made up of about 60%",caribbean,cuba fact 1: the human body is made up of about 60%,False,wrong
+cul_028,culture,E,the Caribbean,"
+
+The following is a list of the top 10 most popular questions asked by",caribbean,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_029,culture,A,Cairo," Giza
+
+Q: The Sphinx is a statue of a man",cairo,giza q: the sphinx is a statue of a man,False,wrong
+cul_029,culture,B,Cairo," Cairo
+
+Q: The Rhine flows through what country?
+A:",cairo,cairo q: the rhine flows through what country? a,True,exact_match
+cul_029,culture,C,Cairo," Giza
+
+Q: The Sphinx is located in what country?",cairo,giza q: the sphinx is located in what country,False,wrong
+cul_029,culture,D,Cairo," Cairo
+
+Fact 1: The Sphinx is located in Giza.",cairo,cairo fact 1: the sphinx is located in giza,True,exact_match
+cul_029,culture,E,Cairo,"
+
+The following is a list of the top 10 most popular questions asked by",cairo,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_030,culture,A,Europe," Europe
+
+Fact 1: The capital of Austria is Vienna.
+Fact 2",europe,europe fact 1: the capital of austria is vienna. fact 2,True,exact_match
+cul_030,culture,B,Europe," Europe
+
+Q: The half-life of carbon-14 is about what",europe,europe q: the half-life of carbon-14 is about what,True,exact_match
+cul_030,culture,C,Europe," Europe
+
+Q: The United States is the largest country in the world.",europe,europe q: the united states is the largest country in the world,True,exact_match
+cul_030,culture,D,Europe," Europe
+
+Fact 1: The Danube River flows through the capital of what",europe,europe fact 1: the danube river flows through the capital of what,True,exact_match
+cul_030,culture,E,Europe,"
+
+The following is a list of the top 10 most popular questions asked by",europe,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_031,culture,A,the River Thames," The River Thames
+
+Q: The Globe Theatre was in what city?
+",river thames,river thames q: the globe theatre was in what city,True,exact_match
+cul_031,culture,B,the River Thames," The Thames
+
+Q: The Ural Mountains separate Europe and Asia.
+",river thames,thames q: the ural mountains separate europe and asia,False,wrong
+cul_031,culture,C,the River Thames," The Thames
+
+Q: The Globe Theatre was in a city on what river",river thames,thames q: the globe theatre was in a city on what river,False,wrong
+cul_031,culture,D,the River Thames," the Thames
+
+Fact 1: The Danube River flows through Vienna.
+",river thames,thames fact 1: the danube river flows through vienna,False,wrong
+cul_031,culture,E,the River Thames,"
+
+The following is a list of the top 10 most popular questions asked by",river thames,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_032,culture,A,the Mediterranean Sea," Turkey
+
+Q: What is the capital of the country?
+A:",mediterranean sea,turkey q: what is the capital of the country? a,False,wrong
+cul_032,culture,B,the Mediterranean Sea," Turkey
+
+Q: What is the capital of Austria?
+A: Vienna",mediterranean sea,turkey q: what is the capital of austria? a: vienna,False,wrong
+cul_032,culture,C,the Mediterranean Sea," the Mediterranean Sea
+
+Q: The Mediterranean Sea is the largest body of water",mediterranean sea,mediterranean sea q: the mediterranean sea is the largest body of water,True,exact_match
+cul_032,culture,D,the Mediterranean Sea," the Mediterranean Sea
+
+Fact 1: The Danube River flows through the capital",mediterranean sea,mediterranean sea fact 1: the danube river flows through the capital,True,exact_match
+cul_032,culture,E,the Mediterranean Sea,"
+
+The following is a list of the top 10 most popular questions asked by",mediterranean sea,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_033,culture,A,South America," Africa
+
+Q: What is the capital of Brazil?
+A: Bras",south america,africa q: what is the capital of brazil? a: bras,False,wrong
+cul_033,culture,B,South America," Africa
+
+Q: The largest country in the world is?
+A:",south america,africa q: the largest country in the world is? a,False,wrong
+cul_033,culture,C,South America," South America
+
+Q: The word ""capoeira"" is a Brazilian",south america,"south america q: the word ""capoeira"" is a brazilian",True,exact_match
+cul_033,culture,D,South America," South America
+
+Fact 1: The Danube River flows through the capital of",south america,south america fact 1: the danube river flows through the capital of,True,exact_match
+cul_033,culture,E,South America,"
+
+The following is a list of the top 10 most popular questions asked by",south america,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_034,culture,A,over 800 years," 800 years.
+
+Q: What is the capital of China?
+A",over 800 years,800 years. q: what is the capital of china? a,False,wrong
+cul_034,culture,B,over 800 years," 800 years
+
+Q: The Forbidden City is in what country?",over 800 years,800 years q: the forbidden city is in what country,False,wrong
+cul_034,culture,C,over 800 years," 800 years
+
+Q: The Forbidden City is in a city that",over 800 years,800 years q: the forbidden city is in a city that,False,wrong
+cul_034,culture,D,over 800 years," 800 years
+
+Fact 1: The Forbidden City is in Beijing.",over 800 years,800 years fact 1: the forbidden city is in beijing,False,wrong
+cul_034,culture,E,over 800 years,"
+
+The following is a list of the top 10 most popular questions asked by",over 800 years,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_035,culture,A,the Pacific Ring of Fire," Japan
+
+Q: What is the capital of Japan?
+A: Tokyo",pacific ring of fire,japan q: what is the capital of japan? a: tokyo,False,wrong
+cul_035,culture,B,the Pacific Ring of Fire," Asia
+
+Q: The Danube River flows through what country?
+A",pacific ring of fire,asia q: the danube river flows through what country? a,False,wrong
+cul_035,culture,C,the Pacific Ring of Fire," Pacific Ring of Fire
+
+Q: The United States is the largest country in",pacific ring of fire,pacific ring of fire q: the united states is the largest country in,False,contains_correct_answer
+cul_035,culture,D,the Pacific Ring of Fire," Japan
+
+Fact 1: The Danube River flows through ten countries.
+",pacific ring of fire,japan fact 1: the danube river flows through ten countries,False,wrong
+cul_035,culture,E,the Pacific Ring of Fire,"
+
+The following is a list of the top 10 most popular questions asked by",pacific ring of fire,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_036,culture,A,the Iberian Peninsula," Spain
+
+Fact 1: The peninsula is a peninsula.
+Fact 2:",iberian peninsula,spain fact 1: the peninsula is a peninsula. fact 2,False,wrong
+cul_036,culture,B,the Iberian Peninsula," Spain
+
+Q: What is the capital of Spain?
+A: Madrid",iberian peninsula,spain q: what is the capital of spain? a: madrid,False,wrong
+cul_036,culture,C,the Iberian Peninsula," Iberian Peninsula
+
+Q: What is the capital of the United States",iberian peninsula,iberian peninsula q: what is the capital of the united states,False,contains_correct_answer
+cul_036,culture,D,the Iberian Peninsula," the Iberian Peninsula
+
+Fact 1: The Danube River flows through",iberian peninsula,iberian peninsula fact 1: the danube river flows through,True,exact_match
+cul_036,culture,E,the Iberian Peninsula,"
+
+The following is a list of the top 10 most popular questions asked by",iberian peninsula,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_037,culture,A,Spain," Spain
+
+Fact 1: The Alhambra is a city in what",spain,spain fact 1: the alhambra is a city in what,True,exact_match
+cul_037,culture,B,Spain," Spain
+
+Q: The Sahara Desert is the largest desert in the world",spain,spain q: the sahara desert is the largest desert in the world,True,exact_match
+cul_037,culture,C,Spain," Spain
+
+Q: The Alhambra is in a city in what",spain,spain q: the alhambra is in a city in what,True,exact_match
+cul_037,culture,D,Spain," Spain
+
+Fact 1: The Alhambra is located in Granada",spain,spain fact 1: the alhambra is located in granada,True,exact_match
+cul_037,culture,E,Spain,"
+
+The following is a list of the top 10 most popular questions asked by",spain,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_038,culture,A,the oldest continuous civilization," The Chinese calligraphy is an important art in China.
+
+Q: What",oldest continuous civilization,chinese calligraphy is an important art in china. q: what,False,wrong
+cul_038,culture,B,the oldest continuous civilization," Austria
+
+Q: The Danube River flows through what country?
+A",oldest continuous civilization,austria q: the danube river flows through what country? a,False,wrong
+cul_038,culture,C,the oldest continuous civilization," China
+
+Q: The United States is the largest country in the world.",oldest continuous civilization,china q: the united states is the largest country in the world,False,wrong
+cul_038,culture,D,the oldest continuous civilization," the oldest continuous civilization
+
+Fact 1: The Danube River flows through the",oldest continuous civilization,oldest continuous civilization fact 1: the danube river flows through the,True,exact_match
+cul_038,culture,E,the oldest continuous civilization,"
+
+The following is a list of the top 10 most popular questions asked by",oldest continuous civilization,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_039,culture,A,1147," The Bolshoi Theatre was founded in the year 1147.
+
+Q",1147,bolshoi theatre was founded in the year 1147. q,False,contains_correct_answer
+cul_039,culture,B,1147," The Bolshoi Theatre was founded in the year 1847.
+
+Q",1147,bolshoi theatre was founded in the year 1847. q,False,wrong
+cul_039,culture,C,1147," 1147
+
+Q: The Bolshoi Theatre is in what city?",1147,1147 q: the bolshoi theatre is in what city,True,exact_match
+cul_039,culture,D,1147," 1147
+
+Fact 1: The Bolshoi Theatre is in a city",1147,1147 fact 1: the bolshoi theatre is in a city,True,exact_match
+cul_039,culture,E,1147,"
+
+The following is a list of the top 10 most popular questions asked by",1147,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_040,culture,A,four," Japan has four main islands.
+
+Q: What is the capital of Japan",four,japan has four main islands. q: what is the capital of japan,False,contains_correct_answer
+cul_040,culture,B,four," Japan has four main islands.
+
+Q: What is the capital of Japan",four,japan has four main islands. q: what is the capital of japan,False,contains_correct_answer
+cul_040,culture,C,four," Japan consists of four main islands
+
+Q: The United States is the largest",four,japan consists of four main islands q: the united states is the largest,False,contains_correct_answer
+cul_040,culture,D,four," Japan
+
+Fact 1: The human body is made up of about 60%",four,japan fact 1: the human body is made up of about 60%,False,wrong
+cul_040,culture,E,four,"
+
+The following is a list of the top 10 most popular questions asked by",four,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_041,culture,A,Southeast Asia," Southeast Asia
+
+Q: What is the capital of Cambodia?
+A:",southeast asia,southeast asia q: what is the capital of cambodia? a,True,exact_match
+cul_041,culture,B,Southeast Asia," Cambodia
+
+Q: The Mariana Trench is the deepest part of the",southeast asia,cambodia q: the mariana trench is the deepest part of the,False,wrong
+cul_041,culture,C,Southeast Asia," Southeast Asia
+
+Q: The Nile River flows through what country?
+Step",southeast asia,southeast asia q: the nile river flows through what country? step,True,exact_match
+cul_041,culture,D,Southeast Asia," Southeast Asia
+
+Fact 1: The Mariana Trench is the deepest part",southeast asia,southeast asia fact 1: the mariana trench is the deepest part,True,exact_match
+cul_041,culture,E,Southeast Asia,"
+
+The following is a list of the top 10 most popular questions asked by",southeast asia,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_042,culture,A,the West Bank," The Dead Sea Scrolls were found near the Dead Sea.
+
+Q:",west bank,dead sea scrolls were found near the dead sea. q,False,wrong
+cul_042,culture,B,the West Bank," The Dead Sea Scrolls were found near a site in what territory?
+
+",west bank,dead sea scrolls were found near a site in what territory,False,wrong
+cul_042,culture,C,the West Bank," the West Bank
+
+Q: The Dead Sea Scrolls were found near what",west bank,west bank q: the dead sea scrolls were found near what,True,exact_match
+cul_042,culture,D,the West Bank," the West Bank
+
+Fact 1: The Dead Sea Scrolls were found near",west bank,west bank fact 1: the dead sea scrolls were found near,True,exact_match
+cul_042,culture,E,the West Bank,"
+
+The following is a list of the top 10 most popular questions asked by",west bank,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_043,culture,A,the South China Sea," The South China Sea
+
+Fact 3: The South China Sea is a body",south china sea,south china sea fact 3: the south china sea is a body,True,exact_match
+cul_043,culture,B,the South China Sea," China
+
+Q: The Zambezi River flows through what country?
+",south china sea,china q: the zambezi river flows through what country,False,wrong
+cul_043,culture,C,the South China Sea," Vietnam
+
+Fact 1: The word pho is a traditional soup of Vietnam",south china sea,vietnam fact 1: the word pho is a traditional soup of vietnam,False,wrong
+cul_043,culture,D,the South China Sea," the South China Sea
+
+Fact 1: The Danube River flows through Vienna",south china sea,south china sea fact 1: the danube river flows through vienna,True,exact_match
+cul_043,culture,E,the South China Sea,"
+
+The following is a list of the top 10 most popular questions asked by",south china sea,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_044,culture,A,England," England
+
+Q: The capital of what country?
+A: England
+",england,england q: the capital of what country? a: england,True,exact_match
+cul_044,culture,B,England," England
+
+Q: The Danube River flows through what country?
+A",england,england q: the danube river flows through what country? a,True,exact_match
+cul_044,culture,C,England," England
+
+Q: The United States is the largest country in the world.",england,england q: the united states is the largest country in the world,True,exact_match
+cul_044,culture,D,England," England
+
+Fact 1: The Danube River flows through Vienna.
+Fact",england,england fact 1: the danube river flows through vienna. fact,True,exact_match
+cul_044,culture,E,England,"
+
+The following is a list of the top 10 most popular questions asked by",england,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_045,culture,A,the Silk Road," The Silk Road
+
+Q: The Silk Road is a trade route",silk road,silk road q: the silk road is a trade route,True,exact_match
+cul_045,culture,B,the Silk Road," The Silk Road
+
+Q: The Silk Road is a trade route",silk road,silk road q: the silk road is a trade route,True,exact_match
+cul_045,culture,C,the Silk Road," the Silk Road
+
+Q: The Terracotta Army is in what",silk road,silk road q: the terracotta army is in what,True,exact_match
+cul_045,culture,D,the Silk Road," the Silk Road
+
+Fact 1: The Danube River flows through the",silk road,silk road fact 1: the danube river flows through the,True,exact_match
+cul_045,culture,E,the Silk Road,"
+
+The following is a list of the top 10 most popular questions asked by",silk road,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_046,culture,A,the most visited," Austria
+
+Q: What is the capital of Austria?
+A: Vienna",most visited,austria q: what is the capital of austria? a: vienna,False,wrong
+cul_046,culture,B,the most visited," France
+
+Q: The Rhine flows through what country?
+A:",most visited,france q: the rhine flows through what country? a,False,wrong
+cul_046,culture,C,the most visited," France
+
+Q: The most popular food in the world is what?
+",most visited,france q: the most popular food in the world is what,False,wrong
+cul_046,culture,D,the most visited," France
+
+Fact 1: The Danube River flows through the capital of what",most visited,france fact 1: the danube river flows through the capital of what,False,wrong
+cul_046,culture,E,the most visited,"
+
+The following is a list of the top 10 most popular questions asked by",most visited,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_047,culture,A,Spain," Spain
+
+Fact 1: The Sagrada Familia is a Roman",spain,spain fact 1: the sagrada familia is a roman,True,exact_match
+cul_047,culture,B,Spain," Spain
+
+Q: The Alps are a mountain range in what country?",spain,spain q: the alps are a mountain range in what country,True,exact_match
+cul_047,culture,C,Spain," Spain
+
+Q: The Sagrada Familia is in a city",spain,spain q: the sagrada familia is in a city,True,exact_match
+cul_047,culture,D,Spain," Spain
+
+Fact 1: The Danube River flows through the capital of what",spain,spain fact 1: the danube river flows through the capital of what,True,exact_match
+cul_047,culture,E,Spain,"
+
+The following is a list of the top 10 most popular questions asked by",spain,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_048,culture,A,China," China
+
+Fact 1: Dim sum is a culinary tradition from a region in",china,china fact 1: dim sum is a culinary tradition from a region in,True,exact_match
+cul_048,culture,B,China," China
+
+Q: What is the capital of Austria?
+A: Vienna",china,china q: what is the capital of austria? a: vienna,True,exact_match
+cul_048,culture,C,China," China
+
+Q: The United States is the largest country in the world.",china,china q: the united states is the largest country in the world,True,exact_match
+cul_048,culture,D,China," China
+
+Fact 1: The Danube River flows through the capital of what",china,china fact 1: the danube river flows through the capital of what,True,exact_match
+cul_048,culture,E,China,"
+
+The following is a list of the top 10 most popular questions asked by",china,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_049,culture,A,Tuscany," Tuscany
+
+Q: The Uffizi Gallery is in what city",tuscany,tuscany q: the uffizi gallery is in what city,True,exact_match
+cul_049,culture,B,Tuscany," Tuscany
+
+Q: The Uffizi Gallery is in what country",tuscany,tuscany q: the uffizi gallery is in what country,True,exact_match
+cul_049,culture,C,Tuscany," Tuscany
+
+Q: The Uffizi Gallery is in a city",tuscany,tuscany q: the uffizi gallery is in a city,True,exact_match
+cul_049,culture,D,Tuscany," Tuscany
+
+Fact 1: The Uffizi Gallery is in Florence",tuscany,tuscany fact 1: the uffizi gallery is in florence,True,exact_match
+cul_049,culture,E,Tuscany,"
+
+The following is a list of the top 10 most popular questions asked by",tuscany,following is a list of the top 10 most popular questions asked by,False,wrong
+cul_050,culture,A,Louisiana," Louisiana
+
+Fact 3: The Mardi Gras is a celebration of the",louisiana,louisiana fact 3: the mardi gras is a celebration of the,True,exact_match
+cul_050,culture,B,Louisiana," Louisiana
+
+Q: What is the capital of the state of Louisiana?
+",louisiana,louisiana q: what is the capital of the state of louisiana,True,exact_match
+cul_050,culture,C,Louisiana," Louisiana
+
+Q: The United States is a country in the western hemisphere.",louisiana,louisiana q: the united states is a country in the western hemisphere,True,exact_match
+cul_050,culture,D,Louisiana," Louisiana
+
+Fact 1: The human body is made up of about 60%",louisiana,louisiana fact 1: the human body is made up of about 60%,True,exact_match
+cul_050,culture,E,Louisiana,"
+
+The following is a list of the top 10 most popular questions asked by",louisiana,following is a list of the top 10 most popular questions asked by,False,wrong

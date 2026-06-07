@@ -55,6 +55,10 @@ figures/phase_4b_attention/pythia-2.8b/
 
 Generated files inside `results/` and `figures/` also start with the model slug, for example `qwen2.5-3b_noisy_layer_patch_summary.csv`.
 
+Processed datasets and the concise thesis results summary are versioned.
+Generated results, figures, pipeline logs, caches, model weights, and local
+tool configuration are ignored by Git.
+
 All generation is deterministic (`do_sample=False`, `temperature=0`). The Pythia workflow uses TransformerLens directly. Qwen support is routed through the same phase scripts with model-specific output folders and contrast files.
 
 ## Quick Start
@@ -84,12 +88,6 @@ Dry-run a workflow without GPU work:
 
 ```powershell
 python scripts/run_model_pipeline.py --preset qwen-full-end-to-end --dry-run
-```
-
-Detailed runner documentation is in:
-
-```text
-docs/run_model_pipeline.md
 ```
 
 ## Current Status
@@ -156,15 +154,16 @@ See `docs/results_analysis/full_results_synthesis.md` for the full analysis. Cur
 - Available causal patching evidence generally points to mid-to-late or late-layer mediation.
 - Logit lens and attention heatmaps are diagnostic, not causal evidence.
 
-Strongest current mechanistic contrasts:
+Canonical final-thesis mechanistic contrasts:
 
 | Model | Contrast | n | Peak layer |
 | --- | --- | ---: | --- |
 | Pythia-2.8B | A->C clean structured improvement | 38 | L31 |
 | Qwen2.5-3B | B->D noisy recovery | 104 | L34 |
-| Qwen2.5-3B | B->A direct noise damage | 136 | L35 |
-| Qwen2.5-3B | C->D structured noise stability | 29 | L34 |
-| Qwen2.5-3B | C->A clean degradation / direct recovery | 44 | L33 |
+
+The additional Qwen contrast files are retained as behavioural context and
+supported pipeline inputs, but they are not presented as canonical Phase 3/4
+evidence in the final thesis.
 
 ## Pipeline Phases
 
@@ -260,15 +259,6 @@ Regenerate clean Qwen Phase 5 outputs only:
 python scripts/run_model_pipeline.py --preset qwen-steering-full --clean-phase5 --yes
 ```
 
-Phase 5 docs:
-
-```text
-docs/phase_5a_steering_calibration/phase_5a_calibration.md
-docs/phase_5b_activation_steering/phase_5b_method.md
-docs/phase_5b_activation_steering/phase_5b_usage.md
-docs/phase_5c_steering_analysis/phase_5c_analysis.md
-```
-
 ## Repository Structure
 
 ```text
@@ -276,11 +266,7 @@ dataset/
   raw/
   processed/<model_slug>/
 docs/
-  run_model_pipeline.md
-  results_analysis/
-  phase_5a_steering_calibration/
-  phase_5b_activation_steering/
-  phase_5c_steering_analysis/
+  results_analysis/full_results_synthesis.md
 figures/
   <phase>/<model_slug>/
 logs/

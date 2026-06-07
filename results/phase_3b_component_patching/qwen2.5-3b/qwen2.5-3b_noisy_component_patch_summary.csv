@@ -1,0 +1,11 @@
+layer,component,hook_name,metric,mean_delta,std_delta,n_examples
+31,attn_out,blocks.31.hook_attn_out,logit,0.6274789663461539,0.8823411771457095,104
+31,mlp_out,blocks.31.hook_mlp_out,logit,0.5829702524038461,0.8267884145056777,104
+32,attn_out,blocks.32.hook_attn_out,logit,0.9447115384615384,0.9612975280071604,104
+32,mlp_out,blocks.32.hook_mlp_out,logit,0.3386418269230769,0.503293370977083,104
+33,attn_out,blocks.33.hook_attn_out,logit,1.3439753605769231,1.5235066213512138,104
+33,mlp_out,blocks.33.hook_mlp_out,logit,0.16834435096153846,0.8500923458164681,104
+34,attn_out,blocks.34.hook_attn_out,logit,0.3555438701923077,0.2028184392932255,104
+34,mlp_out,blocks.34.hook_mlp_out,logit,-0.19110576923076922,0.9869509183349926,104
+35,attn_out,blocks.35.hook_attn_out,logit,-0.037034254807692304,0.19316398735545778,104
+35,mlp_out,blocks.35.hook_mlp_out,logit,1.4779146634615385,2.071649793728554,104

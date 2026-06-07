@@ -1,0 +1,724 @@
+[
+  {
+    "example_id": "geo_006",
+    "domain": "geography",
+    "gold_answer": "South America",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Brasilia is the capital of Brazil.\nFact 2: Brazil is located in South America.\n\nQ: The city of Brasilia is located on what continent?\nA:",
+      "prefix_eos_pad": 116,
+      "generated_answer_raw": " North America\n\nQ: The capital of what country?\nA: United",
+      "generated_answer_normalised": "north america",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Brasilia is the capital of Brazil.\nFact 2: Brazil is located in South America.\n\nQ: The city of Brasilia is located on what continent?\nStep 1: Brasilia is the capital of Brazil.\nStep 2: Brazil is located in South America.\nAnswer:",
+      "prefix_eos_pad": 46,
+      "generated_answer_raw": " South America\n\nQ: The city of Brasilia is located on what continent",
+      "generated_answer_normalised": "south america",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "geo_029",
+    "domain": "geography",
+    "gold_answer": "the Pacific Ocean",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: The Great Barrier Reef is in Australia.\nFact 2: Australia is surrounded by the Pacific Ocean.\n\nQ: The Great Barrier Reef is in a country surrounded by what ocean?\nA:",
+      "prefix_eos_pad": 120,
+      "generated_answer_raw": " Australia\n\nQ: The Great Barrier Reef is in a country in",
+      "generated_answer_normalised": "australia",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: The Great Barrier Reef is in Australia.\nFact 2: Australia is surrounded by the Pacific Ocean.\n\nQ: The Great Barrier Reef is in a country surrounded by what ocean?\nStep 1: The Great Barrier Reef is in Australia.\nStep 2: Australia is surrounded by the Pacific Ocean.\nAnswer:",
+      "prefix_eos_pad": 47,
+      "generated_answer_raw": " the Pacific Ocean\n\nQ: The Great Barrier Reef is in a",
+      "generated_answer_normalised": "the pacific ocean",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "geo_030",
+    "domain": "geography",
+    "gold_answer": "the Atlantic Ocean",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: The Amazon River flows through Brazil.\nFact 2: Brazil borders the Atlantic Ocean.\n\nQ: The Amazon River flows through a country bordering what ocean?\nA:",
+      "prefix_eos_pad": 106,
+      "generated_answer_raw": " The Amazon River\n\nQ: The Amazon River flows through what country?\n",
+      "generated_answer_normalised": "the amazon river",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: The Amazon River flows through Brazil.\nFact 2: Brazil borders the Atlantic Ocean.\n\nQ: The Amazon River flows through a country bordering what ocean?\nStep 1: The Amazon River flows through Brazil.\nStep 2: Brazil borders the Atlantic Ocean.\nAnswer:",
+      "prefix_eos_pad": 38,
+      "generated_answer_raw": " the Atlantic Ocean\n\nQ: The Amazon River flows through a country bordering",
+      "generated_answer_normalised": "the atlantic ocean",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "geo_037",
+    "domain": "geography",
+    "gold_answer": "South America",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Bogota is the capital of Colombia.\nFact 2: Colombia is located in South America.\n\nQ: The city of Bogota is located on what continent?\nA:",
+      "prefix_eos_pad": 109,
+      "generated_answer_raw": " North America\n\nQ: The capital of what country?\nA: United",
+      "generated_answer_normalised": "north america",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Bogota is the capital of Colombia.\nFact 2: Colombia is located in South America.\n\nQ: The city of Bogota is located on what continent?\nStep 1: Bogota is the capital of Colombia.\nStep 2: Colombia is located in South America.\nAnswer:",
+      "prefix_eos_pad": 39,
+      "generated_answer_raw": " South America\n\nQ: The city of Bogota is located on what continent",
+      "generated_answer_normalised": "south america",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "geo_038",
+    "domain": "geography",
+    "gold_answer": "three",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Pretoria is the capital of South Africa.\nFact 2: South Africa has three official capital cities.\n\nQ: Pretoria is a capital of a country with how many official capitals?\nA:",
+      "prefix_eos_pad": 118,
+      "generated_answer_raw": " 2\n\nQ: What is the capital of South Africa?\nA:",
+      "generated_answer_normalised": "2",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Pretoria is the capital of South Africa.\nFact 2: South Africa has three official capital cities.\n\nQ: Pretoria is a capital of a country with how many official capitals?\nStep 1: Pretoria is the capital of South Africa.\nStep 2: South Africa has three official capital cities.\nAnswer:",
+      "prefix_eos_pad": 46,
+      "generated_answer_raw": " three\n\nQ: The capital of the United States is Washington, D.",
+      "generated_answer_normalised": "three",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "geo_043",
+    "domain": "geography",
+    "gold_answer": "South America",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Quito is the capital of Ecuador.\nFact 2: Ecuador is located in South America.\n\nQ: The city of Quito is located on what continent?\nA:",
+      "prefix_eos_pad": 114,
+      "generated_answer_raw": " North America\n\nQ: The capital of Ecuador is located in what continent?",
+      "generated_answer_normalised": "north america",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Quito is the capital of Ecuador.\nFact 2: Ecuador is located in South America.\n\nQ: The city of Quito is located on what continent?\nStep 1: Quito is the capital of Ecuador.\nStep 2: Ecuador is located in South America.\nAnswer:",
+      "prefix_eos_pad": 43,
+      "generated_answer_raw": " South America\n\nQ: The city of Quito is located in what",
+      "generated_answer_normalised": "south america",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "geo_046",
+    "domain": "geography",
+    "gold_answer": "230 million",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Islamabad is the capital of Pakistan.\nFact 2: Pakistan has a population of over 230 million.\n\nQ: Islamabad is the capital of a country with a population of over how many?\nA:",
+      "prefix_eos_pad": 114,
+      "generated_answer_raw": " Pakistan has a population of over 230 million.\n\nQ: What is the",
+      "generated_answer_normalised": "pakistan has a population of over 230 million",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Islamabad is the capital of Pakistan.\nFact 2: Pakistan has a population of over 230 million.\n\nQ: Islamabad is the capital of a country with a population of over how many?\nStep 1: Islamabad is the capital of Pakistan.\nStep 2: Pakistan has a population of over 230 million.\nAnswer:",
+      "prefix_eos_pad": 42,
+      "generated_answer_raw": " 230 million\n\nQ: The capital of the United States is Washington, D",
+      "generated_answer_normalised": "230 million",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "sci_007",
+    "domain": "science",
+    "gold_answer": "6",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Diamonds are made of carbon.\nFact 2: Carbon has the atomic number 6.\n\nQ: Diamonds are made of an element with what atomic number?\nA:",
+      "prefix_eos_pad": 107,
+      "generated_answer_raw": " Carbon\n\nQ: What is the atomic number of carbon?\nA:",
+      "generated_answer_normalised": "carbon",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Diamonds are made of carbon.\nFact 2: Carbon has the atomic number 6.\n\nQ: Diamonds are made of an element with what atomic number?\nStep 1: Diamonds are made of carbon.\nStep 2: Carbon has the atomic number 6.\nAnswer:",
+      "prefix_eos_pad": 38,
+      "generated_answer_raw": " 6\n\nQ: The number of atoms in a diamond is the same as",
+      "generated_answer_normalised": "6",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "sci_012",
+    "domain": "science",
+    "gold_answer": "Fe",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Steel is an alloy containing iron.\nFact 2: Iron is a chemical element with symbol Fe.\n\nQ: Steel contains an element with what chemical symbol?\nA:",
+      "prefix_eos_pad": 114,
+      "generated_answer_raw": " Iron\n\nFact 1: The word \"steel\" is a chemical element",
+      "generated_answer_normalised": "iron",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Steel is an alloy containing iron.\nFact 2: Iron is a chemical element with symbol Fe.\n\nQ: Steel contains an element with what chemical symbol?\nStep 1: Steel is an alloy containing iron.\nStep 2: Iron is a chemical element with symbol Fe.\nAnswer:",
+      "prefix_eos_pad": 43,
+      "generated_answer_raw": " Fe\n\nQ: The chemical symbol for iron is Fe.\nStep 1",
+      "generated_answer_normalised": "fe",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "sci_019",
+    "domain": "science",
+    "gold_answer": "99.86 percent",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Pluto orbits the Sun.\nFact 2: The Sun contains about 99.86 percent of the solar system mass.\n\nQ: Pluto orbits an object that contains what percentage of solar system mass?\nA:",
+      "prefix_eos_pad": 118,
+      "generated_answer_raw": " 99.86%\n\nFact 3: The Sun orbits the Sun.\n",
+      "generated_answer_normalised": "99.86%",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Pluto orbits the Sun.\nFact 2: The Sun contains about 99.86 percent of the solar system mass.\n\nQ: Pluto orbits an object that contains what percentage of solar system mass?\nStep 1: Pluto orbits the Sun.\nStep 2: The Sun contains about 99.86 percent of the solar system mass.\nAnswer:",
+      "prefix_eos_pad": 43,
+      "generated_answer_raw": " 99.86 percent\n\nQ: The Sun is the closest star to the",
+      "generated_answer_normalised": "99.86 percent",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "sci_025",
+    "domain": "science",
+    "gold_answer": "ice particles",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Saturn has prominent rings.\nFact 2: The rings of Saturn are made mostly of ice particles.\n\nQ: The rings of Saturn are made mostly of what?\nA:",
+      "prefix_eos_pad": 115,
+      "generated_answer_raw": " ice\n\nQ: The rings of Saturn are made of what?\nA",
+      "generated_answer_normalised": "ice",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Saturn has prominent rings.\nFact 2: The rings of Saturn are made mostly of ice particles.\n\nQ: The rings of Saturn are made mostly of what?\nStep 1: Saturn has prominent rings.\nStep 2: The rings of Saturn are made mostly of ice particles.\nAnswer:",
+      "prefix_eos_pad": 44,
+      "generated_answer_raw": " ice particles\n\nQ: The rings of Saturn are made mostly of what?",
+      "generated_answer_normalised": "ice particles",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "sci_028",
+    "domain": "science",
+    "gold_answer": "CO2",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Dry ice is solid carbon dioxide.\nFact 2: Carbon dioxide has the chemical formula CO2.\n\nQ: Dry ice is the solid form of what chemical formula?\nA:",
+      "prefix_eos_pad": 118,
+      "generated_answer_raw": " Carbon dioxide\n\nQ: What is the chemical formula of dry ice?\n",
+      "generated_answer_normalised": "carbon dioxide",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Dry ice is solid carbon dioxide.\nFact 2: Carbon dioxide has the chemical formula CO2.\n\nQ: Dry ice is the solid form of what chemical formula?\nStep 1: Dry ice is solid carbon dioxide.\nStep 2: Carbon dioxide has the chemical formula CO2.\nAnswer:",
+      "prefix_eos_pad": 47,
+      "generated_answer_raw": " CO2\n\nQ: What is the chemical formula of dry ice?\n",
+      "generated_answer_normalised": "co2",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "sci_031",
+    "domain": "science",
+    "gold_answer": "electromagnetic radiation",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Chlorophyll absorbs sunlight.\nFact 2: Sunlight is a form of electromagnetic radiation.\n\nQ: Chlorophyll absorbs a form of what?\nA:",
+      "prefix_eos_pad": 116,
+      "generated_answer_raw": " Chlorophyll is a green pigment in plants.\n\nQ: What is",
+      "generated_answer_normalised": "chlorophyll is a green pigment in plants",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Chlorophyll absorbs sunlight.\nFact 2: Sunlight is a form of electromagnetic radiation.\n\nQ: Chlorophyll absorbs a form of what?\nStep 1: Chlorophyll absorbs sunlight.\nStep 2: Sunlight is a form of electromagnetic radiation.\nAnswer:",
+      "prefix_eos_pad": 45,
+      "generated_answer_raw": " electromagnetic radiation\n\nQ: What is the name of the plant that produces chlor",
+      "generated_answer_normalised": "electromagnetic radiation",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "sci_035",
+    "domain": "science",
+    "gold_answer": "4.6 billion years",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Comets orbit the Sun.\nFact 2: The Sun is about 4.6 billion years old.\n\nQ: Comets orbit a star that is how old?\nA:",
+      "prefix_eos_pad": 116,
+      "generated_answer_raw": " The Sun is 4.6 billion years old.\n\nQ: What is",
+      "generated_answer_normalised": "the sun is 4.6 billion years old",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Comets orbit the Sun.\nFact 2: The Sun is about 4.6 billion years old.\n\nQ: Comets orbit a star that is how old?\nStep 1: Comets orbit the Sun.\nStep 2: The Sun is about 4.6 billion years old.\nAnswer:",
+      "prefix_eos_pad": 44,
+      "generated_answer_raw": " 4.6 billion years\n\nQ: What is the name of the planet",
+      "generated_answer_normalised": "4.6 billion years",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "sci_037",
+    "domain": "science",
+    "gold_answer": "one",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Meteorites fall to Earth.\nFact 2: The Earth has one natural satellite.\n\nQ: Meteorites fall to a planet with how many natural satellites?\nA:",
+      "prefix_eos_pad": 112,
+      "generated_answer_raw": " Two\n\nQ: What is the capital of Austria?\nA: Vienna",
+      "generated_answer_normalised": "two",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Meteorites fall to Earth.\nFact 2: The Earth has one natural satellite.\n\nQ: Meteorites fall to a planet with how many natural satellites?\nStep 1: Meteorites fall to Earth.\nStep 2: The Earth has one natural satellite.\nAnswer:",
+      "prefix_eos_pad": 43,
+      "generated_answer_raw": " one\n\nQ: The Earth is the only planet in the solar system that",
+      "generated_answer_normalised": "one",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "sci_043",
+    "domain": "science",
+    "gold_answer": "thunderstorms",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Hail forms inside cumulonimbus clouds.\nFact 2: Cumulonimbus clouds are associated with thunderstorms.\n\nQ: Hail forms inside clouds associated with what?\nA:",
+      "prefix_eos_pad": 129,
+      "generated_answer_raw": " Hail is a cloud that forms inside thunderstorms.\n\nQ:",
+      "generated_answer_normalised": "hail is a cloud that forms inside thunderstorms",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Hail forms inside cumulonimbus clouds.\nFact 2: Cumulonimbus clouds are associated with thunderstorms.\n\nQ: Hail forms inside clouds associated with what?\nStep 1: Hail forms inside cumulonimbus clouds.\nStep 2: Cumulonimbus clouds are associated with thunderstorms.\nAnswer:",
+      "prefix_eos_pad": 50,
+      "generated_answer_raw": " thunderstorms\n\nQ: What is the capital of Austria?\nStep",
+      "generated_answer_normalised": "thunderstorms",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "sci_046",
+    "domain": "science",
+    "gold_answer": "thousands of years",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Stalactites form from mineral deposits.\nFact 2: Mineral deposits accumulate over thousands of years.\n\nQ: Stalactites form from material that accumulates over what time period?\nA:",
+      "prefix_eos_pad": 110,
+      "generated_answer_raw": " The stalactites form from mineral deposits.\n\nQ: What is the",
+      "generated_answer_normalised": "the stalactites form from mineral deposits",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Stalactites form from mineral deposits.\nFact 2: Mineral deposits accumulate over thousands of years.\n\nQ: Stalactites form from material that accumulates over what time period?\nStep 1: Stalactites form from mineral deposits.\nStep 2: Mineral deposits accumulate over thousands of years.\nAnswer:",
+      "prefix_eos_pad": 37,
+      "generated_answer_raw": " thousands of years\n\nQ: What is the name of the country where the",
+      "generated_answer_normalised": "thousands of years",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "sci_048",
+    "domain": "science",
+    "gold_answer": "light",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Black holes have extreme gravity.\nFact 2: Extreme gravity can bend light.\n\nQ: Black holes can bend what?\nA:",
+      "prefix_eos_pad": 110,
+      "generated_answer_raw": " The black hole is a region of space where gravity is so strong that nothing can",
+      "generated_answer_normalised": "the black hole is a region of space where gravity is so strong that nothing can",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Black holes have extreme gravity.\nFact 2: Extreme gravity can bend light.\n\nQ: Black holes can bend what?\nStep 1: Black holes have extreme gravity.\nStep 2: Extreme gravity can bend light.\nAnswer:",
+      "prefix_eos_pad": 42,
+      "generated_answer_raw": " light\n\nQ: What is the name of the planet that is the closest",
+      "generated_answer_normalised": "light",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "sci_050",
+    "domain": "science",
+    "gold_answer": "tectonic plate boundaries",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Tsunamis are caused by underwater earthquakes.\nFact 2: Underwater earthquakes occur along tectonic plate boundaries.\n\nQ: Tsunamis are caused by events that occur along what?\nA:",
+      "prefix_eos_pad": 122,
+      "generated_answer_raw": " The ocean floor\n\nQ: What is the capital of Austria?\nA",
+      "generated_answer_normalised": "the ocean floor",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Tsunamis are caused by underwater earthquakes.\nFact 2: Underwater earthquakes occur along tectonic plate boundaries.\n\nQ: Tsunamis are caused by events that occur along what?\nStep 1: Tsunamis are caused by underwater earthquakes.\nStep 2: Underwater earthquakes occur along tectonic plate boundaries.\nAnswer:",
+      "prefix_eos_pad": 47,
+      "generated_answer_raw": " tectonic plate boundaries\n\nQ: What is the capital of Austria?",
+      "generated_answer_normalised": "tectonic plate boundaries",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "bio_001",
+    "domain": "biology",
+    "gold_answer": "cellular respiration",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Hemoglobin carries oxygen in the blood.\nFact 2: Oxygen is essential for cellular respiration.\n\nQ: Hemoglobin carries a gas essential for what process?\nA:",
+      "prefix_eos_pad": 115,
+      "generated_answer_raw": " Oxygen is carried in the blood.\n\nQ: What is the name",
+      "generated_answer_normalised": "oxygen is carried in the blood",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Hemoglobin carries oxygen in the blood.\nFact 2: Oxygen is essential for cellular respiration.\n\nQ: Hemoglobin carries a gas essential for what process?\nStep 1: Hemoglobin carries oxygen in the blood.\nStep 2: Oxygen is essential for cellular respiration.\nAnswer:",
+      "prefix_eos_pad": 44,
+      "generated_answer_raw": " cellular respiration\n\nQ: What is the name of the body's largest organ",
+      "generated_answer_normalised": "cellular respiration",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "bio_002",
+    "domain": "biology",
+    "gold_answer": "the digestive system",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is an organ in the digestive system.\n\nQ: Insulin is produced by an organ in what system?\nA:",
+      "prefix_eos_pad": 114,
+      "generated_answer_raw": " The pancreas is an organ in the digestive system.\n\nQ: What is",
+      "generated_answer_normalised": "the pancreas is an organ in the digestive system",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is an organ in the digestive system.\n\nQ: Insulin is produced by an organ in what system?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is an organ in the digestive system.\nAnswer:",
+      "prefix_eos_pad": 41,
+      "generated_answer_raw": " the digestive system\n\nQ: What is the pancreas?\nStep 1:",
+      "generated_answer_normalised": "the digestive system",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "bio_009",
+    "domain": "biology",
+    "gold_answer": "nerve fibers",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Neurons transmit electrical signals.\nFact 2: Electrical signals in the body travel along nerve fibers.\n\nQ: Neurons transmit signals that travel along what?\nA:",
+      "prefix_eos_pad": 118,
+      "generated_answer_raw": " Neurons transmit electrical signals along nerve fibers.\n\nQ: What is",
+      "generated_answer_normalised": "neurons transmit electrical signals along nerve fibers",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Neurons transmit electrical signals.\nFact 2: Electrical signals in the body travel along nerve fibers.\n\nQ: Neurons transmit signals that travel along what?\nStep 1: Neurons transmit electrical signals.\nStep 2: Electrical signals in the body travel along nerve fibers.\nAnswer:",
+      "prefix_eos_pad": 46,
+      "generated_answer_raw": " nerve fibers\n\nQ: What is the name of the nerve fiber that carries",
+      "generated_answer_normalised": "nerve fibers",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "bio_011",
+    "domain": "biology",
+    "gold_answer": "amino acids",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Ribosomes synthesize proteins.\nFact 2: Proteins are made of amino acids.\n\nQ: Ribosomes synthesize molecules made of what?\nA:",
+      "prefix_eos_pad": 115,
+      "generated_answer_raw": " Ribosomes are the ribosomes.\n\nQ: What is the difference between",
+      "generated_answer_normalised": "ribosomes are the ribosomes",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Ribosomes synthesize proteins.\nFact 2: Proteins are made of amino acids.\n\nQ: Ribosomes synthesize molecules made of what?\nStep 1: Ribosomes synthesize proteins.\nStep 2: Proteins are made of amino acids.\nAnswer:",
+      "prefix_eos_pad": 48,
+      "generated_answer_raw": " Amino acids\n\nQ: The pancreas is located in what part of the",
+      "generated_answer_normalised": "amino acids",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "bio_014",
+    "domain": "biology",
+    "gold_answer": "chemical reactions",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Enzymes are biological catalysts.\nFact 2: Catalysts speed up chemical reactions.\n\nQ: Enzymes speed up what?\nA:",
+      "prefix_eos_pad": 113,
+      "generated_answer_raw": " The pancreas is the organ that produces insulin.\n\nQ: What is the",
+      "generated_answer_normalised": "the pancreas is the organ that produces insulin",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Enzymes are biological catalysts.\nFact 2: Catalysts speed up chemical reactions.\n\nQ: Enzymes speed up what?\nStep 1: Enzymes are biological catalysts.\nStep 2: Catalysts speed up chemical reactions.\nAnswer:",
+      "prefix_eos_pad": 44,
+      "generated_answer_raw": " chemical reactions\n\nQ: What is the most common cause of death in the",
+      "generated_answer_normalised": "chemical reactions",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "bio_019",
+    "domain": "biology",
+    "gold_answer": "carbon dioxide",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Photosynthesis occurs in leaves.\nFact 2: Leaves absorb carbon dioxide from the air.\n\nQ: Photosynthesis occurs in structures that absorb what gas?\nA:",
+      "prefix_eos_pad": 114,
+      "generated_answer_raw": " the leaves\n\nFact 1: The pancreas is a gland in the abdomen.",
+      "generated_answer_normalised": "the leaves",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Photosynthesis occurs in leaves.\nFact 2: Leaves absorb carbon dioxide from the air.\n\nQ: Photosynthesis occurs in structures that absorb what gas?\nStep 1: Photosynthesis occurs in leaves.\nStep 2: Leaves absorb carbon dioxide from the air.\nAnswer:",
+      "prefix_eos_pad": 44,
+      "generated_answer_raw": " carbon dioxide\n\nQ: The human body is made up of what tissue?",
+      "generated_answer_normalised": "carbon dioxide",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "bio_020",
+    "domain": "biology",
+    "gold_answer": "the vestibular system",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: The cerebellum controls balance.\nFact 2: Balance is maintained through the vestibular system.\n\nQ: The cerebellum controls a function maintained through what system?\nA:",
+      "prefix_eos_pad": 118,
+      "generated_answer_raw": " The cerebellum is a part of the brain.\n\nQ: What is the",
+      "generated_answer_normalised": "the cerebellum is a part of the brain",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: The cerebellum controls balance.\nFact 2: Balance is maintained through the vestibular system.\n\nQ: The cerebellum controls a function maintained through what system?\nStep 1: The cerebellum controls balance.\nStep 2: Balance is maintained through the vestibular system.\nAnswer:",
+      "prefix_eos_pad": 49,
+      "generated_answer_raw": " the vestibular system\n\nQ: The cerebellum is located in what part of",
+      "generated_answer_normalised": "the vestibular system",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "bio_022",
+    "domain": "biology",
+    "gold_answer": "tendons",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Collagen provides structural support.\nFact 2: Structural support is critical for tendons.\n\nQ: Collagen provides support critical for what body structure?\nA:",
+      "prefix_eos_pad": 109,
+      "generated_answer_raw": " The pancreas is a glandular organ in the abdomen.\n\nQ: What",
+      "generated_answer_normalised": "the pancreas is a glandular organ in the abdomen",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Collagen provides structural support.\nFact 2: Structural support is critical for tendons.\n\nQ: Collagen provides support critical for what body structure?\nStep 1: Collagen provides structural support.\nStep 2: Structural support is critical for tendons.\nAnswer:",
+      "prefix_eos_pad": 40,
+      "generated_answer_raw": " tendons\n\nQ: The pancreas is located in what part of the body",
+      "generated_answer_normalised": "tendons",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "bio_024",
+    "domain": "biology",
+    "gold_answer": "the kidneys",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Adrenaline is released by the adrenal glands.\nFact 2: The adrenal glands are located above the kidneys.\n\nQ: Adrenaline is released by glands located above what organs?\nA:",
+      "prefix_eos_pad": 120,
+      "generated_answer_raw": " The adrenal glands are located in the abdomen.\n\nQ: What is the",
+      "generated_answer_normalised": "the adrenal glands are located in the abdomen",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Adrenaline is released by the adrenal glands.\nFact 2: The adrenal glands are located above the kidneys.\n\nQ: Adrenaline is released by glands located above what organs?\nStep 1: Adrenaline is released by the adrenal glands.\nStep 2: The adrenal glands are located above the kidneys.\nAnswer:",
+      "prefix_eos_pad": 46,
+      "generated_answer_raw": " the kidneys\n\nQ: The adrenal glands are located above the kidneys.\n",
+      "generated_answer_normalised": "the kidneys",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "bio_027",
+    "domain": "biology",
+    "gold_answer": "CO2",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Stomata regulate gas exchange in leaves.\nFact 2: Gas exchange involves the intake of CO2 and release of O2.\n\nQ: Stomata regulate a process involving the intake of what gas?\nA:",
+      "prefix_eos_pad": 127,
+      "generated_answer_raw": " the process of breathing.\n\nQ: What is the difference between the lungs",
+      "generated_answer_normalised": "the process of breathing",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Stomata regulate gas exchange in leaves.\nFact 2: Gas exchange involves the intake of CO2 and release of O2.\n\nQ: Stomata regulate a process involving the intake of what gas?\nStep 1: Stomata regulate gas exchange in leaves.\nStep 2: Gas exchange involves the intake of CO2 and release of O2.\nAnswer:",
+      "prefix_eos_pad": 49,
+      "generated_answer_raw": " CO2\n\nQ: The human body is made up of what?\n",
+      "generated_answer_normalised": "co2",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "bio_035",
+    "domain": "biology",
+    "gold_answer": "calcium",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Tendons connect muscles to bones.\nFact 2: Bones contain calcium.\n\nQ: Tendons connect muscles to structures that contain what mineral?\nA:",
+      "prefix_eos_pad": 119,
+      "generated_answer_raw": " bones\n\nQ: What is the name of the pancreas?\nA:",
+      "generated_answer_normalised": "bones",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Tendons connect muscles to bones.\nFact 2: Bones contain calcium.\n\nQ: Tendons connect muscles to structures that contain what mineral?\nStep 1: Tendons connect muscles to bones.\nStep 2: Bones contain calcium.\nAnswer:",
+      "prefix_eos_pad": 51,
+      "generated_answer_raw": " calcium\n\nQ: What is the name of the body's largest organ?",
+      "generated_answer_normalised": "calcium",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "bio_036",
+    "domain": "biology",
+    "gold_answer": "the circulatory system",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Capillaries are the smallest blood vessels.\nFact 2: Blood vessels form the circulatory system.\n\nQ: The smallest structures in what system are capillaries?\nA:",
+      "prefix_eos_pad": 112,
+      "generated_answer_raw": " The smallest blood vessels in the body are the capillaries.\n\nQ",
+      "generated_answer_normalised": "the smallest blood vessels in the body are the capillaries",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Capillaries are the smallest blood vessels.\nFact 2: Blood vessels form the circulatory system.\n\nQ: The smallest structures in what system are capillaries?\nStep 1: Capillaries are the smallest blood vessels.\nStep 2: Blood vessels form the circulatory system.\nAnswer:",
+      "prefix_eos_pad": 40,
+      "generated_answer_raw": " the circulatory system\n\nQ: The circulatory system is the system of",
+      "generated_answer_normalised": "the circulatory system",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "bio_043",
+    "domain": "biology",
+    "gold_answer": "the pupil",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: The cornea refracts light entering the eye.\nFact 2: Light enters the eye through the pupil.\n\nQ: The cornea refracts a form of energy that enters the eye through what?\nA:",
+      "prefix_eos_pad": 117,
+      "generated_answer_raw": " The cornea refracts light.\n\nQ: What is the cornea",
+      "generated_answer_normalised": "the cornea refracts light",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: The cornea refracts light entering the eye.\nFact 2: Light enters the eye through the pupil.\n\nQ: The cornea refracts a form of energy that enters the eye through what?\nStep 1: The cornea refracts light entering the eye.\nStep 2: Light enters the eye through the pupil.\nAnswer:",
+      "prefix_eos_pad": 44,
+      "generated_answer_raw": " the pupil\n\nQ: The cornea refracts a form of energy that",
+      "generated_answer_normalised": "the pupil",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "bio_044",
+    "domain": "biology",
+    "gold_answer": "arthropods",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Hemocyanin carries oxygen in crustaceans.\nFact 2: Crustaceans are a group of arthropods.\n\nQ: Hemocyanin carries oxygen in a group of what?\nA:",
+      "prefix_eos_pad": 122,
+      "generated_answer_raw": " Crustaceans are a group of arthropods.\n\nQ:",
+      "generated_answer_normalised": "crustaceans are a group of arthropods",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Hemocyanin carries oxygen in crustaceans.\nFact 2: Crustaceans are a group of arthropods.\n\nQ: Hemocyanin carries oxygen in a group of what?\nStep 1: Hemocyanin carries oxygen in crustaceans.\nStep 2: Crustaceans are a group of arthropods.\nAnswer:",
+      "prefix_eos_pad": 45,
+      "generated_answer_raw": " arthropods\n\nQ: What is the capital of Austria?\nStep",
+      "generated_answer_normalised": "arthropods",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "cul_023",
+    "domain": "culture",
+    "gold_answer": "democracy",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: The Acropolis is located in Athens.\nFact 2: Athens was the birthplace of democracy.\n\nQ: The Acropolis is in a city considered the birthplace of what?\nA:",
+      "prefix_eos_pad": 122,
+      "generated_answer_raw": " Athens is the birthplace of democracy.\n\nQ: What is the capital",
+      "generated_answer_normalised": "athens is the birthplace of democracy",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: The Acropolis is located in Athens.\nFact 2: Athens was the birthplace of democracy.\n\nQ: The Acropolis is in a city considered the birthplace of what?\nStep 1: The Acropolis is located in Athens.\nStep 2: Athens was the birthplace of democracy.\nAnswer:",
+      "prefix_eos_pad": 51,
+      "generated_answer_raw": " democracy\n\nQ: The Acropolis is in a city considered the birthplace",
+      "generated_answer_normalised": "democracy",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "cul_032",
+    "domain": "culture",
+    "gold_answer": "the Mediterranean Sea",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Baklava is a pastry popular in Turkey.\nFact 2: Turkey borders the Mediterranean Sea.\n\nQ: Baklava is popular in a country that borders what sea?\nA:",
+      "prefix_eos_pad": 115,
+      "generated_answer_raw": " Turkey\n\nQ: What is the capital of the country?\nA:",
+      "generated_answer_normalised": "turkey",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Baklava is a pastry popular in Turkey.\nFact 2: Turkey borders the Mediterranean Sea.\n\nQ: Baklava is popular in a country that borders what sea?\nStep 1: Baklava is a pastry popular in Turkey.\nStep 2: Turkey borders the Mediterranean Sea.\nAnswer:",
+      "prefix_eos_pad": 44,
+      "generated_answer_raw": " the Mediterranean Sea\n\nQ: The Mediterranean Sea is the largest body of water",
+      "generated_answer_normalised": "the mediterranean sea",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "cul_033",
+    "domain": "culture",
+    "gold_answer": "South America",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: Capoeira originated in Brazil.\nFact 2: Brazil is the largest country in South America.\n\nQ: Capoeira originated in the largest country on what continent?\nA:",
+      "prefix_eos_pad": 116,
+      "generated_answer_raw": " Africa\n\nQ: What is the capital of Brazil?\nA: Bras",
+      "generated_answer_normalised": "africa",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: Capoeira originated in Brazil.\nFact 2: Brazil is the largest country in South America.\n\nQ: Capoeira originated in the largest country on what continent?\nStep 1: Capoeira originated in Brazil.\nStep 2: Brazil is the largest country in South America.\nAnswer:",
+      "prefix_eos_pad": 45,
+      "generated_answer_raw": " South America\n\nQ: The word \"capoeira\" is a Brazilian",
+      "generated_answer_normalised": "south america",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "cul_039",
+    "domain": "culture",
+    "gold_answer": "1147",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: The Bolshoi Theatre is in Moscow.\nFact 2: Moscow was founded in the year 1147.\n\nQ: The Bolshoi Theatre is in a city founded in what year?\nA:",
+      "prefix_eos_pad": 119,
+      "generated_answer_raw": " The Bolshoi Theatre was founded in the year 1147.\n\nQ",
+      "generated_answer_normalised": "the bolshoi theatre was founded in the year 1147",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: The Bolshoi Theatre is in Moscow.\nFact 2: Moscow was founded in the year 1147.\n\nQ: The Bolshoi Theatre is in a city founded in what year?\nStep 1: The Bolshoi Theatre is in Moscow.\nStep 2: Moscow was founded in the year 1147.\nAnswer:",
+      "prefix_eos_pad": 46,
+      "generated_answer_raw": " 1147\n\nQ: The Bolshoi Theatre is in what city?",
+      "generated_answer_normalised": "1147",
+      "correct": true
+    }
+  },
+  {
+    "example_id": "cul_042",
+    "domain": "culture",
+    "gold_answer": "the West Bank",
+    "cell_A": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nA: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nA: the abdomen\n\nFact 1: The Dead Sea Scrolls were found near Qumran.\nFact 2: Qumran is located in the West Bank.\n\nQ: The Dead Sea Scrolls were found near a site in what territory?\nA:",
+      "prefix_eos_pad": 119,
+      "generated_answer_raw": " The Dead Sea Scrolls were found near the Dead Sea.\n\nQ:",
+      "generated_answer_normalised": "the dead sea scrolls were found near the dead sea",
+      "correct": false
+    },
+    "cell_C": {
+      "prompt": "Fact 1: The Danube River flows through Vienna.\nFact 2: Vienna is the capital of Austria.\n\nQ: The Danube River flows through the capital of what country?\nStep 1: The Danube River flows through Vienna.\nStep 2: Vienna is the capital of Austria.\nAnswer: Austria\n\nFact 1: Insulin is produced by the pancreas.\nFact 2: The pancreas is located in the abdomen.\n\nQ: Insulin is produced by an organ located in what part of the body?\nStep 1: Insulin is produced by the pancreas.\nStep 2: The pancreas is located in the abdomen.\nAnswer: the abdomen\n\nFact 1: The Dead Sea Scrolls were found near Qumran.\nFact 2: Qumran is located in the West Bank.\n\nQ: The Dead Sea Scrolls were found near a site in what territory?\nStep 1: The Dead Sea Scrolls were found near Qumran.\nStep 2: Qumran is located in the West Bank.\nAnswer:",
+      "prefix_eos_pad": 42,
+      "generated_answer_raw": " the West Bank\n\nQ: The Dead Sea Scrolls were found near what",
+      "generated_answer_normalised": "the west bank",
+      "correct": true
+    }
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "model": "Qwen/Qwen2.5-3B",
+  "source_cell": "B",
+  "donor_cell": "D",
+  "layer": 8,
+  "requested_layer": 32,
+  "hook": "resid_post",
+  "token_position": "final_prompt_token",
+  "n_train": 72,
+  "vector_shape": [
+    2048
+  ],
+  "vector_l2_norm": 38.787147521972656,
+  "vector_mean": -0.003984186798334122,
+  "vector_std": 0.8570737242698669,
+  "train_frac": 0.7,
+  "seed": 42,
+  "control": "early_layer",
+  "random_seed_info": [],
+  "skipped_train_examples": []
+}

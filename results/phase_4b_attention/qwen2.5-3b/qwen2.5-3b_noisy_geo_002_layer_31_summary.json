@@ -1,0 +1,211 @@
+{
+  "example_id": "geo_002",
+  "layer": 31,
+  "final_token_index": 233,
+  "cell_B": {
+    "region_attention_summary": {
+      "few_shot_prefix": 0.25523,
+      "final_example_fact_1": 0.077145,
+      "final_example_fact_2": 0.130372,
+      "final_example_question": 0.333313,
+      "final_example_answer_cue": 0.203941,
+      "support_facts_total": 0.207517,
+      "structured_scaffold_total": 0.0
+    },
+    "max_attended_token_index": 233,
+    "max_attended_token_label": ":",
+    "max_attended_token_region": "final_example_answer_cue",
+    "top_tokens_cell_B": [
+      {
+        "token_index": 233,
+        "token_label": ":",
+        "token_text": ":",
+        "attention": 0.13896,
+        "region": "final_example_answer_cue"
+      },
+      {
+        "token_index": 83,
+        "token_label": "·",
+        "token_text": " ",
+        "attention": 0.135426,
+        "region": "few_shot_prefix"
+      },
+      {
+        "token_index": 225,
+        "token_label": " Tokyo",
+        "token_text": " Tokyo",
+        "attention": 0.112878,
+        "region": "final_example_question"
+      },
+      {
+        "token_index": 232,
+        "token_label": "A",
+        "token_text": "A",
+        "attention": 0.064981,
+        "region": "final_example_answer_cue"
+      },
+      {
+        "token_index": 230,
+        "token_label": " continent",
+        "token_text": " continent",
+        "attention": 0.063457,
+        "region": "final_example_question"
+      }
+    ]
+  },
+  "cell_D": {
+    "region_attention_summary": {
+      "few_shot_prefix": 0.240736,
+      "final_example_fact_1": 0.021783,
+      "final_example_fact_2": 0.127035,
+      "final_example_question": 0.242414,
+      "final_example_step_1": 0.083167,
+      "final_example_step_2": 0.176902,
+      "final_example_answer_cue": 0.107962,
+      "support_facts_total": 0.148818,
+      "structured_scaffold_total": 0.260069
+    },
+    "max_attended_token_index": 1,
+    "max_attended_token_label": "·",
+    "max_attended_token_region": "few_shot_prefix",
+    "top_tokens_cell_D": [
+      {
+        "token_index": 1,
+        "token_label": "·",
+        "token_text": " ",
+        "attention": 0.13043,
+        "region": "few_shot_prefix"
+      },
+      {
+        "token_index": 230,
+        "token_label": " Asia",
+        "token_text": " Asia",
+        "attention": 0.087965,
+        "region": "final_example_step_2"
+      },
+      {
+        "token_index": 209,
+        "token_label": " continent",
+        "token_text": " continent",
+        "attention": 0.082548,
+        "region": "final_example_question"
+      },
+      {
+        "token_index": 233,
+        "token_label": ":",
+        "token_text": ":",
+        "attention": 0.061145,
+        "region": "final_example_answer_cue"
+      },
+      {
+        "token_index": 204,
+        "token_label": " Tokyo",
+        "token_text": " Tokyo",
+        "attention": 0.057259,
+        "region": "final_example_question"
+      }
+    ]
+  },
+  "region_boundaries": {
+    "cell_B": [
+      {
+        "name": "few_shot_prefix",
+        "label": "Few-shot prefix",
+        "char_start": 0,
+        "char_end": 1254,
+        "token_start": 0,
+        "token_end": 159
+      },
+      {
+        "name": "final_example_fact_1",
+        "label": "Fact 1",
+        "char_start": 1254,
+        "char_end": 1293,
+        "token_start": 159,
+        "token_end": 170
+      },
+      {
+        "name": "final_example_fact_2",
+        "label": "Fact 2",
+        "char_start": 1293,
+        "char_end": 1494,
+        "token_start": 170,
+        "token_end": 220
+      },
+      {
+        "name": "final_example_question",
+        "label": "Question",
+        "char_start": 1494,
+        "char_end": 1545,
+        "token_start": 220,
+        "token_end": 232
+      },
+      {
+        "name": "final_example_answer_cue",
+        "label": "Answer cue",
+        "char_start": 1545,
+        "char_end": 1547,
+        "token_start": 232,
+        "token_end": 234
+      }
+    ],
+    "cell_D": [
+      {
+        "name": "few_shot_prefix",
+        "label": "Few-shot prefix",
+        "char_start": 0,
+        "char_end": 536,
+        "token_start": 0,
+        "token_end": 138
+      },
+      {
+        "name": "final_example_fact_1",
+        "label": "Fact 1",
+        "char_start": 536,
+        "char_end": 575,
+        "token_start": 138,
+        "token_end": 149
+      },
+      {
+        "name": "final_example_fact_2",
+        "label": "Fact 2",
+        "char_start": 575,
+        "char_end": 776,
+        "token_start": 149,
+        "token_end": 199
+      },
+      {
+        "name": "final_example_question",
+        "label": "Question",
+        "char_start": 776,
+        "char_end": 827,
+        "token_start": 199,
+        "token_end": 211
+      },
+      {
+        "name": "final_example_step_1",
+        "label": "Step 1",
+        "char_start": 827,
+        "char_end": 866,
+        "token_start": 211,
+        "token_end": 222
+      },
+      {
+        "name": "final_example_step_2",
+        "label": "Step 2",
+        "char_start": 866,
+        "char_end": 900,
+        "token_start": 222,
+        "token_end": 232
+      },
+      {
+        "name": "final_example_answer_cue",
+        "label": "Answer cue",
+        "char_start": 900,
+        "char_end": 907,
+        "token_start": 232,
+        "token_end": 234
+      }
+    ]
+  }
+}

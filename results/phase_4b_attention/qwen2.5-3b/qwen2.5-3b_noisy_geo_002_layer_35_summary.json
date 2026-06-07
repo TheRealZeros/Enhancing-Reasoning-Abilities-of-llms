@@ -1,0 +1,211 @@
+{
+  "example_id": "geo_002",
+  "layer": 35,
+  "final_token_index": 233,
+  "cell_B": {
+    "region_attention_summary": {
+      "few_shot_prefix": 0.406217,
+      "final_example_fact_1": 0.017664,
+      "final_example_fact_2": 0.100289,
+      "final_example_question": 0.15376,
+      "final_example_answer_cue": 0.322071,
+      "support_facts_total": 0.117953,
+      "structured_scaffold_total": 0.0
+    },
+    "max_attended_token_index": 233,
+    "max_attended_token_label": ":",
+    "max_attended_token_region": "final_example_answer_cue",
+    "top_tokens_cell_B": [
+      {
+        "token_index": 233,
+        "token_label": ":",
+        "token_text": ":",
+        "attention": 0.280691,
+        "region": "final_example_answer_cue"
+      },
+      {
+        "token_index": 83,
+        "token_label": "·",
+        "token_text": " ",
+        "attention": 0.068,
+        "region": "few_shot_prefix"
+      },
+      {
+        "token_index": 232,
+        "token_label": "A",
+        "token_text": "A",
+        "attention": 0.04138,
+        "region": "final_example_answer_cue"
+      },
+      {
+        "token_index": 231,
+        "token_label": "?\\n",
+        "token_text": "?\n",
+        "attention": 0.024123,
+        "region": "final_example_question"
+      },
+      {
+        "token_index": 230,
+        "token_label": " continent",
+        "token_text": " continent",
+        "attention": 0.017769,
+        "region": "final_example_question"
+      }
+    ]
+  },
+  "cell_D": {
+    "region_attention_summary": {
+      "few_shot_prefix": 0.420184,
+      "final_example_fact_1": 0.037436,
+      "final_example_fact_2": 0.072158,
+      "final_example_question": 0.058843,
+      "final_example_step_1": 0.078619,
+      "final_example_step_2": 0.131057,
+      "final_example_answer_cue": 0.201704,
+      "support_facts_total": 0.109594,
+      "structured_scaffold_total": 0.209676
+    },
+    "max_attended_token_index": 1,
+    "max_attended_token_label": "·",
+    "max_attended_token_region": "few_shot_prefix",
+    "top_tokens_cell_D": [
+      {
+        "token_index": 1,
+        "token_label": "·",
+        "token_text": " ",
+        "attention": 0.215674,
+        "region": "few_shot_prefix"
+      },
+      {
+        "token_index": 233,
+        "token_label": ":",
+        "token_text": ":",
+        "attention": 0.145767,
+        "region": "final_example_answer_cue"
+      },
+      {
+        "token_index": 13,
+        "token_label": "·",
+        "token_text": " ",
+        "attention": 0.060745,
+        "region": "few_shot_prefix"
+      },
+      {
+        "token_index": 232,
+        "token_label": "Answer",
+        "token_text": "Answer",
+        "attention": 0.055937,
+        "region": "final_example_answer_cue"
+      },
+      {
+        "token_index": 231,
+        "token_label": ".\\n",
+        "token_text": ".\n",
+        "attention": 0.038101,
+        "region": "final_example_step_2"
+      }
+    ]
+  },
+  "region_boundaries": {
+    "cell_B": [
+      {
+        "name": "few_shot_prefix",
+        "label": "Few-shot prefix",
+        "char_start": 0,
+        "char_end": 1254,
+        "token_start": 0,
+        "token_end": 159
+      },
+      {
+        "name": "final_example_fact_1",
+        "label": "Fact 1",
+        "char_start": 1254,
+        "char_end": 1293,
+        "token_start": 159,
+        "token_end": 170
+      },
+      {
+        "name": "final_example_fact_2",
+        "label": "Fact 2",
+        "char_start": 1293,
+        "char_end": 1494,
+        "token_start": 170,
+        "token_end": 220
+      },
+      {
+        "name": "final_example_question",
+        "label": "Question",
+        "char_start": 1494,
+        "char_end": 1545,
+        "token_start": 220,
+        "token_end": 232
+      },
+      {
+        "name": "final_example_answer_cue",
+        "label": "Answer cue",
+        "char_start": 1545,
+        "char_end": 1547,
+        "token_start": 232,
+        "token_end": 234
+      }
+    ],
+    "cell_D": [
+      {
+        "name": "few_shot_prefix",
+        "label": "Few-shot prefix",
+        "char_start": 0,
+        "char_end": 536,
+        "token_start": 0,
+        "token_end": 138
+      },
+      {
+        "name": "final_example_fact_1",
+        "label": "Fact 1",
+        "char_start": 536,
+        "char_end": 575,
+        "token_start": 138,
+        "token_end": 149
+      },
+      {
+        "name": "final_example_fact_2",
+        "label": "Fact 2",
+        "char_start": 575,
+        "char_end": 776,
+        "token_start": 149,
+        "token_end": 199
+      },
+      {
+        "name": "final_example_question",
+        "label": "Question",
+        "char_start": 776,
+        "char_end": 827,
+        "token_start": 199,
+        "token_end": 211
+      },
+      {
+        "name": "final_example_step_1",
+        "label": "Step 1",
+        "char_start": 827,
+        "char_end": 866,
+        "token_start": 211,
+        "token_end": 222
+      },
+      {
+        "name": "final_example_step_2",
+        "label": "Step 2",
+        "char_start": 866,
+        "char_end": 900,
+        "token_start": 222,
+        "token_end": 232
+      },
+      {
+        "name": "final_example_answer_cue",
+        "label": "Answer cue",
+        "char_start": 900,
+        "char_end": 907,
+        "token_start": 232,
+        "token_end": 234
+      }
+    ]
+  }
+}

@@ -1,0 +1,2798 @@
+example_id,domain,cell,generated_answer_raw,generated_answer_normalised,gold_answer,correct,error,input_token_count,output_token_count
+geo_001,geography,A," Europe
+
+Fact 1: The Danube River flows through the capital of what",europe,Europe,True,False,237,16
+geo_001,geography,B," Europe
+
+Fact 1: Paris is the capital of France.
+Fact 2",europe,Europe,True,False,237,16
+geo_001,geography,C," Europe
+
+Q: The city of Paris is located on what continent?
+Step ",europe,Europe,True,False,237,16
+geo_001,geography,D," Europe
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",europe,Europe,True,False,237,16
+geo_001,geography,E,,,Europe,False,False,237,1
+geo_002,geography,A," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,Asia,True,False,234,16
+geo_002,geography,B," the city of Tokyo is located on what continent?
+A: the city of Tokyo",the city of tokyo is located on what continent,Asia,False,False,234,16
+geo_002,geography,C," Asia
+
+Fact 1: Tokyo is the capital of Japan.
+Fact 2",asia,Asia,True,False,234,16
+geo_002,geography,D," Asia
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",asia,Asia,True,False,234,16
+geo_002,geography,E,,,Asia,False,False,234,1
+geo_003,geography,A," the Australian dollar
+
+Fact 1: The Danube River flows through the capital",the australian dollar,the Australian dollar,True,False,251,16
+geo_003,geography,B," the Australian dollar as its currency.
+Fact 2: The first satellite Sput",the australian dollar as its currency,the Australian dollar,False,False,251,16
+geo_003,geography,C," the Australian dollar
+
+Fact 1: Canberra is the capital of a country that",the australian dollar,the Australian dollar,True,False,251,16
+geo_003,geography,D," the Australian dollar
+
+Fact 1: The Earth is tilted on its axis.
+",the australian dollar,the Australian dollar,True,False,251,16
+geo_003,geography,E,,,the Australian dollar,False,False,251,1
+geo_004,geography,A," North America
+
+Fact 1: The Danube River flows through the capital of",north america,North America,True,False,235,16
+geo_004,geography,B," the continent of Canada.
+Fact 2: The continent of Canada is located on",the continent of canada,North America,False,False,235,16
+geo_004,geography,C," North America
+
+Q: The city of Ottawa is located on what continent?
+Step",north america,North America,True,False,235,16
+geo_004,geography,D," North America
+
+Fact 1: The Earth is tilted on its axis.
+Fact",north america,North America,True,False,235,16
+geo_004,geography,E,,,North America,False,False,235,1
+geo_005,geography,A," the European Union
+
+Fact 1: The Danube River flows through the capital",the european union,the European Union,True,False,248,16
+geo_005,geography,B," the European Union
+
+Q: Berlin is the capital of the most populous country in",the european union,the European Union,True,False,248,16
+geo_005,geography,C," the European Union
+
+Q: Berlin is the capital of the most populous country in",the european union,the European Union,True,False,248,16
+geo_005,geography,D," the European Union
+You are an AI assistant that helps people find information. User",the european union,the European Union,True,False,248,16
+geo_005,geography,E,,,the European Union,False,False,248,1
+geo_006,geography,A," South America
+
+Fact 1: The Danube River flows through the capital of",south america,South America,True,False,249,16
+geo_006,geography,B," the continent of Brasilia is located in the abdomen.
+
+Fact 1: Bras",the continent of brasilia is located in the abdomen,South America,False,False,249,16
+geo_006,geography,C," South America
+
+Q: The city of Brasilia is located on what continent?
+",south america,South America,True,False,249,16
+geo_006,geography,D," South America
+
+Fact 1: The Earth is tilted on its axis.
+Fact",south america,South America,True,False,249,16
+geo_006,geography,E,,,South America,False,False,249,1
+geo_007,geography,A," Africa
+
+Fact 1: The Danube River flows through the capital of what",africa,Africa,True,False,241,16
+geo_007,geography,B," the city of Cairo is located in the capital of what country?
+A: the",the city of cairo is located in the capital of what country,Africa,False,False,241,16
+geo_007,geography,C," Africa
+
+Fact 1: Cairo is the capital of Egypt.
+Fact 2",africa,Africa,True,False,241,16
+geo_007,geography,D," Africa
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",africa,Africa,True,False,241,16
+geo_007,geography,E,,,Africa,False,False,241,1
+geo_008,geography,A," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,Asia,True,False,242,16
+geo_008,geography,B," Beijing is the capital of China.
+Fact 2: Bats are the only",beijing is the capital of china,Asia,False,False,242,16
+geo_008,geography,C," Asia
+
+Q: The city of Beijing is located on what continent?
+Step ",asia,Asia,True,False,242,16
+geo_008,geography,D," Asia
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",asia,Asia,True,False,242,16
+geo_008,geography,E,,,Asia,False,False,242,1
+geo_009,geography,A," the largest land area of any country
+
+Fact 1: The Danube River",the largest land area of any country,largest land area,False,False,244,16
+geo_009,geography,B," the capital of Russia.
+Fact 2: The capital of Russia.
+Fact ",the capital of russia,largest land area,False,False,244,16
+geo_009,geography,C," the capital of the country is located in the country.
+
+Fact 1: Moscow",the capital of the country is located in the country,largest land area,False,False,244,16
+geo_009,geography,D," Russia has the largest land area of any country.
+You are an AI assistant that",russia has the largest land area of any country,largest land area,False,False,244,16
+geo_009,geography,E,,,largest land area,False,False,244,1
+geo_010,geography,A," the Pacific Ocean
+
+Fact 1: The Danube River flows through the capital",the pacific ocean,the Pacific Ocean,True,False,238,16
+geo_010,geography,B," Lima is the capital of Peru.
+Fact 2: Cacti store water",lima is the capital of peru,the Pacific Ocean,False,False,238,16
+geo_010,geography,C," the Pacific Ocean
+
+Fact 1: Lima is the capital of Peru.
+Fact",the pacific ocean,the Pacific Ocean,True,False,238,16
+geo_010,geography,D," The Pacific Ocean
+
+Fact 1: The Earth is tilted on its axis.
+",the pacific ocean,the Pacific Ocean,True,False,238,16
+geo_010,geography,E,,,the Pacific Ocean,False,False,238,1
+geo_011,geography,A," Europe
+
+Fact 1: The Danube River flows through the capital of what",europe,Europe,True,False,231,16
+geo_011,geography,B," Madrid is located in Europe.
+Fact 1: Madrid is located in Europe.
+",madrid is located in europe,Europe,False,False,231,16
+geo_011,geography,C," Europe
+
+Fact 1: Madrid is the capital of Spain.
+Fact 2",europe,Europe,True,False,231,16
+geo_011,geography,D," Europe
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",europe,Europe,True,False,231,16
+geo_011,geography,E,,,Europe,False,False,231,1
+geo_012,geography,A," the euro
+
+Fact 1: The Danube River flows through the capital of",the euro,the euro,True,False,242,16
+geo_012,geography,B," the abdomen
+
+Fact 1: Rome is the capital of Italy.
+Fact ",the abdomen,the euro,False,False,242,16
+geo_012,geography,C," the euro
+
+Fact 1: Rome is the capital of a country that uses",the euro,the euro,True,False,242,16
+geo_012,geography,D," The euro
+
+Fact 1: The Earth is tilted on its axis.
+Fact",the euro,the euro,True,False,242,16
+geo_012,geography,E,,,the euro,False,False,242,1
+geo_013,geography,A," Africa
+
+Fact 1: The Danube River flows through the capital of what",africa,Africa,True,False,240,16
+geo_013,geography,B," Africa
+
+Fact 1: Nairobi is the capital of Kenya.
+Fact 2",africa,Africa,True,False,240,16
+geo_013,geography,C," Africa
+
+Fact 1: Nairobi is the capital of Kenya.
+Fact 2",africa,Africa,True,False,240,16
+geo_013,geography,D," Africa
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",africa,Africa,True,False,240,16
+geo_013,geography,E,,,Africa,False,False,240,1
+geo_014,geography,A," South America
+
+Fact 1: Buenos Aires is the capital of Argentina.
+Fact",south america,South America,True,False,243,16
+geo_014,geography,B," the continent is located in the abdomen
+
+Fact 1: Buenos Aires is the",the continent is located in the abdomen,South America,False,False,243,16
+geo_014,geography,C," South America
+
+Q: Buenos Aires is located on what continent?
+Step 1",south america,South America,True,False,243,16
+geo_014,geography,D," South America
+
+Fact 1: The Earth is tilted on its axis.
+Fact",south america,South America,True,False,243,16
+geo_014,geography,E,,,South America,False,False,243,1
+geo_015,geography,A," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,Asia,True,False,244,16
+geo_015,geography,B," the continent of Asia.
+Fact 2: The continent of Asia is located on",the continent of asia,Asia,False,False,244,16
+geo_015,geography,C," Asia
+
+Q: The city of Bangkok is located on what continent?
+Step ",asia,Asia,True,False,244,16
+geo_015,geography,D," Asia
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",asia,Asia,True,False,244,16
+geo_015,geography,E,,,Asia,False,False,244,1
+geo_016,geography,A," the United Kingdom
+
+Fact 1: The Danube River flows through the capital",the united kingdom,the United Kingdom,True,False,250,16
+geo_016,geography,B," the United Kingdom
+B: The first modern novel is often considered to be Don",the united kingdom,the United Kingdom,True,False,250,16
+geo_016,geography,C," the United Kingdom
+
+Q: London is the capital of a country that is part",the united kingdom,the United Kingdom,True,False,250,16
+geo_016,geography,D," the United Kingdom
+You are an AI assistant that helps people find information. User",the united kingdom,the United Kingdom,True,False,250,16
+geo_016,geography,E,,,the United Kingdom,False,False,250,1
+geo_017,geography,A," 2004
+
+Fact 1: The Danube River flows through",2004,2004,True,False,257,16
+geo_017,geography,B," 2004
+Fact 1: 2004
+",2004,2004,True,False,257,16
+geo_017,geography,C," 2004
+
+Q: Warsaw is the capital of a country that",2004,2004,True,False,257,16
+geo_017,geography,D," 2004
+You are an AI assistant that helps people find information",2004,2004,True,False,257,16
+geo_017,geography,E,,,2004,False,False,257,1
+geo_018,geography,A," the Mediterranean Sea
+
+Fact 1: The Danube River flows through the capital",the mediterranean sea,the Mediterranean Sea,True,False,242,16
+geo_018,geography,B," the Mediterranean Sea
+
+Fact 1: Athens is the capital of Greece.
+Fact",the mediterranean sea,the Mediterranean Sea,True,False,242,16
+geo_018,geography,C," the Mediterranean Sea
+
+Fact 1: Athens is the capital of Greece.
+Fact",the mediterranean sea,the Mediterranean Sea,True,False,242,16
+geo_018,geography,D," the Mediterranean Sea
+
+Fact 1: The Earth is tilted on its axis.
+",the mediterranean sea,the Mediterranean Sea,True,False,242,16
+geo_018,geography,E,,,the Mediterranean Sea,False,False,242,1
+geo_019,geography,A," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,Asia,True,False,241,16
+geo_019,geography,B," the United States
+
+Fact 1: Hanoi is the capital of Vietnam.
+",the united states,Asia,False,False,241,16
+geo_019,geography,C," Asia
+
+Fact 1: Hanoi is the capital of Vietnam.
+Fact ",asia,Asia,True,False,241,16
+geo_019,geography,D," Asia
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",asia,Asia,True,False,241,16
+geo_019,geography,E,,,Asia,False,False,241,1
+geo_020,geography,A," the Atlantic Ocean
+
+Fact 1: The Danube River flows through the capital",the atlantic ocean,the Atlantic Ocean,True,False,243,16
+geo_020,geography,B," the Atlantic Ocean
+
+Fact 1: Lisbon is the capital of a country border",the atlantic ocean,the Atlantic Ocean,True,False,243,16
+geo_020,geography,C," the Atlantic Ocean
+
+Fact 1: Lisbon is the capital of a country border",the atlantic ocean,the Atlantic Ocean,True,False,243,16
+geo_020,geography,D," The Atlantic Ocean
+
+Fact 1: Lungs are used for breathing.
+Fact",the atlantic ocean,the Atlantic Ocean,True,False,243,16
+geo_020,geography,E,,,the Atlantic Ocean,False,False,243,1
+geo_021,geography,A," the Swedish krona
+
+Fact 1: The Danube River flows through the",the swedish krona,the Swedish krona,True,False,251,16
+geo_021,geography,B," Austria
+
+Fact 1: Stockholm is the capital of Sweden.
+Fact 2",austria,the Swedish krona,False,False,251,16
+geo_021,geography,C," the Swedish krona
+
+Fact 1: Stockholm is the capital of a country",the swedish krona,the Swedish krona,True,False,251,16
+geo_021,geography,D," The Swedish krona
+
+Fact 1: The Earth is tilted on its axis",the swedish krona,the Swedish krona,True,False,251,16
+geo_021,geography,E,,,the Swedish krona,False,False,251,1
+geo_022,geography,A," South America
+
+Fact 1: The Danube River flows through the capital of",south america,South America,True,False,237,16
+geo_022,geography,B," Santiago is located in the capital of what country?
+B: Santiago is located in",santiago is located in the capital of what country,South America,False,False,237,16
+geo_022,geography,C," South America
+
+Q: The city of Santiago is located on what continent?
+Step",south america,South America,True,False,237,16
+geo_022,geography,D," South America
+
+Fact 1: The Earth is tilted on its axis.
+Fact",south america,South America,True,False,237,16
+geo_022,geography,E,,,South America,False,False,237,1
+geo_023,geography,A," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,Asia,True,False,240,16
+geo_023,geography,B," Asia
+
+Fact 1: Seoul is the capital of South Korea.
+Fact ",asia,Asia,True,False,240,16
+geo_023,geography,C," Asia
+
+Q: The city of Seoul is located on what continent?
+Step ",asia,Asia,True,False,240,16
+geo_023,geography,D," Asia
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",asia,Asia,True,False,240,16
+geo_023,geography,E,,,Asia,False,False,240,1
+geo_024,geography,A," the North Atlantic
+
+Fact 1: The Danube River flows through the capital",the north atlantic,the North Atlantic,True,False,248,16
+geo_024,geography,B," the North Atlantic
+
+Fact 1: Dublin is the capital of Ireland.
+Fact",the north atlantic,the North Atlantic,True,False,248,16
+geo_024,geography,C," the North Atlantic
+
+Q: Dublin is the capital of an island in what ocean",the north atlantic,the North Atlantic,True,False,248,16
+geo_024,geography,D," the North Atlantic Ocean
+
+Fact 1: The Earth is tilted on its axis",the north atlantic ocean,the North Atlantic,False,False,248,16
+geo_024,geography,E,,,the North Atlantic,False,False,248,1
+geo_025,geography,A," NATO
+
+Fact 1: The Danube River flows through the capital of what",nato,NATO,True,False,245,16
+geo_025,geography,B," Ankara is the capital of a country that is a member of what alliance?
+A",ankara is the capital of a country that is a member of what alliance,NATO,False,False,245,16
+geo_025,geography,C," NATO
+
+Fact 1: Ankara is the capital of a country that is a",nato,NATO,True,False,245,16
+geo_025,geography,D," NATO
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",nato,NATO,True,False,245,16
+geo_025,geography,E,,,NATO,False,False,245,1
+geo_026,geography,A," Africa
+
+Fact 1: The Nile River flows through Egypt.
+Fact 2",africa,Africa,True,False,241,16
+geo_026,geography,B," the abdomen
+
+Fact 1: The Nile River flows through Egypt.
+Fact ",the abdomen,Africa,False,False,241,16
+geo_026,geography,C," Africa
+
+Fact 1: The Nile River flows through a country on what continent",africa,Africa,True,False,241,16
+geo_026,geography,D," Africa
+
+Fact 1: The Sun is a star.
+Fact 2:",africa,Africa,True,False,241,16
+geo_026,geography,E,,,Africa,False,False,241,1
+geo_027,geography,A," England
+
+Fact 1: The Danube River flows through Vienna.
+Fact ",england,England,True,False,241,16
+geo_027,geography,B," Austria
+
+Fact 1: The Thames River flows through London.
+Fact 2",austria,England,False,False,241,16
+geo_027,geography,C," England
+
+Fact 1: The Thames River flows through London.
+Fact 2",england,England,True,False,241,16
+geo_027,geography,D," England
+
+Fact 1: The Sun is a star.
+Fact 2:",england,England,True,False,241,16
+geo_027,geography,E,,,England,False,False,241,1
+geo_028,geography,A," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,Asia,True,False,249,16
+geo_028,geography,B," the United States
+
+Fact 1: Mount Fuji is in an island country on",the united states,Asia,False,False,249,16
+geo_028,geography,C," Asia
+
+Fact 1: Mount Fuji is located in Japan.
+Fact 2",asia,Asia,True,False,249,16
+geo_028,geography,D," Asia
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",asia,Asia,True,False,249,16
+geo_028,geography,E,,,Asia,False,False,249,1
+geo_029,geography,A," the Pacific Ocean
+
+Fact 1: The Great Barrier Reef is in Australia.
+",the pacific ocean,the Pacific Ocean,True,False,254,16
+geo_029,geography,B," the Pacific Ocean
+
+Fact 1: The Great Barrier Reef is in Australia.
+",the pacific ocean,the Pacific Ocean,True,False,254,16
+geo_029,geography,C," the Pacific Ocean
+
+Q: The Great Barrier Reef is in a country surrounded by",the pacific ocean,the Pacific Ocean,True,False,254,16
+geo_029,geography,D," The Great Barrier Reef is in a country surrounded by the Pacific Ocean.
+
+Fact ",the great barrier reef is in a country surrounded by the pacific ocean,the Pacific Ocean,False,False,254,16
+geo_029,geography,E,,,the Pacific Ocean,False,False,254,1
+geo_030,geography,A," the Atlantic Ocean
+
+Fact 1: The Amazon River flows through Brazil.
+Fact",the atlantic ocean,the Atlantic Ocean,True,False,234,16
+geo_030,geography,B," the Atlantic Ocean
+
+Fact 1: The Amazon River flows through Brazil.
+Fact",the atlantic ocean,the Atlantic Ocean,True,False,234,16
+geo_030,geography,C," the Atlantic Ocean
+
+Fact 1: The Amazon River flows through Brazil.
+Fact",the atlantic ocean,the Atlantic Ocean,True,False,234,16
+geo_030,geography,D," The Amazon River flows through a country bordering the Atlantic Ocean.
+
+Fact 1",the amazon river flows through a country bordering the atlantic ocean,the Atlantic Ocean,False,False,234,16
+geo_030,geography,E,,,the Atlantic Ocean,False,False,234,1
+geo_031,geography,A," Europe
+
+Fact 1: The Danube River flows through the capital of what",europe,Europe,True,False,248,16
+geo_031,geography,B," the abdomen
+
+Fact 1: Oslo is the capital of Norway.
+Fact ",the abdomen,Europe,False,False,248,16
+geo_031,geography,C," Europe
+
+Q: Oslo is the capital of a country with the longest coastline in",europe,Europe,True,False,248,16
+geo_031,geography,D," Europe
+You are an AI assistant that helps people find information. User will you",europe,Europe,True,False,248,16
+geo_031,geography,E,,,Europe,False,False,248,1
+geo_032,geography,A," Russia
+
+Fact 1: The Danube River flows through the capital of what",russia,Russia,True,False,251,16
+geo_032,geography,B," the abdomen
+
+Fact 1: Helsinki is the capital of Finland.
+Fact ",the abdomen,Russia,False,False,251,16
+geo_032,geography,C," Russia
+
+Fact 1: Helsinki is the capital of Finland.
+Fact 2",russia,Russia,True,False,251,16
+geo_032,geography,D," Finland shares a border with Russia.
+You are an AI assistant that helps people find",finland shares a border with russia,Russia,False,False,251,16
+geo_032,geography,E,,,Russia,False,False,251,1
+geo_033,geography,A," landlocked
+
+Fact 1: The Danube River flows through the capital of",landlocked,landlocked,True,False,252,16
+geo_033,geography,B," Austria is a landlocked country.
+Fact 2: The first zoo open to",austria is a landlocked country,landlocked,False,False,252,16
+geo_033,geography,C," a landlocked country.
+
+Q: Vienna is the capital of a country that is",a landlocked country,landlocked,False,False,252,16
+geo_033,geography,D," Austria is a landlocked country.
+You are an AI assistant that helps people find",austria is a landlocked country,landlocked,False,False,252,16
+geo_033,geography,E,,,landlocked,False,False,252,1
+geo_034,geography,A," Scandinavia
+
+Fact 1: The Danube River flows through the capital of",scandinavia,Scandinavia,True,False,253,16
+geo_034,geography,B," the abdomen
+
+Fact 1: Copenhagen is the capital of Denmark.
+Fact ",the abdomen,Scandinavia,False,False,253,16
+geo_034,geography,C," Scandinavia
+
+Q: Copenhagen is the capital of a country that is part of",scandinavia,Scandinavia,True,False,253,16
+geo_034,geography,D," Scandinavia
+You are an AI assistant that helps people find information. User will",scandinavia,Scandinavia,True,False,253,16
+geo_034,geography,E,,,Scandinavia,False,False,253,1
+geo_035,geography,A," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,Asia,True,False,243,16
+geo_035,geography,B," the United States
+
+Fact 1: New Delhi is the capital of India.
+",the united states,Asia,False,False,243,16
+geo_035,geography,C," Asia
+
+Q: The city of New Delhi is located on what continent?
+Step",asia,Asia,True,False,243,16
+geo_035,geography,D," Asia
+
+Fact 1: New Delhi is the capital of India.
+Fact ",asia,Asia,True,False,243,16
+geo_035,geography,E,,,Asia,False,False,243,1
+geo_036,geography,A," archipelago
+
+Fact 1: The Danube River flows through the capital",archipelago,archipelago,True,False,256,16
+geo_036,geography,B," the world
+
+Fact 1: Jakarta is the capital of Indonesia.
+Fact ",the world,archipelago,False,False,256,16
+geo_036,geography,C," the world
+
+Fact 1: Jakarta is the capital of the largest what in",the world,archipelago,False,False,256,16
+geo_036,geography,D," archipelago
+You are an AI assistant that helps people find information. User",archipelago,archipelago,True,False,256,16
+geo_036,geography,E,,,archipelago,False,False,256,1
+geo_037,geography,A," South America
+
+Fact 1: The Danube River flows through the capital of",south america,South America,True,False,242,16
+geo_037,geography,B," Bogota is located in South America.
+Fact 1: Bogota is located",bogota is located in south america,South America,False,False,242,16
+geo_037,geography,C," South America
+
+Q: The city of Bogota is located on what continent?
+",south america,South America,True,False,242,16
+geo_037,geography,D," South America
+
+Fact 1: The Earth is tilted on its axis.
+Fact",south america,South America,True,False,242,16
+geo_037,geography,E,,,South America,False,False,242,1
+geo_038,geography,A," three
+
+Fact 1: The Danube River flows through the capital of what",three,three,True,False,256,16
+geo_038,geography,B," Pretoria is the capital of a country with how many official capitals?
+A:",pretoria is the capital of a country with how many official capitals,three,False,False,256,16
+geo_038,geography,C," South Africa
+
+Fact 1: Pretoria is the capital of South Africa.
+",south africa,three,False,False,256,16
+geo_038,geography,D," three official capitals
+
+Fact 1: The Earth is tilted on its axis.
+",three official capitals,three,False,False,256,16
+geo_038,geography,E,,,three,False,False,256,1
+geo_039,geography,A," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,Asia,True,False,245,16
+geo_039,geography,B," the Philippines is located in Asia.
+Fact 1: The Philippines is located in",the philippines is located in asia,Asia,False,False,245,16
+geo_039,geography,C," Asia
+
+Fact 1: The city of Manila is located on what continent?
+",asia,Asia,True,False,245,16
+geo_039,geography,D," Asia
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",asia,Asia,True,False,245,16
+geo_039,geography,E,,,Asia,False,False,245,1
+geo_040,geography,A," the Caribbean
+
+Fact 1: The Danube River flows through the capital of",the caribbean,the Caribbean,True,False,252,16
+geo_040,geography,B," the abdomen
+
+Fact 1: Havana is the capital of Cuba.
+Fact ",the abdomen,the Caribbean,False,False,252,16
+geo_040,geography,C," the Caribbean
+
+Q: Havana is the capital of the largest island in what region",the caribbean,the Caribbean,True,False,252,16
+geo_040,geography,D," The Caribbean region.
+You are an AI assistant that helps people find information. User",the caribbean region,the Caribbean,False,False,252,16
+geo_040,geography,E,,,the Caribbean,False,False,252,1
+geo_041,geography,A," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,Asia,True,False,250,16
+geo_041,geography,B," Asia
+
+Fact 1: Kuala Lumpur is the capital of Malaysia.
+Fact ",asia,Asia,True,False,250,16
+geo_041,geography,C," Asia
+
+Fact 1: The Danube River flows through Vienna.
+Step ",asia,Asia,True,False,250,16
+geo_041,geography,D," Asia
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",asia,Asia,True,False,250,16
+geo_041,geography,E,,,Asia,False,False,250,1
+geo_042,geography,A," 1957
+
+Fact 1: The Danube River flows through",1957,1957,True,False,253,16
+geo_042,geography,B," Accra is the capital of a country that gained independence in what year?
+A",accra is the capital of a country that gained independence in what year,1957,False,False,253,16
+geo_042,geography,C," 1957
+
+Q: Accra is the capital of a country",1957,1957,True,False,253,16
+geo_042,geography,D," 1957
+
+Fact 1: A person's weight is the",1957,1957,True,False,253,16
+geo_042,geography,E,,,1957,False,False,253,1
+geo_043,geography,A," South America
+
+Fact 1: Quito is the capital of Ecuador.
+Fact",south america,South America,True,False,245,16
+geo_043,geography,B," Quito is located in the capital of what country?
+A: the capital of",quito is located in the capital of what country,South America,False,False,245,16
+geo_043,geography,C," South America
+
+Q: Quito is the capital of Ecuador.
+Fact 2",south america,South America,True,False,245,16
+geo_043,geography,D," South America
+
+Fact 1: The Earth is tilted on its axis.
+Fact",south america,South America,True,False,245,16
+geo_043,geography,E,,,South America,False,False,245,1
+geo_044,geography,A," geothermal energy
+
+Fact 1: The Danube River flows through the capital",geothermal energy,geothermal energy,True,False,267,16
+geo_044,geography,B, Reykjavik is the capital of a country powered mainly by what energy source,reykjavik is the capital of a country powered mainly by what energy source,geothermal energy,False,False,267,16
+geo_044,geography,C," geothermal energy
+
+Q: Reykjavik is the capital of a country",geothermal energy,geothermal energy,True,False,267,16
+geo_044,geography,D," geothermal energy
+You are an AI assistant that helps people find information. User",geothermal energy,geothermal energy,True,False,267,16
+geo_044,geography,E,,,geothermal energy,False,False,267,1
+geo_045,geography,A," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,Asia,True,False,240,16
+geo_045,geography,B," Kathmandu is located in Asia.
+
+Fact 1: Kathmandu is",kathmandu is located in asia,Asia,False,False,240,16
+geo_045,geography,C," Asia
+
+Fact 1: Kathmandu is the capital of Nepal.
+Fact",asia,Asia,True,False,240,16
+geo_045,geography,D," Asia
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",asia,Asia,True,False,240,16
+geo_045,geography,E,,,Asia,False,False,240,1
+geo_046,geography,A," 230 million
+
+Fact 1: The Danube River flows through",230 million,230 million,True,False,255,16
+geo_046,geography,B," the abdomen
+
+Fact 1: Islamabad is the capital of Pakistan.
+Fact ",the abdomen,230 million,False,False,255,16
+geo_046,geography,C," 230 million
+
+Fact 1: Islamabad is the capital of a",230 million,230 million,True,False,255,16
+geo_046,geography,D," over 230 million
+You are an AI assistant that helps people find",over 230 million,230 million,False,False,255,16
+geo_046,geography,E,,,230 million,False,False,255,1
+geo_047,geography,A," Africa
+
+Fact 1: The Danube River flows through the capital of what",africa,Africa,True,False,240,16
+geo_047,geography,B," the United States
+
+Fact 1: Addis Ababa is located on what",the united states,Africa,False,False,240,16
+geo_047,geography,C," Africa
+
+Fact 1: Addis Ababa is the capital of Ethiopia.
+",africa,Africa,True,False,240,16
+geo_047,geography,D," Africa
+
+Fact 1: An animal requires food to survive.
+Fact 2",africa,Africa,True,False,240,16
+geo_047,geography,E,,,Africa,False,False,240,1
+geo_048,geography,A," oil
+
+Fact 1: The Danube River flows through the capital of what",oil,oil,True,False,258,16
+geo_048,geography,B," the largest reserves of what?
+A: the largest reserves of what?
+A:",the largest reserves of what,oil,False,False,258,16
+geo_048,geography,C," the world
+
+Fact 1: Caracas is the capital of Venezuela.
+Fact",the world,oil,False,False,258,16
+geo_048,geography,D," Venezuela has the largest proven oil reserves in the world.
+You are an AI assistant",venezuela has the largest proven oil reserves in the world,oil,False,False,258,16
+geo_048,geography,E,,,oil,False,False,258,1
+geo_049,geography,A," Africa
+
+Fact 1: The Danube River flows through the capital of what",africa,Africa,True,False,248,16
+geo_049,geography,B," Rabat is the capital of Morocco.
+Fact 2: The speed of light",rabat is the capital of morocco,Africa,False,False,248,16
+geo_049,geography,C," Africa
+
+Fact 1: Rabat is the capital of Morocco.
+Fact ",africa,Africa,True,False,248,16
+geo_049,geography,D," Africa
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",africa,Africa,True,False,248,16
+geo_049,geography,E,,,Africa,False,False,248,1
+geo_050,geography,A," Asia
+
+Fact 1: The Danube River flows through the capital of what",asia,Asia,True,False,245,16
+geo_050,geography,B," the United States
+
+Fact 1: Phnom Penh is located on what",the united states,Asia,False,False,245,16
+geo_050,geography,C," Asia
+
+Q: Phnom Penh is located on what continent?
+Step ",asia,Asia,True,False,245,16
+geo_050,geography,D," Asia
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",asia,Asia,True,False,245,16
+geo_050,geography,E,,,Asia,False,False,245,1
+sci_001,science,A," 8
+
+Fact 1: The Danube River flows through the capital of",8,8,True,False,253,16
+sci_001,science,B," 8
+
+Fact 1: Water is composed of hydrogen and oxygen.
+Fact",8,8,True,False,253,16
+sci_001,science,C," 8
+
+Q: Water contains an element with what atomic number?
+Step ",8,8,True,False,253,16
+sci_001,science,D," 8
+
+Fact 1: Water is composed of hydrogen and oxygen.
+Fact",8,8,True,False,253,16
+sci_001,science,E,,,8,False,False,253,1
+sci_002,science,A," 11
+
+Fact 1: The Danube River flows through the capital",11,11,True,False,263,16
+sci_002,science,B," 11
+
+Fact 1: Mount Kilimanjaro is the tallest",11,11,True,False,263,16
+sci_002,science,C," 11
+Answer: 11
+
+Q: Table salt contains an",11,11,True,False,263,16
+sci_002,science,D," 11
+
+Fact 1: The Earth is tilted on its axis.
+",11,11,True,False,263,16
+sci_002,science,E,,,11,False,False,263,1
+sci_003,science,A," reddish brown
+
+Fact 1: The Danube River flows through the capital",reddish brown,reddish brown,True,False,240,16
+sci_003,science,B," Iron oxide has a reddish brown color.
+B: Iron oxide has a redd",iron oxide has a reddish brown color,reddish brown,False,False,240,16
+sci_003,science,C," the abdomen
+
+Fact 1: Rust is composed of iron oxide.
+Fact ",the abdomen,reddish brown,False,False,240,16
+sci_003,science,D," Rust has a reddish brown color.
+
+Fact 1: The Earth is tilted",rust has a reddish brown color,reddish brown,False,False,240,16
+sci_003,science,E," 1.5
+
+Assistant: 1.5
+
+Assistant: 1",1.5,reddish brown,False,False,240,16
+sci_004,science,A," spiral
+
+Fact 1: The Sun is a star in the Milky Way.
+",spiral,spiral,True,False,240,16
+sci_004,science,B," The Sun is in the Milky Way.
+Fact 2: The Milky Way is",the sun is in the milky way,spiral,False,False,240,16
+sci_004,science,C," the Milky Way
+
+Fact 1: The Sun is a star in the Milky",the milky way,spiral,False,False,240,16
+sci_004,science,D," The Sun is in a spiral galaxy.
+You are an AI assistant that helps people",the sun is in a spiral galaxy,spiral,False,False,240,16
+sci_004,science,E,,,spiral,False,False,240,1
+sci_005,science,A," yellow dwarf star
+
+Fact 1: The Danube River flows through the capital",yellow dwarf star,yellow dwarf,False,False,243,16
+sci_005,science,B," Earth orbits the Sun.
+Fact 2: The first modern novel is often considered",earth orbits the sun,yellow dwarf,False,False,243,16
+sci_005,science,C," a yellow dwarf star
+
+Q: Earth orbits what type of star?
+Step ",a yellow dwarf star,yellow dwarf,False,False,243,16
+sci_005,science,D," The Sun is classified as a yellow dwarf star.
+You are an AI assistant that",the sun is classified as a yellow dwarf star,yellow dwarf,False,False,243,16
+sci_005,science,E,,,yellow dwarf,False,False,243,1
+sci_006,science,A," static electricity
+
+Fact 1: The Danube River flows through the capital of",static electricity,electric charge,False,False,239,16
+sci_006,science,B," the Danube River flows through the capital of what part of the body?
+A",the danube river flows through the capital of what part of the body,electric charge,False,False,239,16
+sci_006,science,C," the abdomen
+
+Fact 1: Lightning is caused by a buildup of what?
+",the abdomen,electric charge,False,False,239,16
+sci_006,science,D," electric charge
+You are an AI assistant that helps people find information. User will",electric charge,electric charge,True,False,239,16
+sci_006,science,E,,,electric charge,False,False,239,1
+sci_007,science,A," 6
+
+Fact 1: The Danube River flows through the capital of",6,6,True,False,235,16
+sci_007,science,B," 6
+B: 6
+
+Q: Diamonds are made of an element",6,6,True,False,235,16
+sci_007,science,C," 6
+
+Q: Diamonds are made of an element with what atomic number?
+",6,6,True,False,235,16
+sci_007,science,D," 6
+
+Fact 1: The Earth is tilted on its axis.
+Fact",6,6,True,False,235,16
+sci_007,science,E,,,6,False,False,235,1
+sci_008,science,A," 29
+
+Fact 1: The Danube River flows through the capital",29,29,True,False,252,16
+sci_008,science,B," 29
+B: 29
+B: 29
+",29,29,True,False,252,16
+sci_008,science,C," 29
+
+Fact 1: Bronze is an alloy of copper and tin",29,29,True,False,252,16
+sci_008,science,D," 29
+
+Fact 1: The Earth is tilted on its axis.
+",29,29,True,False,252,16
+sci_008,science,E,,,29,False,False,252,1
+sci_009,science,A," 12742 kilometers
+
+Fact 1: The Moon orbits the",12742 kilometers,12742 kilometers,True,False,256,16
+sci_009,science,B," the Moon is located in the abdomen
+
+Fact 1: The Moon orbits a",the moon is located in the abdomen,12742 kilometers,False,False,256,16
+sci_009,science,C," 12742 kilometers
+
+Q: The Moon orbits a planet with",12742 kilometers,12742 kilometers,True,False,256,16
+sci_009,science,D," 12742 kilometers
+
+Fact 1: The Moon orbits the",12742 kilometers,12742 kilometers,True,False,256,16
+sci_009,science,E,,,12742 kilometers,False,False,256,1
+sci_010,science,A," nitrogen
+
+Fact 1: Sound travels through air.
+Fact 2: Air",nitrogen,nitrogen,True,False,232,16
+sci_010,science,B," Austria
+
+Fact 1: Sound travels through air.
+Fact 2: Blue",austria,nitrogen,False,False,232,16
+sci_010,science,C," nitrogen
+
+Fact 1: Sound travels through air.
+Fact 2: Air",nitrogen,nitrogen,True,False,232,16
+sci_010,science,D," nitrogen
+You are an AI assistant that helps people find information. User will you",nitrogen,nitrogen,True,False,232,16
+sci_010,science,E,,,nitrogen,False,False,232,1
+sci_011,science,A," 8 minutes
+
+Fact 1: The Danube River flows through the capital",8 minutes,8 minutes,True,False,243,16
+sci_011,science,B," the abdomen
+
+Fact 1: Photosynthesis requires sunlight.
+Fact 2:",the abdomen,8 minutes,False,False,243,16
+sci_011,science,C," Earth
+
+Fact 1: Photosynthesis requires sunlight.
+Fact 2: Sun",earth,8 minutes,False,False,243,16
+sci_011,science,D," 8 minutes
+
+Fact 1: The Earth is tilted on its axis.
+",8 minutes,8 minutes,True,False,243,16
+sci_011,science,E,,,8 minutes,False,False,243,1
+sci_012,science,A," Fe
+
+Fact 1: The Danube River flows through the capital of what",fe,Fe,True,False,241,16
+sci_012,science,B," Fe
+B: Hummingbirds can fly backwards.
+C: Bats are",fe,Fe,True,False,241,16
+sci_012,science,C," Fe
+
+Q: Steel contains an element with what chemical symbol?
+Step 1",fe,Fe,True,False,241,16
+sci_012,science,D," Fe
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",fe,Fe,True,False,241,16
+sci_012,science,E,,,Fe,False,False,241,1
+sci_013,science,A," carbon dioxide
+
+Fact 1: Mars has a thin atmosphere.
+Fact 2",carbon dioxide,carbon dioxide,True,False,243,16
+sci_013,science,B," carbon dioxide
+B: carbon dioxide
+C: carbon dioxide
+D: carbon",carbon dioxide,carbon dioxide,True,False,243,16
+sci_013,science,C," carbon dioxide
+
+Fact 1: Mars has a thin atmosphere.
+Fact 2",carbon dioxide,carbon dioxide,True,False,243,16
+sci_013,science,D," carbon dioxide
+You are an AI assistant that helps people find information. User will",carbon dioxide,carbon dioxide,True,False,243,16
+sci_013,science,E,,,carbon dioxide,False,False,243,1
+sci_014,science,A," SiO2
+
+Fact 1: The Danube River flows through the capital",sio2,SiO2,True,False,247,16
+sci_014,science,B," Silica
+Fact 2: The Strait of Gibraltar connects the Atlantic Ocean and",silica,SiO2,False,False,247,16
+sci_014,science,C," SiO2
+
+Q: Glass is made from a substance with what chemical formula",sio2,SiO2,True,False,247,16
+sci_014,science,D," SiO2
+
+Fact 1: Lungs are used for breathing.
+Fact",sio2,SiO2,True,False,247,16
+sci_014,science,E,,,SiO2,False,False,247,1
+sci_015,science,A," atoms
+
+Fact 1: The Danube River flows through the capital of what",atoms,atoms,True,False,251,16
+sci_015,science,B," atoms
+
+Fact 1: Batteries produce electricity through chemical reactions.
+Fact ",atoms,atoms,True,False,251,16
+sci_015,science,C," atoms
+
+Fact 1: Batteries produce electricity through the rearrangement of what",atoms,atoms,True,False,251,16
+sci_015,science,D," atoms
+You are an AI assistant that helps people find information. User will you",atoms,atoms,True,False,251,16
+sci_015,science,E,,,atoms,False,False,251,1
+sci_016,science,A," visible light
+
+Fact 1: The ozone layer protects Earth from ultraviolet radiation",visible light,visible light,True,False,252,16
+sci_016,science,B," the abdomen
+
+Fact 1: The ozone layer protects Earth from ultraviolet radiation",the abdomen,visible light,False,False,252,16
+sci_016,science,C," visible light
+
+Q: The ozone layer protects Earth from ultraviolet radiation.
+What",visible light,visible light,True,False,252,16
+sci_016,science,D," The ozone layer blocks radiation with a wavelength shorter than visible light.
+You are an",the ozone layer blocks radiation with a wavelength shorter than visible light,visible light,False,False,252,16
+sci_016,science,E," 1
+1
+1
+1
+1
+1
+1
+1",1,visible light,False,False,252,16
+sci_017,science,A," 1538 degrees Celsius
+
+Fact 1: The Danube River",1538 degrees celsius,1538 degrees Celsius,True,False,249,16
+sci_017,science,B," the abdomen
+
+Fact 1: Magnets attract iron.
+Fact 2:",the abdomen,1538 degrees Celsius,False,False,249,16
+sci_017,science,C," the abdomen
+
+Fact 1: Magnets attract a metal with what melting point",the abdomen,1538 degrees Celsius,False,False,249,16
+sci_017,science,D," 1538 degrees Celsius
+
+Fact 1: The Earth is tilted",1538 degrees celsius,1538 degrees Celsius,True,False,249,16
+sci_017,science,E,,,1538 degrees Celsius,False,False,249,1
+sci_018,science,A," Helium
+
+Fact 1: The Danube River flows through the capital of",helium,second,False,False,252,16
+sci_018,science,B," Balloons use what rank lightest element?
+A: Balloons use",balloons use what rank lightest element,second,False,False,252,16
+sci_018,science,C," the second lightest element
+
+Fact 1: Helium is used in balloons",the second lightest element,second,False,False,252,16
+sci_018,science,D," Helium
+
+Fact 1: The Earth is tilted on its axis.
+Fact",helium,second,False,False,252,16
+sci_018,science,E,,,second,False,False,252,1
+sci_019,science,A," 99.86
+
+Fact 1: The Sun contains about ",99.86,99.86 percent,False,False,257,16
+sci_019,science,B," 99.86 percent
+
+Fact 1: Pluto orbits the Sun",99.86 percent,99.86 percent,True,False,257,16
+sci_019,science,C," 99.86 percent of the solar system mass.
+
+Q: Pluto",99.86 percent of the solar system mass,99.86 percent,False,False,257,16
+sci_019,science,D," 99.86 percent
+You are an AI assistant that helps people",99.86 percent,99.86 percent,True,False,257,16
+sci_019,science,E,,,99.86 percent,False,False,257,1
+sci_020,science,A," 5500 degrees Celsius
+
+Fact 1: The Danube River",5500 degrees celsius,5500 degrees Celsius,True,False,269,16
+sci_020,science,B," The Sun has a surface temperature of about 5500 degrees Celsius.
+",the sun has a surface temperature of about 5500 degrees celsius,5500 degrees Celsius,False,False,269,16
+sci_020,science,C," the Sun has a surface temperature of about 5500 degrees Celsius.
+",the sun has a surface temperature of about 5500 degrees celsius,5500 degrees Celsius,False,False,269,16
+sci_020,science,D," 5500 degrees Celsius
+You are an AI assistant that helps people",5500 degrees celsius,5500 degrees Celsius,True,False,269,16
+sci_020,science,E,,,5500 degrees Celsius,False,False,269,1
+sci_021,science,A," condensation
+
+Fact 1: The Danube River flows through the capital of",condensation,condensation,True,False,245,16
+sci_021,science,B," The first modern Olympic Games were held in Athens in 1896.
+
+",the first modern olympic games were held in athens in 1896,condensation,False,False,245,16
+sci_021,science,C," the abdomen
+
+Fact 1: Clouds are made of water droplets.
+",the abdomen,condensation,False,False,245,16
+sci_021,science,D," Condensation
+You are an AI assistant that helps people find information. User will",condensation,condensation,True,False,245,16
+sci_021,science,E,,,condensation,False,False,245,1
+sci_022,science,A," fossil fuels
+
+Fact 1: The Danube River flows through the capital of",fossil fuels,fossil fuels,True,False,257,16
+sci_022,science,B," the Congo River is located in the abdomen.
+
+Fact 1: Acid rain is",the congo river is located in the abdomen,fossil fuels,False,False,257,16
+sci_022,science,C," the abdomen
+
+Fact 1: Acid rain is caused by a gas produced by",the abdomen,fossil fuels,False,False,257,16
+sci_022,science,D," fossil fuels
+You are an AI assistant that helps people find information. User will",fossil fuels,fossil fuels,True,False,257,16
+sci_022,science,E,,,fossil fuels,False,False,257,1
+sci_023,science,A," the Earth crust
+
+Fact 1: The Danube River flows through the capital",the earth crust,the Earth crust,True,False,246,16
+sci_023,science,B," the Earth crust
+Fact 1: Earthquakes occur along fault lines.
+",the earth crust,the Earth crust,True,False,246,16
+sci_023,science,C," the Earth crust.
+
+Fact 1: Earthquakes occur along fault lines.
+",the earth crust,the Earth crust,True,False,246,16
+sci_023,science,D," the Earth crust
+You are an AI assistant that helps people find information. User",the earth crust,the Earth crust,True,False,246,16
+sci_023,science,E,,,the Earth crust,False,False,246,1
+sci_024,science,A," light
+
+Fact 1: The Danube River flows through the capital of what",light,light,True,False,260,16
+sci_024,science,B," the Danube River flows through the capital of what country?
+B: the Dan",the danube river flows through the capital of what country,light,False,False,260,16
+sci_024,science,C," different media.
+
+Q: Rainbows are caused by the bending of what?
+Step",different media,light,False,False,260,16
+sci_024,science,D," Refraction of light
+You are an AI assistant that helps people find information.",refraction of light,light,False,False,260,16
+sci_024,science,E,,,light,False,False,260,1
+sci_025,science,A," ice particles
+
+Fact 1: The Danube River flows through the capital of",ice particles,ice particles,True,False,251,16
+sci_025,science,B," Saturn has prominent rings.
+Fact 2: The first zoo open to the public",saturn has prominent rings,ice particles,False,False,251,16
+sci_025,science,C," Saturn has prominent rings.
+Answer: Saturn has prominent rings.
+Answer: Saturn has",saturn has prominent rings,ice particles,False,False,251,16
+sci_025,science,D," ice particles
+
+Fact 1: The Earth is tilted on its axis.
+Fact",ice particles,ice particles,True,False,251,16
+sci_025,science,E,,,ice particles,False,False,251,1
+sci_026,science,A," one
+
+Fact 1: The Danube River flows through the capital of what",one,one,True,False,238,16
+sci_026,science,B," the abdomen
+
+Fact 1: Gravity pulls objects toward Earth.
+Fact 2",the abdomen,one,False,False,238,16
+sci_026,science,C," the Earth has one natural satellite.
+Answer: the Earth has one natural satellite.
+",the earth has one natural satellite,one,False,False,238,16
+sci_026,science,D," one natural satellite
+You are an AI assistant that helps people find information. User",one natural satellite,one,False,False,238,16
+sci_026,science,E,,,one,False,False,238,1
+sci_027,science,A," 30
+
+Fact 1: The Danube River flows through the capital",30,30,True,False,250,16
+sci_027,science,B," 30
+B: 30
+C: 30
+",30,30,True,False,250,16
+sci_027,science,C," 30
+Answer: 30
+
+Fact 1: Brass is",30,30,True,False,250,16
+sci_027,science,D," 30
+
+Fact 1: The Earth is tilted on its axis.
+",30,30,True,False,250,16
+sci_027,science,E,,,30,False,False,250,1
+sci_028,science,A," CO2
+
+Fact 1: The Danube River flows through the capital of",co2,CO2,True,False,247,16
+sci_028,science,B," the solid form of what chemical formula?
+B: the solid form of what chemical",the solid form of what chemical formula,CO2,False,False,247,16
+sci_028,science,C," CO2
+
+Fact 1: Dry ice is solid carbon dioxide.
+Fact ",co2,CO2,True,False,247,16
+sci_028,science,D," CO2
+
+Fact 1: Dry ice is solid carbon dioxide.
+Fact ",co2,CO2,True,False,247,16
+sci_028,science,E,,,CO2,False,False,247,1
+sci_029,science,A," 7
+
+Fact 1: The Danube River flows through the capital of",7,7,True,False,242,16
+sci_029,science,B," 7
+
+Fact 1: Ammonia contains nitrogen and hydrogen.
+Fact",7,7,True,False,242,16
+sci_029,science,C," 7
+
+Fact 1: Ammonia contains nitrogen and hydrogen.
+Fact",7,7,True,False,242,16
+sci_029,science,D," 7
+
+Fact 1: Ammonia contains nitrogen and hydrogen.
+Fact",7,7,True,False,242,16
+sci_029,science,E,,,7,False,False,242,1
+sci_030,science,A," 4.6 billion years ago
+
+Fact 1: The Voyager 1",4.6 billion years ago,4.6 billion years,False,False,259,16
+sci_030,science,B," 4.6 billion years ago
+Fact 2: The Volga is",4.6 billion years ago,4.6 billion years,False,False,259,16
+sci_030,science,C," 4.6 billion years ago
+
+Q: Voyager 1 left a system",4.6 billion years ago,4.6 billion years,False,False,259,16
+sci_030,science,D," 4.6 billion years ago
+You are an AI assistant that helps people",4.6 billion years ago,4.6 billion years,False,False,259,16
+sci_030,science,E," 1.0
+
+Assistant: 1.0
+
+Assistant: 1",1.0,4.6 billion years,False,False,259,16
+sci_031,science,A," electromagnetic radiation
+
+Fact 1: Chlorophyll absorbs sunlight.
+Fact 2",electromagnetic radiation,electromagnetic radiation,True,False,247,16
+sci_031,science,B," the abdomen
+
+Fact 1: Chlorophyll absorbs sunlight.
+Fact 2",the abdomen,electromagnetic radiation,False,False,247,16
+sci_031,science,C," electromagnetic radiation
+
+Fact 1: Chlorophyll absorbs sunlight.
+Step 2",electromagnetic radiation,electromagnetic radiation,True,False,247,16
+sci_031,science,D," electromagnetic radiation
+You are an AI assistant that helps people find information. User will",electromagnetic radiation,electromagnetic radiation,True,False,247,16
+sci_031,science,E,,,electromagnetic radiation,False,False,247,1
+sci_032,science,A," carbon dioxide
+
+Fact 1: The Danube River flows through the capital of",carbon dioxide,carbon dioxide,True,False,248,16
+sci_032,science,B," The thick atmosphere of Venus is mostly what gas?
+A: The thick atmosphere of",the thick atmosphere of venus is mostly what gas,carbon dioxide,False,False,248,16
+sci_032,science,C," carbon dioxide
+
+Q: The thick atmosphere of Venus is mostly what gas?
+Step",carbon dioxide,carbon dioxide,True,False,248,16
+sci_032,science,D," carbon dioxide
+You are an AI assistant that helps people find information. User will",carbon dioxide,carbon dioxide,True,False,248,16
+sci_032,science,E,,,carbon dioxide,False,False,248,1
+sci_033,science,A," 92
+
+Fact 1: Uranium is used in nuclear reactors.
+",92,92,True,False,243,16
+sci_033,science,B," 92
+B: 92
+C: 92
+",92,92,True,False,243,16
+sci_033,science,C," 92
+
+Fact 1: Uranium is used in nuclear reactors.
+",92,92,True,False,243,16
+sci_033,science,D," 92
+
+Fact 1: The Earth is tilted on its axis.
+",92,92,True,False,243,16
+sci_033,science,E,,,92,False,False,243,1
+sci_034,science,A," 3474 kilometers
+
+Fact 1: The Moon has a diameter",3474 kilometers,3474 kilometers,True,False,267,16
+sci_034,science,B," the Moon
+
+Fact 1: Tides are caused by the gravity of a",the moon,3474 kilometers,False,False,267,16
+sci_034,science,C," 3474 kilometers
+
+Q: Tides are caused by the gravity",3474 kilometers,3474 kilometers,True,False,267,16
+sci_034,science,D," The Moon has a diameter of about 3474 kilometers.
+You are",the moon has a diameter of about 3474 kilometers,3474 kilometers,False,False,267,16
+sci_034,science,E,,,3474 kilometers,False,False,267,1
+sci_035,science,A," 4.6 billion years old
+
+Fact 1: The Sun is about",4.6 billion years old,4.6 billion years,False,False,253,16
+sci_035,science,B," the Sun is about 4.6 billion years old.
+Fact 1:",the sun is about 4.6 billion years old,4.6 billion years,False,False,253,16
+sci_035,science,C," 4.6 billion years old
+
+Q: Comets orbit a star that",4.6 billion years old,4.6 billion years,False,False,253,16
+sci_035,science,D," 4.6 billion years old
+You are an AI assistant that helps people",4.6 billion years old,4.6 billion years,False,False,253,16
+sci_035,science,E,,,4.6 billion years,False,False,253,1
+sci_036,science,A," CaCO3
+
+Fact 1: The Danube River flows through the capital",caco3,CaCO3,True,False,249,16
+sci_036,science,B," the pancreas is located in the abdomen.
+
+Fact 1: Limestone is",the pancreas is located in the abdomen,CaCO3,False,False,249,16
+sci_036,science,C," CaCO3
+
+Fact 1: Limestone is made of calcium carbonate.
+",caco3,CaCO3,True,False,249,16
+sci_036,science,D," CaCO3
+
+Fact 1: Limestone is made of calcium carbonate.
+",caco3,CaCO3,True,False,249,16
+sci_036,science,E,,,CaCO3,False,False,249,1
+sci_037,science,A," one
+
+Fact 1: The Earth has one natural satellite.
+Fact 2",one,one,True,False,241,16
+sci_037,science,B," The Earth has one natural satellite.
+Fact 2: The Great Lakes contain ",the earth has one natural satellite,one,False,False,241,16
+sci_037,science,C," Earth
+
+Fact 1: Meteorites fall to a planet with how many natural",earth,one,False,False,241,16
+sci_037,science,D," One natural satellite.
+
+Fact 1: The Earth is tilted on its axis.
+",one natural satellite,one,False,False,241,16
+sci_037,science,E,,,one,False,False,241,1
+sci_038,science,A," noble
+
+Fact 1: The Danube River flows through the capital of what",noble,noble gas,False,False,238,16
+sci_038,science,B," The Great Lakes contain 21 percent of the world fresh surface water.
+Fact",the great lakes contain 21 percent of the world fresh surface water,noble gas,False,False,238,16
+sci_038,science,C," a noble gas.
+
+Q: Signs use what type of gas?
+Step 1",a noble gas,noble gas,False,False,238,16
+sci_038,science,D," Noble gas
+You are an AI assistant that helps people find information. User will",noble gas,noble gas,True,False,238,16
+sci_038,science,E,,,noble gas,False,False,238,1
+sci_039,science,A," all known life
+
+Fact 1: The Danube River flows through the capital",all known life,all known life,True,False,252,16
+sci_039,science,B," the Atacama Desert is one of the driest places on Earth.
+Fact",the atacama desert is one of the driest places on earth,all known life,False,False,252,16
+sci_039,science,C," all known life
+
+Q: Graphite is a form of an element essential for",all known life,all known life,True,False,252,16
+sci_039,science,D," Graphite is a form of an element essential for all known life.
+You are",graphite is a form of an element essential for all known life,all known life,False,False,252,16
+sci_039,science,E,,,all known life,False,False,252,1
+sci_040,science,A," SiO2
+
+Fact 1: The Danube River flows through the capital",sio2,SiO2,True,False,247,16
+sci_040,science,B," Austria
+B: The first dictionary in English was published in 160",austria,SiO2,False,False,247,16
+sci_040,science,C," SiO2
+
+Fact 1: Silicon dioxide has the formula SiO2",sio2,SiO2,True,False,247,16
+sci_040,science,D," SiO2
+
+Fact 1: The Earth is tilted on its axis.
+",sio2,SiO2,True,False,247,16
+sci_040,science,E,,,SiO2,False,False,247,1
+sci_041,science,A," massive storm
+
+Fact 1: The Great Red Spot is a massive storm.
+",massive storm,a massive storm,False,False,258,16
+sci_041,science,B," Jupiter has a feature that is a massive storm.
+Fact 1: Jupiter has",jupiter has a feature that is a massive storm,a massive storm,False,False,258,16
+sci_041,science,C," the Great Red Spot is a massive storm.
+
+Q: Jupiter has a feature that",the great red spot is a massive storm,a massive storm,False,False,258,16
+sci_041,science,D," The Great Red Spot is a massive storm.
+You are an AI assistant that helps",the great red spot is a massive storm,a massive storm,False,False,258,16
+sci_041,science,E,,,a massive storm,False,False,258,1
+sci_042,science,A," the Earth surface
+
+Fact 1: The Danube River flows through the capital",the earth surface,the Earth surface,True,False,253,16
+sci_042,science,B," the Earth surface.
+
+Fact 1: Lava comes from magma.
+Fact ",the earth surface,the Earth surface,True,False,253,16
+sci_042,science,C," the Earth surface
+
+Fact 1: Lava comes from magma.
+Fact ",the earth surface,the Earth surface,True,False,253,16
+sci_042,science,D," The molten rock beneath the Earth surface.
+You are an AI assistant that helps",the molten rock beneath the earth surface,the Earth surface,False,False,253,16
+sci_042,science,E,,,the Earth surface,False,False,253,1
+sci_043,science,A," thunderstorms
+
+Fact 1: The Danube River flows through the capital of",thunderstorms,thunderstorms,True,False,257,16
+sci_043,science,B," Hail forms inside cumulonimbus clouds.
+A: Hail forms inside",hail forms inside cumulonimbus clouds,thunderstorms,False,False,257,16
+sci_043,science,C," thunderstorms
+
+Fact 1: Hail forms inside cumulonimbus clouds",thunderstorms,thunderstorms,True,False,257,16
+sci_043,science,D," thunderstorms
+You are an AI assistant that helps people find information. User will",thunderstorms,thunderstorms,True,False,257,16
+sci_043,science,E," 1.0
+
+Human: Answer: 1.0
+
+Human:",1.0,thunderstorms,False,False,257,16
+sci_044,science,A," dense ice
+
+Fact 1: The Danube River flows through the capital of",dense ice,dense ice,True,False,259,16
+sci_044,science,B," Glaciers are made of compressed snow.
+Fact 2: Lake Victoria is",glaciers are made of compressed snow,dense ice,False,False,259,16
+sci_044,science,C," dense ice over time.
+
+Q: Glaciers are made of material that transforms",dense ice over time,dense ice,False,False,259,16
+sci_044,science,D," dense ice
+You are an AI assistant that helps people find information. User will",dense ice,dense ice,True,False,259,16
+sci_044,science,E," The answer is: 1
+
+Assistant: 1
+
+Assistant: 1",: 1,dense ice,False,False,259,16
+sci_045,science,A," 1789
+
+Fact 1: The Danube River flows through",1789,1789,True,False,256,16
+sci_045,science,B," 1789
+
+Fact 1: Fossil fuels contain carbon.
+",1789,1789,True,False,256,16
+sci_045,science,C," 1789
+
+Q: Fossil fuels contain an element first recognized",1789,1789,True,False,256,16
+sci_045,science,D," 1789
+You are an AI assistant that helps people find information",1789,1789,True,False,256,16
+sci_045,science,E,,,1789,False,False,256,1
+sci_046,science,A," thousands of years
+
+Fact 1: The Danube River flows through the capital",thousands of years,thousands of years,True,False,251,16
+sci_046,science,B," the abdomen
+
+Fact 1: Stalactites form from mineral deposits.
+",the abdomen,thousands of years,False,False,251,16
+sci_046,science,C," thousands of years
+
+Q: Stalactites form from material that accumulates",thousands of years,thousands of years,True,False,251,16
+sci_046,science,D," thousands of years
+
+Fact 1: The Earth is tilted on its axis.
+",thousands of years,thousands of years,True,False,251,16
+sci_046,science,E,,,thousands of years,False,False,251,1
+sci_047,science,A," certain conditions
+
+Fact 1: The Danube River flows through the capital of",certain conditions,certain conditions,True,False,257,16
+sci_047,science,B," the abdomen
+
+Fact 1: LED lights use materials that conduct electricity under what",the abdomen,certain conditions,False,False,257,16
+sci_047,science,C," certain conditions
+
+Fact 1: LED lights use semiconductors.
+Fact",certain conditions,certain conditions,True,False,257,16
+sci_047,science,D," certain conditions
+You are an AI assistant that helps people find information. User will",certain conditions,certain conditions,True,False,257,16
+sci_047,science,E,,,certain conditions,False,False,257,1
+sci_048,science,A," light
+
+Fact 1: The Danube River flows through the capital of what",light,light,True,False,230,16
+sci_048,science,B," light
+A: Venus flytraps are carnivorous plants.
+
+Q: Black",light,light,True,False,230,16
+sci_048,science,C," the abdomen
+
+Fact 1: Black holes have extreme gravity.
+Step 2",the abdomen,light,False,False,230,16
+sci_048,science,D," light
+You are an AI assistant that helps people find information. User will you",light,light,True,False,230,16
+sci_048,science,E,,,light,False,False,230,1
+sci_049,science,A," coral polyps
+
+Fact 1: Coral reefs are built by coral polyps",coral polyps,tiny marine animals,False,False,246,16
+sci_049,science,B," The Galapagos Islands are located on the equator.
+
+Q: Coral reefs",the galapagos islands are located on the equator,tiny marine animals,False,False,246,16
+sci_049,science,C," the abdomen
+
+Fact 1: Coral reefs are built by coral polyps.
+",the abdomen,tiny marine animals,False,False,246,16
+sci_049,science,D," Coral reefs are built by tiny marine animals called coral polyps.
+You are an",coral reefs are built by tiny marine animals called coral polyps,tiny marine animals,False,False,246,16
+sci_049,science,E,,,tiny marine animals,False,False,246,1
+sci_050,science,A," tectonic plate boundaries
+
+Fact 1: The Danube River flows through",tectonic plate boundaries,tectonic plate boundaries,True,False,264,16
+sci_050,science,B," the Danube River flows through the capital of what country?
+B: the Dan",the danube river flows through the capital of what country,tectonic plate boundaries,False,False,264,16
+sci_050,science,C," tectonic plate boundaries.
+
+Q: Tsunamis are caused by events",tectonic plate boundaries,tectonic plate boundaries,True,False,264,16
+sci_050,science,D," tectonic plate boundaries
+You are an AI assistant that helps people find information",tectonic plate boundaries,tectonic plate boundaries,True,False,264,16
+sci_050,science,E,,,tectonic plate boundaries,False,False,264,1
+bio_001,biology,A," cellular respiration
+
+Fact 1: The pancreas is located in the abdomen",cellular respiration,cellular respiration,True,False,243,16
+bio_001,biology,B," the Yangtze is the longest river in Asia.
+Fact 2: Lake",the yangtze is the longest river in asia,cellular respiration,False,False,243,16
+bio_001,biology,C," cellular respiration
+
+Fact 1: Hemoglobin carries a gas essential for what",cellular respiration,cellular respiration,True,False,243,16
+bio_001,biology,D," Hemoglobin carries a gas essential for cellular respiration.
+You are an AI assistant",hemoglobin carries a gas essential for cellular respiration,cellular respiration,False,False,243,16
+bio_001,biology,E,,,cellular respiration,False,False,243,1
+bio_002,biology,A," digestive
+
+Fact 1: Insulin is produced by the pancreas.
+Fact",digestive,the digestive system,False,False,249,16
+bio_002,biology,B," the abdomen
+
+Fact 1: Insulin is produced by the pancreas.
+",the abdomen,the digestive system,False,False,249,16
+bio_002,biology,C," the digestive system
+
+Fact 1: Insulin is produced by the pancreas",the digestive system,the digestive system,True,False,249,16
+bio_002,biology,D," the digestive system
+
+Fact 1: Insulin is produced by the pancreas",the digestive system,the digestive system,True,False,249,16
+bio_002,biology,E,,,the digestive system,False,False,249,1
+bio_003,biology,A," a membrane-bound organelle
+
+Fact 1: The pancreas is located",a membrane-bound organelle,membrane-bound,False,False,244,16
+bio_003,biology,B," the nucleus
+Fact 2: The nucleus is located in the abdomen.
+Fact",the nucleus,membrane-bound,False,False,244,16
+bio_003,biology,C," the nucleus
+
+Fact 1: DNA is stored in the nucleus.
+Fact ",the nucleus,membrane-bound,False,False,244,16
+bio_003,biology,D," The nucleus is a membrane-bound organelle.
+You are an AI assistant that",the nucleus is a membrane-bound organelle,membrane-bound,False,False,244,16
+bio_003,biology,E,,,membrane-bound,False,False,244,1
+bio_004,biology,A," bones
+
+Fact 1: The Danube River flows through the capital of what",bones,bones,True,False,247,16
+bio_004,biology,B," the abdomen
+
+Fact 1: The standard model describes fundamental particles and forces.
+",the abdomen,bones,False,False,247,16
+bio_004,biology,C," bones
+
+Fact 1: Red blood cells are produced in tissue found inside what",bones,bones,True,False,247,16
+bio_004,biology,D," Red blood cells are produced in tissue found inside bones.
+You are an AI assistant",red blood cells are produced in tissue found inside bones,bones,False,False,247,16
+bio_004,biology,E,,,bones,False,False,247,1
+bio_005,biology,A," the liver
+
+Fact 1: The pancreas is located in the abdomen.
+",the liver,largest,False,False,247,16
+bio_005,biology,B," the abdomen
+
+Fact 1: Bile is produced by the pancreas.
+",the abdomen,largest,False,False,247,16
+bio_005,biology,C," the abdomen
+
+Fact 1: Bile is produced by the liver.
+Fact",the abdomen,largest,False,False,247,16
+bio_005,biology,D," The liver is the largest internal organ that produces bile.
+
+Fact 1: The",the liver is the largest internal organ that produces bile,largest,False,False,247,16
+bio_005,biology,E,,,largest,False,False,247,1
+bio_006,biology,A," the stamen
+
+Fact 1: The Danube River flows through the capital",the stamen,male reproductive,False,False,266,16
+bio_006,biology,B," the abdomen
+
+Fact 1: Pollen is produced by the stamen.
+",the abdomen,male reproductive,False,False,266,16
+bio_006,biology,C," the abdomen
+
+Fact 1: Pollen is produced by the stamen.
+",the abdomen,male reproductive,False,False,266,16
+bio_006,biology,D," The stamen is the male reproductive organ of a flower.
+You are an AI",the stamen is the male reproductive organ of a flower,male reproductive,False,False,266,16
+bio_006,biology,E,,,male reproductive,False,False,266,1
+bio_007,biology,A," exposure to sunlight
+
+Fact 1: The pancreas is located in the abdomen",exposure to sunlight,exposure to sunlight,True,False,252,16
+bio_007,biology,B," the first satellite Sputnik was launched in 1957.
+Fact",the first satellite sputnik was launched in 1957,exposure to sunlight,False,False,252,16
+bio_007,biology,C," the abdomen
+
+Fact 1: Melanin determines skin color.
+Fact ",the abdomen,exposure to sunlight,False,False,252,16
+bio_007,biology,D," exposure to sunlight
+You are an AI assistant that helps people find information. User",exposure to sunlight,exposure to sunlight,True,False,252,16
+bio_007,biology,E,,,exposure to sunlight,False,False,252,1
+bio_008,biology,A," excessive bleeding
+
+Fact 1: The pancreas is located in the abdomen.
+",excessive bleeding,excessive bleeding,True,False,239,16
+bio_008,biology,B," the abdomen
+
+Fact 1: Platelets help with blood clotting.
+Fact",the abdomen,excessive bleeding,False,False,239,16
+bio_008,biology,C," the abdomen
+
+Fact 1: Platelets help prevent what?
+Step 1",the abdomen,excessive bleeding,False,False,239,16
+bio_008,biology,D, excessive bleeding,excessive bleeding,excessive bleeding,True,False,239,3
+bio_008,biology,E,,,excessive bleeding,False,False,239,1
+bio_009,biology,A," nerve fibers
+
+Fact 1: The pancreas is located in the abdomen.
+",nerve fibers,nerve fibers,True,False,245,16
+bio_009,biology,B," the abdomen
+
+Fact 1: Neurons transmit signals that travel along what?
+",the abdomen,nerve fibers,False,False,245,16
+bio_009,biology,C," nerve fibers
+
+Fact 1: Neurons transmit signals that travel along what?
+",nerve fibers,nerve fibers,True,False,245,16
+bio_009,biology,D," nerve fibers
+
+Fact 1: The Himalayas contain the tallest peaks in the",nerve fibers,nerve fibers,True,False,245,16
+bio_009,biology,E," 1
+
+Assistant: 1
+
+Assistant: 1
+
+Assistant: ",1,nerve fibers,False,False,245,16
+bio_010,biology,A," green
+
+Fact 1: Chloroplasts contain chlorophyll.
+Fact ",green,green,True,False,248,16
+bio_010,biology,B," the abdomen
+
+Fact 1: Chloroplasts contain chlorophyll.
+Fact",the abdomen,green,False,False,248,16
+bio_010,biology,C," the green color
+
+Q: Chloroplasts contain a substance that gives what color",the green color,green,False,False,248,16
+bio_010,biology,D," Chlorophyll gives plants their green color.
+You are an AI assistant that helps",chlorophyll gives plants their green color,green,False,False,248,16
+bio_010,biology,E,,,green,False,False,248,1
+bio_011,biology,A," amino acids
+
+Fact 1: The pancreas is located in the abdomen.
+",amino acids,amino acids,True,False,244,16
+bio_011,biology,B," Ribosomes synthesize molecules made of what?
+A: Ribosomes synthesize molecules",ribosomes synthesize molecules made of what,amino acids,False,False,244,16
+bio_011,biology,C," the abdomen
+
+Fact 1: Ribosomes synthesize molecules made of what?
+",the abdomen,amino acids,False,False,244,16
+bio_011,biology,D," amino acids
+You are an AI assistant that helps people find information. User will",amino acids,amino acids,True,False,244,16
+bio_011,biology,E,,,amino acids,False,False,244,1
+bio_012,biology,A," nutrients
+
+Fact 1: The pancreas is located in the abdomen.
+Fact",nutrients,nutrients,True,False,227,16
+bio_012,biology,B," the abdomen
+
+Fact 1: The heart pumps blood.
+Fact 2:",the abdomen,nutrients,False,False,227,16
+bio_012,biology,C," the abdomen
+
+Fact 1: The heart pumps blood.
+Fact 2:",the abdomen,nutrients,False,False,227,16
+bio_012,biology,D," nutrients
+You are an AI assistant that helps people find information. User will you",nutrients,nutrients,True,False,227,16
+bio_012,biology,E,,,nutrients,False,False,227,1
+bio_013,biology,A," ATP
+
+Fact 1: The pancreas is located in the abdomen.
+Fact",atp,energy for cellular processes,False,False,236,16
+bio_013,biology,B," the abdomen
+
+Fact 1: Mitochondria produce ATP.
+Fact 2",the abdomen,energy for cellular processes,False,False,236,16
+bio_013,biology,C," cellular processes
+
+Fact 1: Mitochondria produce ATP.
+Fact 2",cellular processes,energy for cellular processes,False,False,236,16
+bio_013,biology,D," ATP provides energy for cellular processes.
+You are an AI assistant that helps people find",atp provides energy for cellular processes,energy for cellular processes,False,False,236,16
+bio_013,biology,E,,,energy for cellular processes,False,False,236,1
+bio_014,biology,A," chemical reactions
+
+Fact 1: The Danube River flows through the capital of",chemical reactions,chemical reactions,True,False,241,16
+bio_014,biology,B," chemical reactions
+
+Q: Enzymes speed up what?
+A: chemical reactions",chemical reactions,chemical reactions,True,False,241,16
+bio_014,biology,C," chemical reactions
+
+Fact 1: Enzymes are biological catalysts.
+Step",chemical reactions,chemical reactions,True,False,241,16
+bio_014,biology,D," Enzymes speed up chemical reactions.
+You are an AI assistant that helps people",enzymes speed up chemical reactions,chemical reactions,False,False,241,16
+bio_014,biology,E," 1.5
+
+Assistant: 1.5
+
+Assistant: 1",1.5,chemical reactions,False,False,241,16
+bio_015,biology,A," light
+
+Fact 1: The pancreas is located in the abdomen.
+Fact",light,light,True,False,243,16
+bio_015,biology,B," the abdomen
+
+Fact 1: The retina contains cells that detect what?
+A",the abdomen,light,False,False,243,16
+bio_015,biology,C," light
+
+Fact 1: The retina contains photoreceptor cells.
+Step ",light,light,True,False,243,16
+bio_015,biology,D," light
+You are an AI assistant that helps people find information. User will you",light,light,True,False,243,16
+bio_015,biology,E,,,light,False,False,243,1
+bio_016,biology,A," B cells
+
+Fact 1: The pancreas is located in the abdomen.
+",b cells,white blood cell,False,False,246,16
+bio_016,biology,B," B cells are a type of white blood cell.
+Fact 2: The pancre",b cells are a type of white blood cell,white blood cell,False,False,246,16
+bio_016,biology,C," the white blood cell
+
+Fact 1: Antibodies are produced by B cells",the white blood cell,white blood cell,False,False,246,16
+bio_016,biology,D," B cells are a type of white blood cell.
+
+Fact 1: A person",b cells are a type of white blood cell,white blood cell,False,False,246,16
+bio_016,biology,E,,,white blood cell,False,False,246,1
+bio_017,biology,A," colonize new areas
+
+Fact 1: The Danube River flows through the",colonize new areas,colonize new areas,True,False,253,16
+bio_017,biology,B," the Tundra biome covers about 20 percent of the Earth surface.
+Fact",the tundra biome covers about 20 percent of the earth surface,colonize new areas,False,False,253,16
+bio_017,biology,C," new areas
+
+Fact 1: Seeds are dispersed by a force that helps plants",new areas,colonize new areas,False,False,253,16
+bio_017,biology,D," Seeds are dispersed by a force that helps plants colonize new areas.
+
+Fact ",seeds are dispersed by a force that helps plants colonize new areas,colonize new areas,False,False,253,16
+bio_017,biology,E,,,colonize new areas,False,False,253,1
+bio_018,biology,A," follicles in the skin
+
+Fact 1: The Danube River flows through",follicles in the skin,follicles in the skin,True,False,255,16
+bio_018,biology,B," The first modern novel is often considered to be Don Quixote.
+Fact ",the first modern novel is often considered to be don quixote,follicles in the skin,False,False,255,16
+bio_018,biology,C," the skin.
+
+Q: Keratin is found in structures that grow from what?
+",the skin,follicles in the skin,False,False,255,16
+bio_018,biology,D," follicles in the skin
+You are an AI assistant that helps people find information",follicles in the skin,follicles in the skin,True,False,255,16
+bio_018,biology,E,,,follicles in the skin,False,False,255,1
+bio_019,biology,A," carbon dioxide
+
+Fact 1: The Danube River flows through the capital of",carbon dioxide,carbon dioxide,True,False,239,16
+bio_019,biology,B," the abdomen
+
+Fact 1: Photosynthesis occurs in structures that absorb what gas",the abdomen,carbon dioxide,False,False,239,16
+bio_019,biology,C," the air
+
+Fact 1: Photosynthesis occurs in leaves.
+Fact 2",the air,carbon dioxide,False,False,239,16
+bio_019,biology,D," carbon dioxide
+You are an AI assistant that helps people find information. User will",carbon dioxide,carbon dioxide,True,False,239,16
+bio_019,biology,E,,,carbon dioxide,False,False,239,1
+bio_020,biology,A," the vestibular system
+
+Fact 1: The cerebellum controls balance.
+",the vestibular system,the vestibular system,True,False,252,16
+bio_020,biology,B," the abdomen
+
+Fact 1: The cerebellum controls a function maintained through",the abdomen,the vestibular system,False,False,252,16
+bio_020,biology,C," the vestibular system
+
+Q: The cerebellum controls a function maintained through",the vestibular system,the vestibular system,True,False,252,16
+bio_020,biology,D," the vestibular system
+
+Fact 1: The Earth is tilted on its axis",the vestibular system,the vestibular system,True,False,252,16
+bio_020,biology,E,,,the vestibular system,False,False,252,1
+bio_021,biology,A," roots
+
+Fact 1: The Danube River flows through the capital of what",roots,roots,True,False,240,16
+bio_021,biology,B," Xylem transports a substance absorbed by what plant part?
+A: Xyle",xylem transports a substance absorbed by what plant part,roots,False,False,240,16
+bio_021,biology,C," the soil
+
+Fact 1: Xylem transports a substance absorbed by what",the soil,roots,False,False,240,16
+bio_021,biology,D," Xylem transports water absorbed by roots from the soil.
+You are an AI",xylem transports water absorbed by roots from the soil,roots,False,False,240,16
+bio_021,biology,E,,,roots,False,False,240,1
+bio_022,biology,A," tendons
+
+Fact 1: The pancreas is located in the abdomen.
+",tendons,tendons,True,False,235,16
+bio_022,biology,B," the abdomen
+
+Fact 1: Collagen provides structural support.
+Fact 2",the abdomen,tendons,False,False,235,16
+bio_022,biology,C," tendons
+
+Fact 1: Collagen provides structural support.
+Fact 2",tendons,tendons,True,False,235,16
+bio_022,biology,D," tendons
+
+Fact 1: The Earth is tilted on its axis.
+Fact",tendons,tendons,True,False,235,16
+bio_022,biology,E,,,tendons,False,False,235,1
+bio_023,biology,A," respiration
+
+Fact 1: The lungs are the primary organs of respiration",respiration,respiration,True,False,250,16
+bio_023,biology,B," the lungs
+
+Fact 1: The trachea carries air to the primary",the lungs,respiration,False,False,250,16
+bio_023,biology,C," respiration
+
+Fact 1: The pancreas produces air to the primary organs",respiration,respiration,True,False,250,16
+bio_023,biology,D," respiration
+You are an AI assistant that helps people find information. User will",respiration,respiration,True,False,250,16
+bio_023,biology,E,,,respiration,False,False,250,1
+bio_024,biology,A," the kidneys
+
+Fact 1: The pancreas is located in the abdomen.
+",the kidneys,the kidneys,True,False,257,16
+bio_024,biology,B," the abdomen
+
+Fact 1: Adrenaline is released by glands located above",the abdomen,the kidneys,False,False,257,16
+bio_024,biology,C," the kidneys
+
+Fact 1: Adrenaline is released by the pancreas",the kidneys,the kidneys,True,False,257,16
+bio_024,biology,D," kidneys
+
+Fact 1: An animal requires food to survive.
+Fact 2",kidneys,the kidneys,False,False,257,16
+bio_024,biology,E," 1
+
+Assistant: 1
+
+Assistant: 1
+
+Assistant: ",1,the kidneys,False,False,257,16
+bio_025,biology,A," 120 days
+
+Fact 1: The pancreas is located in",120 days,about 120 days,False,False,259,16
+bio_025,biology,B," 120 days
+
+Fact 1: Hemoglobin is found in red",120 days,about 120 days,False,False,259,16
+bio_025,biology,C," 120 days
+
+Q: Hemoglobin is found in cells with what",120 days,about 120 days,False,False,259,16
+bio_025,biology,D," 120 days
+
+Fact 1: The Himalayas contain the tallest",120 days,about 120 days,False,False,259,16
+bio_025,biology,E,,,about 120 days,False,False,259,1
+bio_026,biology,A," the eye
+
+Fact 1: The Danube River flows through the capital of",the eye,the eye,True,False,256,16
+bio_026,biology,B," the abdomen
+
+Fact 1: Photoreceptors are located in the retina.
+",the abdomen,the eye,False,False,256,16
+bio_026,biology,C," the eye
+
+Fact 1: Photoreceptors are located in a layer at",the eye,the eye,True,False,256,16
+bio_026,biology,D," the eye
+You are an AI assistant that helps people find information. User will",the eye,the eye,True,False,256,16
+bio_026,biology,E,,,the eye,False,False,256,1
+bio_027,biology,A," CO2
+
+Fact 1: The Danube River flows through the capital of",co2,CO2,True,False,270,16
+bio_027,biology,B, Stomata regulate a process involving the intake of CO2 and release of O,stomata regulate a process involving the intake of co2 and release of o,CO2,False,False,270,16
+bio_027,biology,C," the abdomen
+
+Fact 1: Stomata regulate gas exchange in leaves.
+",the abdomen,CO2,False,False,270,16
+bio_027,biology,D," CO2
+You are an AI assistant that helps people find information. User will",co2,CO2,True,False,270,16
+bio_027,biology,E," 1.5
+
+Assistant: 1.5
+
+Assistant: 1",1.5,CO2,False,False,270,16
+bio_028,biology,A," 2
+
+Fact 1: The pancreas is located in the abdomen.
+",2,about 2,False,False,250,16
+bio_028,biology,B," Pepsin works in the stomach with what pH?
+A: Pepsin",pepsin works in the stomach with what ph,about 2,False,False,250,16
+bio_028,biology,C," the stomach has a pH of about 2.
+Answer: the stomach has a",the stomach has a ph of about 2,about 2,False,False,250,16
+bio_028,biology,D," The stomach has a pH of about 2.
+
+Fact 1: The Earth",the stomach has a ph of about 2,about 2,False,False,250,16
+bio_028,biology,E,,,about 2,False,False,250,1
+bio_029,biology,A," signals
+
+Fact 1: The pancreas is located in the abdomen.
+Fact",signals,signals between neurons,False,False,248,16
+bio_029,biology,B," the abdomen
+
+Fact 1: Myelin covers structures that transmit what?
+A",the abdomen,signals between neurons,False,False,248,16
+bio_029,biology,C," neurons
+
+Fact 1: Myelin covers nerve axons.
+Step 2",neurons,signals between neurons,False,False,248,16
+bio_029,biology,D," signals between neurons
+You are an AI assistant that helps people find information. User",signals between neurons,signals between neurons,True,False,248,16
+bio_029,biology,E,,,signals between neurons,False,False,248,1
+bio_030,biology,A," two or more bones
+
+Fact 1: The Danube River flows through the",two or more bones,two or more bones,True,False,243,16
+bio_030,biology,B, the Tigris and Euphrates rivers flow through Mesopotamia,the tigris and euphrates rivers flow through mesopotamia,two or more bones,False,False,243,16
+bio_030,biology,C," the abdomen
+
+Fact 1: Cartilage cushions joints.
+Fact 2:",the abdomen,two or more bones,False,False,243,16
+bio_030,biology,D," Cartilage cushions structures that connect two or more bones.
+You are an AI assistant",cartilage cushions structures that connect two or more bones,two or more bones,False,False,243,16
+bio_030,biology,E,,,two or more bones,False,False,243,1
+bio_031,biology,A," pathogenic microorganisms
+
+Fact 1: The pancreas is located in the",pathogenic microorganisms,pathogenic microorganisms,True,False,252,16
+bio_031,biology,B," the pancreas
+B: the Mississippi River
+C: the Mississippi River is",the pancreas,pathogenic microorganisms,False,False,252,16
+bio_031,biology,C," pathogenic microorganisms
+
+Fact 1: Lymphocytes fight infections.
+Fact",pathogenic microorganisms,pathogenic microorganisms,True,False,252,16
+bio_031,biology,D," Lymphocytes fight conditions caused by pathogenic microorganisms.
+
+Fact 1:",lymphocytes fight conditions caused by pathogenic microorganisms,pathogenic microorganisms,False,False,252,16
+bio_031,biology,E," 1.5
+
+Assistant: 1.5
+
+Assistant: 1",1.5,pathogenic microorganisms,False,False,252,16
+bio_032,biology,A," 480 million
+
+Fact 1: The pancreas is located in",480 million,480 million,True,False,261,16
+bio_032,biology,B," the abdomen
+
+Fact 1: Alveoli exchange gases in the lungs.
+",the abdomen,480 million,False,False,261,16
+bio_032,biology,C," 480 million alveoli.
+
+Q: Gas exchange occurs in structures",480 million alveoli,480 million,False,False,261,16
+bio_032,biology,D," 480 million alveoli
+
+Fact 1: The Earth is",480 million alveoli,480 million,False,False,261,16
+bio_032,biology,E,,,480 million,False,False,261,1
+bio_033,biology,A," the nervous system
+
+Fact 1: The pancreas is located in the abdomen",the nervous system,the nervous system,True,False,249,16
+bio_033,biology,B," the abdomen
+
+Fact 1: Dendrites receive signals for the fundamental units",the abdomen,the nervous system,False,False,249,16
+bio_033,biology,C," the nervous system
+
+Fact 1: Dendrites receive signals for the fundamental",the nervous system,the nervous system,True,False,249,16
+bio_033,biology,D," the nervous system
+
+Fact 1: The Earth is tilted on its axis.
+",the nervous system,the nervous system,True,False,249,16
+bio_033,biology,E,,,the nervous system,False,False,249,1
+bio_034,biology,A," several stages
+
+Fact 1: The pancreas is located in the abdomen.
+",several stages,several stages,True,False,244,16
+bio_034,biology,B," the Great Rift Valley stretches across eastern Africa.
+Fact 1: The Great Rift",the great rift valley stretches across eastern africa,several stages,False,False,244,16
+bio_034,biology,C," several stages.
+
+Fact 1: Melatonin regulates the sleep cycle.
+Fact ",several stages,several stages,True,False,244,16
+bio_034,biology,D," The sleep cycle consists of several stages regulated by melatonin.
+
+Fact 1:",the sleep cycle consists of several stages regulated by melatonin,several stages,False,False,244,16
+bio_034,biology,E,,,several stages,False,False,244,1
+bio_035,biology,A," calcium
+
+Fact 1: The pancreas is located in the abdomen.
+Fact",calcium,calcium,True,False,248,16
+bio_035,biology,B," Tendons connect muscles to structures that contain what mineral?
+A: Tend",tendons connect muscles to structures that contain what mineral,calcium,False,False,248,16
+bio_035,biology,C," calcium
+
+Q: Tendons connect muscles to structures that contain what mineral?
+",calcium,calcium,True,False,248,16
+bio_035,biology,D," calcium
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",calcium,calcium,True,False,248,16
+bio_035,biology,E,,,calcium,False,False,248,1
+bio_036,biology,A," circulatory
+
+Fact 1: The pancreas is located in the abdomen.
+",circulatory,the circulatory system,False,False,243,16
+bio_036,biology,B," Austria
+
+Fact 1: Capillaries are the smallest blood vessels.
+Fact",austria,the circulatory system,False,False,243,16
+bio_036,biology,C," the circulatory system
+
+Fact 1: The pancreas is located in the",the circulatory system,the circulatory system,True,False,243,16
+bio_036,biology,D," The smallest structures in the circulatory system are capillaries.
+You are an",the smallest structures in the circulatory system are capillaries,the circulatory system,False,False,243,16
+bio_036,biology,E,,,the circulatory system,False,False,243,1
+bio_037,biology,A," plants
+
+Fact 1: The Danube River flows through the capital of what",plants,plants,True,False,275,16
+bio_037,biology,B," the abdomen
+
+Fact 1: Amylase breaks down starch.
+Fact ",the abdomen,plants,False,False,275,16
+bio_037,biology,C," plants
+
+Fact 1: Amylase breaks down starch.
+Step 2",plants,plants,True,False,275,16
+bio_037,biology,D," Amylase breaks down a polysaccharide found in plants.
+You are",amylase breaks down a polysaccharide found in plants,plants,False,False,275,16
+bio_037,biology,E,,,plants,False,False,275,1
+bio_038,biology,A," oxygen
+
+Fact 1: The diaphragm controls breathing.
+Fact 2",oxygen,oxygen,True,False,245,16
+bio_038,biology,B," the abdomen
+
+Fact 1: The diaphragm controls a process that brings",the abdomen,oxygen,False,False,245,16
+bio_038,biology,C," the body
+
+Fact 1: The diaphragm controls a process that brings",the body,oxygen,False,False,245,16
+bio_038,biology,D," oxygen
+
+Fact 1: The diaphragm controls breathing.
+Fact 2",oxygen,oxygen,True,False,245,16
+bio_038,biology,E,,,oxygen,False,False,245,1
+bio_039,biology,A," the female reproductive cycle
+
+Fact 1: The pancreas is located in the",the female reproductive cycle,the female reproductive cycle,True,False,251,16
+bio_039,biology,B," The pancreas is located in the abdomen.
+
+Fact 1: Ovaries",the pancreas is located in the abdomen,the female reproductive cycle,False,False,251,16
+bio_039,biology,C," the female reproductive cycle
+
+Fact 1: Ovaries produce a hormone that",the female reproductive cycle,the female reproductive cycle,True,False,251,16
+bio_039,biology,D," The hormone that ovaries produce, estrogen, regulates the female reproductive cycle.
+
+Fact","the hormone that ovaries produce, estrogen, regulates the female reproductive cycle",the female reproductive cycle,False,False,251,16
+bio_039,biology,E,,,the female reproductive cycle,False,False,251,1
+bio_040,biology,A," the tongue
+
+Fact 1: The Danube River flows through the capital of",the tongue,the tongue,True,False,254,16
+bio_040,biology,B," the tongue
+
+Fact 1: Taste buds detect flavors.
+Fact 2:",the tongue,the tongue,True,False,254,16
+bio_040,biology,C," the tongue
+
+Fact 1: The pancreas is located in the abdomen.
+",the tongue,the tongue,True,False,254,16
+bio_040,biology,D," the tongue
+You are an AI assistant that helps people find information. User will",the tongue,the tongue,True,False,254,16
+bio_040,biology,E,,,the tongue,False,False,254,1
+bio_041,biology,A," bacteria
+
+Fact 1: The pancreas is located in the abdomen.
+Fact",bacteria,bacteria,True,False,240,16
+bio_041,biology,B," the pancreas
+B: the first cinema screening was by the Lumiere brothers",the pancreas,bacteria,False,False,240,16
+bio_041,biology,C," bacteria.
+
+Fact 1: White blood cells fight conditions caused by what?
+Step",bacteria,bacteria,True,False,240,16
+bio_041,biology,D," White blood cells fight conditions caused by bacteria.
+You are an AI assistant that helps",white blood cells fight conditions caused by bacteria,bacteria,False,False,240,16
+bio_041,biology,E,,,bacteria,False,False,240,1
+bio_042,biology,A," living tissue
+
+Fact 1: The Danube River flows through the capital of",living tissue,living tissue,True,False,246,16
+bio_042,biology,B," Ligaments connect structures made of what type of tissue?
+A: Ligaments connect",ligaments connect structures made of what type of tissue,living tissue,False,False,246,16
+bio_042,biology,C," the living tissue
+
+Fact 1: The pancreas is located in the abdomen",the living tissue,living tissue,False,False,246,16
+bio_042,biology,D," Ligaments connect structures made of living tissue.
+You are an AI assistant that helps",ligaments connect structures made of living tissue,living tissue,False,False,246,16
+bio_042,biology,E," 1
+Answer: 1
+Answer: 1
+Answer: ",1,living tissue,False,False,246,16
+bio_043,biology,A," the pupil
+
+Fact 1: The cornea refracts light entering the eye",the pupil,the pupil,True,False,259,16
+bio_043,biology,B," the eye
+
+Fact 1: The cornea refracts a form of energy",the eye,the pupil,False,False,259,16
+bio_043,biology,C," the pupil
+
+Fact 1: The cornea refracts light entering the eye",the pupil,the pupil,True,False,259,16
+bio_043,biology,D, The cornea refracts a form of energy that enters the eye through the pupil,the cornea refracts a form of energy that enters the eye through the pupil,the pupil,False,False,259,16
+bio_043,biology,E,,,the pupil,False,False,259,1
+bio_044,biology,A," arthropods
+
+Fact 1: The Danube River flows through the capital",arthropods,arthropods,True,False,265,16
+bio_044,biology,B," the Caspian Sea
+
+Fact 1: Hemocyanin carries oxygen",the caspian sea,arthropods,False,False,265,16
+bio_044,biology,C," arthropods
+
+Fact 1: Hemocyanin carries oxygen in a",arthropods,arthropods,True,False,265,16
+bio_044,biology,D," crustaceans are a group of arthropods.
+
+Fact 1: The",crustaceans are a group of arthropods,arthropods,False,False,265,16
+bio_044,biology,E,,,arthropods,False,False,265,1
+bio_045,biology,A," 37 degrees Celsius
+
+Fact 1: The hypothalamus regulates body",37 degrees celsius,37 degrees Celsius,True,False,270,16
+bio_045,biology,B," the abdomen
+
+Fact 1: The hypothalamus regulates a parameter normally at",the abdomen,37 degrees Celsius,False,False,270,16
+bio_045,biology,C," 37 degrees Celsius
+
+Fact 1: The hypothalamus regulates a",37 degrees celsius,37 degrees Celsius,True,False,270,16
+bio_045,biology,D," 37 degrees Celsius
+
+Fact 1: The hypothalamus regulates body",37 degrees celsius,37 degrees Celsius,True,False,270,16
+bio_045,biology,E," 1.5
+
+Assistant: 1.5
+
+Assistant: 1",1.5,37 degrees Celsius,False,False,270,16
+bio_046,biology,A," nutrients
+
+Fact 1: The pancreas is located in the abdomen.
+Fact",nutrients,nutrients from food,False,False,244,16
+bio_046,biology,B," the abdomen
+
+Fact 1: Villi increase surface area in the intestine.
+",the abdomen,nutrients from food,False,False,244,16
+bio_046,biology,C," the intestine
+
+Fact 1: Villi increase surface area in an organ that",the intestine,nutrients from food,False,False,244,16
+bio_046,biology,D," nutrients from food
+You are an AI assistant that helps people find information. User",nutrients from food,nutrients from food,True,False,244,16
+bio_046,biology,E,,,nutrients from food,False,False,244,1
+bio_047,biology,A," dermis layer of skin
+
+Fact 1: The pancreas is located in",dermis layer of skin,the dermis,False,False,260,16
+bio_047,biology,B," the abdomen
+
+Fact 1: Sweat is produced by glands in what part of",the abdomen,the dermis,False,False,260,16
+bio_047,biology,C," the dermis layer of skin
+
+Q: Sweat is produced by glands in what",the dermis layer of skin,the dermis,False,False,260,16
+bio_047,biology,D," The dermis layer of skin.
+You are an AI assistant that helps people find",the dermis layer of skin,the dermis,False,False,260,16
+bio_047,biology,E,,,the dermis,False,False,260,1
+bio_048,biology,A," dim light
+
+Fact 1: The pancreas is located in the abdomen.
+",dim light,dim light,True,False,250,16
+bio_048,biology,B," the abdomen
+
+Fact 1: Rhodopsin is found in cells that",the abdomen,dim light,False,False,250,16
+bio_048,biology,C," dim light
+
+Fact 1: Rhodopsin is found in cells that",dim light,dim light,True,False,250,16
+bio_048,biology,D," dim light
+You are an AI assistant that helps people find information. User will",dim light,dim light,True,False,250,16
+bio_048,biology,E,,,dim light,False,False,250,1
+bio_049,biology,A," oxygen
+
+Fact 1: The pancreas is located in the abdomen.
+Fact",oxygen,oxygen,True,False,247,16
+bio_049,biology,B," the spleen is located in the abdomen.
+
+Fact 1: The pancreas",the spleen is located in the abdomen,oxygen,False,False,247,16
+bio_049,biology,C," the body
+
+Fact 1: The pancreas produces a fluid that carries what",the body,oxygen,False,False,247,16
+bio_049,biology,D," The spleen filters blood that carries oxygen.
+You are an AI assistant that helps",the spleen filters blood that carries oxygen,oxygen,False,False,247,16
+bio_049,biology,E,,,oxygen,False,False,247,1
+bio_050,biology,A," nerve impulses
+
+Fact 1: The Danube River flows through the capital of",nerve impulses,nerve impulses,True,False,244,16
+bio_050,biology,B," the ear
+
+Fact 1: Ossicles transmit sound in an organ that",the ear,nerve impulses,False,False,244,16
+bio_050,biology,C," nerve impulses
+
+Fact 1: Ossicles transmit sound in an organ that",nerve impulses,nerve impulses,True,False,244,16
+bio_050,biology,D," nerve impulses
+
+Fact 1: Ozone is a gas.
+Fact 2",nerve impulses,nerve impulses,True,False,244,16
+bio_050,biology,E," 1
+
+Assistant: 1
+
+Assistant: 1
+
+Assistant: ",1,nerve impulses,False,False,244,16
+cul_001,culture,A," Italy
+
+Fact 1: The Mona Lisa was painted by Leonardo da Vinci.
+",italy,Italy,True,False,246,16
+cul_001,culture,B," Austria
+
+Fact 1: The Mona Lisa was painted by Leonardo da Vinci.
+",austria,Italy,False,False,246,16
+cul_001,culture,C," Italy
+
+Fact 1: The Mona Lisa was painted by an artist born in",italy,Italy,True,False,246,16
+cul_001,culture,D," Italy
+
+Fact 1: The Sun is a star.
+Fact 2:",italy,Italy,True,False,246,16
+cul_001,culture,E,,,Italy,False,False,246,1
+cul_002,culture,A," France
+
+Fact 1: The Eiffel Tower is located in Paris.
+",france,France,True,False,256,16
+cul_002,culture,B," Austria
+
+Fact 1: The Eiffel Tower is located in Paris.
+",austria,France,False,False,256,16
+cul_002,culture,C," France
+
+Fact 1: The Eiffel Tower is located in Paris.
+",france,France,True,False,256,16
+cul_002,culture,D," France
+
+Fact 1: The Eiffel Tower is located in Paris.
+",france,France,True,False,256,16
+cul_002,culture,E,,,France,False,False,256,1
+cul_003,culture,A," East Asia
+
+Fact 1: The Danube River flows through the capital of",east asia,East Asia,True,False,242,16
+cul_003,culture,B," the abdomen
+
+Fact 1: Sushi is a traditional food of Japan.
+",the abdomen,East Asia,False,False,242,16
+cul_003,culture,C," East Asia
+
+Fact 1: Sushi is a traditional food of an island",east asia,East Asia,True,False,242,16
+cul_003,culture,D," East Asia
+You are an AI assistant that helps people find information. User will",east asia,East Asia,True,False,242,16
+cul_003,culture,E,,,East Asia,False,False,242,1
+cul_004,culture,A," China
+
+Fact 1: The Great Wall was built in China.
+Fact ",china,largest,False,False,247,16
+cul_004,culture,B," the Great Wall was built in China.
+Fact 2: The electromagnetic spectrum includes",the great wall was built in china,largest,False,False,247,16
+cul_004,culture,C," the world
+
+Fact 1: The Great Wall was built in the country with",the world,largest,False,False,247,16
+cul_004,culture,D," The Great Wall was built in the country with the largest population in the world,",the great wall was built in the country with the largest population in the world,largest,False,False,247,16
+cul_004,culture,E,,,largest,False,False,247,1
+cul_005,culture,A," Spain
+
+Fact 1: The Danube River flows through the capital of what",spain,Spain,True,False,253,16
+cul_005,culture,B," the south of Andalusia.
+
+Q: Flamenco originated in a region in",the south of andalusia,Spain,False,False,253,16
+cul_005,culture,C," southern Spain
+
+Fact 1: Flamingo originated in a region in the",southern spain,Spain,False,False,253,16
+cul_005,culture,D," Spain
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",spain,Spain,True,False,253,16
+cul_005,culture,E,,,Spain,False,False,253,1
+cul_006,culture,A," the Roman Empire
+
+Fact 1: The Colosseum is located in",the roman empire,the Roman Empire,True,False,260,16
+cul_006,culture,B," Rome
+
+Fact 1: The Colosseum is located in Rome.
+",rome,the Roman Empire,False,False,260,16
+cul_006,culture,C," the Roman Empire
+
+Fact 1: The Colosseum is located in",the roman empire,the Roman Empire,True,False,260,16
+cul_006,culture,D," the Roman Empire
+
+Fact 1: The Earth is tilted on its axis.
+",the roman empire,the Roman Empire,True,False,260,16
+cul_006,culture,E,,,the Roman Empire,False,False,260,1
+cul_007,culture,A," second largest
+
+Fact 1: The Danube River flows through the capital of",second largest,second largest,True,False,254,16
+cul_007,culture,B," the film industry of a country with what rank population?
+A: the film industry",the film industry of a country with what rank population,second largest,False,False,254,16
+cul_007,culture,C," the world
+
+Q: Bollywood is the film industry of a country with what rank",the world,second largest,False,False,254,16
+cul_007,culture,D," second largest population
+You are an AI assistant that helps people find information. User",second largest population,second largest,False,False,254,16
+cul_007,culture,E,,,second largest,False,False,254,1
+cul_008,culture,A," Brazil
+
+Fact 1: The Danube River flows through Vienna.
+Fact ",brazil,Brazil,True,False,251,16
+cul_008,culture,B," Austria
+
+Fact 1: Carnival is celebrated in a city in what part of",austria,Brazil,False,False,251,16
+cul_008,culture,C," Brazil
+
+Fact 1: Carnival is celebrated in a city in what country?
+",brazil,Brazil,True,False,251,16
+cul_008,culture,D," Brazil
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",brazil,Brazil,True,False,251,16
+cul_008,culture,E,,,Brazil,False,False,251,1
+cul_009,culture,A," Egypt
+
+Fact 1: The pyramids are located in Giza.
+Fact",egypt,Egypt,True,False,247,16
+cul_009,culture,B," Egypt
+
+Fact 1: The pyramids are located in Giza.
+Fact",egypt,Egypt,True,False,247,16
+cul_009,culture,C," Egypt
+
+Fact 1: The pyramids are located in Giza.
+Fact",egypt,Egypt,True,False,247,16
+cul_009,culture,D," Egypt
+
+Fact 1: The process of photosynthesis converts carbon dioxide into oxygen",egypt,Egypt,True,False,247,16
+cul_009,culture,E,,,Egypt,False,False,247,1
+cul_010,culture,A," East Asia
+
+Fact 1: The Danube River flows through the capital of",east asia,East Asia,True,False,244,16
+cul_010,culture,B," China
+
+Fact 1: Kung fu originated in China.
+Fact 2",china,East Asia,False,False,244,16
+cul_010,culture,C," East Asia
+
+Q: Kung fu originated in a country in what region?
+",east asia,East Asia,True,False,244,16
+cul_010,culture,D," East Asia
+You are an AI assistant that helps people find information. User will",east asia,East Asia,True,False,244,16
+cul_010,culture,E,,,East Asia,False,False,244,1
+cul_011,culture,A," Greece
+
+Fact 1: The Parthenon is located in Athens.
+Fact",greece,Greece,True,False,251,16
+cul_011,culture,B," the capital of what country?
+A: the capital of what country?
+A:",the capital of what country,Greece,False,False,251,16
+cul_011,culture,C," Greece
+
+Fact 1: The Parthenon is located in Athens.
+Step",greece,Greece,True,False,251,16
+cul_011,culture,D," Greece
+
+Fact 1: The Sun is a star.
+Fact 2:",greece,Greece,True,False,251,16
+cul_011,culture,E,,,Greece,False,False,251,1
+cul_012,culture,A," Japan
+
+Fact 1: The Danube River flows through the capital of what",japan,cherry blossoms,False,False,258,16
+cul_012,culture,B," Japan
+
+Fact 1: Origami is a traditional art form of Japan.
+",japan,cherry blossoms,False,False,258,16
+cul_012,culture,C," Japan
+
+Fact 1: Origami is a traditional art form of Japan.
+",japan,cherry blossoms,False,False,258,16
+cul_012,culture,D," cherry blossoms
+You are an AI assistant that helps people find information. User",cherry blossoms,cherry blossoms,True,False,258,16
+cul_012,culture,E," 1.5
+
+Assistant: 1.5
+
+Human: Answer:",1.5,cherry blossoms,False,False,258,16
+cul_013,culture,A," England
+
+Fact 1: The Danube River flows through the capital of what",england,England,True,False,256,16
+cul_013,culture,B," the United States
+
+Fact 1: Shakespeare was born in a town in what",the united states,England,False,False,256,16
+cul_013,culture,C," England
+
+Fact 1: Shakespeare was born in a town in what country?
+",england,England,True,False,256,16
+cul_013,culture,D," England
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",england,England,True,False,256,16
+cul_013,culture,E,,,England,False,False,256,1
+cul_014,culture,A," East Asia
+
+Fact 1: The Danube River flows through the capital of",east asia,East Asia,True,False,253,16
+cul_014,culture,B," South Korea
+
+Fact 1: Taekwondo originated in a country in",south korea,East Asia,False,False,253,16
+cul_014,culture,C," East Asia
+
+Fact 1: Taekwondo originated in a country in",east asia,East Asia,True,False,253,16
+cul_014,culture,D," East Asia
+
+Fact 1: The Earth is tilted on its axis.
+Fact",east asia,East Asia,True,False,253,16
+cul_014,culture,E,,,East Asia,False,False,253,1
+cul_015,culture,A," the City of Light
+
+Fact 1: The Louvre museum is in Paris",the city of light,the City of Light,True,False,250,16
+cul_015,culture,B," the City of Light.
+Fact 1: The Louvre museum is in Paris",the city of light,the City of Light,True,False,250,16
+cul_015,culture,C," the City of Light
+
+Fact 1: The City of Light is in a",the city of light,the City of Light,True,False,250,16
+cul_015,culture,D," The Louvre is in a city known as the City of Light.
+
+Fact ",the louvre is in a city known as the city of light,the City of Light,False,False,250,16
+cul_015,culture,E,,,the City of Light,False,False,250,1
+cul_016,culture,A," a boot
+
+Fact 1: The Danube River flows through the capital of",a boot,a boot,True,False,244,16
+cul_016,culture,B," the Sahara Desert is the largest hot desert in the world.
+Fact 2:",the sahara desert is the largest hot desert in the world,a boot,False,False,244,16
+cul_016,culture,C," a boot
+
+Q: Pasta is a staple food of a country shaped like what",a boot,a boot,True,False,244,16
+cul_016,culture,D," a boot
+You are an AI assistant that helps people find information. User will",a boot,a boot,True,False,244,16
+cul_016,culture,E,,,a boot,False,False,244,1
+cul_017,culture,A," India
+
+Fact 1: The Taj Mahal is located in Agra.
+",india,India,True,False,268,16
+cul_017,culture,B," the north of what country
+
+Q: The Taj Mahal is in a city",the north of what country,India,False,False,268,16
+cul_017,culture,C," northern India
+
+Q: The Taj Mahal is in a city in the north",northern india,India,False,False,268,16
+cul_017,culture,D," India
+
+Fact 1: The Sun is a star.
+Fact 2:",india,India,True,False,268,16
+cul_017,culture,E,,,India,False,False,268,1
+cul_018,culture,A," North America
+
+Fact 1: The Danube River flows through the capital of",north america,North America,True,False,234,16
+cul_018,culture,B," the Congo River is the deepest river in the world.
+Fact 2: The",the congo river is the deepest river in the world,North America,False,False,234,16
+cul_018,culture,C," North America
+
+Fact 1: Insulin is produced by the pancreas.
+",north america,North America,True,False,234,16
+cul_018,culture,D," North America
+
+Fact 1: Mammals are a class of vertebrates",north america,North America,True,False,234,16
+cul_018,culture,E,,,North America,False,False,234,1
+cul_019,culture,A," Vatican City
+
+Fact 1: The Sistine Chapel is in Vatican City.
+",vatican city,the smallest,False,False,262,16
+cul_019,culture,B," the Sistine Chapel is in Vatican City.
+Fact 2: The half-life",the sistine chapel is in vatican city,the smallest,False,False,262,16
+cul_019,culture,C," the world
+
+Q: The Sistine Chapel is in what rank smallest country?
+",the world,the smallest,False,False,262,16
+cul_019,culture,D," The Sistine Chapel is in the smallest country in the world, which is Vatican","the sistine chapel is in the smallest country in the world, which is vatican",the smallest,False,False,262,16
+cul_019,culture,E,,,the smallest,False,False,262,1
+cul_020,culture,A," the Caribbean
+
+Fact 1: The Danube River flows through the capital of",the caribbean,the Caribbean,True,False,253,16
+cul_020,culture,B," the Kalahari Desert is located in southern Africa.
+Fact 1: Ow",the kalahari desert is located in southern africa,the Caribbean,False,False,253,16
+cul_020,culture,C," the Caribbean
+
+Fact 1: Reggae music originated in Jamaica.
+Fact ",the caribbean,the Caribbean,True,False,253,16
+cul_020,culture,D," the Caribbean Sea
+
+Fact 1: The Earth is tilted on its axis.
+",the caribbean sea,the Caribbean,False,False,253,16
+cul_020,culture,E,,,the Caribbean,False,False,253,1
+cul_021,culture,A," East Asia
+
+Fact 1: The Danube River flows through the capital of",east asia,East Asia,True,False,256,16
+cul_021,culture,B," the abdomen
+
+Fact 1: Kimchi is a traditional food of Korea.
+",the abdomen,East Asia,False,False,256,16
+cul_021,culture,C," East Asia
+
+Q: Kimchi is a traditional food of Korea.
+Fact ",east asia,East Asia,True,False,256,16
+cul_021,culture,D," East Asia
+
+Fact 1: The Earth is tilted on its axis.
+Fact",east asia,East Asia,True,False,256,16
+cul_021,culture,E,,,East Asia,False,False,256,1
+cul_022,culture,A," Argentina
+
+Fact 1: The Danube River flows through the capital of what",argentina,Argentina,True,False,236,16
+cul_022,culture,B," the capital of Argentina
+Fact 1: Flamingos get their pink color",the capital of argentina,Argentina,False,False,236,16
+cul_022,culture,C," Argentina
+
+Fact 1: Tango originated in Buenos Aires.
+Step 2:",argentina,Argentina,True,False,236,16
+cul_022,culture,D," Argentina
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",argentina,Argentina,True,False,236,16
+cul_022,culture,E,,,Argentina,False,False,236,1
+cul_023,culture,A," democracy
+
+Fact 1: The Acropolis is located in Athens.
+Fact ",democracy,democracy,True,False,256,16
+cul_023,culture,B," the Acropolis is located in Athens.
+Fact 1: The Acropolis is",the acropolis is located in athens,democracy,False,False,256,16
+cul_023,culture,C," democracy
+
+Fact 1: The Acropolis is in a city considered the birth",democracy,democracy,True,False,256,16
+cul_023,culture,D," democracy
+You are an AI assistant that helps people find information. User will you",democracy,democracy,True,False,256,16
+cul_023,culture,E,,,democracy,False,False,256,1
+cul_024,culture,A," 6000
+
+Fact 1: The Danube River flows through",6000,6000,True,False,259,16
+cul_024,culture,B," 6000
+B: 5730
+C:",6000,6000,True,False,259,16
+cul_024,culture,C," over 6000
+
+Fact 1: Insulin is produced by",over 6000,6000,False,False,259,16
+cul_024,culture,D," over 6000 islands
+
+Fact 1: The Earth is tilted",over 6000 islands,6000,False,False,259,16
+cul_024,culture,E," 10
+
+Human: Answer: 10
+
+Human: Answer:",10,6000,False,False,259,16
+cul_025,culture,A," Inca Empire
+
+Fact 1: The Danube River flows through the capital",inca empire,the Inca Empire,False,False,256,16
+cul_025,culture,B," the Inca Empire
+Fact 1: Machu Picchu is in a",the inca empire,the Inca Empire,True,False,256,16
+cul_025,culture,C," the Inca Empire
+
+Fact 1: Machu Picchu is located in",the inca empire,the Inca Empire,True,False,256,16
+cul_025,culture,D," The Inca Empire
+You are an AI assistant that helps people find information.",the inca empire,the Inca Empire,True,False,256,16
+cul_025,culture,E,,,the Inca Empire,False,False,256,1
+cul_026,culture,A," Russia
+
+Fact 1: The Kremlin is located in Moscow.
+Fact 2",russia,Russia,True,False,239,16
+cul_026,culture,B," the Kremlin is in Moscow.
+Fact 2: The Kremlin is in Moscow.
+",the kremlin is in moscow,Russia,False,False,239,16
+cul_026,culture,C," Russia
+
+Fact 1: The Kremlin is located in Moscow.
+Fact 2",russia,Russia,True,False,239,16
+cul_026,culture,D," Russia
+
+Fact 1: The Sun is a star.
+Fact 2:",russia,Russia,True,False,239,16
+cul_026,culture,E,,,Russia,False,False,239,1
+cul_027,culture,A," 125 million
+
+Fact 1: The Danube River flows through",125 million,about 125 million,False,False,254,16
+cul_027,culture,B," Japan
+
+Fact 1: Haiku is a poetry form from Japan.
+Fact",japan,about 125 million,False,False,254,16
+cul_027,culture,C," the population of the country is about 125 million.
+
+Q: Ha",the population of the country is about 125 million,about 125 million,False,False,254,16
+cul_027,culture,D," 125 million
+
+Fact 1: The Earth is tilted on its",125 million,about 125 million,False,False,254,16
+cul_027,culture,E,,,about 125 million,False,False,254,1
+cul_028,culture,A," the Caribbean
+
+Fact 1: The Danube River flows through the capital of",the caribbean,the Caribbean,True,False,250,16
+cul_028,culture,B," the Caribbean
+
+Fact 1: Salsa dancing originated in Cuba.
+Fact ",the caribbean,the Caribbean,True,False,250,16
+cul_028,culture,C," the Caribbean
+
+Fact 1: Salsa dancing originated in Cuba.
+Step ",the caribbean,the Caribbean,True,False,250,16
+cul_028,culture,D," The Caribbean region.
+
+Fact 1: Sulfuric acid is a strong",the caribbean region,the Caribbean,False,False,250,16
+cul_028,culture,E," The answer is: 100
+
+Assistant: 100
+
+",: 100,the Caribbean,False,False,250,16
+cul_029,culture,A," Cairo
+
+Fact 1: The Sphinx is located in Giza.
+Fact ",cairo,Cairo,True,False,247,16
+cul_029,culture,B," the Sphinx is located in Giza.
+Fact 2: Barnacles are crust",the sphinx is located in giza,Cairo,False,False,247,16
+cul_029,culture,C," Cairo
+
+Fact 1: The Sphinx is located in Giza.
+Step ",cairo,Cairo,True,False,247,16
+cul_029,culture,D," Cairo
+You are an AI assistant that helps people find information. User will you",cairo,Cairo,True,False,247,16
+cul_029,culture,E,,,Cairo,False,False,247,1
+cul_030,culture,A," Europe
+
+Fact 1: The Danube River flows through the capital of what",europe,Europe,True,False,257,16
+cul_030,culture,B," the largest country entirely on what continent?
+A: the largest country entirely on what",the largest country entirely on what continent,Europe,False,False,257,16
+cul_030,culture,C," Europe
+
+Fact 1: Borscht is a traditional soup of Ukraine.
+",europe,Europe,True,False,257,16
+cul_030,culture,D," Europe
+
+Fact 1: A person's weight is the amount of force gravity",europe,Europe,True,False,257,16
+cul_030,culture,E,,,Europe,False,False,257,1
+cul_031,culture,A," the River Thames
+
+Fact 1: The Danube River flows through the capital",the river thames,the River Thames,True,False,240,16
+cul_031,culture,B," the Mid-Atlantic Ridge
+
+Q: The Globe Theatre was in a city on",the mid-atlantic ridge,the River Thames,False,False,240,16
+cul_031,culture,C," the River Thames
+
+Q: The Globe Theatre was in a city on what river",the river thames,the River Thames,True,False,240,16
+cul_031,culture,D," The River Thames
+
+Fact 1: The Sun is a star.
+Fact ",the river thames,the River Thames,True,False,240,16
+cul_031,culture,E,,,the River Thames,False,False,240,1
+cul_032,culture,A," the Mediterranean Sea
+
+Fact 1: The Danube River flows through the capital",the mediterranean sea,the Mediterranean Sea,True,False,253,16
+cul_032,culture,B," the Mediterranean Sea
+
+Q: Baklava is popular in a country that borders",the mediterranean sea,the Mediterranean Sea,True,False,253,16
+cul_032,culture,C," the Mediterranean Sea
+
+Fact 1: Baklava is a pastry popular in",the mediterranean sea,the Mediterranean Sea,True,False,253,16
+cul_032,culture,D," The Mediterranean Sea.
+
+Fact 1: A person's weight is the amount of",the mediterranean sea,the Mediterranean Sea,True,False,253,16
+cul_032,culture,E," The answer is: 100
+
+Assistant: 100
+
+",: 100,the Mediterranean Sea,False,False,253,16
+cul_033,culture,A," South America
+
+Fact 1: The Danube River flows through the capital of",south america,South America,True,False,247,16
+cul_033,culture,B," the largest country on the largest continent
+
+Q: Capoeira originated in the",the largest country on the largest continent,South America,False,False,247,16
+cul_033,culture,C," South America
+
+Fact 1: Capoeira originated in the largest country on",south america,South America,True,False,247,16
+cul_033,culture,D," South America
+
+Fact 1: The Earth is tilted on its axis.
+Fact",south america,South America,True,False,247,16
+cul_033,culture,E,,,South America,False,False,247,1
+cul_034,culture,A," over 800 years
+
+Fact 1: The Forbidden City is in",over 800 years,over 800 years,True,False,257,16
+cul_034,culture,B," the Forbidden City is in Beijing.
+Fact 2: The Great Lakes contain ",the forbidden city is in beijing,over 800 years,False,False,257,16
+cul_034,culture,C," over 800 years
+
+Q: The Forbidden City is in a city",over 800 years,over 800 years,True,False,257,16
+cul_034,culture,D," over 800 years
+You are an AI assistant that helps people find",over 800 years,over 800 years,True,False,257,16
+cul_034,culture,E,,,over 800 years,False,False,257,1
+cul_035,culture,A," Pacific Ring of Fire
+
+Fact 1: The Danube River flows through the",pacific ring of fire,the Pacific Ring of Fire,False,False,250,16
+cul_035,culture,B," the United States
+
+Fact 1: Kabuki is from a country in what",the united states,the Pacific Ring of Fire,False,False,250,16
+cul_035,culture,C," the Pacific Ring of Fire
+
+Fact 1: Kabuki is a theater form",the pacific ring of fire,the Pacific Ring of Fire,True,False,250,16
+cul_035,culture,D," The Pacific Ring of Fire
+
+Fact 1: The Danube River flows through",the pacific ring of fire,the Pacific Ring of Fire,True,False,250,16
+cul_035,culture,E,,,the Pacific Ring of Fire,False,False,250,1
+cul_036,culture,A," the Iberian Peninsula
+
+Fact 1: The Danube River flows through",the iberian peninsula,the Iberian Peninsula,True,False,249,16
+cul_036,culture,B," the Iberian Peninsula
+
+Fact 1: Paella is from a country",the iberian peninsula,the Iberian Peninsula,True,False,249,16
+cul_036,culture,C," the Iberian Peninsula
+
+Fact 1: Paella is from a country",the iberian peninsula,the Iberian Peninsula,True,False,249,16
+cul_036,culture,D," the Iberian Peninsula
+
+Fact 1: The Earth is tilted on its",the iberian peninsula,the Iberian Peninsula,True,False,249,16
+cul_036,culture,E,,,the Iberian Peninsula,False,False,249,1
+cul_037,culture,A," Spain
+
+Fact 1: The Alhambra is located in Granada",spain,Spain,True,False,262,16
+cul_037,culture,B," the Alhambra is located in the south of what country?
+A:",the alhambra is located in the south of what country,Spain,False,False,262,16
+cul_037,culture,C," southern Spain
+
+Fact 1: The Alhambra is in a city",southern spain,Spain,False,False,262,16
+cul_037,culture,D," Spain
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",spain,Spain,True,False,262,16
+cul_037,culture,E,,,Spain,False,False,262,1
+cul_038,culture,A," the oldest continuous civilization
+
+Fact 1: Calligraphy is an important art in",the oldest continuous civilization,the oldest continuous civilization,True,False,242,16
+cul_038,culture,B," Calligraphy is an important art in the country with what distinction?
+A: the",calligraphy is an important art in the country with what distinction,the oldest continuous civilization,False,False,242,16
+cul_038,culture,C," China
+
+Fact 1: Calligraphy is an important art in the country with",china,the oldest continuous civilization,False,False,242,16
+cul_038,culture,D," China has the oldest continuous civilization.
+
+Fact 1: A person's weight is",china has the oldest continuous civilization,the oldest continuous civilization,False,False,242,16
+cul_038,culture,E,,,the oldest continuous civilization,False,False,242,1
+cul_039,culture,A," 1147
+
+Fact 1: The Danube River flows through",1147,1147,True,False,263,16
+cul_039,culture,B," the Bolshoi Theatre is in Moscow.
+Fact 2: The Bolsh",the bolshoi theatre is in moscow,1147,False,False,263,16
+cul_039,culture,C," the year 1147.
+
+Q: The Bolshoi Theatre is",the year 1147,1147,False,False,263,16
+cul_039,culture,D," 1147
+
+Fact 1: The Andes Mountains are in",1147,1147,True,False,263,16
+cul_039,culture,E,,,1147,False,False,263,1
+cul_040,culture,A," four
+
+Fact 1: The Danube River flows through the capital of what",four,four,True,False,245,16
+cul_040,culture,B," Austria
+
+Fact 1: Sake is a traditional drink of Japan.
+Fact",austria,four,False,False,245,16
+cul_040,culture,C," Japan
+
+Fact 1: Sake is a traditional drink of Japan.
+Step",japan,four,False,False,245,16
+cul_040,culture,D," Japan has four main islands.
+
+Fact 1: The Earth is tilted on its",japan has four main islands,four,False,False,245,16
+cul_040,culture,E,,,four,False,False,245,1
+cul_041,culture,A," Southeast Asia
+
+Fact 1: The Danube River flows through the capital of",southeast asia,Southeast Asia,True,False,243,16
+cul_041,culture,B," the Mariana Trench is located in the ocean.
+Fact 2: The",the mariana trench is located in the ocean,Southeast Asia,False,False,243,16
+cul_041,culture,C," Southeast Asia
+
+Q: Angkor Wat is in a country in what region?
+",southeast asia,Southeast Asia,True,False,243,16
+cul_041,culture,D," Southeast Asia
+
+Fact 1: A person's weight is the amount of force",southeast asia,Southeast Asia,True,False,243,16
+cul_041,culture,E,,,Southeast Asia,False,False,243,1
+cul_042,culture,A," the West Bank
+
+Fact 1: The Dead Sea Scrolls were found near Q",the west bank,the West Bank,True,False,252,16
+cul_042,culture,B," the abdomen
+
+Fact 1: The Dead Sea Scrolls were found near Qum",the abdomen,the West Bank,False,False,252,16
+cul_042,culture,C," the West Bank
+
+Fact 1: The Dead Sea Scrolls were found near a",the west bank,the West Bank,True,False,252,16
+cul_042,culture,D," The Dead Sea Scrolls were found near a site in the West Bank territory.
+You",the dead sea scrolls were found near a site in the west bank territory,the West Bank,False,False,252,16
+cul_042,culture,E,,,the West Bank,False,False,252,1
+cul_043,culture,A," the South China Sea
+
+Fact 1: Pho is a traditional soup of",the south china sea,the South China Sea,True,False,247,16
+cul_043,culture,B," the South China Sea
+
+Fact 1: Pho is a traditional soup of",the south china sea,the South China Sea,True,False,247,16
+cul_043,culture,C," the South China Sea
+
+Fact 1: Pho is a traditional soup of",the south china sea,the South China Sea,True,False,247,16
+cul_043,culture,D," the South China Sea
+
+Fact 1: The Earth is tilted on its axis",the south china sea,the South China Sea,True,False,247,16
+cul_043,culture,E,,,the South China Sea,False,False,247,1
+cul_044,culture,A," England
+
+Fact 1: The Danube River flows through the capital of what",england,England,True,False,250,16
+cul_044,culture,B," the United States
+
+Fact 1: The Danube River flows through the capital",the united states,England,False,False,250,16
+cul_044,culture,C," southern England
+
+Fact 1: Stonehenge is located in Wiltshire",southern england,England,False,False,250,16
+cul_044,culture,D," Stonehenge is in a county in the south of England.
+You are an",stonehenge is in a county in the south of england,England,False,False,250,16
+cul_044,culture,E,,,England,False,False,250,1
+cul_045,culture,A," the Silk Road
+
+Fact 1: The Terracotta Army is in X",the silk road,the Silk Road,True,False,255,16
+cul_045,culture,B," the starting point of the Silk Road.
+
+Q: The Terracotta Army is",the starting point of the silk road,the Silk Road,False,False,255,16
+cul_045,culture,C," the Silk Road
+
+Fact 1: The Terracotta Army is in the",the silk road,the Silk Road,True,False,255,16
+cul_045,culture,D," The Terracotta Army is in the starting point of the Silk Road.
+You",the terracotta army is in the starting point of the silk road,the Silk Road,False,False,255,16
+cul_045,culture,E,,,the Silk Road,False,False,255,1
+cul_046,culture,A," France
+
+Fact 1: The Danube River flows through the capital of what",france,the most visited,False,False,248,16
+cul_046,culture,B," Austria
+
+Fact 1: Croissants are a pastry associated with France.
+",austria,the most visited,False,False,248,16
+cul_046,culture,C," France
+
+Fact 1: Croissants are a pastry associated with France.
+",france,the most visited,False,False,248,16
+cul_046,culture,D," France is the most visited country in the world.
+
+Fact 1: The Earth",france is the most visited country in the world,the most visited,False,False,248,16
+cul_046,culture,E,,,the most visited,False,False,248,1
+cul_047,culture,A," Spain
+
+Fact 1: The Sagrada Familia is in Barcelona.
+",spain,Spain,True,False,256,16
+cul_047,culture,B," the northeast of what country?
+
+Q: The Sagrada Familia is in",the northeast of what country,Spain,False,False,256,16
+cul_047,culture,C," northeastern Spain
+
+Q: The Sagrada Familia is in a city in",northeastern spain,Spain,False,False,256,16
+cul_047,culture,D," Spain
+
+Fact 1: The Sun is a star.
+Fact 2:",spain,Spain,True,False,256,16
+cul_047,culture,E,,,Spain,False,False,256,1
+cul_048,culture,A," China
+
+Fact 1: The Danube River flows through the capital of what",china,China,True,False,258,16
+cul_048,culture,B," the south of what country?
+
+Q: Dim sum is a tradition from a region",the south of what country,China,False,False,258,16
+cul_048,culture,C," southern China
+
+Fact 1: Dim sum is a culinary tradition of Canton.
+",southern china,China,False,False,258,16
+cul_048,culture,D," China
+
+Fact 1: The Earth is tilted on its axis.
+Fact ",china,China,True,False,258,16
+cul_048,culture,E,,,China,False,False,258,1
+cul_049,culture,A," Tuscany
+
+Fact 1: The Uffizi Gallery is in Florence",tuscany,Tuscany,True,False,260,16
+cul_049,culture,B," the Tuscany region of Italy
+Fact 1: The Uffizi",the tuscany region of italy,Tuscany,False,False,260,16
+cul_049,culture,C," the Tuscany region
+
+Fact 1: The Uffizi Gallery is",the tuscany region,Tuscany,False,False,260,16
+cul_049,culture,D," Tuscany region of Italy
+
+Fact 1: The United States has a",tuscany region of italy,Tuscany,False,False,260,16
+cul_049,culture,E,,,Tuscany,False,False,260,1
+cul_050,culture,A," Louisiana
+
+Fact 1: The Danube River flows through the capital of what",louisiana,Louisiana,True,False,251,16
+cul_050,culture,B," the abdomen
+
+Fact 1: Mardi Gras is celebrated in New Orleans",the abdomen,Louisiana,False,False,251,16
+cul_050,culture,C," Louisiana
+
+Fact 1: Mardi Gras is celebrated in a city in",louisiana,Louisiana,True,False,251,16
+cul_050,culture,D," Louisiana
+
+Fact 1: Molecules of DNA are found in the nucleus of",louisiana,Louisiana,True,False,251,16
+cul_050,culture,E,,,Louisiana,False,False,251,1
